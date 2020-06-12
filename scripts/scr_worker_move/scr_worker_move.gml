@@ -157,7 +157,8 @@ if !validPathFound {
 			// Else if the new location to check for is still not valid, mark it as such, reset the n_ variables
 			// to pick up where they left off in the search, and continue the search.
 			else {
-				
+				// Reset direction to search in, since the for loop using totalTimesSearched will
+				// correctly set it back.
 				direction_to_search_in_ = original_direction_to_search_in_;
 				// Reset n_ variables before starting to make sure I'm not needlessly adding.
 				right_n_ = 0;
