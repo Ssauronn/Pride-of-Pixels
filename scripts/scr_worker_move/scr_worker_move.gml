@@ -186,32 +186,6 @@ if !validPathFound {
 						direction_to_search_in_ -= 4;
 					}
 				}
-				
-				/*if right_n_ > 0 {
-					direction_to_search_in_ = 0;
-					top_n_ = right_n_ - 1;
-					left_n_ = right_n_ - 1;
-					bottom_n_ = right_n_ - 1;
-				}
-				else if top_n_ > 0 {
-					direction_to_search_in_ = 1;
-					right_n_ = top_n_;
-					left_n_ = top_n_ - 1;
-					bottom_n_ = top_n_ - 1;
-				}
-				else if left_n_ > 0 {
-					direction_to_search_in_ = 2;
-					right_n_ = left_n_;
-					top_n_ = left_n_;
-					bottom_n_ = left_n_ - 1;
-				}
-				else if bottom_n_ > 0 {
-					direction_to_search_in_ = 3;
-					right_n_ = bottom_n_;
-					top_n_ = bottom_n_;
-					left_n_ = bottom_n_;
-				}
-				*/
 				// After resetting variables to where they were before pausing the search,
 				// I need to increment direction_to_search_in_, since that is normally
 				// done at the end of the while loop but is always skipped over in case 
@@ -485,9 +459,8 @@ if !validPathFound {
 					}
 					// Increment an important variable
 					totalTimesSearched++;
-					var x_lol_ = current_target_to_move_to_x_;
-					var y_lol_ = current_target_to_move_to_y_;
-					var yeet_ = 1;
+					// Reset local variables that need resetting
+					forbidden_to_search_ = false;
 				}
 			}
 		}
