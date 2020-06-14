@@ -67,9 +67,29 @@ if mouse_check_button_pressed(mb_right) {
 				originalTargetToMoveToX = targetToMoveToX;
 				originalTargetToMoveToY = targetToMoveToY;
 				validPathFound = false;
+				right_n_ = 0;
+				top_n_ = 0;
+				left_n_ = 0;
+				bottom_n_ = 0;
+				rightWallFound = false;
+				topWallFound = false;
+				leftWallFound = false;
+				bottomWallFound = false;
+				rightForbidden = false;
+				topForbidden = false;
+				leftForbidden = false;
+				bottomForbidden = false;
+				groupRowWidth = 0;
+				sizeOfGroupSelectedToMoveWith = 0;
+				specificLocationNeedsToBeChecked = false;
+				specificLocationToBeCheckedX = -1;
+				specificLocationToBeCheckedY = -1;
+				searchHasJustBegun = true;
+				totalTimesSearched = 0;
+				closestPointsToObjectsHaveBeenSet = false;
 				if path_exists(myPath) {
 					path_delete(myPath);
-					myPath = noone;
+					myPath = -1;
 				}
 			}
 		}

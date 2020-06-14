@@ -40,6 +40,9 @@ specificLocationToBeCheckedY = -1;
 movementSpeed = 2;
 searchHasJustBegun = true;
 totalTimesSearched = 0;
+closestSearchPointToObjectX = -1;
+closestSearchPointToObjectY = -1;
+closestPointsToObjectsHaveBeenSet = false;
 
 // State machine
 enum worker {

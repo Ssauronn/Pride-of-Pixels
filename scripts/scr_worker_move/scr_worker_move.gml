@@ -29,7 +29,7 @@ Once a valid starting search area is determined, start checking for if the spot 
 */
 
 #region Initialize variables necessary for the whole script
-var x_, y_, target_grid_x_, target_grid_y_, path_next_x_, path_next_y_, current_target_to_move_to_x_, current_target_to_move_to_y_;
+var x_, y_, target_grid_x_, target_grid_y_, path_next_x_, path_next_y_, current_target_to_move_to_x_, current_target_to_move_to_y_, cannot_move_without_better_coordinates_;
 // x and y position of this object on the grid at all times - separate from the true x and y position, 
 // which can change during movement and is not always stuck to the 16/16 grid.
 x_ = floor(x / 16) * 16;
@@ -37,14 +37,23 @@ y_ = floor(y / 16) * 16;
 // x and y cell position on the mp_grid
 target_grid_x_ = originalTargetToMoveToX / 16;
 target_grid_y_ = originalTargetToMoveToY / 16;
-
+if !closestPointsToObjectsHaveBeenSet {
+	closestPointsToObjectsHaveBeenSet = true;
+	closestSearchPointToObjectX = originalTargetToMoveToX;
+	closestSearchPointToObjectY = originalTargetToMoveToY;
+}
+// Used only if click area does not have any valid spots to move to - in which case,
+// this variable takes over, reassigns originalTargetToMoveTo variables to nearest
+// location within the search area to the object that's also within a plus sign design
+// around the object.
+cannot_move_without_better_coordinates_ = false;
 #endregion
 
 
 #region Check for valid start for search
 var direction_to_search_in_, original_direction_to_search_in_;
 // Search towards the object first starting at the click point
-direction_to_search_in_ = floor(point_direction(originalTargetToMoveToX, originalTargetToMoveToY, x, y) / 45);
+direction_to_search_in_ = floor(point_direction(originalTargetToMoveToX, originalTargetToMoveToY, x_, y_) / 45);
 switch direction_to_search_in_ {
 	case 0:
 		direction_to_search_in_ = 0;
@@ -147,7 +156,7 @@ if !validPathFound {
 			specificLocationNeedsToBeChecked = false;
 			current_target_to_move_to_x_ = originalTargetToMoveToX + ((right_n_ - left_n_) * 16);
 			current_target_to_move_to_y_ = originalTargetToMoveToY + ((bottom_n_ - top_n_) * 16);
-			if mp_grid_path(movementGrid, myPath, x, y, current_target_to_move_to_x_, current_target_to_move_to_y_, true) {
+			if mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true) {
 				// If a path does exist to the newly checked location, great!
 				validPathFound = true;
 				targetToMoveToX = current_target_to_move_to_x_;
@@ -213,7 +222,7 @@ if !validPathFound {
 			// and so is new_location_needs_to_be_checked_.
 			if !new_location_needs_to_be_checked_ {
 				// If a path exists, great!
-				if mp_grid_path(movementGrid, myPath, x, y, originalTargetToMoveToX, originalTargetToMoveToY, true) {
+				if mp_grid_path(movementGrid, myPath, x_, y_, originalTargetToMoveToX, originalTargetToMoveToY, true) {
 					validPathFound = true;
 					targetToMoveToX = floor(originalTargetToMoveToX / 16) * 16;
 					targetToMoveToY = floor(originalTargetToMoveToY / 16) * 16;
@@ -253,6 +262,7 @@ if !validPathFound {
 					var iteration_ = 0;
 					var invalid_direction_exists_ = false;
 					if (rightForbidden) && (topForbidden) && (leftForbidden) && (bottomForbidden) {
+						cannot_move_without_better_coordinates_ = true;
 						forbidden_to_search_ = true;
 						still_need_to_search_ = false;
 					}
@@ -365,6 +375,12 @@ if !validPathFound {
 					}
 					// If the direction to search in is a valid direction
 					if !forbidden_to_search_ {
+						if point_distance(current_target_to_move_to_x_, current_target_to_move_to_y_, x_, y_) < point_distance(closestSearchPointToObjectX, closestSearchPointToObjectY, x_, y_) {
+							if (abs(current_target_to_move_to_x_ - x_) < 16) || (abs(current_target_to_move_to_y_ - y_) < 16) {
+								closestSearchPointToObjectX = current_target_to_move_to_x_;
+								closestSearchPointToObjectY = current_target_to_move_to_y_;
+							}
+						}
 						// If the location to be checked is a wall, mark it as such and watch out for
 						// the next available spot.
 						if mp_grid_get_cell(movementGrid, (current_target_to_move_to_x_ / 16), (current_target_to_move_to_y_ / 16)) == -1 {
@@ -466,12 +482,42 @@ if !validPathFound {
 		}
 	}
 }
+if cannot_move_without_better_coordinates_ {
+	cannot_move_without_better_coordinates_ = false;
+	targetToMoveToX = floor(closestSearchPointToObjectX / 16) * 16;
+	targetToMoveToY = floor(closestSearchPointToObjectY / 16) * 16;
+	originalTargetToMoveToX = targetToMoveToX;
+	originalTargetToMoveToY = targetToMoveToY;
+	validPathFound = false;
+	right_n_ = 0;
+	top_n_ = 0;
+	left_n_ = 0;
+	bottom_n_ = 0;
+	rightWallFound = false;
+	topWallFound = false;
+	leftWallFound = false;
+	bottomWallFound = false;
+	rightForbidden = false;
+	topForbidden = false;
+	leftForbidden = false;
+	bottomForbidden = false;
+	specificLocationNeedsToBeChecked = false;
+	specificLocationToBeCheckedX = -1;
+	specificLocationToBeCheckedY = -1;
+	searchHasJustBegun = true;
+	totalTimesSearched = 0;
+	if path_exists(myPath) {
+		path_delete(myPath);
+		myPath = -1;
+	}
+}
 
 
 #endregion
 if validPathFound {
 	x = targetToMoveToX;
 	y = targetToMoveToY;
+	cannot_move_without_better_coordinates_ = false;
 	right_n_ = 0;
 	top_n_ = 0;
 	left_n_ = 0;
@@ -491,30 +537,41 @@ if validPathFound {
 	specificLocationToBeCheckedY = -1;
 	searchHasJustBegun = true;
 	totalTimesSearched = 0;
+	closestPointsToObjectsHaveBeenSet = false;
+	if path_exists(myPath) {
+		path_delete(myPath);
+		myPath = -1;
+	}
 }
 
 
 
 /*
 Variables to be reset at the necessary times
-right_n_
-top_n_
-left_n_
-bottom_n_
-rightWallFound
-topWallFound
-leftWallFound
-bottomWallFound
-rightForbidden
-topForbidden
-leftForbidden
-bottomForbidden
-groupRowWidth
-sizeOfGroupSelectedToMoveWith
-specificLocationNeedsToBeChecked
-specificLocationToBeCheckedX
-specificLocationToBeCheckedY
-searchHasJustBegun
+x = targetToMoveToX;
+y = targetToMoveToY;
+cannot_move_without_better_coordinates_ = false;
+right_n_ = 0;
+top_n_ = 0;
+left_n_ = 0;
+bottom_n_ = 0;
+rightWallFound = false;
+topWallFound = false;
+leftWallFound = false;
+bottomWallFound = false;
+rightForbidden = false;
+topForbidden = false;
+leftForbidden = false;
+bottomForbidden = false;
+groupRowWidth = 0;
+sizeOfGroupSelectedToMoveWith = 0;
+specificLocationNeedsToBeChecked = false;
+specificLocationToBeCheckedX = -1;
+specificLocationToBeCheckedY = -1;
+searchHasJustBegun = true;
+totalTimesSearched = 0;
+closestPointsToObjectsHaveBeenSet = false;
+myPath = -1;
 */
 
 
