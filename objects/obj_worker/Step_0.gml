@@ -1,6 +1,6 @@
-sprite_index = workerCurrentSprite;
+sprite_index = currentSprite;
 
-switch workerCurrentAction {
+switch currentAction {
 	case worker.idle:
 		
 		break;

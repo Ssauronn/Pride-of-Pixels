@@ -9,13 +9,18 @@ depth = -y;
 
 // Pathfinding
 myPath = path_add();
-validPathFound = false;
+validPathFound = true;
+validLocationFound = true;
+notAtTargetLocation = false;
 path_set_kind(myPath, 1);
 path_set_precision(myPath, 1);
 targetToMoveToX = floor(x / 16) * 16;
 targetToMoveToY = floor(y / 16) * 16;
 originalTargetToMoveToX = floor(x / 16) * 16;
 originalTargetToMoveToY = floor(y / 16) * 16;
+needToStartGridSearch = true;
+x_n_ = 0;
+y_n_ = 0;
 right_n_ = 0;
 top_n_ = 0;
 left_n_ = 0;
@@ -28,12 +33,11 @@ rightWallFound = false;
 topWallFound = false;
 leftWallFound = false;
 bottomWallFound = false;
-n_ = 0;
-iteration_ = 0;
+tempCheckX = -1;
+tempCheckY = -1;
 amountOfTimesShifted = 0;
 sizeOfGroupSelectedToMoveWith = 0;
 groupRowWidth = 0;
-amountOfTimesDirectionRotated = 0;
 specificLocationNeedsToBeChecked = false;
 specificLocationToBeCheckedX = -1;
 specificLocationToBeCheckedY = -1;
@@ -86,9 +90,9 @@ workerSprite[worker.attack, workerDirection.up] = spr_worker;
 workerSprite[worker.attack, workerDirection.left] = spr_worker;
 workerSprite[worker.attack, workerDirection.down] = spr_worker;
 // Actual Sprite Value
-workerCurrentAction = worker.move;
-workerCurrentDirection = workerDirection.right;
-workerCurrentSprite = workerSprite[workerCurrentAction, workerCurrentDirection];
+currentAction = worker.move;
+currentDirection = workerDirection.right;
+currentSprite = workerSprite[currentAction, currentDirection];
 
 // Add self to the location grid if it hasn't been added yet
 if ds_exists(unitGridLocation, ds_type_grid) {

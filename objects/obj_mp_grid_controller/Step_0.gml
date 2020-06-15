@@ -24,32 +24,6 @@ if mouse_check_button_pressed(mb_right) {
 	if instance_exists(obj_worker) {
 		with obj_worker {
 			if objectSelected {
-				if ds_exists(unitGridLocation, ds_type_grid) {
-					var i, instance_to_reference_, instance_to_reference_x_, instance_to_reference_y_, self_found_;
-					self_found_ = -1;
-					for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
-						instance_to_reference_ = ds_grid_get(unitGridLocation, 0, i);
-						instance_to_reference_x_ = ds_grid_get(unitGridLocation, 1, i);
-						instance_to_reference_y_ = ds_grid_get(unitGridLocation, 2, i);
-						if (self.id == instance_to_reference_) && (x = instance_to_reference_x_) && (y == instance_to_reference_y_) {
-							self_found_ = i;
-							break;
-						}
-					}
-					// If self exists in unitGridLocation (which it always should) remove it from the ds_grid
-					// by shifting all below values up by one and then removing the very bottom row (which is now
-					// a duplicate row).
-					if self_found_ != -1 {
-						if ds_grid_height(unitGridLocation) > 1 {
-							ds_grid_set_grid_region(unitGridLocation, unitGridLocation, 0, self_found_ + 1, 2, ds_grid_height(unitGridLocation) - 1, 0, self_found_);
-							ds_grid_resize(unitGridLocation, 3, ds_grid_height(unitGridLocation) - 1);
-						}
-						else {
-							ds_grid_destroy(unitGridLocation);
-							unitGridLocation = noone;
-						}
-					}
-				}
 				targetToMoveToX = floor(mouse_x / 16) * 16;
 				targetToMoveToY = floor(mouse_y / 16) * 16;
 				if targetToMoveToX < 0 {
@@ -66,7 +40,13 @@ if mouse_check_button_pressed(mb_right) {
 				}
 				originalTargetToMoveToX = targetToMoveToX;
 				originalTargetToMoveToY = targetToMoveToY;
+				// Variables specifically used by object to move
+				notAtTargetLocation = true;
+				validLocationFound = false;
 				validPathFound = false;
+				needToStartGridSearch = true;
+				x_n_ = 0;
+				y_n_ = 0;
 				right_n_ = 0;
 				top_n_ = 0;
 				left_n_ = 0;
@@ -82,8 +62,10 @@ if mouse_check_button_pressed(mb_right) {
 				groupRowWidth = 0;
 				sizeOfGroupSelectedToMoveWith = 0;
 				specificLocationNeedsToBeChecked = false;
-				specificLocationToBeCheckedX = -1;
-				specificLocationToBeCheckedY = -1;
+				specificLocationToBeCheckedX = targetToMoveToX;
+				specificLocationToBeCheckedY = targetToMoveToY;
+				tempCheckX = targetToMoveToX;
+				tempCheckY = targetToMoveToY;
 				searchHasJustBegun = true;
 				totalTimesSearched = 0;
 				closestPointsToObjectsHaveBeenSet = false;

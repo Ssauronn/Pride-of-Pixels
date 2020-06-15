@@ -126,7 +126,7 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 					top_n_ = 0;
 					left_n_ = 0;
 					bottom_n_ = 0;
-					n_ = 0;
+					x_n_ = 0;
 					iteration_ = 0;
 					validPathFound = true;
 					amountOfTimesDirectionRotated = 0;
@@ -136,13 +136,13 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 				}
 			}
 			else {
-				// Increase n_ by one before calculating anything else if a location from the previous
+				// Increase x_n_ by one before calculating anything else if a location from the previous
 				// frame needed to be checked but it was found to be already filled.
 				if specificLocationNeedsToBeChecked {
 					specificLocationNeedsToBeChecked = false;
-					n_++;
-					if n_ > row_width_ {
-						n_ = 1;
+					x_n_++;
+					if x_n_ > row_width_ {
+						x_n_ = 1;
 						//amountOfTimesShifted++;
 						if (sign(amountOfTimesShifted) == 0) || (sign(amountOfTimesShifted) == 1) {
 							amountOfTimesShifted++;
@@ -159,22 +159,22 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 						temp_amount_of_times_shifted_ = floor(abs(amountOfTimesShifted) / 2) * -1;
 					}
 				}
-				var temp_check_x_, temp_check_y_, right_wall_found_, top_wall_found_, left_wall_found_, bottom_wall_found_, location_found_, edge_of_map_, sign_;
+				var tempCheckX, tempCheckY, right_wall_found_, top_wall_found_, left_wall_found_, bottom_wall_found_, location_found_, edge_of_map_, sign_;
 				// I can just add right_n_ and left_n_ together immediately, and then also add that to both
-				// temp_check_x_ and temp_check_y_ all at once because no more than a single direction will be
+				// tempCheckX and tempCheckY all at once because no more than a single direction will be
 				// larger than 0 at a time. sign_ is set by checking whether the value should move up or down,
 				// which is automatically set by multiplying the amount that should be shifted by sign_.
 				sign_ = 1;
 				if (left_n_ > 0) || (top_n_ > 0) {
 					sign_ = -1;
 				}
-				// Set temp_check_x_ and temp_check_y_
-				temp_check_x_ = check_x_ + ((right_n_ + left_n_) * 16 * sign_);
-				temp_check_y_ = check_y_ + ((top_n_ + bottom_n_) * 16 * sign_);
+				// Set tempCheckX and tempCheckY
+				tempCheckX = check_x_ + ((right_n_ + left_n_) * 16 * sign_);
+				tempCheckY = check_y_ + ((top_n_ + bottom_n_) * 16 * sign_);
 			
 				var currently_checking_x_, currently_checking_y_;
-				currently_checking_x_ = temp_check_x_;
-				currently_checking_y_ = temp_check_y_;
+				currently_checking_x_ = tempCheckX;
+				currently_checking_y_ = tempCheckY;
 					
 				// Clear any path before creating a new one, if it exists, to have a clean slate.
 				if path_exists(myPath) {
@@ -183,7 +183,7 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 				}
 				myPath = path_add();
 				// Check to see if the area is empty and then if it is, if a path exists.
-				if (mp_grid_get_cell(movementGrid, temp_check_x_ / 16, temp_check_y_ / 16) != -1) && (mp_grid_path(movementGrid, myPath, x, y, temp_check_x_, temp_check_y_, true)) {
+				if (mp_grid_get_cell(movementGrid, tempCheckX / 16, tempCheckY / 16) != -1) && (mp_grid_path(movementGrid, myPath, x, y, tempCheckX, tempCheckY, true)) {
 					// Now that I know the empty spot is a valid path location, I can now check all adjacent
 					// empty locations and start checking those.
 					var valid_location_found_, need_to_check_path_to_potential_location_, location_is_already_taken_, right_searched_, top_searched_, left_searched_, bottom_searched_;
@@ -203,9 +203,9 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 							var instance_to_reference_ = ds_grid_get(unitGridLocation, 0, i);
 							if instance_to_reference_ != self.id {
 								var instance_to_reference_x_ = ds_grid_get(unitGridLocation, 1, i);
-								if instance_to_reference_x_ == floor(temp_check_x_ / 16) * 16 {
+								if instance_to_reference_x_ == floor(tempCheckX / 16) * 16 {
 									var instance_to_reference_y_ = ds_grid_get(unitGridLocation, 2, i);
-									if instance_to_reference_y_ == floor(temp_check_y_ / 16) * 16 {
+									if instance_to_reference_y_ == floor(tempCheckY / 16) * 16 {
 										location_is_already_taken_ = true;
 										break;
 									}
@@ -218,34 +218,34 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 					}
 					if !valid_location_found_ {
 						while !need_to_check_path_to_potential_location_ {
-							// If n_ is odd, move in the negative direction. div will always round towards 0, whereas
+							// If x_n_ is odd, move in the negative direction. div will always round towards 0, whereas
 							// floor always rounds towards negative infinity, so I use div. Or I can use normal division
 							// and then multiply by negative afterwards.
-							if n_ & 1 {
-								iteration_ = floor(n_ / 2) * -1;
+							if x_n_ & 1 {
+								iteration_ = floor(x_n_ / 2) * -1;
 							}
 							// Otherwise, move in the positive direction
 							else {
-								iteration_ = n_ / 2;
+								iteration_ = x_n_ / 2;
 							}
 					
 							// Set the current checking position that's changed ONLY by checking for a position that isn't taken
 							// by a unit.
 							if right_n_ > 0 {
-								currently_checking_x_ = temp_check_x_ + (temp_amount_of_times_shifted_ * 16);
-								currently_checking_y_ = temp_check_y_ + (iteration_ * 16);
+								currently_checking_x_ = tempCheckX + (temp_amount_of_times_shifted_ * 16);
+								currently_checking_y_ = tempCheckY + (iteration_ * 16);
 							}
 							else if top_n_ > 0 {
-								currently_checking_x_ = temp_check_x_ + (iteration_ * 16);
-								currently_checking_y_ = temp_check_y_ - (temp_amount_of_times_shifted_ * 16);
+								currently_checking_x_ = tempCheckX + (iteration_ * 16);
+								currently_checking_y_ = tempCheckY - (temp_amount_of_times_shifted_ * 16);
 							}
 							else if left_n_ > 0 {
-								currently_checking_x_ = temp_check_x_ - (temp_amount_of_times_shifted_ * 16);
-								currently_checking_y_ = temp_check_y_ + (iteration_ * 16);
+								currently_checking_x_ = tempCheckX - (temp_amount_of_times_shifted_ * 16);
+								currently_checking_y_ = tempCheckY + (iteration_ * 16);
 							}
 							else if bottom_n_ > 0 {
-								currently_checking_x_ = temp_check_x_ + (iteration_ * 16);
-								currently_checking_y_ = temp_check_y_ + (temp_amount_of_times_shifted_ * 16);
+								currently_checking_x_ = tempCheckX + (iteration_ * 16);
+								currently_checking_y_ = tempCheckY + (temp_amount_of_times_shifted_ * 16);
 							}
 							else {
 								var current_direction_facing_ = 0;
@@ -267,20 +267,20 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 								}
 								switch (selectedObjectDirectionToFaceIfNoneSet) {
 									case 0: 
-										currently_checking_x_ = temp_check_x_ + (temp_amount_of_times_shifted_ * 16);
-										currently_checking_y_ = temp_check_y_ + (iteration_ * 16);
+										currently_checking_x_ = tempCheckX + (temp_amount_of_times_shifted_ * 16);
+										currently_checking_y_ = tempCheckY + (iteration_ * 16);
 										break;
 									case 1:
-										currently_checking_x_ = temp_check_x_ + (iteration_ * 16);
-										currently_checking_y_ = temp_check_y_ - (temp_amount_of_times_shifted_ * 16);
+										currently_checking_x_ = tempCheckX + (iteration_ * 16);
+										currently_checking_y_ = tempCheckY - (temp_amount_of_times_shifted_ * 16);
 										break;
 									case 2:
-										currently_checking_x_ = temp_check_x_ - (temp_amount_of_times_shifted_ * 16);
-										currently_checking_y_ = temp_check_y_ + (iteration_ * 16);
+										currently_checking_x_ = tempCheckX - (temp_amount_of_times_shifted_ * 16);
+										currently_checking_y_ = tempCheckY + (iteration_ * 16);
 										break;
 									case 3:
-										currently_checking_x_ = temp_check_x_ + (iteration_ * 16);
-										currently_checking_y_ = temp_check_y_ + (temp_amount_of_times_shifted_ * 16);
+										currently_checking_x_ = tempCheckX + (iteration_ * 16);
+										currently_checking_y_ = tempCheckY + (temp_amount_of_times_shifted_ * 16);
 										break;
 								}
 							}
@@ -312,9 +312,9 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 								}
 							}
 							if !need_to_check_path_to_potential_location_ {
-								n_++;
-								if n_ > row_width_ {
-									n_ = 1;
+								x_n_++;
+								if x_n_ > row_width_ {
+									x_n_ = 1;
 									//amountOfTimesShifted++;
 									if (sign(amountOfTimesShifted) == 0) || (sign(amountOfTimesShifted) == 1) {
 										amountOfTimesShifted++;
@@ -365,7 +365,7 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 						top_n_ = 0;
 						left_n_ = 0;
 						bottom_n_ = 0;
-						n_ = 0;
+						x_n_ = 0;
 						iteration_ = 0;
 						validPathFound = true;
 						amountOfTimesDirectionRotated = 0;
@@ -401,8 +401,8 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 					left_wall_found_ = false;
 					bottom_wall_found_ = false;
 					edge_of_map_ = false;
-					temp_check_x_ = check_x_;
-					temp_check_y_ = check_x_;
+					tempCheckX = check_x_;
+					tempCheckY = check_x_;
 					// Ascertain the right_n_, top_n_, left_n_, and bottom_n_ variables based on any single variable that is above 0 before
 					// the search begins. If any of those variables are above 0, that means the search has already begun before, and I should
 					// start from original search point. I know only one variable will be above 0 because I manually set the rest to 0 below,
@@ -480,8 +480,8 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 								left_wall_found_ = true;
 								bottom_wall_found_ = true;
 							}
-							temp_check_x_ = check_x_;
-							temp_check_y_ = check_y_;
+							tempCheckX = check_x_;
+							tempCheckY = check_y_;
 							switch direction_to_search_in_ {
 								case 0: 
 									rightForbidden = true;
@@ -512,31 +512,31 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 						switch direction_to_search_in_ {
 							case 0:
 								right_n_++;
-								temp_check_x_ = check_x_ + (right_n_ * 16);
-								temp_check_y_ = check_y_;
+								tempCheckX = check_x_ + (right_n_ * 16);
+								tempCheckY = check_y_;
 								break;
 							case 1:
 								top_n_++;
-								temp_check_x_ = check_x_;
-								temp_check_y_ = check_y_ - (top_n_ * 16);
+								tempCheckX = check_x_;
+								tempCheckY = check_y_ - (top_n_ * 16);
 								break;
 							case 2:
 								left_n_++;
-								temp_check_x_ = check_x_ - (left_n_ * 16);
-								temp_check_y_ = check_y_;
+								tempCheckX = check_x_ - (left_n_ * 16);
+								tempCheckY = check_y_;
 								break;
 							case 3:
 								bottom_n_++;
-								temp_check_x_ = check_x_;
-								temp_check_y_ = check_y_ + (bottom_n_ * 16);
+								tempCheckX = check_x_;
+								tempCheckY = check_y_ + (bottom_n_ * 16);
 								break;
 						}
 						// If no wall has been found yet
 						if (direction_to_search_in_ == 0 && !right_wall_found_) || (direction_to_search_in_ == 1 && !top_wall_found_) || (direction_to_search_in_ == 2 && !left_wall_found_) || (direction_to_search_in_ == 3 && !bottom_wall_found_) {
 							// As long as the search isn't going off the map, start the legit search
-							if ((temp_check_x_ >= 0) && (temp_check_x_ <= (room_width - 16))) && ((temp_check_y_ >= 0) && (temp_check_y_ <= (room_width - 16))) {
+							if ((tempCheckX >= 0) && (tempCheckX <= (room_width - 16))) && ((tempCheckY >= 0) && (tempCheckY <= (room_width - 16))) {
 								// If a full grid spot is found after variable adjustments, mark it as such.
-								if mp_grid_get_cell(movementGrid, temp_check_x_ / 16, temp_check_y_ / 16) == -1 {
+								if mp_grid_get_cell(movementGrid, tempCheckX / 16, tempCheckY / 16) == -1 {
 									switch direction_to_search_in_ {
 										case 0:
 											right_wall_found_ = true;
@@ -562,9 +562,9 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 						// Otherwise if a wall has been found
 						else {
 							// As long as the search isn't going off the map, start the legit search
-							if ((temp_check_x_ >= 0) && (temp_check_x_ <= (room_width - 16))) && ((temp_check_y_ >= 0) && (temp_check_y_ <= (room_height - 16))){
+							if ((tempCheckX >= 0) && (tempCheckX <= (room_width - 16))) && ((tempCheckY >= 0) && (tempCheckY <= (room_height - 16))){
 								// If no more occupied space is found, then mark that as the new spot to check.
-								if mp_grid_get_cell(movementGrid, temp_check_x_ / 16, temp_check_y_ / 16) != -1 {
+								if mp_grid_get_cell(movementGrid, tempCheckX / 16, tempCheckY / 16) != -1 {
 									location_found_ = true;
 									// Set every direction_n_ to 0 except the one that found a legit spot.
 									switch direction_to_search_in_ {
@@ -631,7 +631,7 @@ if point_distance(x, y, check_x_, check_y_) > movementSpeed {
 						y = floor(y / 16) * 16;
 						targetToMoveToX = x;
 						targetToMoveToY = y;
-						n_ = 0;
+						x_n_ = 0;
 						iteration_ = 0;
 						right_n_ = 0;
 						top_n_ = 0;
