@@ -59,8 +59,6 @@ if mouse_check_button_pressed(mb_right) {
 				topForbidden = false;
 				leftForbidden = false;
 				bottomForbidden = false;
-				groupRowWidth = 0;
-				sizeOfGroupSelectedToMoveWith = 0;
 				specificLocationNeedsToBeChecked = false;
 				specificLocationToBeCheckedX = targetToMoveToX;
 				specificLocationToBeCheckedY = targetToMoveToY;

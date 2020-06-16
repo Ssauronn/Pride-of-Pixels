@@ -141,15 +141,11 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					objectSelected = true;
 					obj_camera_and_gui.numberOfObjectsSelected++;
 				}
-				else {
-					sizeOfGroupSelectedToMoveWith = obj_camera_and_gui.numberOfObjectsSelected;
-				}
 			}
 			else {
 				if objectSelected {
 					objectSelected = false;
 					obj_camera_and_gui.numberOfObjectsSelected--;
-					sizeOfGroupSelectedToMoveWith = 0;
 				}
 			}
 		}
@@ -211,15 +207,11 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					objectSelected = true;
 					obj_camera_and_gui.numberOfObjectsSelected++;
 				}
-				else {
-					sizeOfGroupSelectedToMoveWith = obj_camera_and_gui.numberOfObjectsSelected;
-				}
 			}
 			else {
 				if objectSelected {
 					objectSelected = false;
 					obj_camera_and_gui.numberOfObjectsSelected--;
-					sizeOfGroupSelectedToMoveWith = 0;
 				}
 			}
 		}

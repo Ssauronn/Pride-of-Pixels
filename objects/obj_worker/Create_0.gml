@@ -36,7 +36,6 @@ bottomWallFound = false;
 tempCheckX = -1;
 tempCheckY = -1;
 amountOfTimesShifted = 0;
-sizeOfGroupSelectedToMoveWith = 0;
 groupRowWidth = 0;
 specificLocationNeedsToBeChecked = false;
 specificLocationToBeCheckedX = -1;

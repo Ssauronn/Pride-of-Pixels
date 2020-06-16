@@ -9,7 +9,7 @@ check_top_y_ = check_y_ + (bottom_n_ * 16);
 temp_amount_of_times_shifted_ = amountOfTimesShifted;
 
 // Set the row width to the correct width, which is automatically set inside obj_camera_and_gui
-row_width_ = floor(sqrt(sizeOfGroupSelectedToMoveWith));
+row_width_ = floor(sqrt(obj_camera_and_gui.numberOfObjectsSelected));
 
 
 if point_distance(x, y, check_x_, check_y_) > movementSpeed {

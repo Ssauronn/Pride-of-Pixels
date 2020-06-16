@@ -85,7 +85,7 @@ if notAtTargetLocation {
 			break;
 	}
 	original_direction_to_search_in_ = direction_to_search_in_;
-	groupRowWidth = floor(sqrt(sizeOfGroupSelectedToMoveWith));
+	groupRowWidth = floor(sqrt(obj_camera_and_gui.numberOfObjectsSelected));
 	#endregion
 
 	#region Start the search
@@ -94,26 +94,31 @@ if notAtTargetLocation {
 	// the grid entirely within this script.
 	var index_ = -1;
 	var can_be_evaluated_this_frame_ = false;
-	if ds_exists(unitQueueForPathfindingList, ds_type_list) {
-		index_ = ds_list_find_index(unitQueueForPathfindingList, self.id);
-		if (index_ != -1) && (index_ < unitQueueMax) && (unitQueueCount < unitQueueMax) {
-			unitQueueCount++;
-			can_be_evaluated_this_frame_ = true;
-		}
-		else if index_ == -1 {
-			ds_list_add(unitQueueForPathfindingList, self.id);
+	if !validPathFound || !validLocationFound {
+		if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 			index_ = ds_list_find_index(unitQueueForPathfindingList, self.id);
-			if (index_ < unitQueueMax) && (unitQueueCount < unitQueueMax) {
+			if (index_ != -1) && (index_ < unitQueueMax) && (unitQueueCount < unitQueueMax) {
 				unitQueueCount++;
 				can_be_evaluated_this_frame_ = true;
 			}
+			else if index_ == -1 {
+				ds_list_add(unitQueueForPathfindingList, self.id);
+				index_ = ds_list_find_index(unitQueueForPathfindingList, self.id);
+				if (index_ < unitQueueMax) && (unitQueueCount < unitQueueMax) {
+					unitQueueCount++;
+					can_be_evaluated_this_frame_ = true;
+				}
+			}
+		}
+		else {
+			index_ = 0;
+			unitQueueForPathfindingList = ds_list_create();
+			ds_list_add(unitQueueForPathfindingList, self.id);
+			unitQueueCount++;
+			can_be_evaluated_this_frame_ = true;
 		}
 	}
 	else {
-		index_ = 0;
-		unitQueueForPathfindingList = ds_list_create();
-		ds_list_add(unitQueueForPathfindingList, self.id);
-		unitQueueCount++;
 		can_be_evaluated_this_frame_ = true;
 	}
 	// Secondly, remove self from the grid that tracks object locations - this is so that in case
@@ -172,7 +177,7 @@ if notAtTargetLocation {
 			}
 			// If the search has just begun and the box is already occupied, mark a variable as true so that the
 			// beginning box will simply be skipped over later and the search will begin.
-			/*if (mp_grid_get_cell(unitGridLocation, target_grid_x_, target_grid_y_) == -1) && (searchHasJustBegun) {
+			if (mp_grid_get_cell(unitGridLocation, target_grid_x_, target_grid_y_) == -1) && (searchHasJustBegun) {
 				new_location_needs_to_be_checked_ = true;
 				rightWallFound = true;
 				topWallFound = true;
@@ -180,7 +185,7 @@ if notAtTargetLocation {
 				bottomWallFound = true;
 			}
 			// If the search has just begun and the box is not occupied yet, mark it to be searched later.
-			else*/ if (mp_grid_get_cell(movementGrid, target_grid_x_, target_grid_y_) == 0) && (searchHasJustBegun) {
+			else if (mp_grid_get_cell(movementGrid, target_grid_x_, target_grid_y_) == 0) && (searchHasJustBegun) {
 				new_location_needs_to_be_checked_ = false;
 			}
 			// Reset path
@@ -556,9 +561,6 @@ if notAtTargetLocation {
 	if validPathFound {
 		if needToStartGridSearch {
 			needToStartGridSearch = false;
-			// Commented out sections were for debugging purpose - they still need
-			// to be reset at end of script, but they can't be reset before moving the
-			// object.
 			// Only reset variables if this is the first time running this code.
 			cannot_move_without_better_coordinates_ = false;
 			right_n_ = 0;
@@ -573,14 +575,11 @@ if notAtTargetLocation {
 			topForbidden = false;
 			leftForbidden = false;
 			bottomForbidden = false;
-			//groupRowWidth = 0;
-			//sizeOfGroupSelectedToMoveWith = 0;
 			specificLocationNeedsToBeChecked = false;
 			specificLocationToBeCheckedX = -1;
 			specificLocationToBeCheckedY = -1;
 			searchHasJustBegun = true;
 			totalTimesSearched = 0;
-			closestPointsToObjectsHaveBeenSet = false;
 			if path_exists(myPath) {
 				path_delete(myPath);
 				myPath = -1;
@@ -594,72 +593,10 @@ if notAtTargetLocation {
 				if ((can_be_evaluated_this_frame_) && (unitQueueCount < unitQueueMax)) {
 					var still_need_to_search_;
 					still_need_to_search_ = true;
-					// If I need to check for a specific location, check it
-					if specificLocationNeedsToBeChecked {
-						specificLocationNeedsToBeChecked = false;
-						if path_exists(myPath) {
-							path_delete(myPath);
-							myPath = noone;
-						}
-						myPath = path_add();
-						if mp_grid_path(movementGrid, myPath, x, y, tempCheckX, tempCheckY, true) {
-							still_need_to_search_ = false;
-							validPathFound = true;
-							targetToMoveToX = tempCheckX;
-							targetToMoveToY = tempCheckY;
-							validLocationFound = true;
-							// Add self back to the unitGridLocation, so that other objects don't
-							// move on the same square.
-							if ds_exists(unitGridLocation, ds_type_grid) {
-								var i, self_is_found_;
-								self_is_found_ = false;
-								if ds_grid_height(unitGridLocation) > 1 {
-									for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
-										var temp_instance_;
-										temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
-										if self.id == temp_instance_.id {
-											self_is_found_ = i;
-											break;
-										}
-									}
-								}
-								// If self is found in the ds_grid, which it shouldn't be, then overwrite
-								// the existing values and replace with correct values. This is just here
-								// as redundancy.
-								if self_is_found_ != false {
-									ds_grid_set(unitGridLocation, 1, self_is_found_, targetToMoveToX);
-									ds_grid_set(unitGridLocation, 2, self_is_found_, targetToMoveToY);
-								}
-								// If self doesn't exist in the grid, which it normally shouldn't, then
-								// resize the grid to accomodate it and add values.
-								else {
-									ds_grid_resize(unitGridLocation, 3, ds_grid_height(unitGridLocation) + 1);
-									ds_grid_set(unitGridLocation, 0, ds_grid_height(unitGridLocation) - 1, self.id);
-									ds_grid_set(unitGridLocation, 1, ds_grid_height(unitGridLocation) - 1, targetToMoveToX);
-									ds_grid_set(unitGridLocation, 2, ds_grid_height(unitGridLocation) - 1, targetToMoveToY);
-								}
-							}
-							// If the ds_grid doesn't exist, which is possible (but unlikely), then just recreate
-							// the grid and add the object's info.
-							else {
-								unitGridLocation = ds_grid_create(3, 1);
-								ds_grid_set(unitGridLocation, 0, 0, self.id);
-								ds_grid_set(unitGridLocation, 1, 0, targetToMoveToY);
-								ds_grid_set(unitGridLocation, 2, 0, targetToMoveToX);
-							}
-						}
-						else {
-							still_need_to_search_ = true;
-						}
-					}
 					while still_need_to_search_ {
 						// If, after checking for a specific location, it still wasn't valid,
 						// move on and continue the search.
 						if still_need_to_search_ {
-							// Increment the y axis as long as the width of the row is large enough.
-							if y_n_ < (x_n_ - 2) {
-								y_n_++;
-							}
 							// If the y axis incrementation value is an odd number, shift the search
 							// upwards by half the incrementation value, rounded up;
 							if y_n_ & 1 {
@@ -697,17 +634,77 @@ if notAtTargetLocation {
 									}
 								}
 								if !location_occupied_ {
-									still_need_to_search_ = false;
 									specificLocationNeedsToBeChecked = true;
 									specificLocationToBeCheckedX = tempCheckX;
 									specificLocationToBeCheckedY = tempCheckY;
 								}
 							}
 							
-							// Increment x_n_ after all is finished, as long as y_n_ has finished its column search.
-							if y_n_ >= (x_n_ - 2) {
-								y_n_ = 0;
-								x_n_++;
+							
+							// Increment x_n_ and y_n_ values
+							x_n_++;
+							if x_n_ > groupRowWidth {
+								x_n_ = 0;
+								y_n_++;
+							}
+							
+						}
+						// If I need to check for a specific location, check it
+						if specificLocationNeedsToBeChecked {
+							specificLocationNeedsToBeChecked = false;
+							if path_exists(myPath) {
+								path_delete(myPath);
+								myPath = noone;
+							}
+							myPath = path_add();
+							if mp_grid_path(movementGrid, myPath, x, y, tempCheckX, tempCheckY, true) {
+								still_need_to_search_ = false;
+								validPathFound = true;
+								targetToMoveToX = tempCheckX;
+								targetToMoveToY = tempCheckY;
+								validLocationFound = true;
+								// Add self back to the unitGridLocation, so that other objects don't
+								// move on the same square.
+								if ds_exists(unitGridLocation, ds_type_grid) {
+									var i, self_is_found_;
+									self_is_found_ = false;
+									if ds_grid_height(unitGridLocation) > 1 {
+										for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+											var temp_instance_;
+											temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
+											if self.id == temp_instance_.id {
+												self_is_found_ = i;
+												break;
+											}
+										}
+									}
+									// If self is found in the ds_grid, which it shouldn't be, then overwrite
+									// the existing values and replace with correct values. This is just here
+									// as redundancy.
+									if self_is_found_ != false {
+										ds_grid_set(unitGridLocation, 1, self_is_found_, targetToMoveToX);
+										ds_grid_set(unitGridLocation, 2, self_is_found_, targetToMoveToY);
+									}
+									// If self doesn't exist in the grid, which it normally shouldn't, then
+									// resize the grid to accomodate it and add values.
+									else {
+										ds_grid_resize(unitGridLocation, 3, ds_grid_height(unitGridLocation) + 1);
+										ds_grid_set(unitGridLocation, 0, ds_grid_height(unitGridLocation) - 1, self.id);
+										ds_grid_set(unitGridLocation, 1, ds_grid_height(unitGridLocation) - 1, targetToMoveToX);
+										ds_grid_set(unitGridLocation, 2, ds_grid_height(unitGridLocation) - 1, targetToMoveToY);
+									}
+								}
+								// If the ds_grid doesn't exist, which is possible (but unlikely), then just recreate
+								// the grid and add the object's info.
+								else {
+									unitGridLocation = ds_grid_create(3, 1);
+									ds_grid_set(unitGridLocation, 0, 0, self.id);
+									ds_grid_set(unitGridLocation, 1, 0, targetToMoveToY);
+									ds_grid_set(unitGridLocation, 2, 0, targetToMoveToX);
+								}
+							}
+							else {
+								still_need_to_search_ = false;
 							}
 						}
 					}
@@ -762,7 +759,6 @@ if notAtTargetLocation {
 			tempCheckX = -1;
 			tempCheckY = -1;
 			groupRowWidth = 0;
-			sizeOfGroupSelectedToMoveWith = 0;
 			specificLocationNeedsToBeChecked = false;
 			specificLocationToBeCheckedX = -1;
 			specificLocationToBeCheckedY = -1;
@@ -805,7 +801,6 @@ else {
 	tempCheckX = -1;
 	tempCheckY = -1;
 	groupRowWidth = 0;
-	sizeOfGroupSelectedToMoveWith = 0;
 	specificLocationNeedsToBeChecked = false;
 	specificLocationToBeCheckedX = -1;
 	specificLocationToBeCheckedY = -1;
@@ -842,7 +837,6 @@ topForbidden = false;
 leftForbidden = false;
 bottomForbidden = false;
 groupRowWidth = 0;
-sizeOfGroupSelectedToMoveWith = 0;
 specificLocationNeedsToBeChecked = false;
 specificLocationToBeCheckedX = -1;
 specificLocationToBeCheckedY = -1;
