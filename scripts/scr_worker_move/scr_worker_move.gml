@@ -29,6 +29,44 @@ Once a valid starting search area is determined, start checking for if the spot 
 */
 
 #region Initialize variables necessary for the whole script
+if point_distance(x, y, targetToMoveToX, targetToMoveToY) == 0 {
+	notAtTargetLocation = false;
+	validLocationFound = false;
+	validPathFound = true;
+	cannot_move_without_better_coordinates_ = false;
+	notAtTargetLocation = false;
+	needToStartGridSearch = true;
+	x_n_ = 0;
+	y_n_ = 0;
+	right_n_ = 0;
+	top_n_ = 0;
+	left_n_ = 0;
+	bottom_n_ = 0;
+	rightWallFound = false;
+	topWallFound = false;
+	leftWallFound = false;
+	bottomWallFound = false;
+	rightForbidden = false;
+	topForbidden = false;
+	leftForbidden = false;
+	bottomForbidden = false;
+	tempCheckX = -1;
+	tempCheckY = -1;
+	groupRowWidth = 0;
+	specificLocationNeedsToBeChecked = false;
+	specificLocationToBeCheckedX = -1;
+	specificLocationToBeCheckedY = -1;
+	searchHasJustBegun = true;
+	totalTimesSearched = 0;
+	closestPointsToObjectsHaveBeenSet = false;
+	if path_exists(myPath) {
+		path_delete(myPath);
+		myPath = -1;
+	}
+	/*
+	exit to different state
+	*/
+}
 if notAtTargetLocation {
 	var x_, y_, target_grid_x_, target_grid_y_, path_next_x_, path_next_y_, current_target_to_move_to_x_, current_target_to_move_to_y_, cannot_move_without_better_coordinates_;
 	// x and y position of this object on the grid at all times - separate from the true x and y position, 
@@ -152,7 +190,7 @@ if notAtTargetLocation {
 				}
 			}
 			// If the unitGridLocation only contains this object's data, cool! Just delete the ds_grid.
-			else {
+			else if ds_grid_get(unitGridLocation, 0, 0) == self.id {
 				ds_grid_destroy(unitGridLocation);
 				unitGridLocation = noone;
 			}
@@ -419,7 +457,10 @@ if notAtTargetLocation {
 						}
 						// If the direction to search in is a valid direction
 						if !forbidden_to_search_ {
-							if point_distance(current_target_to_move_to_x_, current_target_to_move_to_y_, x_, y_) < point_distance(closestSearchPointToObjectX, closestSearchPointToObjectY, x_, y_) {
+							// If the current point to test is closer than the previously closest point to test, and
+							// importantly, as long as the current point to test is not the original click area, then
+							// set that point as the closest point to the object, in case its needed later.
+							if (point_distance(current_target_to_move_to_x_, current_target_to_move_to_y_, x_, y_) < point_distance(closestSearchPointToObjectX, closestSearchPointToObjectY, x_, y_)) && !((current_target_to_move_to_x_ == originalTargetToMoveToX) && (current_target_to_move_to_y_ == originalTargetToMoveToY)) {
 								if (abs(current_target_to_move_to_x_ - x_) < 16) || (abs(current_target_to_move_to_y_ - y_) < 16) {
 									closestSearchPointToObjectX = current_target_to_move_to_x_;
 									closestSearchPointToObjectY = current_target_to_move_to_y_;
@@ -533,6 +574,8 @@ if notAtTargetLocation {
 		originalTargetToMoveToX = targetToMoveToX;
 		originalTargetToMoveToY = targetToMoveToY;
 		validPathFound = false;
+		validLocationFound = false;
+		needToStartGridSearch = true;
 		right_n_ = 0;
 		top_n_ = 0;
 		left_n_ = 0;
@@ -561,6 +604,7 @@ if notAtTargetLocation {
 	if validPathFound {
 		if needToStartGridSearch {
 			needToStartGridSearch = false;
+			validLocationFound = false;
 			// Only reset variables if this is the first time running this code.
 			cannot_move_without_better_coordinates_ = false;
 			right_n_ = 0;
@@ -625,15 +669,22 @@ if notAtTargetLocation {
 								var location_occupied_ = false;
 								// Check to see if any object currently has that space occupied, and if not,
 								// occupy it.
-								for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
-									temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
-									temp_instance_x_ = ds_grid_get(unitGridLocation, 1, i);
-									temp_instance_y_ = ds_grid_get(unitGridLocation, 2, i);
-									if (temp_instance_.id != self.id) && (temp_instance_x_ == tempCheckX) && (temp_instance_y_ == tempCheckY) {
-										location_occupied_ = true;
+								if ds_exists(unitGridLocation, ds_type_grid) {
+									for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+										temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
+										temp_instance_x_ = ds_grid_get(unitGridLocation, 1, i);
+										temp_instance_y_ = ds_grid_get(unitGridLocation, 2, i);
+										if (temp_instance_.id != self.id) && (temp_instance_x_ == tempCheckX) && (temp_instance_y_ == tempCheckY) {
+											location_occupied_ = true;
+										}
+									}
+									if !location_occupied_ {
+										specificLocationNeedsToBeChecked = true;
+										specificLocationToBeCheckedX = tempCheckX;
+										specificLocationToBeCheckedY = tempCheckY;
 									}
 								}
-								if !location_occupied_ {
+								else {
 									specificLocationNeedsToBeChecked = true;
 									specificLocationToBeCheckedX = tempCheckX;
 									specificLocationToBeCheckedY = tempCheckY;
@@ -657,17 +708,17 @@ if notAtTargetLocation {
 								myPath = noone;
 							}
 							myPath = path_add();
-							if mp_grid_path(movementGrid, myPath, x, y, tempCheckX, tempCheckY, true) {
+							if mp_grid_path(movementGrid, myPath, x, y, specificLocationToBeCheckedX, specificLocationToBeCheckedY, true) {
 								still_need_to_search_ = false;
 								validPathFound = true;
-								targetToMoveToX = tempCheckX;
-								targetToMoveToY = tempCheckY;
+								targetToMoveToX = specificLocationToBeCheckedX;
+								targetToMoveToY = specificLocationToBeCheckedY;
 								validLocationFound = true;
 								// Add self back to the unitGridLocation, so that other objects don't
 								// move on the same square.
 								if ds_exists(unitGridLocation, ds_type_grid) {
 									var i, self_is_found_;
-									self_is_found_ = false;
+									self_is_found_ = noone;
 									if ds_grid_height(unitGridLocation) > 1 {
 										for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
 											var temp_instance_;
@@ -681,7 +732,7 @@ if notAtTargetLocation {
 									// If self is found in the ds_grid, which it shouldn't be, then overwrite
 									// the existing values and replace with correct values. This is just here
 									// as redundancy.
-									if self_is_found_ != false {
+									if self_is_found_ != noone {
 										ds_grid_set(unitGridLocation, 1, self_is_found_, targetToMoveToX);
 										ds_grid_set(unitGridLocation, 2, self_is_found_, targetToMoveToY);
 									}
@@ -699,8 +750,8 @@ if notAtTargetLocation {
 								else {
 									unitGridLocation = ds_grid_create(3, 1);
 									ds_grid_set(unitGridLocation, 0, 0, self.id);
-									ds_grid_set(unitGridLocation, 1, 0, targetToMoveToY);
-									ds_grid_set(unitGridLocation, 2, 0, targetToMoveToX);
+									ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
+									ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
 								}
 							}
 							else {
@@ -811,6 +862,9 @@ else {
 		path_delete(myPath);
 		myPath = -1;
 	}
+	/*
+	exit to different state
+	*/
 }
 
 
