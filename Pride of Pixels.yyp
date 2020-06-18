@@ -207,14 +207,6 @@
             }
         },
         {
-            "Key": "969f7834-c390-4d47-ad64-663697e71b37",
-            "Value": {
-                "id": "0d9ba333-4244-45c5-a3d8-7ce6cb298d97",
-                "resourcePath": "scripts\\old_code_for_pathfinding\\old_code_for_pathfinding.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "97c2175f-33f9-4949-9297-3d7c0e683ea7",
             "Value": {
                 "id": "c902ac0b-1d38-42da-9037-1760e67ca764",
@@ -440,7 +432,6 @@
         }
     ],
     "script_order": [
-        "969f7834-c390-4d47-ad64-663697e71b37",
         "a1030b32-04e2-49e3-8f2a-882694afb5be",
         "b4b40924-9ae7-47db-a1e0-59e158aeb0e2"
     ],
