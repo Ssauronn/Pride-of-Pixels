@@ -31,7 +31,7 @@ Once a valid starting search area is determined, start checking for if the spot 
 #region Initialize variables necessary for the whole script
 if point_distance(x, y, targetToMoveToX, targetToMoveToY) == 0 {
 	notAtTargetLocation = false;
-	validLocationFound = false;
+	validLocationFound = true;
 	validPathFound = true;
 	cannot_move_without_better_coordinates_ = false;
 	notAtTargetLocation = false;
@@ -819,6 +819,47 @@ if notAtTargetLocation {
 			if path_exists(myPath) {
 				path_delete(myPath);
 				myPath = -1;
+			}
+			// Just in case the object was already close enough to move location,
+			// and its still in the middle of this move script (meaning it won't be
+			// in the ds_grid containing all moving object's locations), add itself
+			// to that grid.
+			if ds_exists(unitGridLocation, ds_type_grid) {
+				var i, self_is_found_;
+				self_is_found_ = noone;
+				if ds_grid_height(unitGridLocation) > 1 {
+					for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+						var temp_instance_;
+						temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
+						if self.id == temp_instance_.id {
+							self_is_found_ = i;
+							break;
+						}
+					}
+				}
+				// If self is found in the ds_grid, which it shouldn't be, then overwrite
+				// the existing values and replace with correct values. This is just here
+				// as redundancy.
+				if self_is_found_ != noone {
+					ds_grid_set(unitGridLocation, 1, self_is_found_, targetToMoveToX);
+					ds_grid_set(unitGridLocation, 2, self_is_found_, targetToMoveToY);
+				}
+				// If self doesn't exist in the grid, which it normally shouldn't, then
+				// resize the grid to accomodate it and add values.
+				else {
+					ds_grid_resize(unitGridLocation, 3, ds_grid_height(unitGridLocation) + 1);
+					ds_grid_set(unitGridLocation, 0, ds_grid_height(unitGridLocation) - 1, self.id);
+					ds_grid_set(unitGridLocation, 1, ds_grid_height(unitGridLocation) - 1, targetToMoveToX);
+					ds_grid_set(unitGridLocation, 2, ds_grid_height(unitGridLocation) - 1, targetToMoveToY);
+				}
+			}
+			// If the ds_grid doesn't exist, which is possible (but unlikely), then just recreate
+			// the grid and add the object's info.
+			else {
+				unitGridLocation = ds_grid_create(3, 1);
+				ds_grid_set(unitGridLocation, 0, 0, self.id);
+				ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
+				ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
 			}
 			// After resetting all necessary variables, revert back to idle.
 			// If no action is commanded {
