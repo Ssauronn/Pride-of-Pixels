@@ -24,8 +24,8 @@ if mouse_check_button_pressed(mb_right) {
 	if instance_exists(obj_worker) {
 		with obj_worker {
 			if objectSelected {
-				targetToMoveToX = floor(mouse_x / 16) * 16;
-				targetToMoveToY = floor(mouse_y / 16) * 16;
+				targetToMoveToX = floor(obj_camera_and_gui.mouseClampedX / 16) * 16;
+				targetToMoveToY = floor(obj_camera_and_gui.mouseClampedY / 16) * 16;
 				if targetToMoveToX < 0 {
 					targetToMoveToX = 0;
 				}

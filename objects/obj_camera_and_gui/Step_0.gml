@@ -28,7 +28,7 @@ y = clamp(y, 0 + (view_get_hport(view_camera[0]) / 2), room_height - (view_get_h
 
 // Moving Camera with Mouse
 mouseClampedX = clamp(mouse_x, camera_get_view_x(view_camera[0]), camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]));
-mouseClampedY = clamp(mouse_y, camera_get_view_y(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]));
+mouseClampedY = clamp(mouse_y, camera_get_view_y(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) - toolbarHeight);
 if (mouseClampedX - camera_get_view_x(view_camera[0])) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("A")) {
 		x -= cameraMovementSpeed;
@@ -53,14 +53,14 @@ else if (camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[
 #region Mouse UX
 // Setting the coordinates used to draw a selection box if the player holds the mouse button down.
 if mouse_check_button_pressed(mb_left) {
-	mbLeftPressedXCoordinate = floor(mouse_x / 16) * 16;
-	mbLeftPressedYCoordinate = floor(mouse_y / 16) * 16;
+	mbLeftPressedXCoordinate = floor(mouseClampedX / 16) * 16;
+	mbLeftPressedYCoordinate = floor(mouseClampedY / 16) * 16;
 	
 }
 // If the button is continuously held down in the original spot it was pressed,
 // don't play the hover icon animation. However, if the mouse moves from the original spot
 // it was pressed, then don't run this code and the animation can begin agian.
-if mouse_check_button(mb_left) && ((floor(mouse_x / 16) * 16) == mbLeftPressedXCoordinate) && ((floor(mouse_y / 16) * 16) == mbLeftPressedYCoordinate) {
+if mouse_check_button(mb_left) && ((floor(mouseClampedX / 16) * 16) == mbLeftPressedXCoordinate) && ((floor(mouseClampedY / 16) * 16) == mbLeftPressedYCoordinate) {
 	mouseHoverIconFrame = 0;
 	mouseHoverIconFrameCountdown = mouseHoverIconFrameCountdownStart;
 }
@@ -83,8 +83,8 @@ if mouse_check_button_pressed(mb_left) {
 
 // Select new objects
 if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
-	var current_mouse_x_ = floor(mouse_x / 16) * 16;
-	var current_mouse_y_ = floor(mouse_y / 16) * 16;
+	var current_mouse_x_ = floor(mouseClampedX / 16) * 16;
+	var current_mouse_y_ = floor(mouseClampedY / 16) * 16;
 	var amount_of_boxes_displaced_on_x_axis_ = ((current_mouse_x_ - mbLeftPressedXCoordinate) / 16);
 	var amount_of_boxes_displaced_on_y_axis_ = ((current_mouse_y_ - mbLeftPressedYCoordinate) / 16);
 	if (amount_of_boxes_displaced_on_x_axis_ != 0) || (amount_of_boxes_displaced_on_y_axis_ != 0) {
@@ -196,10 +196,10 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		var unit_selected_, resource_selected_, left_line_location_, top_line_location_, right_line_location_, bottom_line_location_,
 		unit_selected_ = false;
 		resource_selected_ = false;
-		left_line_location_ = floor(mouse_x / 16) * 16;
-		top_line_location_ = floor(mouse_y / 16) * 16;
-		right_line_location_ = (floor(mouse_x / 16) * 16) + 15;
-		bottom_line_location_ = (floor(mouse_y / 16) * 16) + 15;
+		left_line_location_ = floor(mouseClampedX / 16) * 16;
+		top_line_location_ = floor(mouseClampedY / 16) * 16;
+		right_line_location_ = (floor(mouseClampedX / 16) * 16) + 15;
+		bottom_line_location_ = (floor(mouseClampedY / 16) * 16) + 15;
 		with obj_worker {
 			if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
 				if !objectSelected {

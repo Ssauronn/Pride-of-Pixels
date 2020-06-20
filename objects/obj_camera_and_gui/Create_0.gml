@@ -15,7 +15,7 @@ numberOfObjectsSelected = 0;
 #endregion
 
 #region Menu UX
-
+toolbarHeight = view_get_hport(view_camera[0]) / 7;
 #endregion
 
 
