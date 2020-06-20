@@ -8,7 +8,7 @@ objectOnScreen = false;
 depth = -y;
 
 // Pathfinding
-myPath = path_add();
+myPath = noone;
 validPathFound = true;
 validLocationFound = true;
 notAtTargetLocation = false;

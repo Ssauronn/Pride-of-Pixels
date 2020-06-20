@@ -1,5 +1,5 @@
 // Self evident
-//window_set_fullscreen(true);
+// window_set_fullscreen(true);
 
 
 depth = -y;
@@ -50,7 +50,7 @@ else if (camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[
 	}
 }
 
-
+#region Mouse UX
 // Setting the coordinates used to draw a selection box if the player holds the mouse button down.
 if mouse_check_button_pressed(mb_left) {
 	mbLeftPressedXCoordinate = floor(mouse_x / 16) * 16;
@@ -261,5 +261,10 @@ if !mouse_check_button(mb_left) {
 	mbLeftPressedXCoordinate = -1;
 	mbLeftPressedYCoordinate = -1;
 }
+#endregion
+
+#region Menu UX
+
+#endregion
 
 

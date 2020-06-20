@@ -1,4 +1,6 @@
 cameraMovementSpeed = 12;
+
+#region Mouse UX
 mouseBufferDistanceToEdgeOfScreen = 10;
 
 mbLeftPressedXCoordinate = -1;
@@ -10,5 +12,10 @@ mouseClampedX = 0;
 mouseClampedY = 0;
 
 numberOfObjectsSelected = 0;
+#endregion
+
+#region Menu UX
+
+#endregion
 
 
