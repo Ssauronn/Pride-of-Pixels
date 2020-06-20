@@ -16,11 +16,7 @@ else {
 	draw_sprite_ext(spr_mouse_highlight, mouseHoverIconFrame, floor(mouseClampedX / 16) * 16, floor(mouseClampedY / 16) * 16, 1, 1, 0, color_, 0.5);
 }
 
-if ds_exists(unitQueueForPathfindingList, ds_type_list) {
-	draw_text(x, y, string(ds_list_size(unitQueueForPathfindingList)));
-}
-
-
+#region Mouse UX
 // Draw the selection box if the player holds the mouse down
 if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 	var current_mouse_x_ = floor(mouse_x / 16) * 16;
@@ -78,5 +74,11 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 	}
 }
 draw_sprite_ext(spr_mouse_highlight, mouseHoverIconFrame, floor(mouseClampedX / 16) * 16, floor(mouseClampedY / 16) * 16, 1, 1, 0, color_, 0.5);
+#endregion
+
+#region Menu UX
+
+#endregion
+
 
 
