@@ -29,6 +29,26 @@ Once a valid starting search area is determined, start checking for if the spot 
 */
 
 #region Initialize variables necessary for the whole script
+if mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1 {
+	var x_adjustment_, y_adjustment_;
+	x_adjustment_ = 0;
+	y_adjustment_ = 0;
+	if mp_grid_get_cell(movementGrid, floor((x + movementSpeed + 1) / 16), floor(y / 16)) != -1 {
+		x_adjustment_ += (movementSpeed + 1);
+	}
+	else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y - movementSpeed - 1) / 16)) != -1 {
+		y_adjustment_ -= (movementSpeed + 1);
+	}
+	else if mp_grid_get_cell(movementGrid, floor((x - movementSpeed - 1) / 16), floor(y / 16)) != -1 {
+		x_adjustment_ -= (movementSpeed + 1);
+	}
+	else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + movementSpeed + 1) / 16)) != -1 {
+		y_adjustment_ += (movementSpeed + 1);
+	}
+	x += x_adjustment_;
+	y += y_adjustment_;
+}
+
 if point_distance(x, y, targetToMoveToX, targetToMoveToY) == 0 {
 	// Just in case the object is on the target location to move to, make sure object is
 	// in the ds_grid before exiting to idle. This will only happen if the original click
@@ -830,10 +850,18 @@ if notAtTargetLocation {
 			// Else if a valid location exists, no need to search for one, just move.
 			else {
 				if path_get_number(myPath) > 1 {
-					mp_potential_step(path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8, movementSpeed, false);
+					var x_vector_, y_vector_;
+					x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
+					y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
+					x += x_vector_;
+					y += y_vector_;
 				}
 				else if point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) > movementSpeed * 2 {
-					mp_potential_step(path_get_point_x(myPath, 0), path_get_point_y(myPath, 0), movementSpeed, false);
+					var x_vector_, y_vector_;
+					x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
+					y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
+					x += x_vector_;
+					y += y_vector_;
 				}
 				else {
 					path_delete(myPath);

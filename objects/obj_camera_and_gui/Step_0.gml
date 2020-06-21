@@ -1,5 +1,5 @@
 // Self evident
-// window_set_fullscreen(true);
+//window_set_fullscreen(true);
 
 
 depth = -y;
@@ -52,15 +52,18 @@ else if (camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[
 
 #region Mouse UX
 // Setting the coordinates used to draw a selection box if the player holds the mouse button down.
-if mouse_check_button_pressed(mb_left) {
-	mbLeftPressedXCoordinate = floor(mouse_x / 16) * 16;
-	mbLeftPressedYCoordinate = floor(mouse_y / 16) * 16;
-	
+if (mouse_check_button_pressed(mb_left)) && (device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - toolbarHeight)) {
+	mbLeftPressedXCoordinate = floor(mouseClampedX / 16) * 16;
+	mbLeftPressedYCoordinate = floor(mouseClampedY / 16) * 16;
+	// Reset the currently selected units
+	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_worker);
+	obj_camera_and_gui.numberOfObjectsSelected = 0;
+	selectedUnitsDefaultDirectionToFace = -1;
 }
 // If the button is continuously held down in the original spot it was pressed,
 // don't play the hover icon animation. However, if the mouse moves from the original spot
 // it was pressed, then don't run this code and the animation can begin agian.
-if mouse_check_button(mb_left) && ((floor(mouse_x / 16) * 16) == mbLeftPressedXCoordinate) && ((floor(mouse_y / 16) * 16) == mbLeftPressedYCoordinate) {
+if mouse_check_button(mb_left) && ((floor(mouseClampedX / 16) * 16) == mbLeftPressedXCoordinate) && ((floor(mouseClampedY / 16) * 16) == mbLeftPressedYCoordinate) {
 	mouseHoverIconFrame = 0;
 	mouseHoverIconFrameCountdown = mouseHoverIconFrameCountdownStart;
 }
@@ -73,18 +76,10 @@ else {
 	mouseHoverIconFrame = !mouseHoverIconFrame;
 }
 
-// Selecting units
-// Reset the currently selected objects
-if mouse_check_button_pressed(mb_left) {
-	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_worker);
-	obj_camera_and_gui.numberOfObjectsSelected = 0;
-	selectedUnitsDefaultDirectionToFace = -1;
-}
-
 // Select new objects
 if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
-	var current_mouse_x_ = floor(mouse_x / 16) * 16;
-	var current_mouse_y_ = floor(mouse_y / 16) * 16;
+	var current_mouse_x_ = floor(mouseClampedX / 16) * 16;
+	var current_mouse_y_ = floor(mouseClampedY / 16) * 16;
 	var amount_of_boxes_displaced_on_x_axis_ = ((current_mouse_x_ - mbLeftPressedXCoordinate) / 16);
 	var amount_of_boxes_displaced_on_y_axis_ = ((current_mouse_y_ - mbLeftPressedYCoordinate) / 16);
 	if (amount_of_boxes_displaced_on_x_axis_ != 0) || (amount_of_boxes_displaced_on_y_axis_ != 0) {
@@ -196,10 +191,10 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		var unit_selected_, resource_selected_, left_line_location_, top_line_location_, right_line_location_, bottom_line_location_,
 		unit_selected_ = false;
 		resource_selected_ = false;
-		left_line_location_ = floor(mouse_x / 16) * 16;
-		top_line_location_ = floor(mouse_y / 16) * 16;
-		right_line_location_ = (floor(mouse_x / 16) * 16) + 15;
-		bottom_line_location_ = (floor(mouse_y / 16) * 16) + 15;
+		left_line_location_ = floor(mouseClampedX / 16) * 16;
+		top_line_location_ = floor(mouseClampedY / 16) * 16;
+		right_line_location_ = (floor(mouseClampedX / 16) * 16) + 15;
+		bottom_line_location_ = (floor(mouseClampedY / 16) * 16) + 15;
 		with obj_worker {
 			if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
 				if !objectSelected {

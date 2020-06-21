@@ -20,56 +20,59 @@ if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 	}
 }
 
-if mouse_check_button_pressed(mb_right) {
-	if instance_exists(obj_worker) {
-		with obj_worker {
-			if objectSelected {
-				targetToMoveToX = floor(mouse_x / 16) * 16;
-				targetToMoveToY = floor(mouse_y / 16) * 16;
-				if targetToMoveToX < 0 {
-					targetToMoveToX = 0;
-				}
-				if targetToMoveToX > (room_width - 16) {
-					targetToMoveToX = room_width - 16;
-				}
-				if targetToMoveToY < 0 {
-					targetToMoveToY = 0;
-				}
-				if targetToMoveToY > (room_height - 16) {
-					targetToMoveToY = room_height - 16;
-				}
-				originalTargetToMoveToX = targetToMoveToX;
-				originalTargetToMoveToY = targetToMoveToY;
-				// Variables specifically used by object to move
-				notAtTargetLocation = true;
-				validLocationFound = false;
-				validPathFound = false;
-				needToStartGridSearch = true;
-				x_n_ = 0;
-				y_n_ = 0;
-				right_n_ = 0;
-				top_n_ = 0;
-				left_n_ = 0;
-				bottom_n_ = 0;
-				rightWallFound = false;
-				topWallFound = false;
-				leftWallFound = false;
-				bottomWallFound = false;
-				rightForbidden = false;
-				topForbidden = false;
-				leftForbidden = false;
-				bottomForbidden = false;
-				specificLocationNeedsToBeChecked = false;
-				specificLocationToBeCheckedX = targetToMoveToX;
-				specificLocationToBeCheckedY = targetToMoveToY;
-				tempCheckX = targetToMoveToX;
-				tempCheckY = targetToMoveToY;
-				searchHasJustBegun = true;
-				totalTimesSearched = 0;
-				closestPointsToObjectsHaveBeenSet = false;
-				if path_exists(myPath) {
-					path_delete(myPath);
-					myPath = -1;
+// If the mouse is on the map and not on the toolbar, then allow clicks
+if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_gui.toolbarHeight) {
+	if mouse_check_button_pressed(mb_right) {
+		if instance_exists(obj_worker) {
+			with obj_worker {
+				if objectSelected {
+					targetToMoveToX = floor(obj_camera_and_gui.mouseClampedX / 16) * 16;
+					targetToMoveToY = floor(obj_camera_and_gui.mouseClampedY / 16) * 16;
+					if targetToMoveToX < 0 {
+						targetToMoveToX = 0;
+					}
+					if targetToMoveToX > (room_width - 16) {
+						targetToMoveToX = room_width - 16;
+					}
+					if targetToMoveToY < 0 {
+						targetToMoveToY = 0;
+					}
+					if targetToMoveToY > (room_height - 16) {
+						targetToMoveToY = room_height - 16;
+					}
+					originalTargetToMoveToX = targetToMoveToX;
+					originalTargetToMoveToY = targetToMoveToY;
+					// Variables specifically used by object to move
+					notAtTargetLocation = true;
+					validLocationFound = false;
+					validPathFound = false;
+					needToStartGridSearch = true;
+					x_n_ = 0;
+					y_n_ = 0;
+					right_n_ = 0;
+					top_n_ = 0;
+					left_n_ = 0;
+					bottom_n_ = 0;
+					rightWallFound = false;
+					topWallFound = false;
+					leftWallFound = false;
+					bottomWallFound = false;
+					rightForbidden = false;
+					topForbidden = false;
+					leftForbidden = false;
+					bottomForbidden = false;
+					specificLocationNeedsToBeChecked = false;
+					specificLocationToBeCheckedX = targetToMoveToX;
+					specificLocationToBeCheckedY = targetToMoveToY;
+					tempCheckX = targetToMoveToX;
+					tempCheckY = targetToMoveToY;
+					searchHasJustBegun = true;
+					totalTimesSearched = 0;
+					closestPointsToObjectsHaveBeenSet = false;
+					if path_exists(myPath) {
+						path_delete(myPath);
+						myPath = -1;
+					}
 				}
 			}
 		}

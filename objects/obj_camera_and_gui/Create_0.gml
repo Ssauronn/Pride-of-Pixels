@@ -1,7 +1,7 @@
 cameraMovementSpeed = 12;
 
 #region Mouse UX
-mouseBufferDistanceToEdgeOfScreen = 10;
+mouseBufferDistanceToEdgeOfScreen = 8;
 
 mbLeftPressedXCoordinate = -1;
 mbLeftPressedYCoordinate = -1;
@@ -15,7 +15,7 @@ numberOfObjectsSelected = 0;
 #endregion
 
 #region Menu UX
-
+toolbarHeight = view_get_hport(view_camera[0]) / 6;
 #endregion
 
 

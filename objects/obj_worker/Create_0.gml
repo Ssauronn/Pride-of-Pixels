@@ -1,7 +1,6 @@
 // Object type, used for selection and targeting purposes
 objectType = "Unit";
 objectSelected = false;
-selectedObjectDirectionToFaceIfNoneSet = -1;
 objectOnScreen = false;
 
 // Depth setting
