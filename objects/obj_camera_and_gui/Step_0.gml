@@ -1,5 +1,5 @@
 // Self evident
-// window_set_fullscreen(true);
+//window_set_fullscreen(true);
 
 
 depth = -y;
@@ -28,7 +28,7 @@ y = clamp(y, 0 + (view_get_hport(view_camera[0]) / 2), room_height - (view_get_h
 
 // Moving Camera with Mouse
 mouseClampedX = clamp(mouse_x, camera_get_view_x(view_camera[0]), camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]));
-mouseClampedY = clamp(mouse_y, camera_get_view_y(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) - toolbarHeight);
+mouseClampedY = clamp(mouse_y, camera_get_view_y(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]));
 if (mouseClampedX - camera_get_view_x(view_camera[0])) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("A")) {
 		x -= cameraMovementSpeed;
@@ -52,10 +52,13 @@ else if (camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[
 
 #region Mouse UX
 // Setting the coordinates used to draw a selection box if the player holds the mouse button down.
-if mouse_check_button_pressed(mb_left) {
+if (mouse_check_button_pressed(mb_left)) && (device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - toolbarHeight)) {
 	mbLeftPressedXCoordinate = floor(mouseClampedX / 16) * 16;
 	mbLeftPressedYCoordinate = floor(mouseClampedY / 16) * 16;
-	
+	// Reset the currently selected units
+	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_worker);
+	obj_camera_and_gui.numberOfObjectsSelected = 0;
+	selectedUnitsDefaultDirectionToFace = -1;
 }
 // If the button is continuously held down in the original spot it was pressed,
 // don't play the hover icon animation. However, if the mouse moves from the original spot
@@ -71,14 +74,6 @@ if mouseHoverIconFrameCountdown >= 0 {
 else {
 	mouseHoverIconFrameCountdown = mouseHoverIconFrameCountdownStart;
 	mouseHoverIconFrame = !mouseHoverIconFrame;
-}
-
-// Selecting units
-// Reset the currently selected objects
-if mouse_check_button_pressed(mb_left) {
-	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_worker);
-	obj_camera_and_gui.numberOfObjectsSelected = 0;
-	selectedUnitsDefaultDirectionToFace = -1;
 }
 
 // Select new objects
