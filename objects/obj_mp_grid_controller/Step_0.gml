@@ -64,6 +64,9 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 					specificLocationNeedsToBeChecked = false;
 					specificLocationToBeCheckedX = targetToMoveToX;
 					specificLocationToBeCheckedY = targetToMoveToY;
+					squareEdgeSize = 0;
+					squareSizeIncreaseCount = 0;
+					squareIteration = 0;
 					tempCheckX = targetToMoveToX;
 					tempCheckY = targetToMoveToY;
 					searchHasJustBegun = true;
@@ -72,6 +75,25 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 					if path_exists(myPath) {
 						path_delete(myPath);
 						myPath = -1;
+					}
+					if mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1 {
+						var x_adjustment_, y_adjustment_;
+						x_adjustment_ = 0;
+						y_adjustment_ = 0;
+						if mp_grid_get_cell(movementGrid, floor((x + movementSpeed + 1) / 16), floor(y / 16)) != -1 {
+							x_adjustment_ += (movementSpeed + 1);
+						}
+						else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y - movementSpeed - 1) / 16)) != -1 {
+							y_adjustment_ -= (movementSpeed + 1);
+						}
+						else if mp_grid_get_cell(movementGrid, floor((x - movementSpeed - 1) / 16), floor(y / 16)) != -1 {
+							x_adjustment_ -= (movementSpeed + 1);
+						}
+						else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + movementSpeed + 1) / 16)) != -1 {
+							y_adjustment_ += (movementSpeed + 1);
+						}
+						x += x_adjustment_;
+						y += y_adjustment_;
 					}
 				}
 			}

@@ -29,26 +29,6 @@ Once a valid starting search area is determined, start checking for if the spot 
 */
 
 #region Initialize variables necessary for the whole script
-if mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1 {
-	var x_adjustment_, y_adjustment_;
-	x_adjustment_ = 0;
-	y_adjustment_ = 0;
-	if mp_grid_get_cell(movementGrid, floor((x + movementSpeed + 1) / 16), floor(y / 16)) != -1 {
-		x_adjustment_ += (movementSpeed + 1);
-	}
-	else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y - movementSpeed - 1) / 16)) != -1 {
-		y_adjustment_ -= (movementSpeed + 1);
-	}
-	else if mp_grid_get_cell(movementGrid, floor((x - movementSpeed - 1) / 16), floor(y / 16)) != -1 {
-		x_adjustment_ -= (movementSpeed + 1);
-	}
-	else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + movementSpeed + 1) / 16)) != -1 {
-		y_adjustment_ += (movementSpeed + 1);
-	}
-	x += x_adjustment_;
-	y += y_adjustment_;
-}
-
 if point_distance(x, y, targetToMoveToX, targetToMoveToY) == 0 {
 	// Just in case the object is on the target location to move to, make sure object is
 	// in the ds_grid before exiting to idle. This will only happen if the original click
@@ -727,24 +707,70 @@ if notAtTargetLocation {
 						// If, after checking for a specific location, it still wasn't valid,
 						// move on and continue the search.
 						if still_need_to_search_ {
-							// If the y axis incrementation value is an odd number, shift the search
-							// upwards by half the incrementation value, rounded up;
-							if y_n_ & 1 {
-								tempCheckY = targetToMoveToY - ((floor(y_n_ / 2) + 1) * 16);
+							squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+							// Top edge, moving left to right
+							if squareIteration < squareEdgeSize {
+								// Start at the left corner and move right
+								tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
+								// Shift the temporary check upwards to the top edge
+								tempCheckY = targetToMoveToY - (squareSizeIncreaseCount * 16);
 							}
-							// Else if the y axis incrementation value is an even number, shift the
-							// search downwards by half the incrementation value.
-							else {
-								tempCheckY = targetToMoveToY + (floor(y_n_ / 2) * 16);
+							// Right edge, moving top to bottom
+							else if squareIteration < (squareEdgeSize * 2) {
+								// Shift the temporary check rightwards to the right edge
+								tempCheckX = targetToMoveToX + (squareSizeIncreaseCount * 16);
+								// Start at the top right corner and move down. Subtracted the size
+								// of one side from the coordinates, since I've already iterated through
+								// a side.
+								tempCheckY = targetToMoveToY - (squareSizeIncreaseCount * 16) + (squareIteration * 16) - (((squareSizeIncreaseCount * 2) + 1) * 16);
 							}
-							// Same thing as above: if x_n_ is an odd number, shift the search rightwards.
-							// Otherwise, shift it leftwards.
-							if x_n_ & 1 {
-								tempCheckX = targetToMoveToX + ((floor(x_n_ / 2) + 1) * 16);
+							// Bottom edge, moving right to left
+							else if squareIteration < (squareEdgeSize * 3) {
+								// Start at the bottom right corner, and move left. How it works:
+								// Start at origin point targetToMoveToX. Shift over to the right
+								// edge. Move left by subtracting squareIteration * 16. Adjust for
+								// the previous two sides that have already been run through by
+								// adding the equivalent pixel size of two sides to the coordinates.
+								tempCheckX = targetToMoveToX + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) * 16) * 2);
+								// Shift the temporary check downwards to the bottom edge
+								tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
 							}
-							else {
-								tempCheckX = targetToMoveToX - (floor(x_n_ / 2) * 16);
+							// Left edge, moving bottom to top
+							else if squareIteration < (squareEdgeSize * 4) {
+								// Shift the temporary check leftwards to the left edge
+								tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16);
+								// Start at the bottom left corner and move up. Works in the same
+								// way the check in the else if statement above works with the x axis.
+								tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) * 16) * 3);
 							}
+							
+							// Iterate the count that moves along the edges up by one
+							squareIteration++;
+							// If the iteration count reaches the max amount of squares on the perimeter
+							// of the search square, reset the iteration count, increment the size increase
+							// count by one, and set squareEdgeSize to equal the correct values based off
+							// of the new squareSizeIncreaseCount value.
+							if squareIteration >= ((squareSizeIncreaseCount * 2) + 1) * 4 {
+								squareIteration = 0;
+								squareSizeIncreaseCount++;
+								squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+							}
+							// If the iteration is divisible by the size of an edge, meaning its at a corner,
+							// skip the corner. The previous frame will have already searched that corner -
+							// this skips redundant checks.
+							if (squareIteration mod ((squareSizeIncreaseCount * 2) + 1) == 0) {
+								squareIteration++;
+							}
+							// If the iteration count reaches the max amount of squares on the perimeter
+							// of the search square, reset the iteration count, increment the size increase
+							// count by one, and set squareEdgeSize to equal the correct values based off
+							// of the new squareSizeIncreaseCount value.
+							if squareIteration == ((squareSizeIncreaseCount * 2) + 1) * 4 {
+								squareIteration = 0;
+								squareSizeIncreaseCount++;
+								squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+							}
+							
 						
 							// Now that y axis has been incremented, perform preliminary searches and
 							// check for a path, or increment x_n_ further until correct location found.
@@ -776,15 +802,6 @@ if notAtTargetLocation {
 									specificLocationToBeCheckedY = tempCheckY;
 								}
 							}
-							
-							
-							// Increment x_n_ and y_n_ values
-							x_n_++;
-							if x_n_ > groupRowWidth {
-								x_n_ = 0;
-								y_n_++;
-							}
-							
 						}
 						// If I need to check for a specific location, check it
 						if specificLocationNeedsToBeChecked {
@@ -902,6 +919,9 @@ if notAtTargetLocation {
 			topForbidden = false;
 			leftForbidden = false;
 			bottomForbidden = false;
+			squareEdgeSize = 0;
+			squareSizeIncreaseCount = 0;
+			squareIteration = 0;
 			tempCheckX = -1;
 			tempCheckY = -1;
 			groupRowWidth = 0;
@@ -985,6 +1005,9 @@ else {
 	topForbidden = false;
 	leftForbidden = false;
 	bottomForbidden = false;
+	squareEdgeSize = 0;
+	squareSizeIncreaseCount = 0;
+	squareIteration = 0;
 	tempCheckX = -1;
 	tempCheckY = -1;
 	groupRowWidth = 0;
@@ -1012,6 +1035,9 @@ y = targetToMoveToY;
 cannot_move_without_better_coordinates_ = false;
 notAtTargetLocation = false;
 needToStartGridSearch = true;
+squareEdgeSize = 0;
+squareSizeIncreaseCount = 0;
+squareIteration = 0;
 x_n_ = 0;
 y_n_ = 0;
 right_n_ = 0;

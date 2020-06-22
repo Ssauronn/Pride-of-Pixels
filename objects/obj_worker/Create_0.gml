@@ -32,6 +32,9 @@ rightWallFound = false;
 topWallFound = false;
 leftWallFound = false;
 bottomWallFound = false;
+squareEdgeSize = 0;
+squareSizeIncreaseCount = 0;
+squareIteration = 0;
 tempCheckX = -1;
 tempCheckY = -1;
 amountOfTimesShifted = 0;
@@ -45,6 +48,7 @@ totalTimesSearched = 0;
 closestSearchPointToObjectX = -1;
 closestSearchPointToObjectY = -1;
 closestPointsToObjectsHaveBeenSet = false;
+
 
 // State machine
 enum worker {
