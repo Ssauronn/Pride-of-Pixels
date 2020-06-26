@@ -135,12 +135,26 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				if !objectSelected {
 					objectSelected = true;
 					obj_camera_and_gui.numberOfObjectsSelected++;
+					if ds_exists(objectsSelectedList, ds_type_list) {
+						ds_list_add(objectsSelectedList, self.id);
+					}
+					else {
+						objectsSelectedList = ds_list_create();
+						ds_list_add(objectsSelectedList, self.id);
+					}
 				}
 			}
 			else {
 				if objectSelected {
 					objectSelected = false;
 					obj_camera_and_gui.numberOfObjectsSelected--;
+					if ds_list_size(objectsSelectedList) > 1 {
+						ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
+					}
+					else {
+						ds_list_destroy(objectsSelectedList);
+						objectsSelectedList = noone;
+					}
 				}
 			}
 		}
@@ -151,6 +165,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						resource_selected_ = true;
 						objectSelected = true;
 						obj_camera_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}
@@ -160,6 +181,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						resource_selected_ = true;
 						objectSelected = true;
 						obj_camera_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}
@@ -169,6 +197,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						resource_selected_ = true;
 						objectSelected = true;
 						obj_camera_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}
@@ -178,6 +213,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						resource_selected_ = true;
 						objectSelected = true;
 						obj_camera_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}
@@ -201,12 +243,28 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					unit_selected_ = true;
 					objectSelected = true;
 					obj_camera_and_gui.numberOfObjectsSelected++;
+					if ds_exists(objectsSelectedList, ds_type_list) {
+						ds_list_add(objectsSelectedList, self.id);
+					}
+					else {
+						objectsSelectedList = ds_list_create();
+						ds_list_add(objectsSelectedList, self.id);
+					}
 				}
 			}
 			else {
 				if objectSelected {
 					objectSelected = false;
 					obj_camera_and_gui.numberOfObjectsSelected--;
+					if ds_exists(objectsSelectedList, ds_type_list) {
+						if ds_list_size(objectsSelectedList) > 1 {
+							ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
+						}
+						else {
+							ds_list_destroy(objectsSelectedList);
+							objectsSelectedList = noone;
+						}
+					}
 				}
 			}
 		}
@@ -217,6 +275,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						resource_selected_ = true;
 						objectSelected = true;
 						obj_camera_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}
@@ -226,6 +291,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						resource_selected_ = true;
 						objectSelected = true;
 						obj_camera_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}
@@ -235,6 +307,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						resource_selected_ = true;
 						objectSelected = true;
 						obj_camera_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}
@@ -244,6 +323,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						resource_selected_ = true;
 						objectSelected = true;
 						obj_camera_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}

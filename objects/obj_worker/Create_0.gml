@@ -1,7 +1,9 @@
 // Object type, used for selection and targeting purposes
 objectType = "Unit";
+objectTeam = 1;
 objectSelected = false;
 objectOnScreen = false;
+objectTarget = noone;
 
 // Depth setting
 depth = -y;

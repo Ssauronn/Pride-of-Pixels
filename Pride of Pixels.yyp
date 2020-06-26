@@ -391,6 +391,14 @@
             }
         },
         {
+            "Key": "f10b373f-c8ec-4f3b-8051-9522ca7f3ec0",
+            "Value": {
+                "id": "84a05b3a-2c53-452b-988a-9c406fc3bbcd",
+                "resourcePath": "objects\\obj_team_manager\\obj_team_manager.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "f21cfef5-6e42-4376-9dbe-ce1fc48d6010",
             "Value": {
                 "id": "eeccaf85-4e14-4482-8a48-134a43d44c46",

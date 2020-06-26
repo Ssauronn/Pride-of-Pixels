@@ -17,6 +17,7 @@ mp_grid_add_cell(movementGrid, floor(x / 16), floor(y / 16));
 
 // Object type, used for selection and targeting purposes
 objectType = "Resource";
+objectTeam = "Neutral";
 objectSelected = false;
 objectOnScreen = false;
 

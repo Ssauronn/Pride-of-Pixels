@@ -6,6 +6,7 @@ mp_grid_add_rectangle(movementGrid, x - 33, y - 32, x + 33, y - 1);
 
 // Object type, used for selection and targeting purposes
 objectType = "Resource";
+objectTeam = "Neutral";
 objectSelected = false;
 objectOnScreen = false;
 

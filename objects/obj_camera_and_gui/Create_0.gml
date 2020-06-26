@@ -12,6 +12,8 @@ mouseClampedX = 0;
 mouseClampedY = 0;
 
 numberOfObjectsSelected = 0;
+globalvar objectsSelectedList;
+objectsSelectedList = noone;
 #endregion
 
 #region Menu UX
