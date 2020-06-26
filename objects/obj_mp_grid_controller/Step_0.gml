@@ -23,77 +23,237 @@ if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 // If the mouse is on the map and not on the toolbar, then allow clicks
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_gui.toolbarHeight) {
 	if mouse_check_button_pressed(mb_right) {
-		if instance_exists(obj_worker) {
-			with obj_worker {
-				if objectSelected {
-					targetToMoveToX = floor(obj_camera_and_gui.mouseClampedX / 16) * 16;
-					targetToMoveToY = floor(obj_camera_and_gui.mouseClampedY / 16) * 16;
-					if targetToMoveToX < 0 {
-						targetToMoveToX = 0;
+		var object_at_location_ = instance_place(floor(obj_camera_and_gui.mouseClampedX / 16) * 16, floor(obj_camera_and_gui.mouseClampedY / 16) * 16, all);
+		// If objects selected are commanded onto a space occupied by a different object, get that
+		// object's type, create a ds_list including that and all other objects of the same type for
+		// use later, and send to movement script.
+		if object_at_location_ != noone {
+			var i;
+			for (i = 0; i <= ds_list_size(objectsSelectedList) - 1; i++) {
+				with ds_list_find_value(objectsSelectedList, i) {
+					// Create a list of all instances of the same type and team of the original
+					// object that was clicked on. I COULD do this outside of the for i loop, which
+					// would run this instead only once for all selected targets and really speed
+					// things up, but it would mean the direction of the search is static and objects
+					// would often take long routes to out-of-the-way objects just to attack or mine.
+					// Placing this inside the for i loop, while slowing things down nominally, will
+					// lead to more fluid combat and movement.
+					var j, k, instance_to_reference_, target_list_, x_start_, y_start_, x_sign_, y_sign_, click_direction_;
+					// Set click_direction_ to equal a number 0-3 inclusive based on the point direction 
+					// from the original object location to the click location, and then set x_sign_ and
+					// y_sign_, which determine the direction of the search, depending on that direction.
+					click_direction_ = floor(point_direction(x, y, obj_camera_and_gui.mouseClampedX, obj_camera_and_gui.mouseClampedY) / 90);
+					switch click_direction_ {
+						case 0:
+							x_start_ = 0;
+							y_start_ = 9;
+							x_sign_ = 1;
+							y_sign_ = -1;
+							break;
+						case 1:
+							x_start_ = 9;
+							y_start_ = 9;
+							x_sign_ = -1;
+							y_sign_ = -1;
+							break;
+						case 2:
+							x_start_ = 9;
+							y_start_ = 0;
+							x_sign_ = -1;
+							y_sign_ = 1;
+							break;
+						case 3:
+							x_start_ = 0;
+							y_start_ = 0;
+							x_sign_ = 1;
+							y_sign_ = 1;
+							break;
 					}
-					if targetToMoveToX > (room_width - 16) {
-						targetToMoveToX = room_width - 16;
-					}
-					if targetToMoveToY < 0 {
-						targetToMoveToY = 0;
-					}
-					if targetToMoveToY > (room_height - 16) {
-						targetToMoveToY = room_height - 16;
-					}
-					originalTargetToMoveToX = targetToMoveToX;
-					originalTargetToMoveToY = targetToMoveToY;
-					// Variables specifically used by object to move
-					notAtTargetLocation = true;
-					validLocationFound = false;
-					validPathFound = false;
-					needToStartGridSearch = true;
-					x_n_ = 0;
-					y_n_ = 0;
-					right_n_ = 0;
-					top_n_ = 0;
-					left_n_ = 0;
-					bottom_n_ = 0;
-					rightWallFound = false;
-					topWallFound = false;
-					leftWallFound = false;
-					bottomWallFound = false;
-					rightForbidden = false;
-					topForbidden = false;
-					leftForbidden = false;
-					bottomForbidden = false;
-					specificLocationNeedsToBeChecked = false;
-					specificLocationToBeCheckedX = targetToMoveToX;
-					specificLocationToBeCheckedY = targetToMoveToY;
-					squareEdgeSize = 0;
-					squareSizeIncreaseCount = 0;
-					squareIteration = 0;
-					tempCheckX = targetToMoveToX;
-					tempCheckY = targetToMoveToY;
-					searchHasJustBegun = true;
-					totalTimesSearched = 0;
-					closestPointsToObjectsHaveBeenSet = false;
-					if path_exists(myPath) {
-						path_delete(myPath);
-						myPath = -1;
-					}
-					if mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1 {
-						var x_adjustment_, y_adjustment_;
-						x_adjustment_ = 0;
-						y_adjustment_ = 0;
-						if mp_grid_get_cell(movementGrid, floor((x + movementSpeed + 1) / 16), floor(y / 16)) != -1 {
-							x_adjustment_ += (movementSpeed + 1);
+					for (j = 0; j < 10; j++) {
+						for (k = 0; k < 10; k++) {
+							// x_check_ and y_check_ iteration through a box 10x10 around the original location,
+							// and search for any objects within that box. If one is found and it matches the same
+							// team and type as the other clicked object, then set it as another potential target
+							// in the temporary ds_list.
+							var x_check_, y_check_;
+							x_check_ = (floor(obj_camera_and_gui.mouseClampedX / 16) * 16) + (5 * 16 * x_sign_) + (x_start_ * 16);
+							y_check_ = (floor(obj_camera_and_gui.mouseClampedY / 16) * 16) + (5 * 16 * y_sign_) + (y_start_ * 16);
+							instance_to_reference_ = instance_place(x_check_, y_check_, all);
+							// If an object found inside that square is: 1) not the same object clicked on, 2) the
+							// same team as the object clicked on, and 3) the same type of object as the originally
+							// clicked on object, or a unit of the same team as the building that was clicked on,
+							// or a building of the same team as the unit that was clicked on, set that as another
+							// potential target.
+							if (instance_to_reference_ != noone) && (instance_to_reference_ != object_at_location_) {
+								if instance_to_reference_.objectTeam == object_at_location_.objectTeam {
+									if (instance_to_reference_.objectType == object_at_location_.objectType) || ((instance_to_reference_.objectType  == "Unit") && (object_at_location_.objectType == "Building")) || ((instance_to_reference_.objectType == "Building") && (object_at_location_.objectType == "Unit")) {
+										if ds_exists(target_list_, ds_type_list) {
+											ds_list_add(target_list_, instance_to_reference_);
+										}
+										else {
+											target_list_ = ds_list_create();
+											ds_list_add(target_list_, instance_to_reference_);
+										}
+									}
+								}
+							}
+							// Iterate x_start_ after each for loop, to get the correct values throughout
+							// the search.
+							// If the click direction was upwards and to the left, or downwards and to the left,
+							// iterate leftwards. Otherwise, iterate to the right.
+							if (click_direction_ == 1) || (click_direction_ == 2) {
+								x_start_--;
+							}
+							else {
+								x_start_++;
+							}
 						}
-						else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y - movementSpeed - 1) / 16)) != -1 {
-							y_adjustment_ -= (movementSpeed + 1);
+						// Iterate y_start_ after each for loop, to get the correct values throughout the
+						// search. Also, reset x_start_ so that its correct at the beginning of the next section.
+						// If the click direction is upwards and to the left or right, iterate upwards. Otherwise,
+						// iterate downwards.
+						if (click_direction_ == 0) || (click_direction_ == 1) {
+							y_start_--;
 						}
-						else if mp_grid_get_cell(movementGrid, floor((x - movementSpeed - 1) / 16), floor(y / 16)) != -1 {
-							x_adjustment_ -= (movementSpeed + 1);
+						else {
+							y_start_++;
 						}
-						else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + movementSpeed + 1) / 16)) != -1 {
-							y_adjustment_ += (movementSpeed + 1);
+						// Reset x_start_.
+						if (click_direction_ == 1) || (click_direction_ == 2) {
+							x_start_ = 9;
 						}
-						x += x_adjustment_;
-						y += y_adjustment_;
+						else {
+							x_start_ = 0;
+						}
+					}
+					
+					// If the object at target location is a resource, then mine it if the object selected
+					// is an object that can mine it. An object's "team" (objectTeam) will only be set to
+					// "Neutral" if it is a resource.
+					if object_at_location_.objectTeam == "Neutral" {
+						// Out of all selected objects, if the currently referenced object in the selected
+						// object list belongs to the player, is a unit, and is a worker, then set the
+						// resource object that was clicked on as the target.
+						if objectTeam == playerTeam {
+							if objectType == "Unit" {
+								if object_index == obj_worker {
+									objectTarget = ds_list_create();
+									if ds_exists(target_list_, ds_type_list) {
+										ds_list_copy(objectTarget, target_list_);
+									}
+									else {
+										ds_list_add(objectTarget, object_at_location_);
+									}
+								}
+								else {
+									objectTarget = noone;
+								}
+							}
+						}
+					}
+					// Else if the object at target location is an enemy, attack it if the object selected
+					// is an object that can attack it.
+					else if object_at_location_.objectTeam != playerTeam {
+						if objectTeam == playerTeam {
+							if objectType == "Unit" {
+								objectTarget = ds_list_create();
+								if ds_exists(target_list_, ds_type_list) {
+									ds_list_copy(objectTarget, target_list_);
+								}
+								else {
+									ds_list_add(objectTarget, object_at_location_);
+								}
+							}
+						}
+					}
+					// Else if the object at target location is a friendly unit, nothing should be done and
+					// just reset object_at_location_ so that the object can move normally.
+					else if object_at_location_.objectTeam == playerTeam {
+						objectTarget = noone;
+					}
+					
+					// Get rid of the temporary ds_list
+					if ds_exists(target_list_, ds_type_list) {
+						ds_list_destroy(target_list_);
+						target_list_ = noone;
+					}
+					
+					
+					
+					// Finally, after setting each object's ds_lists (if necessary), reset all
+					// movement variables for each selected object.
+					if objectTeam == playerTeam {
+						if objectTarget == noone {
+							targetToMoveToX = floor(obj_camera_and_gui.mouseClampedX / 16) * 16;
+							targetToMoveToY = floor(obj_camera_and_gui.mouseClampedY / 16) * 16;
+							if targetToMoveToX < 0 {
+								targetToMoveToX = 0;
+							}
+							if targetToMoveToX > (room_width - 16) {
+								targetToMoveToX = room_width - 16;
+							}
+							if targetToMoveToY < 0 {
+								targetToMoveToY = 0;
+							}
+							if targetToMoveToY > (room_height - 16) {
+								targetToMoveToY = room_height - 16;
+							}
+							originalTargetToMoveToX = targetToMoveToX;
+							originalTargetToMoveToY = targetToMoveToY;
+							// Variables specifically used by object to move
+							notAtTargetLocation = true;
+							validLocationFound = false;
+							validPathFound = false;
+							needToStartGridSearch = true;
+							x_n_ = 0;
+							y_n_ = 0;
+							right_n_ = 0;
+							top_n_ = 0;
+							left_n_ = 0;
+							bottom_n_ = 0;
+							rightWallFound = false;
+							topWallFound = false;
+							leftWallFound = false;
+							bottomWallFound = false;
+							rightForbidden = false;
+							topForbidden = false;
+							leftForbidden = false;
+							bottomForbidden = false;
+							specificLocationNeedsToBeChecked = false;
+							specificLocationToBeCheckedX = targetToMoveToX;
+							specificLocationToBeCheckedY = targetToMoveToY;
+							squareEdgeSize = 0;
+							squareSizeIncreaseCount = 0;
+							squareIteration = 0;
+							tempCheckX = targetToMoveToX;
+							tempCheckY = targetToMoveToY;
+							searchHasJustBegun = true;
+							totalTimesSearched = 0;
+							closestPointsToObjectsHaveBeenSet = false;
+							if path_exists(myPath) {
+								path_delete(myPath);
+								myPath = -1;
+							}
+							if mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1 {
+								var x_adjustment_, y_adjustment_;
+								x_adjustment_ = 0;
+								y_adjustment_ = 0;
+								if mp_grid_get_cell(movementGrid, floor((x + movementSpeed + 1) / 16), floor(y / 16)) != -1 {
+									x_adjustment_ += (movementSpeed + 1);
+								}
+								else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y - movementSpeed - 1) / 16)) != -1 {
+									y_adjustment_ -= (movementSpeed + 1);
+								}
+								else if mp_grid_get_cell(movementGrid, floor((x - movementSpeed - 1) / 16), floor(y / 16)) != -1 {
+									x_adjustment_ -= (movementSpeed + 1);
+								}
+								else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + movementSpeed + 1) / 16)) != -1 {
+									y_adjustment_ += (movementSpeed + 1);
+								}
+								x += x_adjustment_;
+								y += y_adjustment_;
+							}
+						}
 					}
 				}
 			}
