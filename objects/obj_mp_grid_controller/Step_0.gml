@@ -137,6 +137,10 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 						if objectTeam == playerTeam {
 							if objectType == "Unit" {
 								if object_index == obj_worker {
+									if ds_exists(objectTarget, ds_type_list) {
+										ds_list_destroy(objectTarget);
+										objectTarget = noone;
+									}
 									objectTarget = ds_list_create();
 									if ds_exists(target_list_, ds_type_list) {
 										ds_list_copy(objectTarget, target_list_);
@@ -156,6 +160,10 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 					else if object_at_location_.objectTeam != playerTeam {
 						if objectTeam == playerTeam {
 							if objectType == "Unit" {
+								if ds_exists(objectTarget, ds_type_list) {
+									ds_list_destroy(objectTarget);
+									objectTarget = noone;
+								}
 								objectTarget = ds_list_create();
 								if ds_exists(target_list_, ds_type_list) {
 									ds_list_copy(objectTarget, target_list_);
