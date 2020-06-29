@@ -4,6 +4,9 @@ objectTeam = 1;
 objectSelected = false;
 objectOnScreen = false;
 objectTargetList = noone;
+objectTarget = noone;
+objectTargetTeam = noone;
+objectTargetType = noone;
 
 
 // Depth setting

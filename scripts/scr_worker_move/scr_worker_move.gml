@@ -246,407 +246,417 @@ if notAtTargetLocation {
 			}
 		}
 	}
-	// Finally, start searching for a preliminary valid location to move to.
-	if !validPathFound {
-		// If I haven't started a search yet, and if I haven't yet determined original click location isn't valid and started
-		// looking for new locations, then start the first search for a valid location to original target.
-		if ((can_be_evaluated_this_frame_) && (unitQueueCount < unitQueueMax)) {
-			var new_location_needs_to_be_checked_ = false;
-			// If the original cell clicked on is already occupied, mark it as invalid and just start a check for a 
-			// different location. This only executes if the original click location is invalid, and the search for
-			// other locations has not begun yet.
-			if searchHasJustBegun {
-				if ((right_n_ > 0) || (top_n_ > 0) || (left_n_ > 0) || (bottom_n_ > 0)) {
-					searchHasJustBegun = false;
-				}
-			}
-			else {
-				new_location_needs_to_be_checked_ = true;
-			}
-			// If the search has just begun and the box is already occupied, mark a variable as true so that the
-			// beginning box will simply be skipped over later and the search will begin.
-			if (mp_grid_get_cell(unitGridLocation, target_grid_x_, target_grid_y_) == -1) && (searchHasJustBegun) {
-				new_location_needs_to_be_checked_ = true;
-				rightWallFound = true;
-				topWallFound = true;
-				leftWallFound = true;
-				bottomWallFound = true;
-			}
-			// If the search has just begun and the box is not occupied yet, mark it to be searched later.
-			else if (mp_grid_get_cell(movementGrid, target_grid_x_, target_grid_y_) == 0) && (searchHasJustBegun) {
-				new_location_needs_to_be_checked_ = false;
-			}
-			// Reset path
-			if path_exists(myPath) {
-				path_delete(myPath);
-				myPath = noone;
-			}
-			myPath = path_add();
-			// If a search has already happened before, and a location seperate from the click location is now needing
-			// to be checked, check that location instead.
-			if specificLocationNeedsToBeChecked {
-				specificLocationNeedsToBeChecked = false;
-				current_target_to_move_to_x_ = originalTargetToMoveToX + ((right_n_ - left_n_) * 16);
-				current_target_to_move_to_y_ = originalTargetToMoveToY + ((bottom_n_ - top_n_) * 16);
-				if mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true) {
-					// If a path does exist to the newly checked location, great!
-					validPathFound = true;
-					targetToMoveToX = current_target_to_move_to_x_;
-					targetToMoveToY = current_target_to_move_to_y_;
-					new_location_needs_to_be_checked_ = false;
-				}
-				// Else if the new location to check for is still not valid, mark it as such, reset the x_n_ variables
-				// to pick up where they left off in the search, and continue the search.
-				else {
-					// Reset direction to search in, since the for loop using totalTimesSearched will
-					// correctly set it back.
-					direction_to_search_in_ = original_direction_to_search_in_;
-					// Reset x_n_ variables before starting to make sure I'm not needlessly adding.
-					right_n_ = 0;
-					top_n_ = 0;
-					left_n_ = 0;
-					bottom_n_ = 0;
-					var i;
-					for (i = 0; i < totalTimesSearched; i++) {
-						switch direction_to_search_in_ {
-							case 0:
-								right_n_++;
-								break;
-							case 1:
-								top_n_++;
-								break;
-							case 2:
-								left_n_++;
-								break;
-							case 3:
-								bottom_n_++;
-								break;
-						}
-						direction_to_search_in_++;
-						if direction_to_search_in_ > 3 {
-							direction_to_search_in_ -= 4;
-						}
-					}
-					// After resetting variables to where they were before pausing the search,
-					// I need to increment direction_to_search_in_, since that is normally
-					// done at the end of the while loop but is always skipped over in case 
-					// another location needs to be checked first.
-					direction_to_search_in_++;
-					if direction_to_search_in_ > 3 {
-						direction_to_search_in_ -= 4;
-					}
-					new_location_needs_to_be_checked_ = true;
-				}
-			}
-			// If a specific location doesn't need to be checked, or a specific location was already checked
-			// and it was found to be invalid, start searching for a new specific location to check, if needed.
-			// On the very first time this code is run, it will check for an mp_grid_path to original location
-			// and never run that line again.
-			if (!specificLocationNeedsToBeChecked) || new_location_needs_to_be_checked_ {
-				// Check for a path only if there wasn't already a previous check at a different location
-				// in this frame. Since new_location_needs_to_be_checked_ is set to true when the
-				// specificLocationNeedsToBeChecked wasn't valid, this will only activate a path check
-				// when new_location_needs_to_be_checked_ wasn't activated - when there wasn't a previous
-				// check at a different location in this frame. It can also be set to true if the original
-				// click location was invalid in the first place
-				// MEANING
-				// This will only activate at the very beginning, when specificLocationNeedsToBeChecked is set to false
-				// and so is new_location_needs_to_be_checked_.
-				if !new_location_needs_to_be_checked_ {
-					// If a path exists, great!
-					if mp_grid_path(movementGrid, myPath, x_, y_, originalTargetToMoveToX, originalTargetToMoveToY, true) {
-						validPathFound = true;
-						targetToMoveToX = floor(originalTargetToMoveToX / 16) * 16;
-						targetToMoveToY = floor(originalTargetToMoveToY / 16) * 16;
-						new_location_needs_to_be_checked_ = false;
-					}
-					// Else if a path doesn't exist, adjust variables to continue searching.
-					else {
+	// If no list of targets exists, and no target is currently set, that means this target was commanded to A) an empty
+	// location or B) a target location invalid to the type of object being commanded, then just run pathfinding as normal.
+	if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget != noone) {
+		// Finally, start searching for a preliminary valid location to move to.
+		if !validPathFound {
+			// If I haven't started a search yet, and if I haven't yet determined original click location isn't valid and started
+			// looking for new locations, then start the first search for a valid location to original target.
+			if ((can_be_evaluated_this_frame_) && (unitQueueCount < unitQueueMax)) {
+				var new_location_needs_to_be_checked_ = false;
+				// If the original cell clicked on is already occupied, mark it as invalid and just start a check for a 
+				// different location. This only executes if the original click location is invalid, and the search for
+				// other locations has not begun yet.
+				if searchHasJustBegun {
+					if ((right_n_ > 0) || (top_n_ > 0) || (left_n_ > 0) || (bottom_n_ > 0)) {
 						searchHasJustBegun = false;
 					}
 				}
-				// Else expand outwards, searching for a wall until one is found, and after one is found, 
-				// the empty space after that wall can be a potential check area.
-				else if !validPathFound {
-					// If all 4 directions to search in aren't exhausted yet, then always continue the
-					// search.
-					var still_need_to_search_ = true;
-					var valid_direction_to_search_in_ = false;
-					var forbidden_to_search_ = false;
-					while still_need_to_search_ {
-						// Increment the search by 1
-						switch direction_to_search_in_ {
-							case 0:
-								right_n_++;
-								break;
-							case 1:
-								top_n_++;
-								break;
-							case 2:
-								left_n_++;
-								break;
-							case 3:
-								bottom_n_++;
-								break;
-						}
-						// If there are no more valid spots to check for, just exit and reset variables,
-						// so that the object doesn't move anywhere.
-						var iteration_ = 0;
-						var invalid_direction_exists_ = false;
-						if (rightForbidden) && (topForbidden) && (leftForbidden) && (bottomForbidden) {
-							cannot_move_without_better_coordinates_ = true;
-							forbidden_to_search_ = true;
-							still_need_to_search_ = false;
-						}
-						// Else if there are still valid spaces that can be checked for, move the search
-						// out of any invalid spaces before searching.
-						else while (!valid_direction_to_search_in_) && (iteration_ <= 4) {
-							iteration_++;
-							if (rightForbidden) && (direction_to_search_in_ == 0) {
-								direction_to_search_in_++;
-								rightWallFound = false;
-								invalid_direction_exists_ = true;
-							}
-							else if (topForbidden) && (direction_to_search_in_ == 1) {
-								direction_to_search_in_++;
-								topWallFound = false;
-								invalid_direction_exists_ = true;
-							}
-							else if (leftForbidden) && (direction_to_search_in_ == 2) {
-								direction_to_search_in_++;
-								leftWallFound = false;
-								invalid_direction_exists_ = true;
-							}
-							else if (bottomForbidden) && (direction_to_search_in_ == 3) {
-								direction_to_search_in_++;
-								bottomWallFound = false;
-								invalid_direction_exists_ = true;
-							}
-							else {
-								valid_direction_to_search_in_ = true;
-								// Prevent it from going over
-								if direction_to_search_in_ > 3 {
-									direction_to_search_in_ -= 4;
-								}
-								if invalid_direction_exists_ {
-									switch direction_to_search_in_ {
-										case 0:
-											right_n_++;
-											break;
-										case 1:
-											top_n_++;
-											break;
-										case 2:
-											left_n_++;
-											break;
-										case 3:
-											bottom_n_++;
-											break;
-									}
-								}
-							}
-							// Prevent it from going over
-							if direction_to_search_in_ > 3 {
-								direction_to_search_in_ -= 4;
-							}
-						}
-						if iteration_ > 4 {
-							forbidden_to_search_ = true;
-							still_need_to_search_ = false;
-						}
-						// In case the direction_to_search_in_ incrementing has pushed it over max
-						// value, just reset it back to what it needs to stay in range with.
-						if direction_to_search_in_ > 3 {
-							direction_to_search_in_ -= 4;
-						}
-						// Finally, after incrementing the search and verifying the search location
-						// isn't automatically invalid, assign variables.
-						switch direction_to_search_in_ {
-							case 0:
-								current_target_to_move_to_x_ = originalTargetToMoveToX + (right_n_ * 16);
-								current_target_to_move_to_y_ = originalTargetToMoveToY;
-								break;
-							case 1:
-								current_target_to_move_to_x_ = originalTargetToMoveToX;
-								current_target_to_move_to_y_ = originalTargetToMoveToY - (top_n_ * 16);
-								break;
-							case 2:
-								current_target_to_move_to_x_ = originalTargetToMoveToX - (left_n_ * 16);
-								current_target_to_move_to_y_ = originalTargetToMoveToY;
-								break;
-							case 3:
-								current_target_to_move_to_x_ = originalTargetToMoveToX;
-								current_target_to_move_to_y_ = originalTargetToMoveToY + (bottom_n_ * 16);
-								break;
-						}
-						// If the new target location to check is invalid, mark it as such so I don't
-						// check it later on and throw an error.
-						if (current_target_to_move_to_x_ < 0) || (current_target_to_move_to_x_ > (room_width - 16)) || (current_target_to_move_to_y_ < 0) || (current_target_to_move_to_y_ > (room_height - 16)) {
+				else {
+					new_location_needs_to_be_checked_ = true;
+				}
+				// If the search has just begun and the box is already occupied, mark a variable as true so that the
+				// beginning box will simply be skipped over later and the search will begin.
+				if (mp_grid_get_cell(unitGridLocation, target_grid_x_, target_grid_y_) == -1) && (searchHasJustBegun) {
+					new_location_needs_to_be_checked_ = true;
+					rightWallFound = true;
+					topWallFound = true;
+					leftWallFound = true;
+					bottomWallFound = true;
+				}
+				// If the search has just begun and the box is not occupied yet, mark it to be searched later.
+				else if (mp_grid_get_cell(movementGrid, target_grid_x_, target_grid_y_) == 0) && (searchHasJustBegun) {
+					new_location_needs_to_be_checked_ = false;
+				}
+				// Reset path
+				if path_exists(myPath) {
+					path_delete(myPath);
+					myPath = noone;
+				}
+				myPath = path_add();
+				// If a search has already happened before, and a location seperate from the click location is now needing
+				// to be checked, check that location instead.
+				if specificLocationNeedsToBeChecked {
+					specificLocationNeedsToBeChecked = false;
+					current_target_to_move_to_x_ = originalTargetToMoveToX + ((right_n_ - left_n_) * 16);
+					current_target_to_move_to_y_ = originalTargetToMoveToY + ((bottom_n_ - top_n_) * 16);
+					if mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true) {
+						// If a path does exist to the newly checked location, great!
+						validPathFound = true;
+						targetToMoveToX = current_target_to_move_to_x_;
+						targetToMoveToY = current_target_to_move_to_y_;
+						new_location_needs_to_be_checked_ = false;
+					}
+					// Else if the new location to check for is still not valid, mark it as such, reset the x_n_ variables
+					// to pick up where they left off in the search, and continue the search.
+					else {
+						// Reset direction to search in, since the for loop using totalTimesSearched will
+						// correctly set it back.
+						direction_to_search_in_ = original_direction_to_search_in_;
+						// Reset x_n_ variables before starting to make sure I'm not needlessly adding.
+						right_n_ = 0;
+						top_n_ = 0;
+						left_n_ = 0;
+						bottom_n_ = 0;
+						var i;
+						for (i = 0; i < totalTimesSearched; i++) {
 							switch direction_to_search_in_ {
 								case 0:
-									forbidden_to_search_ = true;
-									rightForbidden = true;
-									rightWallFound = false;
+									right_n_++;
 									break;
 								case 1:
-									forbidden_to_search_ = true;
-									topForbidden = true;
-									topWallFound = false;
+									top_n_++;
 									break;
 								case 2:
-									forbidden_to_search_ = true;
-									leftForbidden = true;
-									leftWallFound = false;
+									left_n_++;
 									break;
 								case 3:
-									forbidden_to_search_ = true;
-									bottomForbidden = true;
-									bottomWallFound = false;
+									bottom_n_++;
 									break;
 							}
-						}
-						// If the direction to search in is a valid direction
-						if !forbidden_to_search_ {
-							// If the current point to test is closer than the previously closest point to test, and
-							// importantly, as long as the current point to test is not the original click area, then
-							// set that point as the closest point to the object, in case its needed later.
-							if (point_distance(current_target_to_move_to_x_, current_target_to_move_to_y_, x_, y_) < point_distance(closestSearchPointToObjectX, closestSearchPointToObjectY, x_, y_)) && !((current_target_to_move_to_x_ == originalTargetToMoveToX) && (current_target_to_move_to_y_ == originalTargetToMoveToY)) {
-								if (abs(current_target_to_move_to_x_ - x_) < 16) || (abs(current_target_to_move_to_y_ - y_) < 16) {
-									closestSearchPointToObjectX = current_target_to_move_to_x_;
-									closestSearchPointToObjectY = current_target_to_move_to_y_;
-								}
-							}
-							// If the location to be checked is a wall, mark it as such and watch out for
-							// the next available spot.
-							if mp_grid_get_cell(movementGrid, (current_target_to_move_to_x_ / 16), (current_target_to_move_to_y_ / 16)) == -1 {
-								switch direction_to_search_in_ {
-									case 0:
-										rightWallFound = true;
-										break;
-									case 1:
-										topWallFound = true;
-										break;
-									case 2:
-										leftWallFound = true;
-										break;
-									case 3:
-										bottomWallFound = true;
-										break;
-								}
-							}
-							// Else if no wall is found, I should check if a previous wall was found. If one
-							// already was, then I can mark this spot as an area to check next.
-							else {
-								if (direction_to_search_in_ == 0) && (rightWallFound) {
-									rightWallFound = false;
-									specificLocationNeedsToBeChecked = true;
-									specificLocationToBeCheckedX = current_target_to_move_to_x_;
-									specificLocationToBeCheckedY = current_target_to_move_to_y_;
-									still_need_to_search_ = false;
-								}
-								else if (direction_to_search_in_ == 1) && (topWallFound) {
-									topWallFound = false;
-									specificLocationNeedsToBeChecked = true;
-									specificLocationToBeCheckedX = current_target_to_move_to_x_;
-									specificLocationToBeCheckedY = current_target_to_move_to_y_;
-									still_need_to_search_ = false;
-								}
-								else if (direction_to_search_in_ == 2) && (leftWallFound) {
-									leftWallFound = false;
-									specificLocationNeedsToBeChecked = true;
-									specificLocationToBeCheckedX = current_target_to_move_to_x_;
-									specificLocationToBeCheckedY = current_target_to_move_to_y_;
-									still_need_to_search_ = false;
-								}
-								else if (direction_to_search_in_ == 3) && (bottomWallFound) {
-									bottomWallFound = false;
-									specificLocationNeedsToBeChecked = true;
-									specificLocationToBeCheckedX = current_target_to_move_to_x_;
-									specificLocationToBeCheckedY = current_target_to_move_to_y_;
-									still_need_to_search_ = false;
-								}
-							}
-						}
-				
-						// If a new location needs to be checked, search that new location.
-						// This is redundant, but I do the check just in case. I'll remove after
-						// I'm sure the other code works.
-						if specificLocationNeedsToBeChecked {
-							still_need_to_search_ = false;
-						}
-						// ---Reset and increment variables that need it before the while loop continues.---
-						// Only increment direction_to_search_in_ if I still need to search for a valid
-						// location. Otherwise, don't increment it.
-						if still_need_to_search_ {
 							direction_to_search_in_++;
 							if direction_to_search_in_ > 3 {
 								direction_to_search_in_ -= 4;
 							}
 						}
-						// If I don't need to search anymore, reset right_n_, top_n_, left_n_, and bottom_n_
-						// except for the x_n_ that corresponds to the current direction. All x_n_'s will be 
-						// set back to orgiinal values in case I still need to search later.
-						else switch direction_to_search_in_ {
-							case 0:
-								top_n_ = 0;
-								left_n_ = 0;
-								bottom_n_ = 0;
-								break;
-							case 1:
-								right_n_ = 0;
-								left_n_ = 0;
-								bottom_n_ = 0;
-								break;
-							case 2:
-								right_n_ = 0;
-								top_n_ = 0;
-								bottom_n_ = 0;
-								break;
-							case 3:
-								right_n_ = 0;
-								top_n_ = 0;
-								left_n_ = 0;
-								break;
+						// After resetting variables to where they were before pausing the search,
+						// I need to increment direction_to_search_in_, since that is normally
+						// done at the end of the while loop but is always skipped over in case 
+						// another location needs to be checked first.
+						direction_to_search_in_++;
+						if direction_to_search_in_ > 3 {
+							direction_to_search_in_ -= 4;
 						}
-						// Increment an important variable
-						totalTimesSearched++;
-						// Reset local variables that need resetting
-						forbidden_to_search_ = false;
+						new_location_needs_to_be_checked_ = true;
+					}
+				}
+				// If a specific location doesn't need to be checked, or a specific location was already checked
+				// and it was found to be invalid, start searching for a new specific location to check, if needed.
+				// On the very first time this code is run, it will check for an mp_grid_path to original location
+				// and never run that line again.
+				if (!specificLocationNeedsToBeChecked) || new_location_needs_to_be_checked_ {
+					// Check for a path only if there wasn't already a previous check at a different location
+					// in this frame. Since new_location_needs_to_be_checked_ is set to true when the
+					// specificLocationNeedsToBeChecked wasn't valid, this will only activate a path check
+					// when new_location_needs_to_be_checked_ wasn't activated - when there wasn't a previous
+					// check at a different location in this frame. It can also be set to true if the original
+					// click location was invalid in the first place
+					// MEANING
+					// This will only activate at the very beginning, when specificLocationNeedsToBeChecked is set to false
+					// and so is new_location_needs_to_be_checked_.
+					if !new_location_needs_to_be_checked_ {
+						// If a path exists, great!
+						if mp_grid_path(movementGrid, myPath, x_, y_, originalTargetToMoveToX, originalTargetToMoveToY, true) {
+							validPathFound = true;
+							targetToMoveToX = floor(originalTargetToMoveToX / 16) * 16;
+							targetToMoveToY = floor(originalTargetToMoveToY / 16) * 16;
+							new_location_needs_to_be_checked_ = false;
+						}
+						// Else if a path doesn't exist, adjust variables to continue searching.
+						else {
+							searchHasJustBegun = false;
+						}
+					}
+					// Else expand outwards, searching for a wall until one is found, and after one is found, 
+					// the empty space after that wall can be a potential check area.
+					else if !validPathFound {
+						// If all 4 directions to search in aren't exhausted yet, then always continue the
+						// search.
+						var still_need_to_search_ = true;
+						var valid_direction_to_search_in_ = false;
+						var forbidden_to_search_ = false;
+						while still_need_to_search_ {
+							// Increment the search by 1
+							switch direction_to_search_in_ {
+								case 0:
+									right_n_++;
+									break;
+								case 1:
+									top_n_++;
+									break;
+								case 2:
+									left_n_++;
+									break;
+								case 3:
+									bottom_n_++;
+									break;
+							}
+							// If there are no more valid spots to check for, just exit and reset variables,
+							// so that the object doesn't move anywhere.
+							var iteration_ = 0;
+							var invalid_direction_exists_ = false;
+							if (rightForbidden) && (topForbidden) && (leftForbidden) && (bottomForbidden) {
+								cannot_move_without_better_coordinates_ = true;
+								forbidden_to_search_ = true;
+								still_need_to_search_ = false;
+							}
+							// Else if there are still valid spaces that can be checked for, move the search
+							// out of any invalid spaces before searching.
+							else while (!valid_direction_to_search_in_) && (iteration_ <= 4) {
+								iteration_++;
+								if (rightForbidden) && (direction_to_search_in_ == 0) {
+									direction_to_search_in_++;
+									rightWallFound = false;
+									invalid_direction_exists_ = true;
+								}
+								else if (topForbidden) && (direction_to_search_in_ == 1) {
+									direction_to_search_in_++;
+									topWallFound = false;
+									invalid_direction_exists_ = true;
+								}
+								else if (leftForbidden) && (direction_to_search_in_ == 2) {
+									direction_to_search_in_++;
+									leftWallFound = false;
+									invalid_direction_exists_ = true;
+								}
+								else if (bottomForbidden) && (direction_to_search_in_ == 3) {
+									direction_to_search_in_++;
+									bottomWallFound = false;
+									invalid_direction_exists_ = true;
+								}
+								else {
+									valid_direction_to_search_in_ = true;
+									// Prevent it from going over
+									if direction_to_search_in_ > 3 {
+										direction_to_search_in_ -= 4;
+									}
+									if invalid_direction_exists_ {
+										switch direction_to_search_in_ {
+											case 0:
+												right_n_++;
+												break;
+											case 1:
+												top_n_++;
+												break;
+											case 2:
+												left_n_++;
+												break;
+											case 3:
+												bottom_n_++;
+												break;
+										}
+									}
+								}
+								// Prevent it from going over
+								if direction_to_search_in_ > 3 {
+									direction_to_search_in_ -= 4;
+								}
+							}
+							if iteration_ > 4 {
+								forbidden_to_search_ = true;
+								still_need_to_search_ = false;
+							}
+							// In case the direction_to_search_in_ incrementing has pushed it over max
+							// value, just reset it back to what it needs to stay in range with.
+							if direction_to_search_in_ > 3 {
+								direction_to_search_in_ -= 4;
+							}
+							// Finally, after incrementing the search and verifying the search location
+							// isn't automatically invalid, assign variables.
+							switch direction_to_search_in_ {
+								case 0:
+									current_target_to_move_to_x_ = originalTargetToMoveToX + (right_n_ * 16);
+									current_target_to_move_to_y_ = originalTargetToMoveToY;
+									break;
+								case 1:
+									current_target_to_move_to_x_ = originalTargetToMoveToX;
+									current_target_to_move_to_y_ = originalTargetToMoveToY - (top_n_ * 16);
+									break;
+								case 2:
+									current_target_to_move_to_x_ = originalTargetToMoveToX - (left_n_ * 16);
+									current_target_to_move_to_y_ = originalTargetToMoveToY;
+									break;
+								case 3:
+									current_target_to_move_to_x_ = originalTargetToMoveToX;
+									current_target_to_move_to_y_ = originalTargetToMoveToY + (bottom_n_ * 16);
+									break;
+							}
+							// If the new target location to check is invalid, mark it as such so I don't
+							// check it later on and throw an error.
+							if (current_target_to_move_to_x_ < 0) || (current_target_to_move_to_x_ > (room_width - 16)) || (current_target_to_move_to_y_ < 0) || (current_target_to_move_to_y_ > (room_height - 16)) {
+								switch direction_to_search_in_ {
+									case 0:
+										forbidden_to_search_ = true;
+										rightForbidden = true;
+										rightWallFound = false;
+										break;
+									case 1:
+										forbidden_to_search_ = true;
+										topForbidden = true;
+										topWallFound = false;
+										break;
+									case 2:
+										forbidden_to_search_ = true;
+										leftForbidden = true;
+										leftWallFound = false;
+										break;
+									case 3:
+										forbidden_to_search_ = true;
+										bottomForbidden = true;
+										bottomWallFound = false;
+										break;
+								}
+							}
+							// If the direction to search in is a valid direction
+							if !forbidden_to_search_ {
+								// If the current point to test is closer than the previously closest point to test, and
+								// importantly, as long as the current point to test is not the original click area, then
+								// set that point as the closest point to the object, in case its needed later.
+								if (point_distance(current_target_to_move_to_x_, current_target_to_move_to_y_, x_, y_) < point_distance(closestSearchPointToObjectX, closestSearchPointToObjectY, x_, y_)) && !((current_target_to_move_to_x_ == originalTargetToMoveToX) && (current_target_to_move_to_y_ == originalTargetToMoveToY)) {
+									if (abs(current_target_to_move_to_x_ - x_) < 16) || (abs(current_target_to_move_to_y_ - y_) < 16) {
+										closestSearchPointToObjectX = current_target_to_move_to_x_;
+										closestSearchPointToObjectY = current_target_to_move_to_y_;
+									}
+								}
+								// If the location to be checked is a wall, mark it as such and watch out for
+								// the next available spot.
+								if mp_grid_get_cell(movementGrid, (current_target_to_move_to_x_ / 16), (current_target_to_move_to_y_ / 16)) == -1 {
+									switch direction_to_search_in_ {
+										case 0:
+											rightWallFound = true;
+											break;
+										case 1:
+											topWallFound = true;
+											break;
+										case 2:
+											leftWallFound = true;
+											break;
+										case 3:
+											bottomWallFound = true;
+											break;
+									}
+								}
+								// Else if no wall is found, I should check if a previous wall was found. If one
+								// already was, then I can mark this spot as an area to check next.
+								else {
+									if (direction_to_search_in_ == 0) && (rightWallFound) {
+										rightWallFound = false;
+										specificLocationNeedsToBeChecked = true;
+										specificLocationToBeCheckedX = current_target_to_move_to_x_;
+										specificLocationToBeCheckedY = current_target_to_move_to_y_;
+										still_need_to_search_ = false;
+									}
+									else if (direction_to_search_in_ == 1) && (topWallFound) {
+										topWallFound = false;
+										specificLocationNeedsToBeChecked = true;
+										specificLocationToBeCheckedX = current_target_to_move_to_x_;
+										specificLocationToBeCheckedY = current_target_to_move_to_y_;
+										still_need_to_search_ = false;
+									}
+									else if (direction_to_search_in_ == 2) && (leftWallFound) {
+										leftWallFound = false;
+										specificLocationNeedsToBeChecked = true;
+										specificLocationToBeCheckedX = current_target_to_move_to_x_;
+										specificLocationToBeCheckedY = current_target_to_move_to_y_;
+										still_need_to_search_ = false;
+									}
+									else if (direction_to_search_in_ == 3) && (bottomWallFound) {
+										bottomWallFound = false;
+										specificLocationNeedsToBeChecked = true;
+										specificLocationToBeCheckedX = current_target_to_move_to_x_;
+										specificLocationToBeCheckedY = current_target_to_move_to_y_;
+										still_need_to_search_ = false;
+									}
+								}
+							}
+				
+							// If a new location needs to be checked, search that new location.
+							// This is redundant, but I do the check just in case. I'll remove after
+							// I'm sure the other code works.
+							if specificLocationNeedsToBeChecked {
+								still_need_to_search_ = false;
+							}
+							// ---Reset and increment variables that need it before the while loop continues.---
+							// Only increment direction_to_search_in_ if I still need to search for a valid
+							// location. Otherwise, don't increment it.
+							if still_need_to_search_ {
+								direction_to_search_in_++;
+								if direction_to_search_in_ > 3 {
+									direction_to_search_in_ -= 4;
+								}
+							}
+							// If I don't need to search anymore, reset right_n_, top_n_, left_n_, and bottom_n_
+							// except for the x_n_ that corresponds to the current direction. All x_n_'s will be 
+							// set back to orgiinal values in case I still need to search later.
+							else switch direction_to_search_in_ {
+								case 0:
+									top_n_ = 0;
+									left_n_ = 0;
+									bottom_n_ = 0;
+									break;
+								case 1:
+									right_n_ = 0;
+									left_n_ = 0;
+									bottom_n_ = 0;
+									break;
+								case 2:
+									right_n_ = 0;
+									top_n_ = 0;
+									bottom_n_ = 0;
+									break;
+								case 3:
+									right_n_ = 0;
+									top_n_ = 0;
+									left_n_ = 0;
+									break;
+							}
+							// Increment an important variable
+							totalTimesSearched++;
+							// Reset local variables that need resetting
+							forbidden_to_search_ = false;
+						}
 					}
 				}
 			}
 		}
-	}
-	if cannot_move_without_better_coordinates_ {
-		cannot_move_without_better_coordinates_ = false;
-		targetToMoveToX = floor(closestSearchPointToObjectX / 16) * 16;
-		targetToMoveToY = floor(closestSearchPointToObjectY / 16) * 16;
-		originalTargetToMoveToX = targetToMoveToX;
-		originalTargetToMoveToY = targetToMoveToY;
-		validPathFound = false;
-		validLocationFound = false;
-		needToStartGridSearch = true;
-		right_n_ = 0;
-		top_n_ = 0;
-		left_n_ = 0;
-		bottom_n_ = 0;
-		rightWallFound = false;
-		topWallFound = false;
-		leftWallFound = false;
-		bottomWallFound = false;
-		rightForbidden = false;
-		topForbidden = false;
-		leftForbidden = false;
-		bottomForbidden = false;
-		specificLocationNeedsToBeChecked = false;
-		specificLocationToBeCheckedX = -1;
-		specificLocationToBeCheckedY = -1;
-		searchHasJustBegun = true;
-		totalTimesSearched = 0;
-		if path_exists(myPath) {
-			path_delete(myPath);
-			myPath = -1;
+		if cannot_move_without_better_coordinates_ {
+			cannot_move_without_better_coordinates_ = false;
+			targetToMoveToX = floor(closestSearchPointToObjectX / 16) * 16;
+			targetToMoveToY = floor(closestSearchPointToObjectY / 16) * 16;
+			originalTargetToMoveToX = targetToMoveToX;
+			originalTargetToMoveToY = targetToMoveToY;
+			validPathFound = false;
+			validLocationFound = false;
+			needToStartGridSearch = true;
+			right_n_ = 0;
+			top_n_ = 0;
+			left_n_ = 0;
+			bottom_n_ = 0;
+			rightWallFound = false;
+			topWallFound = false;
+			leftWallFound = false;
+			bottomWallFound = false;
+			rightForbidden = false;
+			topForbidden = false;
+			leftForbidden = false;
+			bottomForbidden = false;
+			specificLocationNeedsToBeChecked = false;
+			specificLocationToBeCheckedX = -1;
+			specificLocationToBeCheckedY = -1;
+			searchHasJustBegun = true;
+			totalTimesSearched = 0;
+			if path_exists(myPath) {
+				path_delete(myPath);
+				myPath = -1;
+			}
 		}
+	}
+	// Else if either a list of targets exists (this object was commanded to move towards a target)
+	// or its target variable, objectTarget, is already set, then just reset variables that allow
+	// next section of code to run.
+	else {
+		validPathFound = true;
 	}
 
 
@@ -707,100 +717,113 @@ if notAtTargetLocation {
 						// If, after checking for a specific location, it still wasn't valid,
 						// move on and continue the search.
 						if still_need_to_search_ {
-							squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-							// Top edge, moving left to right
-							if squareIteration < squareEdgeSize {
-								// Start at the left corner and move right
-								tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
-								// Shift the temporary check upwards to the top edge
-								tempCheckY = targetToMoveToY - (squareSizeIncreaseCount * 16);
-							}
-							// Right edge, moving top to bottom
-							else if squareIteration < (squareEdgeSize * 2) {
-								// Shift the temporary check rightwards to the right edge
-								tempCheckX = targetToMoveToX + (squareSizeIncreaseCount * 16);
-								// Start at the top right corner and move down. Subtracted the size
-								// of one side from the coordinates, since I've already iterated through
-								// a side.
-								tempCheckY = targetToMoveToY - (squareSizeIncreaseCount * 16) + (squareIteration * 16) - (((squareSizeIncreaseCount * 2) + 1) * 16);
-							}
-							// Bottom edge, moving right to left
-							else if squareIteration < (squareEdgeSize * 3) {
-								// Start at the bottom right corner, and move left. How it works:
-								// Start at origin point targetToMoveToX. Shift over to the right
-								// edge. Move left by subtracting squareIteration * 16. Adjust for
-								// the previous two sides that have already been run through by
-								// adding the equivalent pixel size of two sides to the coordinates.
-								tempCheckX = targetToMoveToX + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) * 16) * 2);
-								// Shift the temporary check downwards to the bottom edge
-								tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
-							}
-							// Left edge, moving bottom to top
-							else if squareIteration < (squareEdgeSize * 4) {
-								// Shift the temporary check leftwards to the left edge
-								tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16);
-								// Start at the bottom left corner and move up. Works in the same
-								// way the check in the else if statement above works with the x axis.
-								tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) * 16) * 3);
-							}
+							// As long as the object doesn't have a specific target to focus, perform normal
+							// pathfinding.
+							if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget != noone) {
+								squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+								// Top edge, moving left to right
+								if squareIteration < squareEdgeSize {
+									// Start at the left corner and move right
+									tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
+									// Shift the temporary check upwards to the top edge
+									tempCheckY = targetToMoveToY - (squareSizeIncreaseCount * 16);
+								}
+								// Right edge, moving top to bottom
+								else if squareIteration < (squareEdgeSize * 2) {
+									// Shift the temporary check rightwards to the right edge
+									tempCheckX = targetToMoveToX + (squareSizeIncreaseCount * 16);
+									// Start at the top right corner and move down. Subtracted the size
+									// of one side from the coordinates, since I've already iterated through
+									// a side.
+									tempCheckY = targetToMoveToY - (squareSizeIncreaseCount * 16) + (squareIteration * 16) - (((squareSizeIncreaseCount * 2) + 1) * 16);
+								}
+								// Bottom edge, moving right to left
+								else if squareIteration < (squareEdgeSize * 3) {
+									// Start at the bottom right corner, and move left. How it works:
+									// Start at origin point targetToMoveToX. Shift over to the right
+									// edge. Move left by subtracting squareIteration * 16. Adjust for
+									// the previous two sides that have already been run through by
+									// adding the equivalent pixel size of two sides to the coordinates.
+									tempCheckX = targetToMoveToX + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) * 16) * 2);
+									// Shift the temporary check downwards to the bottom edge
+									tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
+								}
+								// Left edge, moving bottom to top
+								else if squareIteration < (squareEdgeSize * 4) {
+									// Shift the temporary check leftwards to the left edge
+									tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16);
+									// Start at the bottom left corner and move up. Works in the same
+									// way the check in the else if statement above works with the x axis.
+									tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) * 16) * 3);
+								}
 							
-							// Iterate the count that moves along the edges up by one
-							squareIteration++;
-							// If the iteration count reaches the max amount of squares on the perimeter
-							// of the search square, reset the iteration count, increment the size increase
-							// count by one, and set squareEdgeSize to equal the correct values based off
-							// of the new squareSizeIncreaseCount value.
-							if squareIteration >= ((squareSizeIncreaseCount * 2) + 1) * 4 {
-								squareIteration = 0;
-								squareSizeIncreaseCount++;
-								squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-							}
-							// If the iteration is divisible by the size of an edge, meaning its at a corner,
-							// skip the corner. The previous frame will have already searched that corner -
-							// this skips redundant checks.
-							if (squareIteration mod ((squareSizeIncreaseCount * 2) + 1) == 0) {
+								// Iterate the count that moves along the edges up by one
 								squareIteration++;
-							}
-							// If the iteration count reaches the max amount of squares on the perimeter
-							// of the search square, reset the iteration count, increment the size increase
-							// count by one, and set squareEdgeSize to equal the correct values based off
-							// of the new squareSizeIncreaseCount value.
-							if squareIteration == ((squareSizeIncreaseCount * 2) + 1) * 4 {
-								squareIteration = 0;
-								squareSizeIncreaseCount++;
-								squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-							}
+								// If the iteration count reaches the max amount of squares on the perimeter
+								// of the search square, reset the iteration count, increment the size increase
+								// count by one, and set squareEdgeSize to equal the correct values based off
+								// of the new squareSizeIncreaseCount value.
+								if squareIteration >= ((squareSizeIncreaseCount * 2) + 1) * 4 {
+									squareIteration = 0;
+									squareSizeIncreaseCount++;
+									squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+								}
+								// If the iteration is divisible by the size of an edge, meaning its at a corner,
+								// skip the corner. The previous frame will have already searched that corner -
+								// this skips redundant checks.
+								if (squareIteration mod ((squareSizeIncreaseCount * 2) + 1) == 0) {
+									squareIteration++;
+								}
+								// If the iteration count reaches the max amount of squares on the perimeter
+								// of the search square, reset the iteration count, increment the size increase
+								// count by one, and set squareEdgeSize to equal the correct values based off
+								// of the new squareSizeIncreaseCount value.
+								if squareIteration == ((squareSizeIncreaseCount * 2) + 1) * 4 {
+									squareIteration = 0;
+									squareSizeIncreaseCount++;
+									squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+								}
 							
 						
-							// Now that y axis has been incremented, perform preliminary searches and
-							// check for a path, or increment x_n_ further until correct location found.
-							// First, check to see if the cell itself is a valid location. If not, its
-							// automatically excluded.
-							if mp_grid_get_cell(movementGrid, tempCheckX / 16, tempCheckY / 16) == 0 {
-								var i, temp_instance_, temp_instance_x_, temp_instance_y_;
-								var location_occupied_ = false;
-								// Check to see if any object currently has that space occupied, and if not,
-								// occupy it.
-								if ds_exists(unitGridLocation, ds_type_grid) {
-									for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
-										temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
-										temp_instance_x_ = ds_grid_get(unitGridLocation, 1, i);
-										temp_instance_y_ = ds_grid_get(unitGridLocation, 2, i);
-										if (temp_instance_.id != self.id) && (temp_instance_x_ == tempCheckX) && (temp_instance_y_ == tempCheckY) {
-											location_occupied_ = true;
+								// Now that y axis has been incremented, perform preliminary searches and
+								// check for a path, or increment x_n_ further until correct location found.
+								// First, check to see if the cell itself is a valid location. If not, its
+								// automatically excluded.
+								if mp_grid_get_cell(movementGrid, tempCheckX / 16, tempCheckY / 16) == 0 {
+									var i, temp_instance_, temp_instance_x_, temp_instance_y_;
+									var location_occupied_ = false;
+									// Check to see if any object currently has that space occupied, and if not,
+									// occupy it.
+									if ds_exists(unitGridLocation, ds_type_grid) {
+										for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+											temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
+											temp_instance_x_ = ds_grid_get(unitGridLocation, 1, i);
+											temp_instance_y_ = ds_grid_get(unitGridLocation, 2, i);
+											if (temp_instance_.id != self.id) && (temp_instance_x_ == tempCheckX) && (temp_instance_y_ == tempCheckY) {
+												location_occupied_ = true;
+											}
+										}
+										if !location_occupied_ {
+											specificLocationNeedsToBeChecked = true;
+											specificLocationToBeCheckedX = tempCheckX;
+											specificLocationToBeCheckedY = tempCheckY;
 										}
 									}
-									if !location_occupied_ {
+									else {
 										specificLocationNeedsToBeChecked = true;
 										specificLocationToBeCheckedX = tempCheckX;
 										specificLocationToBeCheckedY = tempCheckY;
 									}
 								}
-								else {
-									specificLocationNeedsToBeChecked = true;
-									specificLocationToBeCheckedX = tempCheckX;
-									specificLocationToBeCheckedY = tempCheckY;
-								}
+							}
+							// Else if the object running this script has an active target to move to, then
+							// move to an adjacent spot next to that target. If none is found, search through
+							// the objectTargetList (if it exists) for any other valid targets within range of 
+							// the original click location, and if no valid target exists, or no valid adjacent
+							// spot to any valid targets exist, reset variables and restart this script as 
+							// normal pathfinding without a target.
+							else {
+								
 							}
 						}
 						// If I need to check for a specific location, check it
