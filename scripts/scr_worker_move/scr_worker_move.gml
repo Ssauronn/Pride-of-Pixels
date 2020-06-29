@@ -248,7 +248,7 @@ if notAtTargetLocation {
 	}
 	// If no list of targets exists, and no target is currently set, that means this target was commanded to A) an empty
 	// location or B) a target location invalid to the type of object being commanded, then just run pathfinding as normal.
-	if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget != noone) {
+	if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
 		// Finally, start searching for a preliminary valid location to move to.
 		if !validPathFound {
 			// If I haven't started a search yet, and if I haven't yet determined original click location isn't valid and started
@@ -719,7 +719,7 @@ if notAtTargetLocation {
 						if still_need_to_search_ {
 							// As long as the object doesn't have a specific target to focus, perform normal
 							// pathfinding.
-							if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget != noone) {
+							if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
 								squareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 								// Top edge, moving left to right
 								if squareIteration < squareEdgeSize {

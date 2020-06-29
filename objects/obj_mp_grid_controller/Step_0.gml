@@ -23,7 +23,9 @@ if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 // If the mouse is on the map and not on the toolbar, then allow clicks
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_gui.toolbarHeight) {
 	if mouse_check_button_pressed(mb_right) {
-		var object_at_location_ = instance_place(floor(obj_camera_and_gui.mouseClampedX / 16) * 16, floor(obj_camera_and_gui.mouseClampedY / 16) * 16, all);
+		with obj_worker {
+			var object_at_location_ = instance_place(mouse_x, mouse_y, all);
+		}
 		// If objects selected are commanded onto a space occupied by a different object, get that
 		// object's type, create a ds_list including that and all other objects of the same type for
 		// use later, and send to movement script.
@@ -44,6 +46,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 						// Placing this inside the for i loop, while slowing things down nominally, will
 						// lead to more fluid combat and movement.
 						var j, k, instance_to_reference_, target_list_, x_start_, y_start_, x_sign_, y_sign_, click_direction_;
+						target_list_ = noone;
 						// Set click_direction_ to equal a number 0-3 inclusive based on the point direction 
 						// from the original object location to the click location, and then set x_sign_ and
 						// y_sign_, which determine the direction of the search, depending on that direction.
@@ -247,9 +250,6 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 						searchHasJustBegun = true;
 						totalTimesSearched = 0;
 						closestPointsToObjectsHaveBeenSet = false;
-						objectTarget = noone;
-						objectTargetType = noone;
-						objectTargetTeam = noone;
 						if path_exists(myPath) {
 							path_delete(myPath);
 							myPath = -1;
@@ -330,9 +330,6 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 							searchHasJustBegun = true;
 							totalTimesSearched = 0;
 							closestPointsToObjectsHaveBeenSet = false;
-							objectTarget = noone;
-							objectTargetType = noone;
-							objectTargetTeam = noone;
 							if path_exists(myPath) {
 								path_delete(myPath);
 								myPath = -1;
