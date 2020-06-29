@@ -3,7 +3,11 @@ objectType = "Unit";
 objectTeam = 1;
 objectSelected = false;
 objectOnScreen = false;
+objectTargetList = noone;
 objectTarget = noone;
+objectTargetTeam = noone;
+objectTargetType = noone;
+
 
 // Depth setting
 depth = -y;
@@ -97,6 +101,10 @@ workerSprite[worker.attack, workerDirection.down] = spr_worker;
 currentAction = worker.move;
 currentDirection = workerDirection.right;
 currentSprite = workerSprite[currentAction, currentDirection];
+// Index speed
+currentImageIndex = 0;
+currentImageIndexSpeed = 10 / room_speed;
+
 
 // Add self to the location grid if it hasn't been added yet
 if ds_exists(unitGridLocation, ds_type_grid) {
