@@ -139,21 +139,21 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 						if objectTeam == playerTeam {
 							if objectType == "Unit" {
 								if object_index == obj_worker {
-									if ds_exists(objectTarget, ds_type_list) {
-										ds_list_destroy(objectTarget);
-										objectTarget = noone;
+									if ds_exists(objectTargetList, ds_type_list) {
+										ds_list_destroy(objectTargetList);
+										objectTargetList = noone;
 									}
-									objectTarget = ds_list_create();
+									objectTargetList = ds_list_create();
 									if ds_exists(target_list_, ds_type_list) {
-										ds_list_copy(objectTarget, target_list_);
-										ds_list_insert(objectTarget, 0, object_at_location_);
+										ds_list_copy(objectTargetList, target_list_);
+										ds_list_insert(objectTargetList, 0, object_at_location_);
 									}
 									else {
-										ds_list_add(objectTarget, object_at_location_);
+										ds_list_add(objectTargetList, object_at_location_);
 									}
 								}
 								else {
-									objectTarget = noone;
+									objectTargetList = noone;
 								}
 							}
 						}
@@ -163,17 +163,17 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 					else if object_at_location_.objectTeam != playerTeam {
 						if objectTeam == playerTeam {
 							if objectType == "Unit" {
-								if ds_exists(objectTarget, ds_type_list) {
-									ds_list_destroy(objectTarget);
-									objectTarget = noone;
+								if ds_exists(objectTargetList, ds_type_list) {
+									ds_list_destroy(objectTargetList);
+									objectTargetList = noone;
 								}
-								objectTarget = ds_list_create();
+								objectTargetList = ds_list_create();
 								if ds_exists(target_list_, ds_type_list) {
-									ds_list_copy(objectTarget, target_list_);
-									ds_list_insert(objectTarget, 0, object_at_location_);
+									ds_list_copy(objectTargetList, target_list_);
+									ds_list_insert(objectTargetList, 0, object_at_location_);
 								}
 								else {
-									ds_list_add(objectTarget, object_at_location_);
+									ds_list_add(objectTargetList, object_at_location_);
 								}
 							}
 						}
@@ -181,7 +181,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 					// Else if the object at target location is a friendly unit, nothing should be done and
 					// just reset object_at_location_ so that the object can move normally.
 					else if object_at_location_.objectTeam == playerTeam {
-						objectTarget = noone;
+						objectTargetList = noone;
 					}
 					
 					// Get rid of the temporary ds_list
@@ -274,7 +274,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 			for (i = 0; i <= ds_list_size(objectsSelectedList) - 1; i++) {
 				with ds_list_find_value(objectsSelectedList, i) {
 					if objectTeam == playerTeam {
-						if objectTarget == noone {
+						if objectTargetList == noone {
 							targetToMoveToX = floor(obj_camera_and_gui.mouseClampedX / 16) * 16;
 							targetToMoveToY = floor(obj_camera_and_gui.mouseClampedY / 16) * 16;
 							if targetToMoveToX < 0 {

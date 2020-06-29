@@ -3,7 +3,8 @@ objectType = "Unit";
 objectTeam = 1;
 objectSelected = false;
 objectOnScreen = false;
-objectTarget = noone;
+objectTargetList = noone;
+
 
 // Depth setting
 depth = -y;
