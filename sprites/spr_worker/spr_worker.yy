@@ -69,10 +69,13 @@
   ],
   "parent": {
     "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "path": "folders/Units/Sprites.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_worker",
-  "tags": [],
+  "tags": [
+    "unit",
+    "worker",
+  ],
   "resourceType": "GMSprite",
 }

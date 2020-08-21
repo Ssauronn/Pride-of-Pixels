@@ -21,7 +21,7 @@ if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 }
 
 // If the mouse is on the map and not on the toolbar, then allow clicks
-if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_gui.toolbarHeight) {
+if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
 	if mouse_check_button_pressed(mb_right) {
 		with obj_worker {
 			var object_at_location_ = instance_place(mouse_x, mouse_y, all);
@@ -50,7 +50,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 						// Set click_direction_ to equal a number 0-3 inclusive based on the point direction 
 						// from the original object location to the click location, and then set x_sign_ and
 						// y_sign_, which determine the direction of the search, depending on that direction.
-						click_direction_ = floor(point_direction(x, y, obj_camera_and_gui.mouseClampedX, obj_camera_and_gui.mouseClampedY) / 90);
+						click_direction_ = floor(point_direction(x, y, obj_camera_inputs_and_gui.mouseClampedX, obj_camera_inputs_and_gui.mouseClampedY) / 90);
 						switch click_direction_ {
 							case 0:
 								x_start_ = 0;
@@ -86,8 +86,8 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 								// team and type as the other clicked object, then set it as another potential target
 								// in the temporary ds_list.
 								var x_check_, y_check_;
-								x_check_ = (floor(obj_camera_and_gui.mouseClampedX / 16) * 16) + (5 * 16 * x_sign_) + (x_start_ * 16);
-								y_check_ = (floor(obj_camera_and_gui.mouseClampedY / 16) * 16) + (5 * 16 * y_sign_) + (y_start_ * 16);
+								x_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16) + (5 * 16 * x_sign_) + (x_start_ * 16);
+								y_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16) + (5 * 16 * y_sign_) + (y_start_ * 16);
 								instance_to_reference_ = instance_place(x_check_, y_check_, all);
 								// If an object found inside that square is: 1) not the same object clicked on, 2) the
 								// same team as the object clicked on, and 3) the same type of object as the originally
@@ -204,8 +204,8 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 					
 						// Finally, after setting each object's ds_lists (if necessary), reset all
 						// movement variables for each selected object.
-						targetToMoveToX = floor(obj_camera_and_gui.mouseClampedX / 16) * 16;
-						targetToMoveToY = floor(obj_camera_and_gui.mouseClampedY / 16) * 16;
+						targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
+						targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
 						if targetToMoveToX < 0 {
 							targetToMoveToX = 0;
 						}
@@ -284,8 +284,8 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_and_
 				with ds_list_find_value(objectsSelectedList, i) {
 					if objectTeam == playerTeam {
 						if objectTargetList == noone {
-							targetToMoveToX = floor(obj_camera_and_gui.mouseClampedX / 16) * 16;
-							targetToMoveToY = floor(obj_camera_and_gui.mouseClampedY / 16) * 16;
+							targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
+							targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
 							if targetToMoveToX < 0 {
 								targetToMoveToX = 0;
 							}

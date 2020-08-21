@@ -25,11 +25,15 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "Game Initialization",
+    "path": "folders/Game Initialization.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_mp_grid_controller",
-  "tags": [],
+  "tags": [
+    "controller",
+    "initialize",
+    "mp_grid",
+  ],
   "resourceType": "GMObject",
 }

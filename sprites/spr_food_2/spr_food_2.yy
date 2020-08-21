@@ -69,7 +69,7 @@
   ],
   "parent": {
     "name": "grp_food",
-    "path": "folders/Sprites/grp_food.yy",
+    "path": "folders/Resources/Sprites/grp_food.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_food_2",

@@ -30,10 +30,13 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Objects",
-    "path": "folders/Objects.yy",
+    "path": "folders/Units/Objects.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_worker",
-  "tags": [],
+  "tags": [
+    "unit",
+    "worker",
+  ],
   "resourceType": "GMObject",
 }
