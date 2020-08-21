@@ -69,7 +69,7 @@
   ],
   "parent": {
     "name": "grp_gold",
-    "path": "folders/Sprites/grp_gold.yy",
+    "path": "folders/Resources/Sprites/grp_gold.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_gold_mine_2",

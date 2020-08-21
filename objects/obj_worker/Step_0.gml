@@ -45,7 +45,7 @@ switch currentAction {
 		
 		break;
 	case worker.move:
-		script_execute(scr_worker_move);
+		worker_move();
 		break;
 	case worker.chop:
 		

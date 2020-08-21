@@ -30,10 +30,12 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Objects",
-    "path": "folders/Objects.yy",
+    "path": "folders/Resources/Objects.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_gold_resource",
-  "tags": [],
+  "tags": [
+    "resource",
+  ],
   "resourceType": "GMObject",
 }

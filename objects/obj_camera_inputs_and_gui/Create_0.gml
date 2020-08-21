@@ -1,6 +1,6 @@
 cameraMovementSpeed = 12;
 
-#region Mouse UX
+#region Mouse UI
 mouseBufferDistanceToEdgeOfScreen = 8;
 
 mbLeftPressedXCoordinate = -1;

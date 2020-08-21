@@ -69,7 +69,7 @@
   ],
   "parent": {
     "name": "grp_trees",
-    "path": "folders/Sprites/grp_trees.yy",
+    "path": "folders/Resources/Sprites/grp_trees.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_tree_2",

@@ -57,7 +57,7 @@ if (mouse_check_button_pressed(mb_left)) && (device_mouse_y_to_gui(0) <= (view_g
 	mbLeftPressedYCoordinate = floor(mouseClampedY / 16) * 16;
 	// Reset the currently selected units
 	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_worker);
-	obj_camera_and_gui.numberOfObjectsSelected = 0;
+	obj_camera_inputs_and_gui.numberOfObjectsSelected = 0;
 	selectedUnitsDefaultDirectionToFace = -1;
 }
 // If the button is continuously held down in the original spot it was pressed,
@@ -134,7 +134,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				unit_selected_ = true;
 				if !objectSelected {
 					objectSelected = true;
-					obj_camera_and_gui.numberOfObjectsSelected++;
+					obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 					if ds_exists(objectsSelectedList, ds_type_list) {
 						ds_list_add(objectsSelectedList, self.id);
 					}
@@ -147,7 +147,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 			else {
 				if objectSelected {
 					objectSelected = false;
-					obj_camera_and_gui.numberOfObjectsSelected--;
+					obj_camera_inputs_and_gui.numberOfObjectsSelected--;
 					if ds_list_size(objectsSelectedList) > 1 {
 						ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
 					}
@@ -164,7 +164,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
-						obj_camera_and_gui.numberOfObjectsSelected++;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
 							ds_list_add(objectsSelectedList, self.id);
 						}
@@ -180,7 +180,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
-						obj_camera_and_gui.numberOfObjectsSelected++;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
 							ds_list_add(objectsSelectedList, self.id);
 						}
@@ -196,7 +196,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
-						obj_camera_and_gui.numberOfObjectsSelected++;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
 							ds_list_add(objectsSelectedList, self.id);
 						}
@@ -212,7 +212,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
-						obj_camera_and_gui.numberOfObjectsSelected++;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
 							ds_list_add(objectsSelectedList, self.id);
 						}
@@ -242,7 +242,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				if !objectSelected {
 					unit_selected_ = true;
 					objectSelected = true;
-					obj_camera_and_gui.numberOfObjectsSelected++;
+					obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 					if ds_exists(objectsSelectedList, ds_type_list) {
 						ds_list_add(objectsSelectedList, self.id);
 					}
@@ -255,7 +255,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 			else {
 				if objectSelected {
 					objectSelected = false;
-					obj_camera_and_gui.numberOfObjectsSelected--;
+					obj_camera_inputs_and_gui.numberOfObjectsSelected--;
 					if ds_exists(objectsSelectedList, ds_type_list) {
 						if ds_list_size(objectsSelectedList) > 1 {
 							ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
@@ -274,7 +274,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
-						obj_camera_and_gui.numberOfObjectsSelected++;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
 							ds_list_add(objectsSelectedList, self.id);
 						}
@@ -290,7 +290,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
-						obj_camera_and_gui.numberOfObjectsSelected++;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
 							ds_list_add(objectsSelectedList, self.id);
 						}
@@ -306,7 +306,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
-						obj_camera_and_gui.numberOfObjectsSelected++;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
 							ds_list_add(objectsSelectedList, self.id);
 						}
@@ -322,7 +322,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
-						obj_camera_and_gui.numberOfObjectsSelected++;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
 							ds_list_add(objectsSelectedList, self.id);
 						}

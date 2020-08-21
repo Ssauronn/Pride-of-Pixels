@@ -73,34 +73,34 @@ enum workerDirection {
 	down
 }
 // Sprite setting array
-workerSprite[worker.idle, workerDirection.right] = spr_worker;
-workerSprite[worker.idle, workerDirection.up] = spr_worker;
-workerSprite[worker.idle, workerDirection.left] = spr_worker;
-workerSprite[worker.idle, workerDirection.down] = spr_worker;
-workerSprite[worker.move, workerDirection.right] = spr_worker;
-workerSprite[worker.move, workerDirection.up] = spr_worker;
-workerSprite[worker.move, workerDirection.left] = spr_worker;
-workerSprite[worker.move, workerDirection.down] = spr_worker;
-workerSprite[worker.chop, workerDirection.right] = spr_worker;
-workerSprite[worker.chop, workerDirection.up] = spr_worker;
-workerSprite[worker.chop, workerDirection.left] = spr_worker;
-workerSprite[worker.chop, workerDirection.down] = spr_worker;
-workerSprite[worker.farm, workerDirection.right] = spr_worker;
-workerSprite[worker.farm, workerDirection.up] = spr_worker;
-workerSprite[worker.farm, workerDirection.left] = spr_worker;
-workerSprite[worker.farm, workerDirection.down] = spr_worker;
-workerSprite[worker.mine, workerDirection.right] = spr_worker;
-workerSprite[worker.mine, workerDirection.up] = spr_worker;
-workerSprite[worker.mine, workerDirection.left] = spr_worker;
-workerSprite[worker.mine, workerDirection.down] = spr_worker;
-workerSprite[worker.attack, workerDirection.right] = spr_worker;
-workerSprite[worker.attack, workerDirection.up] = spr_worker;
-workerSprite[worker.attack, workerDirection.left] = spr_worker;
-workerSprite[worker.attack, workerDirection.down] = spr_worker;
+workerSprite[worker.idle][workerDirection.right] = spr_worker;
+workerSprite[worker.idle][workerDirection.up] = spr_worker;
+workerSprite[worker.idle][workerDirection.left] = spr_worker;
+workerSprite[worker.idle][workerDirection.down] = spr_worker;
+workerSprite[worker.move][workerDirection.right] = spr_worker;
+workerSprite[worker.move][workerDirection.up] = spr_worker;
+workerSprite[worker.move][workerDirection.left] = spr_worker;
+workerSprite[worker.move][workerDirection.down] = spr_worker;
+workerSprite[worker.chop][workerDirection.right] = spr_worker;
+workerSprite[worker.chop][workerDirection.up] = spr_worker;
+workerSprite[worker.chop][workerDirection.left] = spr_worker;
+workerSprite[worker.chop][workerDirection.down] = spr_worker;
+workerSprite[worker.farm][workerDirection.right] = spr_worker;
+workerSprite[worker.farm][workerDirection.up] = spr_worker;
+workerSprite[worker.farm][workerDirection.left] = spr_worker;
+workerSprite[worker.farm][workerDirection.down] = spr_worker;
+workerSprite[worker.mine][workerDirection.right] = spr_worker;
+workerSprite[worker.mine][workerDirection.up] = spr_worker;
+workerSprite[worker.mine][workerDirection.left] = spr_worker;
+workerSprite[worker.mine][workerDirection.down] = spr_worker;
+workerSprite[worker.attack][workerDirection.right] = spr_worker;
+workerSprite[worker.attack][workerDirection.up] = spr_worker;
+workerSprite[worker.attack][workerDirection.left] = spr_worker;
+workerSprite[worker.attack][workerDirection.down] = spr_worker;
 // Actual Sprite Value
 currentAction = worker.move;
 currentDirection = workerDirection.right;
-currentSprite = workerSprite[currentAction, currentDirection];
+currentSprite = workerSprite[currentAction][currentDirection];
 // Index speed
 currentImageIndex = 0;
 currentImageIndexSpeed = 10 / room_speed;

@@ -73,10 +73,12 @@
   ],
   "parent": {
     "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "path": "folders/UI/Sprites.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_mouse_highlight",
-  "tags": [],
+  "tags": [
+    "ui",
+  ],
   "resourceType": "GMSprite",
 }

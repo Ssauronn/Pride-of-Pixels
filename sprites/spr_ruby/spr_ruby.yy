@@ -83,10 +83,12 @@
   ],
   "parent": {
     "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "path": "folders/Resources/Sprites.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_ruby",
-  "tags": [],
+  "tags": [
+    "resource",
+  ],
   "resourceType": "GMSprite",
 }
