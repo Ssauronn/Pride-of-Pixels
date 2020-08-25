@@ -31,7 +31,7 @@ if ds_exists(objectTargetList, ds_type_list) {
 			objectTargetTeam = objectTarget.objectTeam;
 		}
 	}
-	if ds_list_size(objectTargetList) <= 1 {
+	if (ds_list_size(objectTargetList) <= 1) && (!instance_exists(ds_list_find_value(objectTargetList, 0))) {
 		ds_list_destroy(objectTargetList);
 		objectTargetList = noone;
 		objectTarget = noone;

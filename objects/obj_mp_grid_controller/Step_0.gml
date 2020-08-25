@@ -96,7 +96,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 								// potential target.
 								if (instance_to_reference_ != noone) && (instance_to_reference_ != object_at_location_) {
 									if instance_to_reference_.objectTeam == object_at_location_.objectTeam {
-										if (instance_to_reference_.objectClassification == object_at_location_.objectClassification) || ((instance_to_reference_.objectClassification  == "Unit") && (object_at_location_.objectClassification == "Building")) || ((instance_to_reference_.objectClassification == "Building") && (object_at_location_.objectClassification == "Unit")) {
+										if (instance_to_reference_.objectType == object_at_location_.objectType) || ((instance_to_reference_.objectClassification  == "Unit") && (object_at_location_.objectClassification == "Building")) || ((instance_to_reference_.objectClassification == "Building") && (object_at_location_.objectClassification == "Unit")) {
 											if ds_exists(target_list_, ds_type_list) {
 												ds_list_add(target_list_, instance_to_reference_);
 											}
