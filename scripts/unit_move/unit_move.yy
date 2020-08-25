@@ -10,6 +10,7 @@
   "tags": [
     "unit",
     "worker",
+    "movement",
   ],
   "resourceType": "GMScript",
 }

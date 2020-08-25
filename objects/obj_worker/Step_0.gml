@@ -18,7 +18,7 @@ image_index = currentImageIndex;
 if ds_exists(objectTargetList, ds_type_list) {
 	if instance_exists(ds_list_find_value(objectTargetList, 0)) {
 		objectTarget = ds_list_find_value(objectTargetList, 0);
-		objectTargetType = objectTarget.objectType;
+		objectTargetType = objectTarget.objectClassification;
 		objectTargetTeam = objectTarget.objectTeam;
 	}
 	else if ds_list_size(objectTargetList) > 1 {
@@ -27,7 +27,7 @@ if ds_exists(objectTargetList, ds_type_list) {
 		}
 		if instance_exists(ds_list_find_value(objectTargetList, 0)) {
 			objectTarget = ds_list_find_value(objectTargetList, 0);
-			objectTargetType = objectTarget.objectType;
+			objectTargetType = objectTarget.objectClassification;
 			objectTargetTeam = objectTarget.objectTeam;
 		}
 	}
@@ -45,7 +45,7 @@ switch currentAction {
 		
 		break;
 	case worker.move:
-		worker_move();
+		unit_move();
 		break;
 	case worker.chop:
 		

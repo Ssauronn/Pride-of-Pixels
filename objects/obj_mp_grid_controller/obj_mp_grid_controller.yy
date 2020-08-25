@@ -34,6 +34,7 @@
     "controller",
     "initialize",
     "mp_grid",
+    "movement",
   ],
   "resourceType": "GMObject",
 }

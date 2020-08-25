@@ -13,10 +13,11 @@ switch sprite_choice_ {
 		break;
 }
 
-mp_grid_add_rectangle(movementGrid, x, y, x + sprite_get_width(sprite_index) - 1, y + sprite_get_height(sprite_index) - 1);
+mp_grid_add_rectangle(movementGrid, x, y, x + sprite_get_width(sprite_index) - 1, y - 16 + 1);
 
 // Object type, used for selection and targeting purposes
-objectType = "Resource";
+objectClassification = "Resource";
+objectType = "Gold";
 objectTeam = "Neutral";
 objectSelected = false;
 objectOnScreen = false;

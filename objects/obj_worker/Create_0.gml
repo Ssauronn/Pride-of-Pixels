@@ -1,5 +1,7 @@
 // Object type, used for selection and targeting purposes
-objectType = "Unit";
+objectClassification = "Unit";
+objectType = "Worker";
+objectRange = 16;
 objectTeam = 1;
 objectSelected = false;
 objectOnScreen = false;
@@ -38,7 +40,7 @@ rightWallFound = false;
 topWallFound = false;
 leftWallFound = false;
 bottomWallFound = false;
-squareEdgeSize = 0;
+baseSquareEdgeSize = 0;
 squareSizeIncreaseCount = 0;
 squareIteration = 0;
 tempCheckX = -1;
