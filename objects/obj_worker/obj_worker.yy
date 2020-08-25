@@ -37,6 +37,7 @@
   "tags": [
     "unit",
     "worker",
+    "movement",
   ],
   "resourceType": "GMObject",
 }

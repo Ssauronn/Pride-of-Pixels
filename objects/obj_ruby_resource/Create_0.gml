@@ -6,7 +6,8 @@ mp_grid_add_rectangle(movementGrid, x, y + sprite_get_height(sprite_index) - 16,
 
 
 // Object type, used for selection and targeting purposes
-objectType = "Resource";
+objectClassification = "Resource";
+objectType = "Ruby";
 objectTeam = "Neutral";
 objectSelected = false;
 objectOnScreen = false;

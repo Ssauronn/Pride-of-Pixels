@@ -96,7 +96,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 								// potential target.
 								if (instance_to_reference_ != noone) && (instance_to_reference_ != object_at_location_) {
 									if instance_to_reference_.objectTeam == object_at_location_.objectTeam {
-										if (instance_to_reference_.objectType == object_at_location_.objectType) || ((instance_to_reference_.objectType  == "Unit") && (object_at_location_.objectType == "Building")) || ((instance_to_reference_.objectType == "Building") && (object_at_location_.objectType == "Unit")) {
+										if (instance_to_reference_.objectClassification == object_at_location_.objectClassification) || ((instance_to_reference_.objectClassification  == "Unit") && (object_at_location_.objectClassification == "Building")) || ((instance_to_reference_.objectClassification == "Building") && (object_at_location_.objectClassification == "Unit")) {
 											if ds_exists(target_list_, ds_type_list) {
 												ds_list_add(target_list_, instance_to_reference_);
 											}
@@ -144,8 +144,8 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							// Out of all selected objects, if the currently referenced object in the selected
 							// object list belongs to the player, is a unit, and is a worker, then set the
 							// resource object that was clicked on as the target.
-							if objectType == "Unit" {
-								if object_index == obj_worker {
+							if objectClassification == "Unit" {
+								if objectType == "Worker" {
 									if ds_exists(objectTargetList, ds_type_list) {
 										ds_list_destroy(objectTargetList);
 										objectTargetList = noone;
@@ -167,7 +167,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						// Else if the object at target location is an enemy, attack it if the object selected
 						// is an object that can attack it.
 						else if object_at_location_.objectTeam != playerTeam {
-							if objectType == "Unit" {
+							if objectClassification == "Unit" {
 								if ds_exists(objectTargetList, ds_type_list) {
 									ds_list_destroy(objectTargetList);
 									objectTargetList = noone;
@@ -204,8 +204,15 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					
 						// Finally, after setting each object's ds_lists (if necessary), reset all
 						// movement variables for each selected object.
-						targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
-						targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
+						if !ds_exists(objectTargetList, ds_type_list) {
+							targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
+							targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
+						}
+						else {
+							var target_ = ds_list_find_value(objectTargetList, 0);
+							targetToMoveToX = floor(target_.x / 16) * 16;
+							targetToMoveToY = floor(target_.y / 16) * 16;
+						}
 						if targetToMoveToX < 0 {
 							targetToMoveToX = 0;
 						}
@@ -242,7 +249,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						specificLocationNeedsToBeChecked = false;
 						specificLocationToBeCheckedX = targetToMoveToX;
 						specificLocationToBeCheckedY = targetToMoveToY;
-						squareEdgeSize = 0;
+						baseSquareEdgeSize = 0;
 						squareSizeIncreaseCount = 0;
 						squareIteration = 0;
 						tempCheckX = targetToMoveToX;
@@ -322,7 +329,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							specificLocationNeedsToBeChecked = false;
 							specificLocationToBeCheckedX = targetToMoveToX;
 							specificLocationToBeCheckedY = targetToMoveToY;
-							squareEdgeSize = 0;
+							baseSquareEdgeSize = 0;
 							squareSizeIncreaseCount = 0;
 							squareIteration = 0;
 							tempCheckX = targetToMoveToX;
