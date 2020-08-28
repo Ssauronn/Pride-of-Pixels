@@ -45,27 +45,31 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						// would often take long routes to out-of-the-way objects just to attack or mine.
 						// Placing this inside the for i loop, while slowing things down nominally, will
 						// lead to more fluid combat and movement.
-						var j, k, instance_to_reference_, target_list_, x_start_, y_start_, x_sign_, y_sign_, click_direction_;
+						var j, k, instance_to_reference_, target_list_, x_start_, y_start_, x_sign_, y_sign_, adjusted_click_direction_, click_direction_;
 						target_list_ = noone;
 						// Set click_direction_ to equal a number 0-3 inclusive based on the point direction 
 						// from the original object location to the click location, and then set x_sign_ and
 						// y_sign_, which determine the direction of the search, depending on that direction.
-						click_direction_ = floor(point_direction(x, y, obj_camera_inputs_and_gui.mouseClampedX, obj_camera_inputs_and_gui.mouseClampedY) / 90);
+						adjusted_click_direction_ = point_direction(x, y, obj_camera_inputs_and_gui.mouseClampedX, obj_camera_inputs_and_gui.mouseClampedY) + 45;
+						if adjusted_click_direction_ >= 360 {
+							adjusted_click_direction_ -= 360;
+						}
+						click_direction_ = floor(adjusted_click_direction_ / 90);
 						switch click_direction_ {
 							case 0:
 								x_start_ = 0;
-								y_start_ = 9;
+								y_start_ = 21;
 								x_sign_ = 1;
 								y_sign_ = -1;
 								break;
 							case 1:
-								x_start_ = 9;
-								y_start_ = 9;
+								x_start_ = 21;
+								y_start_ = 21;
 								x_sign_ = -1;
 								y_sign_ = -1;
 								break;
 							case 2:
-								x_start_ = 9;
+								x_start_ = 21;
 								y_start_ = 0;
 								x_sign_ = -1;
 								y_sign_ = 1;
@@ -78,16 +82,16 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 								break;
 						}
 						// j is the Y axis iterator
-						for (j = 0; j < 10; j++) {
+						for (j = 0; j < 22; j++) {
 							// k is the X axis iterator
-							for (k = 0; k < 10; k++) {
+							for (k = 0; k < 22; k++) {
 								// x_check_ and y_check_ iteration through a box 10x10 around the original location,
 								// and search for any objects within that box. If one is found and it matches the same
 								// team and type as the other clicked object, then set it as another potential target
 								// in the temporary ds_list.
 								var x_check_, y_check_;
-								x_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16) + (5 * 16 * x_sign_) + (x_start_ * 16);
-								y_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16) + (5 * 16 * y_sign_) + (y_start_ * 16);
+								x_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16) + (11 * 16 * x_sign_) + (x_start_ * 16);
+								y_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16) + (11 * 16 * y_sign_) + (y_start_ * 16);
 								instance_to_reference_ = instance_place(x_check_, y_check_, all);
 								// If an object found inside that square is: 1) not the same object clicked on, 2) the
 								// same team as the object clicked on, and 3) the same type of object as the originally
@@ -130,7 +134,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							}
 							// Reset x_start_.
 							if (click_direction_ == 1) || (click_direction_ == 2) {
-								x_start_ = 9;
+								x_start_ = 21;
 							}
 							else {
 								x_start_ = 0;

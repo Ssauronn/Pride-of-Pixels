@@ -7,3 +7,10 @@ Pathfinding only works with objects if their origin is set to the top left of th
 Otherwise, it'll be thrown off.
 
 
+
+to do:
+pathfinding for targets now works for melee units (mostly). However, the search pattern for secondary
+targets (the grid search pattern) is... weird, and needs to be fixed. At the moment, it kinda chooses
+randomly placed objects everywhere.
+
+

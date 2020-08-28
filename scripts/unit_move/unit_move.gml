@@ -710,7 +710,7 @@ function unit_move() {
 					}
 				}
 			}
-			if (point_distance(x, y, targetToMoveToX, targetToMoveToY) >= (movementSpeed * 2)) || (!original_location_is_valid_) {
+			if ((!instance_exists(objectTarget)) && (point_distance(x, y, targetToMoveToX, targetToMoveToY) >= (movementSpeed * 2))) || ((instance_exists(objectTarget)) && ((point_distance(x, y, targetToMoveToX, targetToMoveToY)) >= (movementSpeed * 2))) || (!original_location_is_valid_) {
 				if !validLocationFound {
 					if ((can_be_evaluated_this_frame_) && (unitQueueCount < unitQueueMax)) {
 						var still_need_to_search_;
@@ -838,6 +838,7 @@ function unit_move() {
 									if squareSizeIncreaseCount > 1 {
 										// If there are other entries in the target list, remove the entry that turned out to
 										// be an invalid target and search for the next entry.
+										var size_ = ds_list_size(objectTargetList);
 										if ds_list_size(objectTargetList) >= 1 {
 											ds_list_delete(objectTargetList, 0);
 											if !is_undefined(ds_list_find_value(objectTargetList, 0)) {
@@ -863,6 +864,16 @@ function unit_move() {
 													squareIteration = 0;
 													squareSizeIncreaseCount = 0;
 													baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+													// Variables specifically used by object to move
+													notAtTargetLocation = true;
+													validLocationFound = true;
+													validPathFound = true;
+													needToStartGridSearch = false;
+													specificLocationNeedsToBeChecked = false;
+													specificLocationToBeCheckedX = targetToMoveToX;
+													specificLocationToBeCheckedY = targetToMoveToY;
+													tempCheckX = targetToMoveToX;
+													tempCheckY = targetToMoveToY;
 												}
 											}
 											else {
@@ -1075,6 +1086,7 @@ function unit_move() {
 				searchHasJustBegun = true;
 				totalTimesSearched = 0;
 				closestPointsToObjectsHaveBeenSet = false;
+				objectTarget = noone;
 				if path_exists(myPath) {
 					path_delete(myPath);
 					myPath = -1;
@@ -1119,6 +1131,10 @@ function unit_move() {
 					ds_grid_set(unitGridLocation, 0, 0, self.id);
 					ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
 					ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
+				}
+				if ds_exists(objectTargetList, ds_type_list) {
+					ds_list_destroy(objectTargetList);
+					objectTargetList = noone;
 				}
 				// After resetting all necessary variables, revert back to idle.
 				// If no action is commanded {
