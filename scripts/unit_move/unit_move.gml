@@ -1058,7 +1058,6 @@ function unit_move() {
 				x = targetToMoveToX;
 				y = targetToMoveToY;
 				cannot_move_without_better_coordinates_ = false;
-				notAtTargetLocation = false;
 				needToStartGridSearch = true;
 				x_n_ = 0;
 				y_n_ = 0;

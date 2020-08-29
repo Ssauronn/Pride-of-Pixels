@@ -9,8 +9,8 @@ Otherwise, it'll be thrown off.
 
 
 to do:
-pathfinding for targets now works for melee units (mostly). However, the search pattern for secondary
-targets (the grid search pattern) is... weird, and needs to be fixed. At the moment, it kinda chooses
-randomly placed objects everywhere.
+clicking on the same target object after the object has already pathfound to the same original
+target object causes it to no longer target an object, and just move to closest location instead.
+objectTarget and objectTargetList must be being erased somewhere along the line to cause this.
 
 
