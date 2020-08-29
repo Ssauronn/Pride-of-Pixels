@@ -24,7 +24,9 @@ if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
 	if mouse_check_button_pressed(mb_right) {
 		with obj_worker {
-			var object_at_location_ = instance_place(mouse_x, mouse_y, all);
+			if objectTeam == playerTeam {
+				var object_at_location_ = instance_place(floor(mouse_x / 16) * 16, floor(mouse_y / 16) * 16, all);
+			}
 		}
 		// If objects selected are commanded onto a space occupied by a different object, get that
 		// object's type, create a ds_list including that and all other objects of the same type for
