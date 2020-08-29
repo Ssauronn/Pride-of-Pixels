@@ -24,7 +24,9 @@ if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
 	if mouse_check_button_pressed(mb_right) {
 		with obj_worker {
-			var object_at_location_ = instance_place(mouse_x, mouse_y, all);
+			if objectTeam == playerTeam {
+				var object_at_location_ = instance_place(floor(mouse_x / 16) * 16, floor(mouse_y / 16) * 16, all);
+			}
 		}
 		// If objects selected are commanded onto a space occupied by a different object, get that
 		// object's type, create a ds_list including that and all other objects of the same type for
@@ -45,49 +47,47 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						// would often take long routes to out-of-the-way objects just to attack or mine.
 						// Placing this inside the for i loop, while slowing things down nominally, will
 						// lead to more fluid combat and movement.
-						var j, k, instance_to_reference_, target_list_, x_start_, y_start_, x_sign_, y_sign_, click_direction_;
+						var j, k, instance_to_reference_, target_list_, x_start_, y_start_, x_sign_, y_sign_, adjusted_click_direction_, click_direction_;
 						target_list_ = noone;
 						// Set click_direction_ to equal a number 0-3 inclusive based on the point direction 
 						// from the original object location to the click location, and then set x_sign_ and
 						// y_sign_, which determine the direction of the search, depending on that direction.
-						click_direction_ = floor(point_direction(x, y, obj_camera_inputs_and_gui.mouseClampedX, obj_camera_inputs_and_gui.mouseClampedY) / 90);
+						adjusted_click_direction_ = point_direction(x, y, obj_camera_inputs_and_gui.mouseClampedX, obj_camera_inputs_and_gui.mouseClampedY) + 45;
+						if adjusted_click_direction_ >= 360 {
+							adjusted_click_direction_ -= 360;
+						}
+						click_direction_ = floor(adjusted_click_direction_ / 90);
 						switch click_direction_ {
 							case 0:
-								x_start_ = 0;
-								y_start_ = 9;
 								x_sign_ = 1;
 								y_sign_ = -1;
 								break;
 							case 1:
-								x_start_ = 9;
-								y_start_ = 9;
 								x_sign_ = -1;
 								y_sign_ = -1;
 								break;
 							case 2:
-								x_start_ = 9;
-								y_start_ = 0;
 								x_sign_ = -1;
 								y_sign_ = 1;
 								break;
 							case 3:
-								x_start_ = 0;
-								y_start_ = 0;
 								x_sign_ = 1;
 								y_sign_ = 1;
 								break;
 						}
+						x_start_ = 0;
+						y_start_ = 0;
 						// j is the Y axis iterator
-						for (j = 0; j < 10; j++) {
+						var x_check_, y_check_;
+						for (j = 0; j < 22; j++) {
 							// k is the X axis iterator
-							for (k = 0; k < 10; k++) {
+							for (k = 0; k < 22; k++) {
 								// x_check_ and y_check_ iteration through a box 10x10 around the original location,
 								// and search for any objects within that box. If one is found and it matches the same
 								// team and type as the other clicked object, then set it as another potential target
 								// in the temporary ds_list.
-								var x_check_, y_check_;
-								x_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16) + (5 * 16 * x_sign_) + (x_start_ * 16);
-								y_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16) + (5 * 16 * y_sign_) + (y_start_ * 16);
+								x_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16) - (11 * 16 * x_sign_) + (x_start_ * 16 * x_sign_);
+								y_check_ = (floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16) - (11 * 16 * y_sign_) + (y_start_ * 16 * y_sign_);
 								instance_to_reference_ = instance_place(x_check_, y_check_, all);
 								// If an object found inside that square is: 1) not the same object clicked on, 2) the
 								// same team as the object clicked on, and 3) the same type of object as the originally
@@ -96,9 +96,11 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 								// potential target.
 								if (instance_to_reference_ != noone) && (instance_to_reference_ != object_at_location_) {
 									if instance_to_reference_.objectTeam == object_at_location_.objectTeam {
-										if (instance_to_reference_.objectClassification == object_at_location_.objectClassification) || ((instance_to_reference_.objectClassification  == "Unit") && (object_at_location_.objectClassification == "Building")) || ((instance_to_reference_.objectClassification == "Building") && (object_at_location_.objectClassification == "Unit")) {
+										if (instance_to_reference_.objectType == object_at_location_.objectType) || ((instance_to_reference_.objectClassification  == "Unit") && (object_at_location_.objectClassification == "Building")) || ((instance_to_reference_.objectClassification == "Building") && (object_at_location_.objectClassification == "Unit")) {
 											if ds_exists(target_list_, ds_type_list) {
-												ds_list_add(target_list_, instance_to_reference_);
+												if ds_list_find_index(target_list_, instance_to_reference_) == -1 {
+													ds_list_add(target_list_, instance_to_reference_);
+												}
 											}
 											else {
 												target_list_ = ds_list_create();
@@ -109,32 +111,14 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 								}
 								// Iterate x_start_ after each for loop, to get the correct values throughout
 								// the search.
-								// If the click direction was upwards and to the left, or downwards and to the left,
-								// iterate leftwards. Otherwise, iterate to the right.
-								if (click_direction_ == 1) || (click_direction_ == 2) {
-									x_start_--;
-								}
-								else {
-									x_start_++;
-								}
+								x_start_++;
 							}
 							// Iterate y_start_ after each for loop, to get the correct values throughout the
-							// search. Also, reset x_start_ so that its correct at the beginning of the next section.
-							// If the click direction is upwards and to the left or right, iterate upwards. Otherwise,
-							// iterate downwards.
-							if (click_direction_ == 0) || (click_direction_ == 1) {
-								y_start_--;
-							}
-							else {
-								y_start_++;
-							}
+							// search. 
+							y_start_++;
+							
 							// Reset x_start_.
-							if (click_direction_ == 1) || (click_direction_ == 2) {
-								x_start_ = 9;
-							}
-							else {
-								x_start_ = 0;
-							}
+							x_start_ = 0;
 						}
 					
 						// If the object at target location is a resource, then mine it if the object selected
@@ -199,9 +183,9 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							ds_list_destroy(target_list_);
 							target_list_ = noone;
 						}
-					
-					
-					
+						
+						
+						
 						// Finally, after setting each object's ds_lists (if necessary), reset all
 						// movement variables for each selected object.
 						if !ds_exists(objectTargetList, ds_type_list) {
@@ -247,8 +231,8 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						leftForbidden = false;
 						bottomForbidden = false;
 						specificLocationNeedsToBeChecked = false;
-						specificLocationToBeCheckedX = targetToMoveToX;
-						specificLocationToBeCheckedY = targetToMoveToY;
+						specificLocationToBeCheckedX = -1;
+						specificLocationToBeCheckedY = -1;
 						baseSquareEdgeSize = 0;
 						squareSizeIncreaseCount = 0;
 						squareIteration = 0;
@@ -327,13 +311,14 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							leftForbidden = false;
 							bottomForbidden = false;
 							specificLocationNeedsToBeChecked = false;
-							specificLocationToBeCheckedX = targetToMoveToX;
-							specificLocationToBeCheckedY = targetToMoveToY;
+							specificLocationToBeCheckedX = -1;
+							specificLocationToBeCheckedY = -1;
 							baseSquareEdgeSize = 0;
 							squareSizeIncreaseCount = 0;
 							squareIteration = 0;
 							tempCheckX = targetToMoveToX;
 							tempCheckY = targetToMoveToY;
+							groupRowWidth = 0;
 							searchHasJustBegun = true;
 							totalTimesSearched = 0;
 							closestPointsToObjectsHaveBeenSet = false;

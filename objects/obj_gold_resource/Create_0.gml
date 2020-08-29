@@ -13,7 +13,7 @@ switch sprite_choice_ {
 		break;
 }
 
-mp_grid_add_rectangle(movementGrid, x, y, x + sprite_get_width(sprite_index) - 1, y - 16 + 1);
+mp_grid_add_rectangle(movementGrid, x, y - 16 + 1, x + sprite_get_width(sprite_index) - 1, y + 16 - 1);
 
 // Object type, used for selection and targeting purposes
 objectClassification = "Resource";

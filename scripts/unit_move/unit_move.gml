@@ -710,7 +710,7 @@ function unit_move() {
 					}
 				}
 			}
-			if (point_distance(x, y, targetToMoveToX, targetToMoveToY) >= (movementSpeed * 2)) || (!original_location_is_valid_) {
+			if ((!instance_exists(objectTarget)) && (point_distance(x, y, targetToMoveToX, targetToMoveToY) >= (movementSpeed * 2))) || ((instance_exists(objectTarget)) && ((point_distance(x, y, targetToMoveToX, targetToMoveToY)) >= (movementSpeed * 2))) || (!original_location_is_valid_) {
 				if !validLocationFound {
 					if ((can_be_evaluated_this_frame_) && (unitQueueCount < unitQueueMax)) {
 						var still_need_to_search_;
@@ -719,6 +719,22 @@ function unit_move() {
 							// If, after checking for a specific location, it still wasn't valid,
 							// move on and continue the search.
 							if still_need_to_search_ {
+								// Set the pattern starting area - further away if the object is ranged, and only
+								// adjacent to target if the object is melee.
+								var melee_unit_, ranged_unit_starting_ring_;
+								if objectClassification == "Unit" {
+									// If the unit running this code is melee, mark it as such. Otherwise,
+									// set the ring to start the search at for ranged units, moving inwards,
+									// at the max distance allowed by their objectRange.
+									if objectRange == 16 {
+										melee_unit_ = true;
+										ranged_unit_starting_ring_ = -1;
+									}
+									else {
+										melee_unit_ = false;
+										ranged_unit_starting_ring_ = (floor(objectRange / 16) * 16) / 16;
+									}
+								}
 								// As long as the object doesn't have a specific target to focus, perform normal
 								// pathfinding.
 								if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
@@ -732,6 +748,9 @@ function unit_move() {
 									// Set the size of the minimum pattern.
 									var horizontal_edge_size_, vertical_edge_size_;
 									// If the search area is surrounding a 1x1 grid area
+									if !instance_exists(objectTarget) {
+										var yeet_ = 1;
+									}
 									if (objectTarget.objectClassification == "Unit") || (objectTarget.objectType == "Food") || (objectTarget.objectType == "Wood") {
 										horizontal_edge_size_ = 1;
 										vertical_edge_size_ = 1;
@@ -745,23 +764,6 @@ function unit_move() {
 									else if (objectTarget.objectType == "Gold") {
 										horizontal_edge_size_ = 3;
 										vertical_edge_size_ = 2;
-									}
-									
-									// Set the pattern starting area - further away if the object is ranged, and only
-									// adjacent to target if the object is melee.
-									var melee_unit_, ranged_unit_starting_ring_;
-									if objectClassification == "Unit" {
-										// If the unit running this code is melee, mark it as such. Otherwise,
-										// set the ring to start the search at for ranged units, moving inwards,
-										// at the max distance allowed by their objectRange.
-										if objectRange == 16 {
-											melee_unit_ = true;
-											ranged_unit_starting_ring_ = -1;
-										}
-										else {
-											melee_unit_ = false;
-											ranged_unit_starting_ring_ = (floor(objectRange / 16) * 16) / 16;
-										}
 									}
 								}
 								baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
@@ -830,6 +832,72 @@ function unit_move() {
 									squareIteration = 0;
 									squareSizeIncreaseCount++;
 									baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+								}
+								
+								if melee_unit_ && ds_exists(objectTargetList, ds_type_list) {
+									if squareSizeIncreaseCount > 1 {
+										// If there are other entries in the target list, remove the entry that turned out to
+										// be an invalid target and search for the next entry.
+										var size_ = ds_list_size(objectTargetList);
+										if ds_list_size(objectTargetList) >= 1 {
+											ds_list_delete(objectTargetList, 0);
+											if !is_undefined(ds_list_find_value(objectTargetList, 0)) {
+												while (ds_exists(objectTargetList, ds_type_list)) && ((is_undefined(ds_list_find_value(objectTargetList, 0))) || (!instance_exists(ds_list_find_value(objectTargetList, 0)))) {
+													if ds_list_size(objectTargetList) > 1 {
+														ds_list_delete(objectTargetList, 0);
+													}
+													else {
+														ds_list_destroy(objectTargetList);
+														objectTargetList = noone;
+														objectTarget = noone;
+														targetToMoveToX = originalTargetToMoveToX;
+														targetToMoveToY = originalTargetToMoveToY;
+														squareIteration = 0;
+														squareSizeIncreaseCount = 0;
+														baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+													}
+												}
+												if ds_exists(objectTargetList, ds_type_list) {
+													objectTarget = ds_list_find_value(objectTargetList, 0);
+													targetToMoveToX = floor(objectTarget.x / 16) * 16;
+													targetToMoveToY = floor(objectTarget.y / 16) * 16;
+													squareIteration = 0;
+													squareSizeIncreaseCount = 0;
+													baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+													// Variables specifically used by object to move
+													notAtTargetLocation = true;
+													validLocationFound = true;
+													validPathFound = true;
+													needToStartGridSearch = false;
+													specificLocationNeedsToBeChecked = false;
+													specificLocationToBeCheckedX = targetToMoveToX;
+													specificLocationToBeCheckedY = targetToMoveToY;
+													tempCheckX = targetToMoveToX;
+													tempCheckY = targetToMoveToY;
+												}
+											}
+											else {
+												ds_list_destroy(objectTargetList);
+												objectTargetList = noone;
+												objectTarget = noone;
+												targetToMoveToX = originalTargetToMoveToX;
+												targetToMoveToY = originalTargetToMoveToY;
+												squareIteration = 0;
+												squareSizeIncreaseCount = 0;
+												baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+											}
+										}
+										else {
+											ds_list_destroy(objectTargetList);
+											objectTargetList = noone;
+											objectTarget = noone;
+											targetToMoveToX = originalTargetToMoveToX;
+											targetToMoveToY = originalTargetToMoveToY;
+											squareIteration = 0;
+											squareSizeIncreaseCount = 0;
+											baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+										}
+									}
 								}
 						
 					
@@ -990,7 +1058,6 @@ function unit_move() {
 				x = targetToMoveToX;
 				y = targetToMoveToY;
 				cannot_move_without_better_coordinates_ = false;
-				notAtTargetLocation = false;
 				needToStartGridSearch = true;
 				x_n_ = 0;
 				y_n_ = 0;
@@ -1018,6 +1085,7 @@ function unit_move() {
 				searchHasJustBegun = true;
 				totalTimesSearched = 0;
 				closestPointsToObjectsHaveBeenSet = false;
+				objectTarget = noone;
 				if path_exists(myPath) {
 					path_delete(myPath);
 					myPath = -1;
@@ -1062,6 +1130,10 @@ function unit_move() {
 					ds_grid_set(unitGridLocation, 0, 0, self.id);
 					ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
 					ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
+				}
+				if ds_exists(objectTargetList, ds_type_list) {
+					ds_list_destroy(objectTargetList);
+					objectTargetList = noone;
 				}
 				// After resetting all necessary variables, revert back to idle.
 				// If no action is commanded {

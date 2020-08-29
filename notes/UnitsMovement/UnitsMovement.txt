@@ -3,8 +3,14 @@ needs to be adjusted:
 	- The functions in unit_move(), which deal with searching for valid locations
 	  around differently sized objects for different types of ranged and melee objects.
 
+Pathfinding only works with objects if their origin is set to the top left of the bottom left pixel.
+Otherwise, it'll be thrown off.
 
 
-right edge on unit_move_, line 777
+
+to do:
+clicking on the same target object after the object has already pathfound to the same original
+target object causes it to no longer target an object, and just move to closest location instead.
+objectTarget and objectTargetList must be being erased somewhere along the line to cause this.
 
 
