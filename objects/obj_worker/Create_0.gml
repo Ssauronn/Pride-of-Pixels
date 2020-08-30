@@ -1,7 +1,7 @@
 // Object type, used for selection and targeting purposes
 objectClassification = "Unit";
 objectType = "Worker";
-objectRange = 16;
+objectRange = 64;
 objectTeam = 1;
 objectSelected = false;
 objectOnScreen = false;

@@ -1,3 +1,73 @@
+/// @function								target_next_object();
+/// @description							If there are other entries in the target list, remove the entry 
+///											that turned out to be an invalid target and search for the next entry.
+
+function target_next_object() {
+	if ds_exists(objectTargetList, ds_type_list) {
+		if ds_list_size(objectTargetList) >= 1 {
+			ds_list_delete(objectTargetList, 0);
+			if !is_undefined(ds_list_find_value(objectTargetList, 0)) {
+				while (ds_exists(objectTargetList, ds_type_list)) && ((is_undefined(ds_list_find_value(objectTargetList, 0))) || (!instance_exists(ds_list_find_value(objectTargetList, 0)))) {
+					if ds_list_size(objectTargetList) > 1 {
+						ds_list_delete(objectTargetList, 0);
+					}
+					else {
+						ds_list_destroy(objectTargetList);
+						objectTargetList = noone;
+						objectTarget = noone;
+						targetToMoveToX = originalTargetToMoveToX;
+						targetToMoveToY = originalTargetToMoveToY;
+						squareIteration = 0;
+						squareSizeIncreaseCount = 0;
+						baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+					}
+				}
+				if ds_exists(objectTargetList, ds_type_list) {
+					objectTarget = ds_list_find_value(objectTargetList, 0);
+					targetToMoveToX = floor(objectTarget.x / 16) * 16;
+					targetToMoveToY = floor(objectTarget.y / 16) * 16;
+					squareIteration = 0;
+					squareSizeIncreaseCount = 0;
+					baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+					// Variables specifically used by object to move
+					notAtTargetLocation = true;
+					validLocationFound = true;
+					validPathFound = true;
+					needToStartGridSearch = false;
+					specificLocationNeedsToBeChecked = false;
+					specificLocationToBeCheckedX = targetToMoveToX;
+					specificLocationToBeCheckedY = targetToMoveToY;
+					tempCheckX = targetToMoveToX;
+					tempCheckY = targetToMoveToY;
+				}
+			}
+			else {
+				ds_list_destroy(objectTargetList);
+				objectTargetList = noone;
+				objectTarget = noone;
+				targetToMoveToX = originalTargetToMoveToX;
+				targetToMoveToY = originalTargetToMoveToY;
+				squareIteration = 0;
+				squareSizeIncreaseCount = 0;
+				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+			}
+		}
+		else {
+			ds_list_destroy(objectTargetList);
+			objectTargetList = noone;
+			objectTarget = noone;
+			targetToMoveToX = originalTargetToMoveToX;
+			targetToMoveToY = originalTargetToMoveToY;
+			squareIteration = 0;
+			squareSizeIncreaseCount = 0;
+			baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+		}
+	}
+}
+
+
+
+
 /// @function								unit_move();
 /// @description							Expanded upon below
 /*
@@ -715,95 +785,123 @@ function unit_move() {
 					if ((can_be_evaluated_this_frame_) && (unitQueueCount < unitQueueMax)) {
 						var still_need_to_search_;
 						still_need_to_search_ = true;
+						// Set the pattern starting area - further away if the object is ranged, and only
+						// adjacent to target if the object is melee.
+						var melee_unit_, ranged_unit_starting_ring_, ranged_unit_direction_moving_in_;
+						if objectClassification == "Unit" {
+							// If the unit running this code is melee, mark it as such. Otherwise,
+							// set the ring to start the search at for ranged units, moving inwards,
+							// at the max distance allowed by their objectRange.
+							if objectRange <= 16 {
+								melee_unit_ = true;
+								ranged_unit_starting_ring_ = -1;
+							}
+							else {
+								melee_unit_ = false;
+								ranged_unit_starting_ring_ = (floor(objectRange / 16) * 16) / 16;
+								if (ds_exists(objectTargetList, ds_type_list)) || (instance_exists(objectTarget)) {
+									squareSizeIncreaseCount = ranged_unit_starting_ring_;
+								}
+								else {
+									squareSizeIncreaseCount = 0;
+									ranged_unit_starting_ring_ = 0;
+								}
+								ranged_unit_direction_moving_in_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
+								if ranged_unit_direction_moving_in_ >= 360 {
+									ranged_unit_direction_moving_in_ -= 360;
+								}
+								ranged_unit_direction_moving_in_ = floor(ranged_unit_direction_moving_in_ / 90);
+							}
+						}
+						// As long as the object doesn't have a specific target to focus, perform normal
+						// pathfinding.
+						if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
+							var horizontal_edge_size_, vertical_edge_size_;
+							horizontal_edge_size_ = 1;
+							vertical_edge_size_ = 1;
+						}
+						// Else if the object has a specific target to focus, set adjuster variables
+						// and use those variables in the search afterwards.
+						else {
+							// Set the size of the minimum pattern.
+							var horizontal_edge_size_, vertical_edge_size_;
+							// If the search area is surrounding a 1x1 grid area
+							if (objectTarget.objectClassification == "Unit") || (objectTarget.objectType == "Food") || (objectTarget.objectType == "Wood") {
+								horizontal_edge_size_ = 1;
+								vertical_edge_size_ = 1;
+							}
+							// If the search area is surrounding a 1(vertical)x3(horizontal) grid area
+							else if (objectTarget.objectType == "Ruby") {
+								horizontal_edge_size_ = 3;
+								vertical_edge_size_ = 1;
+							}
+							// If the search area is surrounding a 2(vertical)x3(horizontal) grid area
+							else if (objectTarget.objectType == "Gold") {
+								horizontal_edge_size_ = 3;
+								vertical_edge_size_ = 2;
+							}
+						}
 						while still_need_to_search_ {
 							// If, after checking for a specific location, it still wasn't valid,
 							// move on and continue the search.
 							if still_need_to_search_ {
-								// Set the pattern starting area - further away if the object is ranged, and only
-								// adjacent to target if the object is melee.
-								var melee_unit_, ranged_unit_starting_ring_;
-								if objectClassification == "Unit" {
-									// If the unit running this code is melee, mark it as such. Otherwise,
-									// set the ring to start the search at for ranged units, moving inwards,
-									// at the max distance allowed by their objectRange.
-									if objectRange == 16 {
-										melee_unit_ = true;
-										ranged_unit_starting_ring_ = -1;
-									}
-									else {
-										melee_unit_ = false;
-										ranged_unit_starting_ring_ = (floor(objectRange / 16) * 16) / 16;
-									}
-								}
-								// As long as the object doesn't have a specific target to focus, perform normal
-								// pathfinding.
-								if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
-									var horizontal_edge_size_, vertical_edge_size_;
-									horizontal_edge_size_ = 1;
-									vertical_edge_size_ = 1;
-								}
-								// Else if the object has a specific target to focus, set adjuster variables
-								// and use those variables in the search afterwards.
-								else {
-									// Set the size of the minimum pattern.
-									var horizontal_edge_size_, vertical_edge_size_;
-									// If the search area is surrounding a 1x1 grid area
-									if !instance_exists(objectTarget) {
-										var yeet_ = 1;
-									}
-									if (objectTarget.objectClassification == "Unit") || (objectTarget.objectType == "Food") || (objectTarget.objectType == "Wood") {
-										horizontal_edge_size_ = 1;
-										vertical_edge_size_ = 1;
-									}
-									// If the search area is surrounding a 1(vertical)x3(horizontal) grid area
-									else if (objectTarget.objectType == "Ruby") {
-										horizontal_edge_size_ = 3;
-										vertical_edge_size_ = 1;
-									}
-									// If the search area is surrounding a 2(vertical)x3(horizontal) grid area
-									else if (objectTarget.objectType == "Gold") {
-										horizontal_edge_size_ = 3;
-										vertical_edge_size_ = 2;
-									}
-								}
 								baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 								var square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
 								var square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
-								var square_total_edge_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
 								// Top edge, moving left to right
 								if squareIteration < (square_horizontal_edge_sizes_) {
-									// Start at the left corner and move right
-									tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
-									// Shift the temporary check upwards to the top edge
-									tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16);
+									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 3) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
+										// Start at the left corner and move right
+										tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
+										// Shift the temporary check upwards to the top edge
+										tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16);
+									}
+									else {
+										squareIteration += square_horizontal_edge_sizes_ - squareIteration;
+									}
 								}
 								// Right edge, moving top to bottom
 								else if squareIteration < (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) {
-									// Shift the temporary check rightwards to the right edge
-									tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16);
-									// Start at the top right corner and move down. Subtracted the size
-									// of one side from the coordinates, since I've already iterated through
-									// a side.
-									tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16) + (squareIteration * 16) - ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16);
+									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 2) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
+										// Shift the temporary check rightwards to the right edge
+										tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16);
+										// Start at the top right corner and move down. Subtracted the size
+										// of one side from the coordinates, since I've already iterated through
+										// a side.
+										tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16) + (squareIteration * 16) - ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16);
+									}
+									else {
+										squareIteration += (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) - squareIteration;
+									}
 								}
 								// Bottom edge, moving right to left
 								else if squareIteration < ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) {
-									// Start at the bottom right corner, and move left. How it works:
-									// Start at origin point targetToMoveToX. Shift over to the right
-									// edge. Move left by subtracting squareIteration * 16. Adjust for
-									// the previous two sides that have already been run through by
-									// adding the equivalent pixel size of two sides to the coordinates.
-									tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
-									// Shift the temporary check downwards to the bottom edge
-									tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
+									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 1) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
+										// Start at the bottom right corner, and move left. How it works:
+										// Start at origin point targetToMoveToX. Shift over to the right
+										// edge. Move left by subtracting squareIteration * 16. Adjust for
+										// the previous two sides that have already been run through by
+										// adding the equivalent pixel size of two sides to the coordinates.
+										tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
+										// Shift the temporary check downwards to the bottom edge
+										tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
+									}
+									else {
+										squareIteration += ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) - squareIteration;
+									}
 								}
 								// Left edge, moving bottom to top
 								else if squareIteration < ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) {
-									// Shift the temporary check leftwards to the left edge
-									tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16);
-									// Start at the bottom left corner and move up. Works in the same
-									// way the check in the else if statement above works with the x axis.
-									tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + (((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
+									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 0) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
+										// Shift the temporary check leftwards to the left edge
+										tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16);
+										// Start at the bottom left corner and move up. Works in the same
+										// way the check in the else if statement above works with the x axis.
+										tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + (((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
+									}
+									else {
+										squareIteration += ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) - squareIteration;
+									}
 								}
 						
 								// Iterate the count that moves along the edges up by one
@@ -813,8 +911,14 @@ function unit_move() {
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
 								if squareIteration >= ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
+									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
+										squareSizeIncreaseCount++;
+										
+									}
+									else {
+										squareSizeIncreaseCount--;
+									}
 									squareIteration = 0;
-									squareSizeIncreaseCount++;
 									baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 								}
 								// If the iteration is divisible by the size of an edge, meaning its at a corner,
@@ -829,74 +933,25 @@ function unit_move() {
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
 								if squareIteration == ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
+									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
+										squareSizeIncreaseCount++;
+										
+									}
+									else {
+										squareSizeIncreaseCount--;
+									}
 									squareIteration = 0;
-									squareSizeIncreaseCount++;
 									baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 								}
 								
-								if melee_unit_ && ds_exists(objectTargetList, ds_type_list) {
+								if melee_unit_ {
 									if squareSizeIncreaseCount > 1 {
-										// If there are other entries in the target list, remove the entry that turned out to
-										// be an invalid target and search for the next entry.
-										var size_ = ds_list_size(objectTargetList);
-										if ds_list_size(objectTargetList) >= 1 {
-											ds_list_delete(objectTargetList, 0);
-											if !is_undefined(ds_list_find_value(objectTargetList, 0)) {
-												while (ds_exists(objectTargetList, ds_type_list)) && ((is_undefined(ds_list_find_value(objectTargetList, 0))) || (!instance_exists(ds_list_find_value(objectTargetList, 0)))) {
-													if ds_list_size(objectTargetList) > 1 {
-														ds_list_delete(objectTargetList, 0);
-													}
-													else {
-														ds_list_destroy(objectTargetList);
-														objectTargetList = noone;
-														objectTarget = noone;
-														targetToMoveToX = originalTargetToMoveToX;
-														targetToMoveToY = originalTargetToMoveToY;
-														squareIteration = 0;
-														squareSizeIncreaseCount = 0;
-														baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-													}
-												}
-												if ds_exists(objectTargetList, ds_type_list) {
-													objectTarget = ds_list_find_value(objectTargetList, 0);
-													targetToMoveToX = floor(objectTarget.x / 16) * 16;
-													targetToMoveToY = floor(objectTarget.y / 16) * 16;
-													squareIteration = 0;
-													squareSizeIncreaseCount = 0;
-													baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-													// Variables specifically used by object to move
-													notAtTargetLocation = true;
-													validLocationFound = true;
-													validPathFound = true;
-													needToStartGridSearch = false;
-													specificLocationNeedsToBeChecked = false;
-													specificLocationToBeCheckedX = targetToMoveToX;
-													specificLocationToBeCheckedY = targetToMoveToY;
-													tempCheckX = targetToMoveToX;
-													tempCheckY = targetToMoveToY;
-												}
-											}
-											else {
-												ds_list_destroy(objectTargetList);
-												objectTargetList = noone;
-												objectTarget = noone;
-												targetToMoveToX = originalTargetToMoveToX;
-												targetToMoveToY = originalTargetToMoveToY;
-												squareIteration = 0;
-												squareSizeIncreaseCount = 0;
-												baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-											}
-										}
-										else {
-											ds_list_destroy(objectTargetList);
-											objectTargetList = noone;
-											objectTarget = noone;
-											targetToMoveToX = originalTargetToMoveToX;
-											targetToMoveToY = originalTargetToMoveToY;
-											squareIteration = 0;
-											squareSizeIncreaseCount = 0;
-											baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-										}
+										target_next_object();
+									}
+								}
+								else if !melee_unit_ {
+									if squareSizeIncreaseCount == 0 {
+										target_next_object();
 									}
 								}
 						
@@ -931,32 +986,6 @@ function unit_move() {
 										specificLocationToBeCheckedY = tempCheckY;
 									}
 								}
-								/*}
-								// Else if the object running this script has an active target to move to, then
-								// move to an adjacent spot next to that target. If none is found, search through
-								// the objectTargetList (if it exists) for any other valid targets within range of 
-								// the original click location, and if no valid target exists, or no valid adjacent
-								// spot to any valid targets exist, reset variables and restart this script as 
-								// normal pathfinding without a target.
-								else {
-									// If the object moving to the target is a melee classification, only allow movement
-									// to locations adjacent to the target.
-									if objectType == "Worker" {// || objectType == "Any other melee classification"
-										var k_, target_to_reference_;
-										for (k_ = 0; k_ <= ds_list_size(objectTargetList) - 1; k_++) {
-											target_to_reference_ = ds_list_find_value(objectTargetList, k_);
-											if melee_unit_target_search_pattern(id, target_to_reference_) {
-												// Set the empty spot as the new target area to move to, and 
-												break;
-											}
-										}
-									}
-									// Otherwise, if the object moving to the target is a ranged classification, allow
-									// movement to any location within an area around the target.
-									else {
-										
-									}
-								}*/
 							}
 							// If I need to check for a specific location, check it
 							if specificLocationNeedsToBeChecked {
