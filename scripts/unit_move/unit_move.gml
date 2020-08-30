@@ -787,7 +787,7 @@ function unit_move() {
 						still_need_to_search_ = true;
 						// Set the pattern starting area - further away if the object is ranged, and only
 						// adjacent to target if the object is melee.
-						var melee_unit_, ranged_unit_starting_ring_;
+						var melee_unit_, ranged_unit_starting_ring_, ranged_unit_direction_moving_in_;
 						if objectClassification == "Unit" {
 							// If the unit running this code is melee, mark it as such. Otherwise,
 							// set the ring to start the search at for ranged units, moving inwards,
@@ -799,79 +799,109 @@ function unit_move() {
 							else {
 								melee_unit_ = false;
 								ranged_unit_starting_ring_ = (floor(objectRange / 16) * 16) / 16;
-								squareSizeIncreaseCount = ranged_unit_starting_ring_;
+								if (ds_exists(objectTargetList, ds_type_list)) || (instance_exists(objectTarget)) {
+									squareSizeIncreaseCount = ranged_unit_starting_ring_;
+								}
+								else {
+									squareSizeIncreaseCount = 0;
+									ranged_unit_starting_ring_ = 0;
+								}
+								ranged_unit_direction_moving_in_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
+								if ranged_unit_direction_moving_in_ >= 360 {
+									ranged_unit_direction_moving_in_ -= 360;
+								}
+								ranged_unit_direction_moving_in_ = floor(ranged_unit_direction_moving_in_ / 90);
+							}
+						}
+						// As long as the object doesn't have a specific target to focus, perform normal
+						// pathfinding.
+						if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
+							var horizontal_edge_size_, vertical_edge_size_;
+							horizontal_edge_size_ = 1;
+							vertical_edge_size_ = 1;
+						}
+						// Else if the object has a specific target to focus, set adjuster variables
+						// and use those variables in the search afterwards.
+						else {
+							// Set the size of the minimum pattern.
+							var horizontal_edge_size_, vertical_edge_size_;
+							// If the search area is surrounding a 1x1 grid area
+							if (objectTarget.objectClassification == "Unit") || (objectTarget.objectType == "Food") || (objectTarget.objectType == "Wood") {
+								horizontal_edge_size_ = 1;
+								vertical_edge_size_ = 1;
+							}
+							// If the search area is surrounding a 1(vertical)x3(horizontal) grid area
+							else if (objectTarget.objectType == "Ruby") {
+								horizontal_edge_size_ = 3;
+								vertical_edge_size_ = 1;
+							}
+							// If the search area is surrounding a 2(vertical)x3(horizontal) grid area
+							else if (objectTarget.objectType == "Gold") {
+								horizontal_edge_size_ = 3;
+								vertical_edge_size_ = 2;
 							}
 						}
 						while still_need_to_search_ {
 							// If, after checking for a specific location, it still wasn't valid,
 							// move on and continue the search.
 							if still_need_to_search_ {
-								// As long as the object doesn't have a specific target to focus, perform normal
-								// pathfinding.
-								if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
-									var horizontal_edge_size_, vertical_edge_size_;
-									horizontal_edge_size_ = 1;
-									vertical_edge_size_ = 1;
-								}
-								// Else if the object has a specific target to focus, set adjuster variables
-								// and use those variables in the search afterwards.
-								else {
-									// Set the size of the minimum pattern.
-									var horizontal_edge_size_, vertical_edge_size_;
-									// If the search area is surrounding a 1x1 grid area
-									if (objectTarget.objectClassification == "Unit") || (objectTarget.objectType == "Food") || (objectTarget.objectType == "Wood") {
-										horizontal_edge_size_ = 1;
-										vertical_edge_size_ = 1;
-									}
-									// If the search area is surrounding a 1(vertical)x3(horizontal) grid area
-									else if (objectTarget.objectType == "Ruby") {
-										horizontal_edge_size_ = 3;
-										vertical_edge_size_ = 1;
-									}
-									// If the search area is surrounding a 2(vertical)x3(horizontal) grid area
-									else if (objectTarget.objectType == "Gold") {
-										horizontal_edge_size_ = 3;
-										vertical_edge_size_ = 2;
-									}
-								}
 								baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 								var square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
 								var square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
-								var square_total_edge_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
 								// Top edge, moving left to right
 								if squareIteration < (square_horizontal_edge_sizes_) {
-									// Start at the left corner and move right
-									tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
-									// Shift the temporary check upwards to the top edge
-									tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16);
+									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 3) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
+										// Start at the left corner and move right
+										tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
+										// Shift the temporary check upwards to the top edge
+										tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16);
+									}
+									else {
+										squareIteration += square_horizontal_edge_sizes_ - squareIteration;
+									}
 								}
 								// Right edge, moving top to bottom
 								else if squareIteration < (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) {
-									// Shift the temporary check rightwards to the right edge
-									tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16);
-									// Start at the top right corner and move down. Subtracted the size
-									// of one side from the coordinates, since I've already iterated through
-									// a side.
-									tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16) + (squareIteration * 16) - ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16);
+									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 2) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
+										// Shift the temporary check rightwards to the right edge
+										tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16);
+										// Start at the top right corner and move down. Subtracted the size
+										// of one side from the coordinates, since I've already iterated through
+										// a side.
+										tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16) + (squareIteration * 16) - ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16);
+									}
+									else {
+										squareIteration += (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) - squareIteration;
+									}
 								}
 								// Bottom edge, moving right to left
 								else if squareIteration < ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) {
-									// Start at the bottom right corner, and move left. How it works:
-									// Start at origin point targetToMoveToX. Shift over to the right
-									// edge. Move left by subtracting squareIteration * 16. Adjust for
-									// the previous two sides that have already been run through by
-									// adding the equivalent pixel size of two sides to the coordinates.
-									tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
-									// Shift the temporary check downwards to the bottom edge
-									tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
+									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 1) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
+										// Start at the bottom right corner, and move left. How it works:
+										// Start at origin point targetToMoveToX. Shift over to the right
+										// edge. Move left by subtracting squareIteration * 16. Adjust for
+										// the previous two sides that have already been run through by
+										// adding the equivalent pixel size of two sides to the coordinates.
+										tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
+										// Shift the temporary check downwards to the bottom edge
+										tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
+									}
+									else {
+										squareIteration += ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) - squareIteration;
+									}
 								}
 								// Left edge, moving bottom to top
 								else if squareIteration < ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) {
-									// Shift the temporary check leftwards to the left edge
-									tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16);
-									// Start at the bottom left corner and move up. Works in the same
-									// way the check in the else if statement above works with the x axis.
-									tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + (((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
+									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 0) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
+										// Shift the temporary check leftwards to the left edge
+										tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16);
+										// Start at the bottom left corner and move up. Works in the same
+										// way the check in the else if statement above works with the x axis.
+										tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + (((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
+									}
+									else {
+										squareIteration += ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) - squareIteration;
+									}
 								}
 						
 								// Iterate the count that moves along the edges up by one
@@ -881,7 +911,7 @@ function unit_move() {
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
 								if squareIteration >= ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
-									if melee_unit_ {
+									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
 										squareSizeIncreaseCount++;
 										
 									}
@@ -903,7 +933,7 @@ function unit_move() {
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
 								if squareIteration == ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
-									if melee_unit_ {
+									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
 										squareSizeIncreaseCount++;
 										
 									}
