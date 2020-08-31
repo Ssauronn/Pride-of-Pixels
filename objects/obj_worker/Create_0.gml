@@ -56,6 +56,8 @@ totalTimesSearched = 0;
 closestSearchPointToObjectX = -1;
 closestSearchPointToObjectY = -1;
 closestPointsToObjectsHaveBeenSet = false;
+groupDirectionToMoveIn = 0;
+groupDirectionToMoveInAdjusted = 0;
 
 
 // State machine

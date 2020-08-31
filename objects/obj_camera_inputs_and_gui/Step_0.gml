@@ -151,7 +151,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					if ds_list_size(objectsSelectedList) > 1 {
 						ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
 					}
-					else {
+					else if (is_undefined(ds_list_find_value(objectsSelectedList, 0))) || (!instance_exists(ds_list_find_value(objectsSelectedList, 0))) {
 						ds_list_destroy(objectsSelectedList);
 						objectsSelectedList = noone;
 					}
@@ -260,7 +260,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						if ds_list_size(objectsSelectedList) > 1 {
 							ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
 						}
-						else {
+						else if (is_undefined(ds_list_find_value(objectsSelectedList, 0))) || (!instance_exists(ds_list_find_value(objectsSelectedList, 0))) {
 							ds_list_destroy(objectsSelectedList);
 							objectsSelectedList = noone;
 						}
