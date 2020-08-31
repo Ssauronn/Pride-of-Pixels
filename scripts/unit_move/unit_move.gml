@@ -20,6 +20,7 @@ function target_next_object() {
 						squareIteration = 0;
 						squareSizeIncreaseCount = 0;
 						baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+						groupDirectionToMoveInAdjusted = 0;
 					}
 				}
 				if ds_exists(objectTargetList, ds_type_list) {
@@ -39,6 +40,7 @@ function target_next_object() {
 					specificLocationToBeCheckedY = targetToMoveToY;
 					tempCheckX = targetToMoveToX;
 					tempCheckY = targetToMoveToY;
+					groupDirectionToMoveInAdjusted = 0;
 				}
 			}
 			else {
@@ -50,6 +52,7 @@ function target_next_object() {
 				squareIteration = 0;
 				squareSizeIncreaseCount = 0;
 				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+				groupDirectionToMoveInAdjusted = 0;
 			}
 		}
 		else {
@@ -61,6 +64,7 @@ function target_next_object() {
 			squareIteration = 0;
 			squareSizeIncreaseCount = 0;
 			baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+			groupDirectionToMoveInAdjusted = 0;
 		}
 	}
 }
@@ -806,11 +810,12 @@ function unit_move() {
 									squareSizeIncreaseCount = 0;
 									ranged_unit_starting_ring_ = 0;
 								}
-								ranged_unit_direction_moving_in_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
+								/*ranged_unit_direction_moving_in_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
 								if ranged_unit_direction_moving_in_ >= 360 {
 									ranged_unit_direction_moving_in_ -= 360;
 								}
-								ranged_unit_direction_moving_in_ = floor(ranged_unit_direction_moving_in_ / 90);
+								ranged_unit_direction_moving_in_ = floor(ranged_unit_direction_moving_in_ / 90);*/
+								ranged_unit_direction_moving_in_ = groupDirectionToMoveIn + groupDirectionToMoveInAdjusted;
 							}
 						}
 						// As long as the object doesn't have a specific target to focus, perform normal
@@ -911,12 +916,36 @@ function unit_move() {
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
 								if squareIteration >= ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
+									// If the search is being made by a melee object or a ranged unit that isn't targeting
+									// anything, then expand the search outwards.
 									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
 										squareSizeIncreaseCount++;
-										
 									}
+									// Otherwise, expand the search inwards if the search is being made by a ranged unit
+									// that has a valid target.
 									else {
-										squareSizeIncreaseCount--;
+										// If its still possible to adjust the search inwards, do so
+										if squareSizeIncreaseCount > 0 {
+											squareSizeIncreaseCount--;
+										}
+										// Else if its no longer possible to adjust the search inwards, rotate the
+										// search by 90 degrees and start a new one. If the search has already been entirely
+										// rotated, eliminate the target, since its not valid, and either move onto the next one,
+										// or restart the search without a single target.
+										else {
+											if groupDirectionToMoveInAdjusted < 3 {
+												squareSizeIncreaseCount = ranged_unit_starting_ring_;
+												groupDirectionToMoveInAdjusted++;
+												ranged_unit_direction_moving_in_ = groupDirectionToMoveIn + groupDirectionToMoveInAdjusted;
+												if ranged_unit_direction_moving_in_ > 3 {
+													ranged_unit_direction_moving_in_ -= 4;
+												}
+											}
+											else {
+												groupDirectionToMoveInAdjusted = 0;
+												target_next_object();
+											}
+										}
 									}
 									squareIteration = 0;
 									baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
@@ -933,12 +962,36 @@ function unit_move() {
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
 								if squareIteration == ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
+									// If the search is being made by a melee object or a ranged unit that isn't targeting
+									// anything, then expand the search outwards.
 									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
 										squareSizeIncreaseCount++;
-										
 									}
+									// Otherwise, expand the search inwards if the search is being made by a ranged unit
+									// that has a valid target.
 									else {
-										squareSizeIncreaseCount--;
+										// If its still possible to adjust the search inwards, do so
+										if squareSizeIncreaseCount > 0 {
+											squareSizeIncreaseCount--;
+										}
+										// Else if its no longer possible to adjust the search inwards, rotate the
+										// search by 90 degrees and start a new one. If the search has already been entirely
+										// rotated, eliminate the target, since its not valid, and either move onto the next one,
+										// or restart the search without a single target.
+										else {
+											if groupDirectionToMoveInAdjusted < 3 {
+												squareSizeIncreaseCount = ranged_unit_starting_ring_;
+												groupDirectionToMoveInAdjusted++;
+												ranged_unit_direction_moving_in_ = groupDirectionToMoveIn + groupDirectionToMoveInAdjusted;
+												if ranged_unit_direction_moving_in_ > 3 {
+													ranged_unit_direction_moving_in_ -= 4;
+												}
+											}
+											else {
+												groupDirectionToMoveInAdjusted = 0;
+												target_next_object();
+											}
+										}
 									}
 									squareIteration = 0;
 									baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
