@@ -803,18 +803,106 @@ function unit_move() {
 							else {
 								melee_unit_ = false;
 								ranged_unit_starting_ring_ = (floor(objectRange / 16) * 16) / 16;
-								if (ds_exists(objectTargetList, ds_type_list)) || (instance_exists(objectTarget)) {
-									squareSizeIncreaseCount = ranged_unit_starting_ring_;
+								if (ds_exists(objectTargetList, ds_type_list)) && (instance_exists(objectTarget)) {
+									// If the ranged object is already in range of target, don't move! It can act already.
+									if point_distance(x, y, targetToMoveToX, targetToMoveToY) <= objectRange {
+										notAtTargetLocation = false;
+										validLocationFound = true;
+										validPathFound = true;
+										cannot_move_without_better_coordinates_ = false;
+										still_need_to_search_ = false;
+										needToStartGridSearch = true;
+										x_n_ = 0;
+										y_n_ = 0;
+										right_n_ = 0;
+										top_n_ = 0;
+										left_n_ = 0;
+										bottom_n_ = 0;
+										rightWallFound = false;
+										topWallFound = false;
+										leftWallFound = false;
+										bottomWallFound = false;
+										rightForbidden = false;
+										topForbidden = false;
+										leftForbidden = false;
+										bottomForbidden = false;
+										baseSquareEdgeSize = 0;
+										squareSizeIncreaseCount = 0;
+										squareIteration = 0;
+										tempCheckX = -1;
+										tempCheckY = -1;
+										groupRowWidth = 0;
+										specificLocationNeedsToBeChecked = false;
+										specificLocationToBeCheckedX = -1;
+										specificLocationToBeCheckedY = -1;
+										searchHasJustBegun = true;
+										totalTimesSearched = 0;
+										closestPointsToObjectsHaveBeenSet = false;
+										objectTarget = noone;
+										if path_exists(myPath) {
+											path_delete(myPath);
+											myPath = -1;
+										}
+										// Just in case the object was already close enough to move location,
+										// and its still in the middle of this move script (meaning it won't be
+										// in the ds_grid containing all moving object's locations), add itself
+										// to that grid.
+										if ds_exists(unitGridLocation, ds_type_grid) {
+											var i, self_is_found_;
+											self_is_found_ = noone;
+											if ds_grid_height(unitGridLocation) > 0 {
+												for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+													var temp_instance_;
+													temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
+													if self.id == temp_instance_.id {
+														self_is_found_ = i;
+														break;
+													}
+												}
+											}
+											// If self is found in the ds_grid, which it shouldn't be, then overwrite
+											// the existing values and replace with correct values. This is just here
+											// as redundancy.
+											if self_is_found_ != noone {
+												ds_grid_set(unitGridLocation, 1, self_is_found_, targetToMoveToX);
+												ds_grid_set(unitGridLocation, 2, self_is_found_, targetToMoveToY);
+											}
+											// If self doesn't exist in the grid, which it normally shouldn't, then
+											// resize the grid to accomodate it and add values.
+											else {
+												ds_grid_resize(unitGridLocation, 3, ds_grid_height(unitGridLocation) + 1);
+												ds_grid_set(unitGridLocation, 0, ds_grid_height(unitGridLocation) - 1, self.id);
+												ds_grid_set(unitGridLocation, 1, ds_grid_height(unitGridLocation) - 1, targetToMoveToX);
+												ds_grid_set(unitGridLocation, 2, ds_grid_height(unitGridLocation) - 1, targetToMoveToY);
+											}
+										}
+										// If the ds_grid doesn't exist, which is possible (but unlikely), then just recreate
+										// the grid and add the object's info.
+										else {
+											unitGridLocation = ds_grid_create(3, 1);
+											ds_grid_set(unitGridLocation, 0, 0, self.id);
+											ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
+											ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
+										}
+										if ds_exists(objectTargetList, ds_type_list) {
+											ds_list_destroy(objectTargetList);
+											objectTargetList = noone;
+										}
+										// After resetting all necessary variables, revert back to idle.
+										// If no action is commanded {
+											//currentAction = worker.idle;
+										//}
+										exit;
+									}
+									// Else continue the movement process.
+									else {
+										squareSizeIncreaseCount = ranged_unit_starting_ring_;
+									}
 								}
 								else {
 									squareSizeIncreaseCount = 0;
 									ranged_unit_starting_ring_ = 0;
 								}
-								/*ranged_unit_direction_moving_in_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
-								if ranged_unit_direction_moving_in_ >= 360 {
-									ranged_unit_direction_moving_in_ -= 360;
-								}
-								ranged_unit_direction_moving_in_ = floor(ranged_unit_direction_moving_in_ / 90);*/
 								ranged_unit_direction_moving_in_ = groupDirectionToMoveIn + groupDirectionToMoveInAdjusted;
 							}
 						}
@@ -1221,6 +1309,7 @@ function unit_move() {
 				// If no action is commanded {
 					//currentAction = worker.idle;
 				//}
+				exit;
 			}
 		}
 	}
