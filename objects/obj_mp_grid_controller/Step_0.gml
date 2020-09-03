@@ -139,6 +139,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 								// resource object that was clicked on as the target.
 								if objectClassification == "Unit" {
 									if objectType == "Worker" {
+										objectCurrentCommand = "Mine";
 										if ds_exists(objectTargetList, ds_type_list) {
 											ds_list_destroy(objectTargetList);
 											objectTargetList = noone;
@@ -153,6 +154,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 										}
 									}
 									else {
+										objectCurrentCommand = "Move";
 										objectTargetList = noone;
 									}
 								}
@@ -161,6 +163,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							// is an object that can attack it.
 							else if object_at_location_.objectTeam != playerTeam {
 								if objectClassification == "Unit" {
+									objectCurrentCommand = "Attack";
 									if ds_exists(objectTargetList, ds_type_list) {
 										ds_list_destroy(objectTargetList);
 										objectTargetList = noone;
@@ -178,6 +181,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							// Else if the object at target location is a friendly unit, nothing should be done and
 							// just reset object_at_location_ so that the object can move normally.
 							else if object_at_location_.objectTeam == playerTeam {
+								objectCurrentCommand = "Move";
 								if ds_exists(objectTargetList, ds_type_list) {
 									ds_list_destroy(objectTargetList);
 								}
@@ -311,6 +315,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				for (i = 0; i <= ds_list_size(objectsSelectedList) - 1; i++) {
 					with ds_list_find_value(objectsSelectedList, i) {
 						if objectTeam == playerTeam {
+							objectCurrentCommand = "Move";
 							targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
 							targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
 							if targetToMoveToX < 0 {

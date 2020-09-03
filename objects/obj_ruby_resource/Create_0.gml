@@ -12,4 +12,9 @@ objectTeam = "Neutral";
 objectSelected = false;
 objectOnScreen = false;
 
+// Stats
+currentHP = 1000;
+maxHP = 1000;
+regenerationPerSecond = (maxHP / room_speed) / 60; // Takes 1 minute precisely to regenerate its full HP
+
 

@@ -12,6 +12,7 @@ function target_next_object() {
 						ds_list_delete(objectTargetList, 0);
 					}
 					else {
+						objectCurrentCommand = "Move";
 						ds_list_destroy(objectTargetList);
 						objectTargetList = noone;
 						objectTarget = noone;
@@ -44,6 +45,7 @@ function target_next_object() {
 				}
 			}
 			else {
+				objectCurrentCommand = "Move";
 				ds_list_destroy(objectTargetList);
 				objectTargetList = noone;
 				objectTarget = noone;
@@ -56,6 +58,7 @@ function target_next_object() {
 			}
 		}
 		else {
+			objectCurrentCommand = "Move";
 			ds_list_destroy(objectTargetList);
 			objectTargetList = noone;
 			objectTarget = noone;
@@ -188,6 +191,18 @@ function unit_move() {
 				myPath = -1;
 			}
 			/*
+			if objectCurrentCommand == "Move" {
+				objectCurrentCommand = "Idle";
+				currentAction = worker.idle;
+			}
+			else if objectCurrentCommand == "Attack" {
+				objectCurrentCommand = "Attack";
+				currentAction = worker.attack;
+			}
+			else if objectCurrentCommand == "Mine" {
+				objectCurrentCommand = "Mine";
+				currentAction = worker.mine;
+			}
 			exit to different state
 			*/
 		}
@@ -195,7 +210,7 @@ function unit_move() {
 	}
 	if notAtTargetLocation {
 		/// Initialize just a few more variables
-		var x_, y_, target_grid_x_, target_grid_y_, path_next_x_, path_next_y_, current_target_to_move_to_x_, current_target_to_move_to_y_, cannot_move_without_better_coordinates_;
+		var x_, y_, target_grid_x_, target_grid_y_, current_target_to_move_to_x_, current_target_to_move_to_y_, cannot_move_without_better_coordinates_;
 		// x and y position of this object on the grid at all times - separate from the true x and y position, 
 		// which can change during movement and is not always stuck to the 16/16 grid.
 		x_ = floor(x / 16) * 16;
@@ -765,10 +780,8 @@ function unit_move() {
 					myPath = -1;
 				}
 			}
+			
 			// Find a valid location to move to and then move there.
-			// I'll be reusing a lot of variables in the previous section, but its fine
-			// since they're no longer used otherwise after the first section is complete.
-	
 			var i, original_location_is_valid_;
 			original_location_is_valid_ = true;
 			if ds_exists(unitGridLocation, ds_type_grid) {
@@ -889,9 +902,21 @@ function unit_move() {
 											objectTargetList = noone;
 										}
 										// After resetting all necessary variables, revert back to idle.
-										// If no action is commanded {
-											//currentAction = worker.idle;
-										//}
+										/*
+										if objectCurrentCommand == "Move" {
+											objectCurrentCommand = "Idle";
+											currentAction = worker.idle;
+										}
+										else if objectCurrentCommand == "Attack" {
+											objectCurrentCommand = "Attack";
+											currentAction = worker.attack;
+										}
+										else if objectCurrentCommand == "Mine" {
+											objectCurrentCommand = "Mine";
+											currentAction = worker.mine;
+										}
+										exit to different state
+										*/
 										exit;
 									}
 									// Else continue the movement process.
@@ -1305,10 +1330,21 @@ function unit_move() {
 					ds_list_destroy(objectTargetList);
 					objectTargetList = noone;
 				}
-				// After resetting all necessary variables, revert back to idle.
-				// If no action is commanded {
-					//currentAction = worker.idle;
-				//}
+				/*
+				if objectCurrentCommand == "Move" {
+					objectCurrentCommand = "Idle";
+					currentAction = worker.idle;
+				}
+				else if objectCurrentCommand == "Attack" {
+					objectCurrentCommand = "Attack";
+					currentAction = worker.attack;
+				}
+				else if objectCurrentCommand == "Mine" {
+					objectCurrentCommand = "Mine";
+					currentAction = worker.mine;
+				}
+				exit to different state
+				*/
 				exit;
 			}
 		}
@@ -1352,43 +1388,21 @@ function unit_move() {
 			myPath = -1;
 		}
 		/*
+		if objectCurrentCommand == "Move" {
+			objectCurrentCommand = "Idle";
+			currentAction = worker.idle;
+		}
+		else if objectCurrentCommand == "Attack" {
+			objectCurrentCommand = "Attack";
+			currentAction = worker.attack;
+		}
+		else if objectCurrentCommand == "Mine" {
+			objectCurrentCommand = "Mine";
+			currentAction = worker.mine;
+		}
 		exit to different state
 		*/
 	}
-
-
-
-	/*
-	Variables to be reset at the necessary times
-	x = targetToMoveToX;
-	y = targetToMoveToY;
-	cannot_move_without_better_coordinates_ = false;
-	notAtTargetLocation = false;
-	needToStartGridSearch = true;
-	baseSquareEdgeSize = 0;
-	squareSizeIncreaseCount = 0;
-	squareIteration = 0;
-	x_n_ = 0;
-	y_n_ = 0;
-	right_n_ = 0;
-	top_n_ = 0;
-	left_n_ = 0;
-	bottom_n_ = 0;
-	rightWallFound = false;
-	topWallFound = false;
-	leftWallFound = false;
-	bottomWallFound = false;
-	rightForbidden = false;
-	topForbidden = false;
-	leftForbidden = false;
-	bottomForbidden = false;
-	groupRowWidth = 0;
-	specificLocationNeedsToBeChecked = false;
-	specificLocationToBeCheckedX = -1;
-	specificLocationToBeCheckedY = -1;
-	searchHasJustBegun = true;
-	totalTimesSearched = 0;
-	closestPointsToObjectsHaveBeenSet = false;
-	myPath = -1;
-	*/
 }
+
+
