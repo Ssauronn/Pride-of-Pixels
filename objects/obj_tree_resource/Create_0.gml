@@ -21,5 +21,7 @@ objectType = "Wood";
 objectTeam = "Neutral";
 objectSelected = false;
 objectOnScreen = false;
+currentHP = 200;
+maxHP = 200;
 
 

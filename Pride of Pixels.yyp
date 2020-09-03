@@ -12,6 +12,7 @@
     {"id":{"name":"spr_gold_mine_2","path":"sprites/spr_gold_mine_2/spr_gold_mine_2.yy",},"order":1,},
     {"id":{"name":"spr_gold_mine_3","path":"sprites/spr_gold_mine_3/spr_gold_mine_3.yy",},"order":2,},
     {"id":{"name":"spr_food_1","path":"sprites/spr_food_1/spr_food_1.yy",},"order":0,},
+    {"id":{"name":"unit_mine","path":"scripts/unit_mine/unit_mine.yy",},"order":1,},
     {"id":{"name":"spr_food_2","path":"sprites/spr_food_2/spr_food_2.yy",},"order":1,},
     {"id":{"name":"spr_food_3","path":"sprites/spr_food_3/spr_food_3.yy",},"order":2,},
     {"id":{"name":"spr_ruby","path":"sprites/spr_ruby/spr_ruby.yy",},"order":3,},

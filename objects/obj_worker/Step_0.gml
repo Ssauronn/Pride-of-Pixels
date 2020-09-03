@@ -47,14 +47,8 @@ switch currentAction {
 	case worker.move:
 		unit_move();
 		break;
-	case worker.chop:
-		
-		break;
-	case worker.farm:
-		
-		break;
 	case worker.mine:
-		
+		unit_mine();
 		break;
 	case worker.attack:
 		

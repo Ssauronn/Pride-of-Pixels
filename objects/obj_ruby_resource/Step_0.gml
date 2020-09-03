@@ -6,4 +6,12 @@ else {
 	objectOnScreen = false;
 }
 
+// Make sure the ruby regenerates.
+if currentHP > maxHP {
+	currentHP = maxHP;
+}
+else if currentHP < maxHP {
+	currentHP += min((maxHP - currentHP), regenerationPerSecond);
+}
+
 

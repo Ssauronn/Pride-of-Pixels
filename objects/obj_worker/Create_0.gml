@@ -1,6 +1,9 @@
-// Object type, used for selection and targeting purposes
+// Object classification and type, used for selection and targeting purposes
 objectClassification = "Unit";
 objectType = "Worker";
+// Possible commands align with state machine: Idle, Move, Mine, Attack
+objectCurrentCommand = "Idle";
+// Other generic variables
 objectRange = 64;
 objectTeam = 1;
 objectSelected = false;
@@ -64,8 +67,6 @@ groupDirectionToMoveInAdjusted = 0;
 enum worker {
 	idle,
 	move,
-	chop,
-	farm,
 	mine,
 	attack
 }
@@ -85,14 +86,6 @@ workerSprite[worker.move][workerDirection.right] = spr_worker;
 workerSprite[worker.move][workerDirection.up] = spr_worker;
 workerSprite[worker.move][workerDirection.left] = spr_worker;
 workerSprite[worker.move][workerDirection.down] = spr_worker;
-workerSprite[worker.chop][workerDirection.right] = spr_worker;
-workerSprite[worker.chop][workerDirection.up] = spr_worker;
-workerSprite[worker.chop][workerDirection.left] = spr_worker;
-workerSprite[worker.chop][workerDirection.down] = spr_worker;
-workerSprite[worker.farm][workerDirection.right] = spr_worker;
-workerSprite[worker.farm][workerDirection.up] = spr_worker;
-workerSprite[worker.farm][workerDirection.left] = spr_worker;
-workerSprite[worker.farm][workerDirection.down] = spr_worker;
 workerSprite[worker.mine][workerDirection.right] = spr_worker;
 workerSprite[worker.mine][workerDirection.up] = spr_worker;
 workerSprite[worker.mine][workerDirection.left] = spr_worker;

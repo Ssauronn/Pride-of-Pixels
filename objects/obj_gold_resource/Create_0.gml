@@ -21,5 +21,7 @@ objectType = "Gold";
 objectTeam = "Neutral";
 objectSelected = false;
 objectOnScreen = false;
+currentHP = 2000;
+maxHP = 2000;
 
 
