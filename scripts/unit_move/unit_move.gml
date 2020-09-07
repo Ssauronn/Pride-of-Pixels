@@ -13,15 +13,17 @@ function target_next_object() {
 					}
 					else {
 						objectCurrentCommand = "Move";
-						ds_list_destroy(objectTargetList);
-						objectTargetList = noone;
-						objectTarget = noone;
 						targetToMoveToX = originalTargetToMoveToX;
 						targetToMoveToY = originalTargetToMoveToY;
 						squareIteration = 0;
 						squareSizeIncreaseCount = 0;
 						baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 						groupDirectionToMoveInAdjusted = 0;
+						objectTarget = noone;
+						if ds_exists(objectTargetList, ds_type_list) {
+							ds_list_destroy(objectTargetList);
+							objectTargetList = noone;
+						}
 					}
 				}
 				if ds_exists(objectTargetList, ds_type_list) {
@@ -34,8 +36,8 @@ function target_next_object() {
 					// Variables specifically used by object to move
 					notAtTargetLocation = true;
 					validLocationFound = true;
-					validPathFound = true;
-					needToStartGridSearch = false;
+					validPathFound = false;
+					needToStartGridSearch = true;
 					specificLocationNeedsToBeChecked = false;
 					specificLocationToBeCheckedX = targetToMoveToX;
 					specificLocationToBeCheckedY = targetToMoveToY;
@@ -46,15 +48,17 @@ function target_next_object() {
 			}
 			else {
 				objectCurrentCommand = "Move";
-				ds_list_destroy(objectTargetList);
-				objectTargetList = noone;
-				objectTarget = noone;
 				targetToMoveToX = originalTargetToMoveToX;
 				targetToMoveToY = originalTargetToMoveToY;
 				squareIteration = 0;
 				squareSizeIncreaseCount = 0;
 				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 				groupDirectionToMoveInAdjusted = 0;
+				objectTarget = noone;
+				if ds_exists(objectTargetList, ds_type_list) {
+					ds_list_destroy(objectTargetList);
+					objectTargetList = noone;
+				}
 			}
 		}
 		else {
@@ -68,6 +72,25 @@ function target_next_object() {
 			squareSizeIncreaseCount = 0;
 			baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 			groupDirectionToMoveInAdjusted = 0;
+			objectTarget = noone;
+			if ds_exists(objectTargetList, ds_type_list) {
+				ds_list_destroy(objectTargetList);
+				objectTargetList = noone;
+			}
+		}
+	}
+	else {
+		objectCurrentCommand = "Move";
+		targetToMoveToX = originalTargetToMoveToX;
+		targetToMoveToY = originalTargetToMoveToY;
+		squareIteration = 0;
+		squareSizeIncreaseCount = 0;
+		baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+		groupDirectionToMoveInAdjusted = 0;
+		objectTarget = noone;
+		if ds_exists(objectTargetList, ds_type_list) {
+			ds_list_destroy(objectTargetList);
+			objectTargetList = noone;
 		}
 	}
 }
@@ -107,7 +130,6 @@ Once a valid starting search area is determined, start checking for if the spot 
 
 function unit_move() {
 	if point_distance(x, y, targetToMoveToX, targetToMoveToY) == 0 {
-		#region Initialize variables necessary for the whole script
 		// Just in case the object is on the target location to move to, make sure object is
 		// in the ds_grid before exiting to idle. This will only happen if the original click
 		// location wasn't valid, but a new, closer click was location was found and the first
@@ -156,7 +178,7 @@ function unit_move() {
 		// to move to, either because there are no previous objects registered to
 		// be there, or there are no previous objects registered, period, then reset
 		// the variables and exit script.
-		if (!ds_did_not_exist_) || ((originally_self_is_found_ == noone) && (original_location_is_valid_)) {
+		//if (!ds_did_not_exist_) || ((originally_self_is_found_ == noone) && (original_location_is_valid_)) {
 			notAtTargetLocation = false;
 			validLocationFound = true;
 			validPathFound = true;
@@ -190,7 +212,6 @@ function unit_move() {
 				path_delete(myPath);
 				myPath = -1;
 			}
-			/*
 			if objectCurrentCommand == "Move" {
 				objectCurrentCommand = "Idle";
 				currentAction = worker.idle;
@@ -203,10 +224,7 @@ function unit_move() {
 				objectCurrentCommand = "Mine";
 				currentAction = worker.mine;
 			}
-			exit to different state
-			*/
-		}
-		#endregion
+		//}
 	}
 	if notAtTargetLocation {
 		/// Initialize just a few more variables
@@ -902,7 +920,6 @@ function unit_move() {
 											objectTargetList = noone;
 										}
 										// After resetting all necessary variables, revert back to idle.
-										/*
 										if objectCurrentCommand == "Move" {
 											objectCurrentCommand = "Idle";
 											currentAction = worker.idle;
@@ -915,8 +932,6 @@ function unit_move() {
 											objectCurrentCommand = "Mine";
 											currentAction = worker.mine;
 										}
-										exit to different state
-										*/
 										exit;
 									}
 									// Else continue the movement process.
@@ -1066,7 +1081,6 @@ function unit_move() {
 								// If the iteration is divisible by the size of an edge, meaning its at a corner,
 								// skip the corner. The previous frame will have already searched that corner -
 								// this skips redundant checks.
-								//if (squareIteration mod ((squareSizeIncreaseCount * 2) + 1) == 0) {
 								if (squareIteration == ((squareSizeIncreaseCount * 2) + 1 + (horizontal_edge_size_ - 1))) || (squareIteration == ((squareSizeIncreaseCount * 2) + 1 + (horizontal_edge_size_ - 1)) + ((squareSizeIncreaseCount * 2) + 1 + (vertical_edge_size_ - 1))) || (squareIteration == (((squareSizeIncreaseCount * 2) + 1 + (horizontal_edge_size_ - 1)) * 2) + ((squareSizeIncreaseCount * 2) + 1 + (vertical_edge_size_ - 1))) || (squareIteration == (((squareSizeIncreaseCount * 2) + 1 + (horizontal_edge_size_ - 1)) * 2) + (((squareSizeIncreaseCount * 2) + 1 + (vertical_edge_size_ - 1)) * 2)) {
 									squareIteration++;
 								}
@@ -1280,7 +1294,6 @@ function unit_move() {
 				searchHasJustBegun = true;
 				totalTimesSearched = 0;
 				closestPointsToObjectsHaveBeenSet = false;
-				objectTarget = noone;
 				if path_exists(myPath) {
 					path_delete(myPath);
 					myPath = -1;
@@ -1326,12 +1339,13 @@ function unit_move() {
 					ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
 					ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
 				}
-				if ds_exists(objectTargetList, ds_type_list) {
-					ds_list_destroy(objectTargetList);
-					objectTargetList = noone;
-				}
-				/*
 				if objectCurrentCommand == "Move" {
+					// Specifically if the unit's only command was to move, then remove any targeting that's going on.
+					objectTarget = noone;
+					if ds_exists(objectTargetList, ds_type_list) {
+						ds_list_destroy(objectTargetList);
+						objectTargetList = noone;
+					}
 					objectCurrentCommand = "Idle";
 					currentAction = worker.idle;
 				}
@@ -1343,8 +1357,6 @@ function unit_move() {
 					objectCurrentCommand = "Mine";
 					currentAction = worker.mine;
 				}
-				exit to different state
-				*/
 				exit;
 			}
 		}
@@ -1387,7 +1399,6 @@ function unit_move() {
 			path_delete(myPath);
 			myPath = -1;
 		}
-		/*
 		if objectCurrentCommand == "Move" {
 			objectCurrentCommand = "Idle";
 			currentAction = worker.idle;
@@ -1400,8 +1411,6 @@ function unit_move() {
 			objectCurrentCommand = "Mine";
 			currentAction = worker.mine;
 		}
-		exit to different state
-		*/
 	}
 }
 
