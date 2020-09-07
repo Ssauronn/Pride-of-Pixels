@@ -3,7 +3,7 @@
 ///										respective players' total resource count.
 function unit_mine() {
 	// Check to see if the unit should currently be mining - if not, then set to a different state.
-	if objectCurrentCommand == "Mine" {
+	if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
 		// Check to see if a target to mine exists and the target is a valid target, or if a target
 		// to attack exists and is valid - otherwise, active variables to search for a new target.
 		if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Resource") {
@@ -54,11 +54,18 @@ function unit_mine() {
 			currentAction = worker.idle;
 		}
 		else if objectCurrentCommand == "Attack" {
-			objectCurrentCommand = "Attack";
 			currentAction = worker.attack;
 		}
 		else if objectCurrentCommand == "Mine" {
-			objectCurrentCommand = "Mine";
+			currentAction = worker.mine;
+		}
+		else if objectCurrentCommand == "Chop" {
+			currentAction = worker.mine;
+		}
+		else if objectCurrentCommand == "Farm" {
+			currentAction = worker.mine;
+		}
+		else if objectCurrentCommand == "Ruby Mine" {
 			currentAction = worker.mine;
 		}
 	}
