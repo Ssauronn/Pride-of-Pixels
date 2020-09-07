@@ -13,7 +13,9 @@ if ds_exists(objectTargetList, ds_type_list) {
 	var i;
 	for (i = 0; i <= ds_list_size(objectTargetList) - 1; i++) {
 		var instance_to_reference_ = ds_list_find_value(objectTargetList, i);
-		draw_text(instance_to_reference_.x, instance_to_reference_.y, string(i));
+		if instance_exists(instance_to_reference_) {
+			draw_text(instance_to_reference_.x, instance_to_reference_.y, string(i));
+		}
 	}
 }
 

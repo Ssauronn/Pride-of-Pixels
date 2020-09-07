@@ -58,6 +58,7 @@ bottomWallFound = false;
 baseSquareEdgeSize = 0;
 squareSizeIncreaseCount = 0;
 squareIteration = 0;
+squareTrueIteration = 0;
 tempCheckX = -1;
 tempCheckY = -1;
 amountOfTimesShifted = 0;

@@ -16,6 +16,7 @@ function target_next_object() {
 						targetToMoveToX = originalTargetToMoveToX;
 						targetToMoveToY = originalTargetToMoveToY;
 						squareIteration = 0;
+						squareTrueIteration = 0;
 						squareSizeIncreaseCount = 0;
 						baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 						groupDirectionToMoveInAdjusted = 0;
@@ -31,13 +32,13 @@ function target_next_object() {
 					targetToMoveToX = floor(objectTarget.x / 16) * 16;
 					targetToMoveToY = floor(objectTarget.y / 16) * 16;
 					squareIteration = 0;
+					squareTrueIteration = 0;
 					squareSizeIncreaseCount = 0;
 					baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 					// Variables specifically used by object to move
 					notAtTargetLocation = true;
 					validLocationFound = true;
 					validPathFound = false;
-					needToStartGridSearch = true;
 					specificLocationNeedsToBeChecked = false;
 					specificLocationToBeCheckedX = targetToMoveToX;
 					specificLocationToBeCheckedY = targetToMoveToY;
@@ -51,6 +52,7 @@ function target_next_object() {
 				targetToMoveToX = originalTargetToMoveToX;
 				targetToMoveToY = originalTargetToMoveToY;
 				squareIteration = 0;
+				squareTrueIteration = 0;
 				squareSizeIncreaseCount = 0;
 				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 				groupDirectionToMoveInAdjusted = 0;
@@ -69,6 +71,7 @@ function target_next_object() {
 			targetToMoveToX = originalTargetToMoveToX;
 			targetToMoveToY = originalTargetToMoveToY;
 			squareIteration = 0;
+			squareTrueIteration = 0;
 			squareSizeIncreaseCount = 0;
 			baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 			groupDirectionToMoveInAdjusted = 0;
@@ -84,6 +87,7 @@ function target_next_object() {
 		targetToMoveToX = originalTargetToMoveToX;
 		targetToMoveToY = originalTargetToMoveToY;
 		squareIteration = 0;
+		squareTrueIteration = 0;
 		squareSizeIncreaseCount = 0;
 		baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 		groupDirectionToMoveInAdjusted = 0;
@@ -178,7 +182,7 @@ function unit_move() {
 		// to move to, either because there are no previous objects registered to
 		// be there, or there are no previous objects registered, period, then reset
 		// the variables and exit script.
-		//if (!ds_did_not_exist_) || ((originally_self_is_found_ == noone) && (original_location_is_valid_)) {
+		if (!ds_did_not_exist_) || ((originally_self_is_found_ == noone) && (original_location_is_valid_)) {
 			notAtTargetLocation = false;
 			validLocationFound = true;
 			validPathFound = true;
@@ -217,14 +221,21 @@ function unit_move() {
 				currentAction = worker.idle;
 			}
 			else if objectCurrentCommand == "Attack" {
-				objectCurrentCommand = "Attack";
 				currentAction = worker.attack;
 			}
 			else if objectCurrentCommand == "Mine" {
-				objectCurrentCommand = "Mine";
 				currentAction = worker.mine;
 			}
-		//}
+			else if objectCurrentCommand == "Chop" {
+				currentAction = worker.mine;
+			}
+			else if objectCurrentCommand == "Farm" {
+				currentAction = worker.mine;
+			}
+			else if objectCurrentCommand == "Ruby Mine" {
+				currentAction = worker.mine;
+			}
+		}
 	}
 	if notAtTargetLocation {
 		/// Initialize just a few more variables
@@ -842,7 +853,7 @@ function unit_move() {
 										validPathFound = true;
 										cannot_move_without_better_coordinates_ = false;
 										still_need_to_search_ = false;
-										needToStartGridSearch = true;
+										needToStartGridSearch = false;
 										x_n_ = 0;
 										y_n_ = 0;
 										right_n_ = 0;
@@ -925,11 +936,18 @@ function unit_move() {
 											currentAction = worker.idle;
 										}
 										else if objectCurrentCommand == "Attack" {
-											objectCurrentCommand = "Attack";
 											currentAction = worker.attack;
 										}
 										else if objectCurrentCommand == "Mine" {
-											objectCurrentCommand = "Mine";
+											currentAction = worker.mine;
+										}
+										else if objectCurrentCommand == "Chop" {
+											currentAction = worker.mine;
+										}
+										else if objectCurrentCommand == "Farm" {
+											currentAction = worker.mine;
+										}
+										else if objectCurrentCommand == "Ruby Mine" {
 											currentAction = worker.mine;
 										}
 										exit;
@@ -981,6 +999,15 @@ function unit_move() {
 								baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 								var square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
 								var square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
+								var square_peremeter_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
+								if squareTrueIteration < ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) {
+									if squareIteration == square_peremeter_size_ {
+										squareIteration = 0;
+									}
+									else if squareIteration > square_peremeter_size_ {
+										squareIteration = 1;
+									}
+								}
 								// Top edge, moving left to right
 								if squareIteration < (square_horizontal_edge_sizes_) {
 									if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 3) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
@@ -991,6 +1018,7 @@ function unit_move() {
 									}
 									else {
 										squareIteration += square_horizontal_edge_sizes_ - squareIteration;
+										squareTrueIteration += square_horizontal_edge_sizes_ - squareIteration;
 									}
 								}
 								// Right edge, moving top to bottom
@@ -1005,6 +1033,7 @@ function unit_move() {
 									}
 									else {
 										squareIteration += (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) - squareIteration;
+										squareTrueIteration += (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) - squareIteration;
 									}
 								}
 								// Bottom edge, moving right to left
@@ -1021,6 +1050,7 @@ function unit_move() {
 									}
 									else {
 										squareIteration += ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) - squareIteration;
+										squareTrueIteration += ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) - squareIteration;
 									}
 								}
 								// Left edge, moving bottom to top
@@ -1034,16 +1064,18 @@ function unit_move() {
 									}
 									else {
 										squareIteration += ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) - squareIteration;
+										squareTrueIteration += ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) - squareIteration;
 									}
 								}
 						
 								// Iterate the count that moves along the edges up by one
 								squareIteration++;
+								squareTrueIteration++;
 								// If the iteration count reaches the max amount of squares on the perimeter
 								// of the search square, reset the iteration count, increment the size increase
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
-								if squareIteration >= ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
+								if squareTrueIteration >= ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
 									// If the search is being made by a melee object or a ranged unit that isn't targeting
 									// anything, then expand the search outwards.
 									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
@@ -1075,20 +1107,43 @@ function unit_move() {
 											}
 										}
 									}
-									squareIteration = 0;
 									baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+									square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
+									square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
+									square_peremeter_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
+									var point_direction_from_target_to_unit_ = point_direction(targetToMoveToX, targetToMoveToY, x, y) + 45;
+									if point_direction_from_target_to_unit_ >= 360 {
+										point_direction_from_target_to_unit_ -= 360;
+									}
+									point_direction_from_target_to_unit_ = floor(point_direction_from_target_to_unit_ / 90);
+									switch point_direction_from_target_to_unit_ {
+										case 0:
+											squareIteration = square_horizontal_edge_sizes_ - 1;
+											break;
+										case 1:
+											squareIteration = 0;
+											break;
+										case 2:
+											squareIteration = ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_ - 1);
+											break;
+										case 3:
+											squareIteration = square_horizontal_edge_sizes_ + square_vertical_edge_sizes_ - 1;
+											break;
+									}
+									squareTrueIteration = 0;
 								}
 								// If the iteration is divisible by the size of an edge, meaning its at a corner,
 								// skip the corner. The previous frame will have already searched that corner -
 								// this skips redundant checks.
 								if (squareIteration == ((squareSizeIncreaseCount * 2) + 1 + (horizontal_edge_size_ - 1))) || (squareIteration == ((squareSizeIncreaseCount * 2) + 1 + (horizontal_edge_size_ - 1)) + ((squareSizeIncreaseCount * 2) + 1 + (vertical_edge_size_ - 1))) || (squareIteration == (((squareSizeIncreaseCount * 2) + 1 + (horizontal_edge_size_ - 1)) * 2) + ((squareSizeIncreaseCount * 2) + 1 + (vertical_edge_size_ - 1))) || (squareIteration == (((squareSizeIncreaseCount * 2) + 1 + (horizontal_edge_size_ - 1)) * 2) + (((squareSizeIncreaseCount * 2) + 1 + (vertical_edge_size_ - 1)) * 2)) {
 									squareIteration++;
+									squareTrueIteration++;
 								}
 								// If the iteration count reaches the max amount of squares on the perimeter
 								// of the search square, reset the iteration count, increment the size increase
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
-								if squareIteration == ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
+								if squareTrueIteration == ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
 									// If the search is being made by a melee object or a ranged unit that isn't targeting
 									// anything, then expand the search outwards.
 									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
@@ -1120,18 +1175,44 @@ function unit_move() {
 											}
 										}
 									}
-									squareIteration = 0;
 									baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+									square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
+									square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
+									square_peremeter_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
+									var point_direction_from_target_to_unit_ = point_direction(targetToMoveToX, targetToMoveToY, x, y) + 45;
+									if point_direction_from_target_to_unit_ >= 360 {
+										point_direction_from_target_to_unit_ -= 360;
+									}
+									point_direction_from_target_to_unit_ = floor(point_direction_from_target_to_unit_ / 90);
+									switch point_direction_from_target_to_unit_ {
+										case 0:
+											squareIteration = square_horizontal_edge_sizes_ - 1;
+											break;
+										case 1:
+											squareIteration = 0;
+											break;
+										case 2:
+											squareIteration = ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_ - 1);
+											break;
+										case 3:
+											squareIteration = square_horizontal_edge_sizes_ + square_vertical_edge_sizes_ - 1;
+											break;
+									}
+									squareTrueIteration = 0;
 								}
 								
 								if melee_unit_ {
-									if squareSizeIncreaseCount > 1 {
-										target_next_object();
+									if ds_exists(objectTargetList, ds_type_list) {
+										if squareSizeIncreaseCount > 1 {
+											target_next_object();
+										}
 									}
 								}
 								else if !melee_unit_ {
-									if squareSizeIncreaseCount == 0 {
-										target_next_object();
+									if ds_exists(objectTargetList, ds_type_list) {
+										if squareSizeIncreaseCount == 0 {
+											target_next_object();
+										}
 									}
 								}
 						
@@ -1267,7 +1348,7 @@ function unit_move() {
 				x = targetToMoveToX;
 				y = targetToMoveToY;
 				cannot_move_without_better_coordinates_ = false;
-				needToStartGridSearch = true;
+				needToStartGridSearch = false;
 				x_n_ = 0;
 				y_n_ = 0;
 				right_n_ = 0;
@@ -1285,6 +1366,7 @@ function unit_move() {
 				baseSquareEdgeSize = 0;
 				squareSizeIncreaseCount = 0;
 				squareIteration = 0;
+				squareTrueIteration = 0;
 				tempCheckX = -1;
 				tempCheckY = -1;
 				groupRowWidth = 0;
@@ -1350,11 +1432,18 @@ function unit_move() {
 					currentAction = worker.idle;
 				}
 				else if objectCurrentCommand == "Attack" {
-					objectCurrentCommand = "Attack";
 					currentAction = worker.attack;
 				}
 				else if objectCurrentCommand == "Mine" {
-					objectCurrentCommand = "Mine";
+					currentAction = worker.mine;
+				}
+				else if objectCurrentCommand == "Chop" {
+					currentAction = worker.mine;
+				}
+				else if objectCurrentCommand == "Farm" {
+					currentAction = worker.mine;
+				}
+				else if objectCurrentCommand == "Ruby Mine" {
 					currentAction = worker.mine;
 				}
 				exit;
@@ -1368,7 +1457,7 @@ function unit_move() {
 		validPathFound = true;
 		cannot_move_without_better_coordinates_ = false;
 		notAtTargetLocation = false;
-		needToStartGridSearch = true;
+		needToStartGridSearch = false;
 		x_n_ = 0;
 		y_n_ = 0;
 		right_n_ = 0;
@@ -1386,6 +1475,7 @@ function unit_move() {
 		baseSquareEdgeSize = 0;
 		squareSizeIncreaseCount = 0;
 		squareIteration = 0;
+		squareTrueIteration = 0;
 		tempCheckX = -1;
 		tempCheckY = -1;
 		groupRowWidth = 0;
@@ -1404,11 +1494,18 @@ function unit_move() {
 			currentAction = worker.idle;
 		}
 		else if objectCurrentCommand == "Attack" {
-			objectCurrentCommand = "Attack";
 			currentAction = worker.attack;
 		}
 		else if objectCurrentCommand == "Mine" {
-			objectCurrentCommand = "Mine";
+			currentAction = worker.mine;
+		}
+		else if objectCurrentCommand == "Chop" {
+			currentAction = worker.mine;
+		}
+		else if objectCurrentCommand == "Farm" {
+			currentAction = worker.mine;
+		}
+		else if objectCurrentCommand == "Ruby Mine" {
 			currentAction = worker.mine;
 		}
 	}

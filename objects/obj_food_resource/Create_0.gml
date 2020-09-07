@@ -21,7 +21,7 @@ objectType = "Food";
 objectTeam = "Neutral";
 objectSelected = false;
 objectOnScreen = false;
-currentHP = 75;
-maxHP = 75;
+currentHP = 7500;
+maxHP = 7500;
 
 

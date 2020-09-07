@@ -20,6 +20,63 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 		if objectTeam == playerTeam {
 			if objectNeedsToMove {
 				var object_at_location_ = instance_place(floor(targetToMoveToX / 16) * 16, floor(targetToMoveToY / 16) * 16, all);
+				var temp_object_at_location_ = noone;
+				if instance_exists(object_at_location_) {
+					if (object_at_location_.objectClassification != "Resource") && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
+						if objectCurrentCommand == "Chop" {
+							if !instance_exists(object_at_location_) || object_at_location_.object_index != obj_tree_resource {
+								temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_tree_resource);
+								if instance_exists(temp_object_at_location_) {
+									if point_distance(x, y, temp_object_at_location_.x, temp_object_at_location_.y) <= (10 * 16) {
+										object_at_location_ = temp_object_at_location_;
+									}
+									else {
+										object_at_location_ = noone;
+									}
+								}
+							}
+						}
+						else if objectCurrentCommand == "Farm" {
+							if !instance_exists(object_at_location_) || object_at_location_.object_index != obj_food_resource {
+								temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_food_resource);
+								if instance_exists(temp_object_at_location_) {
+									if point_distance(x, y, temp_object_at_location_.x, temp_object_at_location_.y) <= (10 * 16) {
+										object_at_location_ = temp_object_at_location_;
+									}
+									else {
+										object_at_location_ = noone;
+									}
+								}
+							}
+						}
+						else if objectCurrentCommand == "Mine" {
+							if !instance_exists(object_at_location_) || object_at_location_.object_index != obj_gold_resource {
+								temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_gold_resource);
+								if instance_exists(temp_object_at_location_) {
+									if point_distance(x, y, temp_object_at_location_.x, temp_object_at_location_.y) <= (10 * 16) {
+										object_at_location_ = temp_object_at_location_;
+									}
+									else {
+										object_at_location_ = noone;
+									}
+								}
+							}
+						}
+						else if objectCurrentCommand == "Ruby Mine" {
+							if !instance_exists(object_at_location_) || object_at_location_.object_index != obj_ruby_resource {
+								temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_ruby_resource);
+								if instance_exists(temp_object_at_location_) {
+									if point_distance(x, y, temp_object_at_location_.x, temp_object_at_location_.y) <= (10 * 16) {
+										object_at_location_ = temp_object_at_location_;
+									}
+									else {
+										object_at_location_ = noone;
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			else {
 				var object_at_location_ = instance_place(floor(mouse_x / 16) * 16, floor(mouse_y / 16) * 16, all);
@@ -162,7 +219,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					objectTargetType = noone;
 					objectTargetTeam = noone;
 					
-					// This is supposed to replace the code below once its complete
+					// Find all other valid targets within range, and add them to the objectTargetList.
 					var square_iteration_, square_iteration_random_start_number_, square_true_iteration_, square_size_increase_count_, square_size_increase_count_max_, base_square_edge_size_, search_increment_size_, temp_check_x_, temp_check_y_, target_x_, target_y_;
 					square_size_increase_count_ = 0;
 					square_iteration_random_start_number_ = 0;
@@ -288,7 +345,6 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							}
 						}
 					}
-					
 					// If the object at target location is a resource, then mine it if the object selected
 					// is an object that can mine it. An object's "team" (objectTeam) will only be set to
 					// "Neutral" if it is a resource.
@@ -298,7 +354,18 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						// resource object that was clicked on as the target.
 						if objectClassification == "Unit" {
 							if objectType == "Worker" {
-								objectCurrentCommand = "Mine";
+								if object_at_location_.object_index == obj_tree_resource {
+									objectCurrentCommand = "Chop";
+								}
+								else if object_at_location_.object_index == obj_food_resource {
+									objectCurrentCommand = "Farm";
+								}
+								else if object_at_location_.object_index == obj_gold_resource {
+									objectCurrentCommand = "Mine";
+								}
+								else if object_at_location_.object_index == obj_ruby_resource {
+									objectCurrentCommand = "Ruby Mine";
+								}
 								if ds_exists(objectTargetList, ds_type_list) {
 									ds_list_destroy(objectTargetList);
 									objectTargetList = noone;
@@ -408,6 +475,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					baseSquareEdgeSize = 0;
 					squareSizeIncreaseCount = 0;
 					squareIteration = 0;
+					squareTrueIteration = 0;
 					tempCheckX = targetToMoveToX;
 					tempCheckY = targetToMoveToY;
 					searchHasJustBegun = true;
@@ -573,6 +641,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					baseSquareEdgeSize = 0;
 					squareSizeIncreaseCount = 0;
 					squareIteration = 0;
+					squareTrueIteration = 0;
 					tempCheckX = targetToMoveToX;
 					tempCheckY = targetToMoveToY;
 					groupRowWidth = 0;
