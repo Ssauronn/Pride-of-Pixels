@@ -3,8 +3,19 @@ objectClassification = "Unit";
 objectType = "Worker";
 // Possible commands align with state machine: Idle, Move, Mine, Attack
 objectCurrentCommand = "Idle";
+// Combat variables
+objectSlashDamage = 13;
+objectSlashResistance = 10;
+objectPierceResistance = 0;
+objectCrushResistance = 30;
+objectMagicResistance = 0;
+// Mining variables (exclusive to obj_worker)
+objectWoodChopSpeed = 100 / room_speed;
+objectFoodGatherSpeed = 5 / room_speed;
+objectGoldMineSpeed = 4 / room_speed;
+objectRubyMineSpeed = 2 / room_speed;
 // Other generic variables
-objectRange = 64;
+objectRange = 16;
 objectTeam = 1;
 objectSelected = false;
 objectOnScreen = false;
@@ -18,6 +29,7 @@ objectTargetType = noone;
 depth = -y;
 
 // Pathfinding
+objectNeedsToMove = false;
 myPath = noone;
 validPathFound = true;
 validLocationFound = true;
