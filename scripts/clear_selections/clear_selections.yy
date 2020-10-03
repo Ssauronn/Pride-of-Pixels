@@ -6,7 +6,7 @@
     "path": "folders/Scripts/Internal_Code_Exclusive.yy",
   },
   "resourceVersion": "1.0",
-  "name": "Reset_Variables",
+  "name": "clear_selections",
   "tags": [
     "internal",
   ],
