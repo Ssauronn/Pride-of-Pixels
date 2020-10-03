@@ -1,4 +1,4 @@
-// 
+// Clean up potential memory leaks
 if ds_exists(unitGridLocation, ds_type_grid) {
 	if ds_grid_value_exists(unitGridLocation, 0, 0, 1, ds_grid_height(unitGridLocation) - 1, self.id) {
 		if ds_grid_height(unitGridLocation) > 1 {

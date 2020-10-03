@@ -126,38 +126,53 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		//draw_sprite_ext(spr_mouse_drag_horizontal_line, 0, mbLeftPressedXCoordinate + displacement_for_negative_values_in_drawing_x_, bottom_line_location_ + 3, amount_of_boxes_displaced_on_x_axis_, 1, 0, c_white, 0.5);
 		//draw_sprite_ext(spr_mouse_drag_vertical_line, 0, left_line_location_ - 3, mbLeftPressedYCoordinate + displacement_for_negative_values_in_drawing_y_, 1, amount_of_boxes_displaced_on_y_axis_, 0, c_white, 0.5);
 		//draw_sprite_ext(spr_mouse_drag_vertical_line, 0, right_line_location_ + 3, mbLeftPressedYCoordinate + displacement_for_negative_values_in_drawing_y_, 1, amount_of_boxes_displaced_on_y_axis_, 0, c_white, 0.5);
-		var unit_selected_, resource_selected_,
+		var unit_selected_, unit_selected_is_player_, resource_selected_, wipe_all_non_players_;
 		unit_selected_ = false;
 		resource_selected_ = false;
+		unit_selected_is_player_ = false;
+		wipe_all_non_players_ = false;
 		with obj_worker {
 			if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if objectTeam == playerTeam {
+					unit_selected_is_player_ = true;
+					wipe_all_non_players_ = true;
+				}
 				unit_selected_ = true;
 				if !objectSelected {
-					objectSelected = true;
-					obj_camera_inputs_and_gui.numberOfObjectsSelected++;
-					if ds_exists(objectsSelectedList, ds_type_list) {
-						ds_list_add(objectsSelectedList, self.id);
-					}
-					else {
-						objectsSelectedList = ds_list_create();
-						ds_list_add(objectsSelectedList, self.id);
+					if (unit_selected_is_player_ && objectTeam == playerTeam) || (!unit_selected_is_player_) {
+						objectSelected = true;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
 					}
 				}
 			}
 			else {
-				if objectSelected {
-					objectSelected = false;
-					obj_camera_inputs_and_gui.numberOfObjectsSelected--;
-					if ds_list_size(objectsSelectedList) > 1 {
-						ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
-					}
-					else if (is_undefined(ds_list_find_value(objectsSelectedList, 0))) || (!instance_exists(ds_list_find_value(objectsSelectedList, 0))) {
-						ds_list_destroy(objectsSelectedList);
-						objectsSelectedList = noone;
+				clear_selections(self.id);
+			}
+		}
+		// After adding all units inside the square of selection to the ds_list, cleanse the 
+		// ds_list of any units or objects that were selected that are no longer selected because
+		// the player has highlighted over a player unit or object and they are not part of the
+		// player team.
+		if wipe_all_non_players_ {
+			if ds_exists(objectsSelectedList, ds_type_list) {
+				var j;
+				for (j = 0; j <= ds_list_size(objectsSelectedList) - 1; j++) {
+					var instance_to_reference_ = ds_list_find_value(objectsSelectedList, j);
+					if (unit_selected_is_player_) && (instance_to_reference_.objectTeam != playerTeam) {
+						clear_selections(instance_to_reference_.id);
 					}
 				}
 			}
 		}
+		// If there are no units or buildings selected, then I can start evaluating for different
+		// objects that can be selected on the map.
 		if !unit_selected_ {
 			with obj_tree_resource {
 				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {

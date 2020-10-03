@@ -1,4 +1,5 @@
 /// @function					clear_selections();
+/// @parameter					[optional]id_or_object_index
 /// @description				Takes a variable number of parameters {index} and resets
 ///								selection variables on the object(s).
 
@@ -12,7 +13,9 @@ function clear_selections() {
 					objectSelected = false;
 					if ds_exists(objectsSelectedList, ds_type_list) {
 						if ds_list_size(objectsSelectedList) > 1 {
-							ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
+							if ds_list_find_index(objectsSelectedList, self.id) != -1 {
+								ds_list_delete(objectsSelectedList, ds_list_find_index(objectsSelectedList, self.id));
+							}
 						}
 						else {
 							ds_list_destroy(objectsSelectedList);

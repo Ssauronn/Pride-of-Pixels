@@ -1,5 +1,6 @@
 {
   "resources": [
+    {"id":{"name":"unit_attack","path":"scripts/unit_attack/unit_attack.yy",},"order":2,},
     {"id":{"name":"test_sprite","path":"sprites/test_sprite/test_sprite.yy",},"order":0,},
     {"id":{"name":"spr_mouse_highlight","path":"sprites/spr_mouse_highlight/spr_mouse_highlight.yy",},"order":4,},
     {"id":{"name":"spr_mouse_drag_vertical_line","path":"sprites/spr_mouse_drag_vertical_line/spr_mouse_drag_vertical_line.yy",},"order":5,},
@@ -20,7 +21,7 @@
     {"id":{"name":"spr_selected","path":"sprites/spr_selected/spr_selected.yy",},"order":7,},
     {"id":{"name":"spr_toolbar_background","path":"sprites/spr_toolbar_background/spr_toolbar_background.yy",},"order":2,},
     {"id":{"name":"tile_grass_1","path":"tilesets/tile_grass_1/tile_grass_1.yy",},"order":0,},
-    {"id":{"name":"Reset_Variables","path":"scripts/Reset_Variables/Reset_Variables.yy",},"order":0,},
+    {"id":{"name":"clear_selections","path":"scripts/clear_selections/clear_selections.yy",},"order":0,},
     {"id":{"name":"unit_move","path":"scripts/unit_move/unit_move.yy",},"order":0,},
     {"id":{"name":"obj_camera_inputs_and_gui","path":"objects/obj_camera_inputs_and_gui/obj_camera_inputs_and_gui.yy",},"order":0,},
     {"id":{"name":"obj_mp_grid_controller","path":"objects/obj_mp_grid_controller/obj_mp_grid_controller.yy",},"order":0,},
