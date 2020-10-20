@@ -739,4 +739,9 @@ switch currentAction {
 		break;
 }
 
+// Destroy self and remove self from all necessary ds_lists if HP goes to 0
+if currentHP <= 0 {
+	kill_self();
+}
+
 

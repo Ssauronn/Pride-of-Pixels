@@ -11,16 +11,32 @@ function unit_mine() {
 			if distance_to_object(objectTarget) < 16 {
 				switch objectTarget.objectType {
 					case "Wood":
-						objectTarget.currentHP -= objectWoodChopSpeed;
+						objectWoodChopSpeedTimer--;
+						if objectWoodChopSpeedTimer <= 0 {
+							objectWoodChopSpeedTimer = objectWoodChopSpeed;
+							objectTarget.currentHP -= objectWoodChopDamage;
+						}
 						break;
 					case "Food":
-						objectTarget.currentHP -= objectFoodGatherSpeed;
+						objectFoodGatherSpeedTimer--;
+						if objectFoodGatherSpeedTimer <= 0 {
+							objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+							objectTarget.currentHP -= objectFoodGatherDamage;
+						}
 						break;
 					case "Gold":
-						objectTarget.currentHP -= objectGoldMineSpeed;
+						objectGoldMineSpeedTimer--;
+						if objectGoldMineSpeedTimer <= 0 {
+							objectGoldMineSpeedTimer = objectGoldMineSpeed;
+							objectTarget.currentHP -= objectGoldMineDamage;
+						}
 						break;
 					case "Ruby":
-						objectTarget.currentHP -= objectRubyMineSpeed;
+						objectRubyMineSpeedTimer--;
+						if objectRubyMineSpeedTimer <= 0 {
+							objectRubyMineSpeedTimer = objectRubyMineSpeed;
+							objectTarget.currentHP -= objectRubyMineDamage;
+						}
 						break;
 				}
 			}
@@ -56,17 +72,7 @@ function unit_mine() {
 		else if objectCurrentCommand == "Attack" {
 			currentAction = worker.attack;
 		}
-		else if objectCurrentCommand == "Mine" {
-			currentAction = worker.mine;
-		}
-		else if objectCurrentCommand == "Chop" {
-			currentAction = worker.mine;
-		}
-		else if objectCurrentCommand == "Farm" {
-			currentAction = worker.mine;
-		}
-		else if objectCurrentCommand == "Ruby Mine" {
-			currentAction = worker.mine;
-		}
 	}
 }
+
+

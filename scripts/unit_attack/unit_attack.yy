@@ -7,6 +7,9 @@
   },
   "resourceVersion": "1.0",
   "name": "unit_attack",
-  "tags": [],
+  "tags": [
+    "unit",
+    "worker",
+  ],
   "resourceType": "GMScript",
 }
