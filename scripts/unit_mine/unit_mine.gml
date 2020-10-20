@@ -47,17 +47,9 @@ function unit_mine() {
 			}
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectTeam != objectTeam) {
-			// Check to see if within attack range - if not, activate variables to move closer to
-			// the target.
-			if distance_to_object(objectTarget) <= objectRange {
-				currentAction = worker.attack;
-				currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
-			}
-			else {
-				objectNeedsToMove = true;
-				targetToMoveToX = objectTarget.x;
-				targetToMoveToY = objectTarget.y;
-			}
+			// Just send to attack script, and the attack script can handle the rest.
+			currentAction = worker.attack;
+			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {
 			target_next_object();
