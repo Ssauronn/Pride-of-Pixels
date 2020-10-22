@@ -16,7 +16,7 @@ image_index = currentImageIndex;
 
 // If the mouse is on the map and not on the toolbar, then allow clicks
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
-	if mouse_check_button_pressed(mb_right) || objectNeedsToMove {
+	if (mouse_check_button_pressed(mb_right) && (objectSelected)) || objectNeedsToMove {
 		if objectTeam == playerTeam {
 			if objectNeedsToMove {
 				var object_at_location_ = instance_place(floor(targetToMoveToX / 16) * 16, floor(targetToMoveToY / 16) * 16, all);
@@ -218,7 +218,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					objectTarget = noone;
 					objectTargetType = noone;
 					objectTargetTeam = noone;
-					
+				
 					// Find all other valid targets within range, and add them to the objectTargetList.
 					var square_iteration_, square_iteration_random_start_number_, square_true_iteration_, square_size_increase_count_, square_size_increase_count_max_, base_square_edge_size_, search_increment_size_, temp_check_x_, temp_check_y_, target_x_, target_y_;
 					square_size_increase_count_ = 0;
@@ -242,7 +242,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						square_size_increase_count_max_ = whatever is an adequate range to search for in a square around the unit
 					}
 					*/
-					
+				
 					// The size of one side of the square to search is double what the check is below
 					while square_size_increase_count_ < square_size_increase_count_max_ {
 						// If, after checking for a specific location, it still wasn't valid,
@@ -294,7 +294,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							// way the check in the else if statement above works with the x axis.
 							temp_check_y_ = target_y_ + (square_size_increase_count_ * search_increment_size_) - (square_iteration_ * search_increment_size_) + ((((square_size_increase_count_ * 2) + 1) * search_increment_size_) * 3);
 						}
-					
+				
 						// Iterate the count that moves along the edges up by one
 						square_iteration_++;
 						square_true_iteration_++;
@@ -327,7 +327,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							square_iteration_ = square_iteration_random_start_number_;
 							square_true_iteration_ = 0;
 						}
-					
+				
 						var instance_to_reference_ = instance_place(temp_check_x_, temp_check_y_, all);
 						if (instance_to_reference_ != noone) && (instance_to_reference_ != object_at_location_) && (instance_to_reference_ != id) {
 							if instance_to_reference_.objectTeam == object_at_location_.objectTeam {
@@ -416,15 +416,15 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						objectTargetType = noone;
 						objectTargetTeam = noone;
 					}
-						
+					
 					// Get rid of the temporary ds_list
 					if ds_exists(target_list_, ds_type_list) {
 						ds_list_destroy(target_list_);
 						target_list_ = noone;
 					}
-				
-				
-				
+			
+			
+			
 					// Finally, after setting each object's ds_lists (if necessary), reset all
 					// movement variables for each selected object.
 					if !ds_exists(objectTargetList, ds_type_list) {
@@ -723,6 +723,9 @@ if ds_exists(objectTargetList, ds_type_list) {
 	}
 }
 
+// Count down various timers
+count_down_timers();
+
 // Switch the state machine's active state
 switch currentAction {
 	case worker.idle:
@@ -735,7 +738,7 @@ switch currentAction {
 		unit_mine();
 		break;
 	case worker.attack:
-		
+		unit_attack();
 		break;
 }
 

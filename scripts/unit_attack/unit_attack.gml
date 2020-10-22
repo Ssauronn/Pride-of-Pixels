@@ -4,9 +4,8 @@
 function unit_attack() {
 	// Check to see if the object should be currently attacking - if not, swap to a different state.
 	if objectCurrentCommand == "Attack" {
-		if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectTeam != objectTeam) {
+		if (instance_exists(objectTarget)) && ((objectTarget.objectClassification == "Unit") || (objectTarget.objectClassification == "Building")) && (objectTarget.objectTeam != objectTeam) {
 			if distance_to_object(objectTarget) < objectRange {
-				objectAttackSpeedTimer--;
 				if objectAttackSpeedTimer <= 0 {
 					objectAttackSpeedTimer = objectAttackSpeed;
 					objectTarget.currentHP -= objectAttackDamage;

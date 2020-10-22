@@ -11,28 +11,24 @@ function unit_mine() {
 			if distance_to_object(objectTarget) < 16 {
 				switch objectTarget.objectType {
 					case "Wood":
-						objectWoodChopSpeedTimer--;
 						if objectWoodChopSpeedTimer <= 0 {
 							objectWoodChopSpeedTimer = objectWoodChopSpeed;
 							objectTarget.currentHP -= objectWoodChopDamage;
 						}
 						break;
 					case "Food":
-						objectFoodGatherSpeedTimer--;
 						if objectFoodGatherSpeedTimer <= 0 {
 							objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
 							objectTarget.currentHP -= objectFoodGatherDamage;
 						}
 						break;
 					case "Gold":
-						objectGoldMineSpeedTimer--;
 						if objectGoldMineSpeedTimer <= 0 {
 							objectGoldMineSpeedTimer = objectGoldMineSpeed;
 							objectTarget.currentHP -= objectGoldMineDamage;
 						}
 						break;
 					case "Ruby":
-						objectRubyMineSpeedTimer--;
 						if objectRubyMineSpeedTimer <= 0 {
 							objectRubyMineSpeedTimer = objectRubyMineSpeed;
 							objectTarget.currentHP -= objectRubyMineDamage;

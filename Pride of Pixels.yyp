@@ -2,6 +2,7 @@
   "resources": [
     {"id":{"name":"unit_attack","path":"scripts/unit_attack/unit_attack.yy",},"order":2,},
     {"id":{"name":"test_sprite","path":"sprites/test_sprite/test_sprite.yy",},"order":0,},
+    {"id":{"name":"count_down_timers","path":"scripts/count_down_timers/count_down_timers.yy",},"order":3,},
     {"id":{"name":"spr_mouse_highlight","path":"sprites/spr_mouse_highlight/spr_mouse_highlight.yy",},"order":4,},
     {"id":{"name":"spr_mouse_drag_vertical_line","path":"sprites/spr_mouse_drag_vertical_line/spr_mouse_drag_vertical_line.yy",},"order":5,},
     {"id":{"name":"spr_mouse_drag_horizontal_line","path":"sprites/spr_mouse_drag_horizontal_line/spr_mouse_drag_horizontal_line.yy",},"order":6,},
