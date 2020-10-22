@@ -1330,6 +1330,10 @@ function unit_move() {
 						myPath = noone;
 						validPathFound = true;
 						validLocationFound = true;
+						// Increment all mining and attack timers each frame at the beginning of this script
+						// Also, don't snap to grid if currently chasing an enemy unit that is also in a movement script - instead, just attack.
+						// I'll have to include ways to snap back to grid in weird cases, like if the target swaps to a non-moving state while
+						// the original object is attacking while not snapped to grid.
 						x = floor(targetToMoveToX / 16) * 16;
 						y = floor(targetToMoveToY / 16) * 16;
 					}

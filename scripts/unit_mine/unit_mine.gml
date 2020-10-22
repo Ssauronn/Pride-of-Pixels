@@ -11,16 +11,28 @@ function unit_mine() {
 			if distance_to_object(objectTarget) < 16 {
 				switch objectTarget.objectType {
 					case "Wood":
-						objectTarget.currentHP -= objectWoodChopSpeed;
+						if objectWoodChopSpeedTimer <= 0 {
+							objectWoodChopSpeedTimer = objectWoodChopSpeed;
+							objectTarget.currentHP -= objectWoodChopDamage;
+						}
 						break;
 					case "Food":
-						objectTarget.currentHP -= objectFoodGatherSpeed;
+						if objectFoodGatherSpeedTimer <= 0 {
+							objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+							objectTarget.currentHP -= objectFoodGatherDamage;
+						}
 						break;
 					case "Gold":
-						objectTarget.currentHP -= objectGoldMineSpeed;
+						if objectGoldMineSpeedTimer <= 0 {
+							objectGoldMineSpeedTimer = objectGoldMineSpeed;
+							objectTarget.currentHP -= objectGoldMineDamage;
+						}
 						break;
 					case "Ruby":
-						objectTarget.currentHP -= objectRubyMineSpeed;
+						if objectRubyMineSpeedTimer <= 0 {
+							objectRubyMineSpeedTimer = objectRubyMineSpeed;
+							objectTarget.currentHP -= objectRubyMineDamage;
+						}
 						break;
 				}
 			}
@@ -31,17 +43,9 @@ function unit_mine() {
 			}
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectTeam != objectTeam) {
-			// Check to see if within attack range - if not, activate variables to move closer to
-			// the target.
-			if distance_to_object(objectTarget) <= objectRange {
-				currentAction = worker.attack;
-				currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
-			}
-			else {
-				objectNeedsToMove = true;
-				targetToMoveToX = objectTarget.x;
-				targetToMoveToY = objectTarget.y;
-			}
+			// Just send to attack script, and the attack script can handle the rest.
+			currentAction = worker.attack;
+			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {
 			target_next_object();
@@ -56,17 +60,7 @@ function unit_mine() {
 		else if objectCurrentCommand == "Attack" {
 			currentAction = worker.attack;
 		}
-		else if objectCurrentCommand == "Mine" {
-			currentAction = worker.mine;
-		}
-		else if objectCurrentCommand == "Chop" {
-			currentAction = worker.mine;
-		}
-		else if objectCurrentCommand == "Farm" {
-			currentAction = worker.mine;
-		}
-		else if objectCurrentCommand == "Ruby Mine" {
-			currentAction = worker.mine;
-		}
 	}
 }
+
+

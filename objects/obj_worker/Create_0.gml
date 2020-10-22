@@ -3,18 +3,31 @@ objectClassification = "Unit";
 objectType = "Worker";
 // Possible commands align with state machine: Idle, Move, Mine, Attack
 objectCurrentCommand = "Idle";
+objectTakeAction = false;
 // Combat variables
-objectSlashDamage = 13;
-objectSlashResistance = 10;
-objectPierceResistance = 0;
-objectCrushResistance = 30;
-objectMagicResistance = 0;
+objectAttackSpeed = 1.5 * room_speed;
+objectAttackSpeedTimer = 0;
+objectAttackDamage = 12;
+objectSlashResistance = 0.9;
+objectPierceResistance = 1;
+objectCrushResistance = 0.7;
+objectMagicResistance = 1;
 // Mining variables (exclusive to obj_worker)
-objectWoodChopSpeed = 100 / room_speed;
-objectFoodGatherSpeed = 5 / room_speed;
-objectGoldMineSpeed = 4 / room_speed;
-objectRubyMineSpeed = 2 / room_speed;
+objectWoodChopSpeed = room_speed; // Wood
+objectWoodChopSpeedTimer = 0; // Wood
+objectWoodChopDamage = 4; // Wood
+objectFoodGatherSpeed = room_speed; // Food
+objectFoodGatherSpeedTimer = 0; // Food
+objectFoodGatherDamage = 5; // Food
+objectGoldMineSpeed = room_speed; // Gold
+objectGoldMineSpeedTimer = 0; // Gold
+objectGoldMineDamage = 4; // Gold
+objectRubyMineSpeed = room_speed; // Ruby
+objectRubyMineSpeedTimer = 0; // Ruby
+objectRubyMineDamage = 2; // Ruby
 // Other generic variables
+maxHP = 70;
+currentHP = maxHP;
 objectRange = 16;
 objectTeam = 1;
 objectSelected = false;
