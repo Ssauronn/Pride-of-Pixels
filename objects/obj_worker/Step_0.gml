@@ -82,6 +82,9 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				var object_at_location_ = instance_place(floor(mouse_x / 16) * 16, floor(mouse_y / 16) * 16, all);
 			}
 		}
+		else {
+			var object_at_location_ = noone;
+		}
 		// If objects selected are commanded onto a space occupied by a different object, get that
 		// object's type, create a ds_list including that and all other objects of the same type for
 		// use later, and send to movement script.
