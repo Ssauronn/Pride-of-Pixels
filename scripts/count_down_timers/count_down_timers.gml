@@ -18,4 +18,7 @@ function count_down_timers() {
 	if objectAttackSpeedTimer > 0 {
 		objectAttackSpeedTimer--;
 	}
+	if objectCheckForEnemyTimer > 0 {
+		objectCheckForEnemyTimer--;
+	}
 }

@@ -218,22 +218,22 @@ function unit_move() {
 			}
 			if objectCurrentCommand == "Move" {
 				objectCurrentCommand = "Idle";
-				currentAction = worker.idle;
+				currentAction = unit.idle;
 			}
 			else if objectCurrentCommand == "Attack" {
-				currentAction = worker.attack;
+				currentAction = unit.attack;
 			}
 			else if objectCurrentCommand == "Mine" {
-				currentAction = worker.mine;
+				currentAction = unit.mine;
 			}
 			else if objectCurrentCommand == "Chop" {
-				currentAction = worker.mine;
+				currentAction = unit.mine;
 			}
 			else if objectCurrentCommand == "Farm" {
-				currentAction = worker.mine;
+				currentAction = unit.mine;
 			}
 			else if objectCurrentCommand == "Ruby Mine" {
-				currentAction = worker.mine;
+				currentAction = unit.mine;
 			}
 		}
 	}
@@ -933,22 +933,22 @@ function unit_move() {
 										// After resetting all necessary variables, revert back to idle.
 										if objectCurrentCommand == "Move" {
 											objectCurrentCommand = "Idle";
-											currentAction = worker.idle;
+											currentAction = unit.idle;
 										}
 										else if objectCurrentCommand == "Attack" {
-											currentAction = worker.attack;
+											currentAction = unit.attack;
 										}
 										else if objectCurrentCommand == "Mine" {
-											currentAction = worker.mine;
+											currentAction = unit.mine;
 										}
 										else if objectCurrentCommand == "Chop" {
-											currentAction = worker.mine;
+											currentAction = unit.mine;
 										}
 										else if objectCurrentCommand == "Farm" {
-											currentAction = worker.mine;
+											currentAction = unit.mine;
 										}
 										else if objectCurrentCommand == "Ruby Mine" {
-											currentAction = worker.mine;
+											currentAction = unit.mine;
 										}
 										exit;
 									}
@@ -1433,22 +1433,22 @@ function unit_move() {
 						objectTargetList = noone;
 					}
 					objectCurrentCommand = "Idle";
-					currentAction = worker.idle;
+					currentAction = unit.idle;
 				}
 				else if objectCurrentCommand == "Attack" {
-					currentAction = worker.attack;
+					currentAction = unit.attack;
 				}
 				else if objectCurrentCommand == "Mine" {
-					currentAction = worker.mine;
+					currentAction = unit.mine;
 				}
 				else if objectCurrentCommand == "Chop" {
-					currentAction = worker.mine;
+					currentAction = unit.mine;
 				}
 				else if objectCurrentCommand == "Farm" {
-					currentAction = worker.mine;
+					currentAction = unit.mine;
 				}
 				else if objectCurrentCommand == "Ruby Mine" {
-					currentAction = worker.mine;
+					currentAction = unit.mine;
 				}
 				exit;
 			}
@@ -1495,22 +1495,22 @@ function unit_move() {
 		}
 		if objectCurrentCommand == "Move" {
 			objectCurrentCommand = "Idle";
-			currentAction = worker.idle;
+			currentAction = unit.idle;
 		}
 		else if objectCurrentCommand == "Attack" {
-			currentAction = worker.attack;
+			currentAction = unit.attack;
 		}
 		else if objectCurrentCommand == "Mine" {
-			currentAction = worker.mine;
+			currentAction = unit.mine;
 		}
 		else if objectCurrentCommand == "Chop" {
-			currentAction = worker.mine;
+			currentAction = unit.mine;
 		}
 		else if objectCurrentCommand == "Farm" {
-			currentAction = worker.mine;
+			currentAction = unit.mine;
 		}
 		else if objectCurrentCommand == "Ruby Mine" {
-			currentAction = worker.mine;
+			currentAction = unit.mine;
 		}
 	}
 }

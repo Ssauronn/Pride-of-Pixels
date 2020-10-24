@@ -36,6 +36,8 @@ objectTargetList = noone;
 objectTarget = noone;
 objectTargetTeam = noone;
 objectTargetType = noone;
+objectCheckForEnemyTimer = irandom_range(1, room_speed);
+objectCheckForEnemyTimerStart = room_speed;
 
 
 // Depth setting
@@ -90,39 +92,39 @@ groupDirectionToMoveInAdjusted = 0;
 
 
 // State machine
-enum worker {
+enum unit {
 	idle,
 	move,
 	mine,
 	attack
 }
 // Sprite setting enums
-enum workerDirection {
+enum unitDirection {
 	right,
 	up,
 	left,
 	down
 }
 // Sprite setting array
-workerSprite[worker.idle][workerDirection.right] = spr_worker;
-workerSprite[worker.idle][workerDirection.up] = spr_worker;
-workerSprite[worker.idle][workerDirection.left] = spr_worker;
-workerSprite[worker.idle][workerDirection.down] = spr_worker;
-workerSprite[worker.move][workerDirection.right] = spr_worker;
-workerSprite[worker.move][workerDirection.up] = spr_worker;
-workerSprite[worker.move][workerDirection.left] = spr_worker;
-workerSprite[worker.move][workerDirection.down] = spr_worker;
-workerSprite[worker.mine][workerDirection.right] = spr_worker;
-workerSprite[worker.mine][workerDirection.up] = spr_worker;
-workerSprite[worker.mine][workerDirection.left] = spr_worker;
-workerSprite[worker.mine][workerDirection.down] = spr_worker;
-workerSprite[worker.attack][workerDirection.right] = spr_worker;
-workerSprite[worker.attack][workerDirection.up] = spr_worker;
-workerSprite[worker.attack][workerDirection.left] = spr_worker;
-workerSprite[worker.attack][workerDirection.down] = spr_worker;
+workerSprite[unit.idle][unitDirection.right] = spr_worker;
+workerSprite[unit.idle][unitDirection.up] = spr_worker;
+workerSprite[unit.idle][unitDirection.left] = spr_worker;
+workerSprite[unit.idle][unitDirection.down] = spr_worker;
+workerSprite[unit.move][unitDirection.right] = spr_worker;
+workerSprite[unit.move][unitDirection.up] = spr_worker;
+workerSprite[unit.move][unitDirection.left] = spr_worker;
+workerSprite[unit.move][unitDirection.down] = spr_worker;
+workerSprite[unit.mine][unitDirection.right] = spr_worker;
+workerSprite[unit.mine][unitDirection.up] = spr_worker;
+workerSprite[unit.mine][unitDirection.left] = spr_worker;
+workerSprite[unit.mine][unitDirection.down] = spr_worker;
+workerSprite[unit.attack][unitDirection.right] = spr_worker;
+workerSprite[unit.attack][unitDirection.up] = spr_worker;
+workerSprite[unit.attack][unitDirection.left] = spr_worker;
+workerSprite[unit.attack][unitDirection.down] = spr_worker;
 // Actual Sprite Value
-currentAction = worker.move;
-currentDirection = workerDirection.right;
+currentAction = unit.move;
+currentDirection = unitDirection.right;
 currentSprite = workerSprite[currentAction][currentDirection];
 // Index speed
 currentImageIndex = 0;

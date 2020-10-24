@@ -18,21 +18,21 @@ function unit_attack() {
 			}
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Resource") && (objectType == "Worker") {
-			currentAction = worker.mine;
+			currentAction = unit.mine;
 			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {
 			target_next_object();
-			currentAction = worker.move;
+			currentAction = unit.move;
 		}
 	}
 	else {
 		if objectCurrentCommand == "Move" {
 			objectCurrentCommand = "Idle";
-			currentAction = worker.idle;
+			currentAction = unit.idle;
 		}
 		else if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
-			currentAction = worker.mine;
+			currentAction = unit.mine;
 		}
 	}
 }
