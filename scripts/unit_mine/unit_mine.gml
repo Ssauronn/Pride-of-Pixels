@@ -44,21 +44,21 @@ function unit_mine() {
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectTeam != objectTeam) {
 			// Just send to attack script, and the attack script can handle the rest.
-			currentAction = worker.attack;
+			currentAction = unit.attack;
 			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {
 			target_next_object();
-			currentAction = worker.move;
+			currentAction = unit.move;
 		}
 	}
 	else {
 		if objectCurrentCommand == "Move" {
 			objectCurrentCommand = "Idle";
-			currentAction = worker.idle;
+			currentAction = unit.idle;
 		}
 		else if objectCurrentCommand == "Attack" {
-			currentAction = worker.attack;
+			currentAction = unit.attack;
 		}
 	}
 }
