@@ -14,9 +14,9 @@ if currentImageIndex > (sprite_get_number(sprite_index) - 1) {
 }
 image_index = currentImageIndex;
 
-var target_list_ = noone;
 // If the mouse is on the map and not on the toolbar, then allow clicks
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
+	var target_list_ = noone;
 	if (mouse_check_button_pressed(mb_right) && (objectSelected)) || objectNeedsToMove {
 		// Firstly, if the object was automatically instructed to move, check for what object is at its target location and if the
 		// found object is not an object its commanded to attack or mine, change the object it should be attacking or mining
@@ -78,6 +78,9 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							}
 						}
 					}
+					// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+					// In this instance, I'll need to add same paragraphs as above, except specific to units and/or buildings
+					
 				}
 			}
 		}
@@ -103,7 +106,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					number_of_selected_targeting_up_ = 0;
 					number_of_selected_targeting_left_ = 0;
 					number_of_selected_targeting_down_ = 0;
-					for (i = 0; i <= ds_list_size(objectsSelectedList) - 1; i++) {
+					for (i = 0; i < ds_list_size(objectsSelectedList); i++) {
 						with ds_list_find_value(objectsSelectedList, i) {
 							if objectTeam == playerTeam {
 								// Create a list of all instances of the same type and team of the original
@@ -164,7 +167,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						selectedUnitsDefaultDirectionToFace = 3;
 					}
 					var i;
-					for (i = 0; i <= ds_list_size(objectsSelectedList) - 1; i++) {
+					for (i = 0; i < ds_list_size(objectsSelectedList); i++) {
 						with ds_list_find_value(objectsSelectedList, i) {
 							groupDirectionToMoveIn = selectedUnitsDefaultDirectionToFace;
 							groupDirectionToMoveInAdjusted = 0;
@@ -229,7 +232,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				objectTarget = noone;
 				objectTargetType = noone;
 				objectTargetTeam = noone;
-			
+				
 				// Find all other valid targets within range, and add them to the objectTargetList.
 				var square_iteration_, square_iteration_random_start_number_, square_true_iteration_, square_size_increase_count_, square_size_increase_count_max_, base_square_edge_size_, search_increment_size_, temp_check_x_, temp_check_y_, target_x_, target_y_;
 				square_size_increase_count_ = 0;
@@ -514,6 +517,8 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					path_delete(myPath);
 					myPath = -1;
 				}
+				// Move this object directly towards its target while pathfinding is running - this is to hide the loading
+				// period I had to force in for pathfinding, since its so ineffecient, and will lag the game out otherwise.
 				if mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1 {
 					var x_adjustment_, y_adjustment_;
 					x_adjustment_ = 0;
@@ -548,7 +553,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					number_of_selected_targeting_up_ = 0;
 					number_of_selected_targeting_left_ = 0;
 					number_of_selected_targeting_down_ = 0;
-					for (i = 0; i <= ds_list_size(objectsSelectedList) - 1; i++) {
+					for (i = 0; i < ds_list_size(objectsSelectedList); i++) {
 						with ds_list_find_value(objectsSelectedList, i) {
 							if objectTeam == playerTeam {
 								// Create a list of all instances of the same type and team of the original
@@ -609,7 +614,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						selectedUnitsDefaultDirectionToFace = 3;
 					}
 					var i;
-					for (i = 0; i <= ds_list_size(objectsSelectedList) - 1; i++) {
+					for (i = 0; i < ds_list_size(objectsSelectedList); i++) {
 						with ds_list_find_value(objectsSelectedList, i) {
 							obj_camera_inputs_and_gui.groupDirectionToMoveIn = selectedUnitsDefaultDirectionToFace;
 							obj_camera_inputs_and_gui.groupDirectionToMoveInAdjusted = 0;
@@ -625,7 +630,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 			}
 			// If the object is selected and player controlled, or if the object has been automatically instructed to move,
 			// do so.
-			if ((ds_exists(objectsSelectedList, ds_type_list)) && (ds_list_find_index(objectsSelectedList, id) != -1) && (objectTeam == playerTeam)) || objectNeedsToMove {
+			if ((((ds_exists(objectsSelectedList, ds_type_list)) && (ds_list_find_index(objectsSelectedList, id) != -1)) || objectSelected == true) && (objectTeam == playerTeam)) || objectNeedsToMove {
 				// Set regular variables
 				objectCurrentCommand = "Move";
 				if objectNeedsToMove {
@@ -754,6 +759,46 @@ if ds_exists(objectTargetList, ds_type_list) {
 			objectTargetTeam = noone;
 		}
 	}
+}
+
+// Detect nearest valid targets and attack, if necessary
+objectDetectTarget--;
+if objectDetectTarget <= 0 {
+	objectDetectTarget = room_speed;
+	detect_nearby_enemy_objects();
+	if ds_exists(objectDetectedList, ds_type_list) {
+		var i;
+		for (i = 0; i < ds_list_size(objectDetectedList); i++) {
+			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+			// In this case specifically, worker units will not aggro to nearby enemy units unless they're in active
+			// combat. With more militiant type units, this will change.
+			var instance_nearby_ = ds_list_find_value(objectDetectedList, i);
+			var target_of_instance_nearby_ = instance_nearby_.objectTarget;
+			if instance_exists(target_of_instance_nearby_) {
+				// If the target of any enemy object within range is a team member of this unit, attack that enemy object.
+				if target_of_instance_nearby_.objectTeam == objectTeam {
+					if objectCurrentCommand != "Attack" {
+						objectCurrentCommand = "Attack";
+						objectTarget = instance_nearby_;
+						objectNeedsToMove = true;
+						if (instance_nearby_.objectClassification == "Unit") && (instance_nearby_.currentAction == unit.move) {
+							targetToMoveToX = instance_nearby_.targetToMoveToX;
+							targetToMoveToY = instance_nearby_.targetToMoveToY;
+						}
+						else {
+							targetToMoveToX = instance_nearby_.x;
+							targetToMoveToY = instance_nearby_.y;
+						}
+						//currentAction = unit.attack;
+						//currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+						ds_list_destroy(objectDetectedList);
+						break;
+					}
+				}
+			}
+		}
+	}
+
 }
 
 // Count down various timers

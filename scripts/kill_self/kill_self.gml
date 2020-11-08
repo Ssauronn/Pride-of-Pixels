@@ -6,20 +6,43 @@ function kill_self() {
 	if ds_exists(objectsSelectedList, ds_type_list) {
 		var instance_found_ = ds_list_find_index(objectsSelectedList, self.id);
 		if instance_found_ != -1 {
-			ds_list_delete(objectsSelectedList, instance_found_);
+			if ds_list_size(objectsSelectedList) > 1 {
+				ds_list_delete(objectsSelectedList, instance_found_);
+			}
+			else {
+				ds_list_destroy(objectsSelectedList);
+				objectsSelectedList = noone;
+			}
 		}
 	}
 	// Cleanse unitQueueForPathfindingList
 	if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 		var instance_found_ = ds_list_find_index(unitQueueForPathfindingList, self.id);
 		if instance_found_ != -1 {
-			ds_list_delete(unitQueueForPathfindingList, instance_found_);
+			if ds_list_size(unitQueueForPathfindingList) > 1 {
+				ds_list_delete(unitQueueForPathfindingList, instance_found_);
+			}
+			else {
+				ds_list_destroy(unitQueueForPathfindingList);
+			}
 		}
 	}
 	/*
-	I don't bother cleansing objectTargetList, which is a local list for each unit, because all units already have
-	automatic handling for situations where the object or target in the list doesn't exist.
+	I don't bother cleansing objectTargetList for other objects, which is a local list for each unit, because 
+	all units already have automatic handling for situations where the object or target in the list doesn't exist.
+	I do however still destroy the list that this object controls.
 	*/
+	if ds_exists(objectTargetList, ds_type_list) {
+		var instance_found_ = ds_list_find_index(objectTargetList, self.id);
+		if instance_found_ != -1 {
+			if ds_list_size(objectTargetList) > 1 {
+				ds_list_delete(objectTargetList, instance_found_);
+			}
+			else {
+				ds_list_destroy(objectTargetList);
+			}
+		}
+	}
 	
 	// Destroy self finally
 	instance_destroy(self);

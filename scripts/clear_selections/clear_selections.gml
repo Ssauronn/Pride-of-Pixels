@@ -1,5 +1,5 @@
 /// @function					clear_selections();
-/// @parameter					[optional]id_or_object_index
+/// @parameter					{index} [optional] idOrObjectIndex
 /// @description				Takes a variable number of parameters {index} and resets
 ///								selection variables on the object(s).
 
