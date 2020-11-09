@@ -792,13 +792,13 @@ if objectDetectTarget <= 0 {
 						//currentAction = unit.attack;
 						//currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
 						ds_list_destroy(objectDetectedList);
+						objectDetectedList = noone;
 						break;
 					}
 				}
 			}
 		}
 	}
-
 }
 
 // Count down various timers

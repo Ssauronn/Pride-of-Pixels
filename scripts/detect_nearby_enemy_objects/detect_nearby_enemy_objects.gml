@@ -55,6 +55,6 @@ function detect_nearby_enemy_objects() {
 			}
 		}
 	}
-	return objectDetectedList;
+	return true;
 }
 
