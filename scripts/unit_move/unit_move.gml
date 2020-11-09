@@ -146,7 +146,7 @@ function unit_move() {
 		if ds_exists(unitGridLocation, ds_type_grid) {
 			ds_did_not_exist_ = true;
 			if ds_grid_height(unitGridLocation) > 0 {
-				for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+				for (i = 0; i < ds_grid_height(unitGridLocation); i++) {
 					var temp_instance_, temp_instance_x_, temp_instance_y_;
 					temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
 					temp_instance_x_ = ds_grid_get(unitGridLocation, 1, i);
@@ -336,7 +336,7 @@ function unit_move() {
 			var i;
 			if ds_exists(unitGridLocation, ds_type_grid) {
 				if ds_grid_height(unitGridLocation) > 1 {
-					for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+					for (i = 0; i < ds_grid_height(unitGridLocation); i++) {
 						var temp_instance_;
 						temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
 						// If self is found (which is should be, at the beginning of this script), then
@@ -815,7 +815,7 @@ function unit_move() {
 			original_location_is_valid_ = true;
 			if ds_exists(unitGridLocation, ds_type_grid) {
 				if ds_grid_height(unitGridLocation) > 0 {
-					for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+					for (i = 0; i < ds_grid_height(unitGridLocation); i++) {
 						var temp_instance_, temp_instance_x_, temp_instance_y_;
 						temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
 						temp_instance_x_ = ds_grid_get(unitGridLocation, 1, i);
@@ -893,7 +893,7 @@ function unit_move() {
 											var i, self_is_found_;
 											self_is_found_ = noone;
 											if ds_grid_height(unitGridLocation) > 0 {
-												for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+												for (i = 0; i < ds_grid_height(unitGridLocation); i++) {
 													var temp_instance_;
 													temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
 													if self.id == temp_instance_.id {
@@ -1227,7 +1227,7 @@ function unit_move() {
 									// Check to see if any object currently has that space occupied, and if not,
 									// occupy it.
 									if ds_exists(unitGridLocation, ds_type_grid) {
-										for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+										for (i = 0; i < ds_grid_height(unitGridLocation); i++) {
 											temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
 											temp_instance_x_ = ds_grid_get(unitGridLocation, 1, i);
 											temp_instance_y_ = ds_grid_get(unitGridLocation, 2, i);
@@ -1268,7 +1268,7 @@ function unit_move() {
 										var i, self_is_found_;
 										self_is_found_ = noone;
 										if ds_grid_height(unitGridLocation) > 0 {
-											for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+											for (i = 0; i < ds_grid_height(unitGridLocation); i++) {
 												var temp_instance_;
 												temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
 												if self.id == temp_instance_.id {
@@ -1392,7 +1392,7 @@ function unit_move() {
 					var i, self_is_found_;
 					self_is_found_ = noone;
 					if ds_grid_height(unitGridLocation) > 0 {
-						for (i = 0; i <= ds_grid_height(unitGridLocation) - 1; i++) {
+						for (i = 0; i < ds_grid_height(unitGridLocation); i++) {
 							var temp_instance_;
 							temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
 							if self.id == temp_instance_.id {

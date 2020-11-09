@@ -3,8 +3,8 @@ objectClassification = "Unit";
 objectType = "Worker";
 // Possible commands align with state machine: Idle, Move, Mine, Attack
 objectCurrentCommand = "Idle";
-objectTakeAction = false;
 // Combat variables
+objectCombatAggroRange = 8; // This is half the width of the square to detect enemies in, centered on this object
 objectAttackSpeed = 1.5 * room_speed;
 objectAttackSpeedTimer = 0;
 objectAttackDamage = 12;
@@ -12,6 +12,10 @@ objectSlashResistance = 0.9;
 objectPierceResistance = 1;
 objectCrushResistance = 0.7;
 objectMagicResistance = 1;
+// Timer to detect nearby enemy targets
+objectDetectTargetTimer = irandom_range(0, room_speed);
+objectDetectTarget = objectDetectTargetTimer;
+objectDetectedList = noone;
 // Mining variables (exclusive to obj_worker)
 objectWoodChopSpeed = room_speed; // Wood
 objectWoodChopSpeedTimer = 0; // Wood

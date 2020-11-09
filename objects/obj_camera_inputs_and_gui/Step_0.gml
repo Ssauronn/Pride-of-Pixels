@@ -163,10 +163,12 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		if wipe_all_non_players_ {
 			if ds_exists(objectsSelectedList, ds_type_list) {
 				var j;
-				for (j = 0; j <= ds_list_size(objectsSelectedList) - 1; j++) {
+				for (j = 0; j < ds_list_size(objectsSelectedList); j++) {
 					var instance_to_reference_ = ds_list_find_value(objectsSelectedList, j);
-					if (unit_selected_is_player_) && (instance_to_reference_.objectTeam != playerTeam) {
-						clear_selections(instance_to_reference_.id);
+					if instance_exists(instance_to_reference_) {
+						if (unit_selected_is_player_) && (instance_to_reference_.objectTeam != playerTeam) {
+							clear_selections(instance_to_reference_.id);
+						}
 					}
 				}
 			}
@@ -263,7 +265,9 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					}
 					else {
 						objectsSelectedList = ds_list_create();
-						ds_list_add(objectsSelectedList, self.id);
+						var self_ = self.id;
+						ds_list_add(objectsSelectedList, self_);
+						show_debug_message(string(objectsSelectedList));
 					}
 				}
 			}

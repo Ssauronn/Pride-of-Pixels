@@ -38,8 +38,14 @@ function unit_mine() {
 			}
 			else {
 				objectNeedsToMove = true;
-				targetToMoveToX = objectTarget.x;
-				targetToMoveToY = objectTarget.y;
+				if (objectTarget.objectClassification == "Unit") && (objectTarget.currentAction == unit.move) {
+					targetToMoveToX = objectTarget.targetToMoveToX;
+					targetToMoveToY = objectTarget.targetToMoveToY;
+				}
+				else {
+					targetToMoveToX = objectTarget.x;
+					targetToMoveToY = objectTarget.y;
+				}
 			}
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectTeam != objectTeam) {
