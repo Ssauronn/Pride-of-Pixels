@@ -266,6 +266,9 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						show_debug_message(string(objectsSelectedList));
 					}
 				}
+				else {
+					unit_selected_ = true;
+				}
 			}
 			else {
 				if objectSelected {
@@ -285,7 +288,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		}
 		if !unit_selected_ {
 			with obj_tree_resource {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 16) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
@@ -317,7 +320,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				}
 			}
 			with obj_gold_resource {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle(x, y, left_line_location_ - 2 - 32, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 16) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
@@ -333,7 +336,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				}
 			}
 			with obj_ruby_resource {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle(x, y, left_line_location_ - 2 - 48, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 64) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
