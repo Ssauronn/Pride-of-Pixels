@@ -1,5 +1,5 @@
-/// @function					count_down_timers();
-/// @description				Counts down various timers for different objects
+///@function					count_down_timers();
+///@description				Counts down various timers for different objects
 
 
 function count_down_timers() {
@@ -18,7 +18,7 @@ function count_down_timers() {
 	if objectAttackSpeedTimer > 0 {
 		objectAttackSpeedTimer--;
 	}
-	if objectCheckForEnemyTimer > 0 {
-		objectCheckForEnemyTimer--;
+	if objectDetectTarget > 0 {
+		objectDetectTarget--;
 	}
 }

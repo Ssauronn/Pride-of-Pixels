@@ -1,5 +1,5 @@
-/// @function									kill_self();
-/// @description								Clean up all ds_lists, removing self's ID from each of them before
+///@function									kill_self();
+///@description								Clean up all ds_lists, removing self's ID from each of them before
 ///												eliminating self from the game.
 function kill_self() {
 	// Cleanse objectsSelectedList
@@ -28,7 +28,7 @@ function kill_self() {
 		}
 	}
 	/*
-	I don't bother cleansing objectTargetList for other objects, which is a local list for each unit, because 
+	I don't bother cleansing objectTargetList for other objects, which is a local list for each unitAction, because 
 	all units already have automatic handling for situations where the object or target in the list doesn't exist.
 	I do however still destroy the list that this object controls.
 	*/

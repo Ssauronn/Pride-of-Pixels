@@ -1,8 +1,8 @@
-/// @function							unit_mine();
-/// @description						Allows workers to collect resources and deposit into
+///@function							unit_mine();
+///@description						Allows workers to collect resources and deposit into
 ///										respective players' total resource count.
 function unit_mine() {
-	// Check to see if the unit should currently be mining - if not, then set to a different state.
+	// Check to see if the unitAction should currently be mining - if not, then set to a different state.
 	if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
 		// Check to see if a target to mine exists and the target is a valid target, or if a target
 		// to attack exists and is valid - otherwise, active variables to search for a new target.
@@ -38,7 +38,7 @@ function unit_mine() {
 			}
 			else {
 				objectNeedsToMove = true;
-				if (objectTarget.objectClassification == "Unit") && (objectTarget.currentAction == unit.move) {
+				if (objectTarget.objectClassification == "Unit") && (objectTarget.currentAction == unitAction.move) {
 					targetToMoveToX = objectTarget.targetToMoveToX;
 					targetToMoveToY = objectTarget.targetToMoveToY;
 				}
@@ -50,21 +50,21 @@ function unit_mine() {
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectTeam != objectTeam) {
 			// Just send to attack script, and the attack script can handle the rest.
-			currentAction = unit.attack;
+			currentAction = unitAction.attack;
 			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {
 			target_next_object();
-			currentAction = unit.move;
+			currentAction = unitAction.move;
 		}
 	}
 	else {
 		if objectCurrentCommand == "Move" {
 			objectCurrentCommand = "Idle";
-			currentAction = unit.idle;
+			currentAction = unitAction.idle;
 		}
 		else if objectCurrentCommand == "Attack" {
-			currentAction = unit.attack;
+			currentAction = unitAction.attack;
 		}
 	}
 }

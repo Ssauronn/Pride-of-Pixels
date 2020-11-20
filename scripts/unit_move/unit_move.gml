@@ -1,5 +1,5 @@
-/// @function								target_next_object();
-/// @description							If there are other entries in the target list, remove the entry 
+///@function								target_next_object();
+///@description							If there are other entries in the target list, remove the entry 
 ///											that turned out to be an invalid target and search for the next entry.
 
 function target_next_object() {
@@ -102,8 +102,8 @@ function target_next_object() {
 
 
 
-/// @function								unit_move();
-/// @description							Expanded upon below
+///@function								unit_move();
+///@description							Expanded upon below
 /*
 If original click spot not valid
 	Search in rotating and expanding cross shape until the first potentially valid spot is found (path exists)
@@ -218,22 +218,22 @@ function unit_move() {
 			}
 			if objectCurrentCommand == "Move" {
 				objectCurrentCommand = "Idle";
-				currentAction = unit.idle;
+				currentAction = unitAction.idle;
 			}
 			else if objectCurrentCommand == "Attack" {
-				currentAction = unit.attack;
+				currentAction = unitAction.attack;
 			}
 			else if objectCurrentCommand == "Mine" {
-				currentAction = unit.mine;
+				currentAction = unitAction.mine;
 			}
 			else if objectCurrentCommand == "Chop" {
-				currentAction = unit.mine;
+				currentAction = unitAction.mine;
 			}
 			else if objectCurrentCommand == "Farm" {
-				currentAction = unit.mine;
+				currentAction = unitAction.mine;
 			}
 			else if objectCurrentCommand == "Ruby Mine" {
-				currentAction = unit.mine;
+				currentAction = unitAction.mine;
 			}
 		}
 	}
@@ -835,7 +835,7 @@ function unit_move() {
 						// adjacent to target if the object is melee.
 						var melee_unit_, ranged_unit_starting_ring_, ranged_unit_direction_moving_in_;
 						if objectClassification == "Unit" {
-							// If the unit running this code is melee, mark it as such. Otherwise,
+							// If the unitAction running this code is melee, mark it as such. Otherwise,
 							// set the ring to start the search at for ranged units, moving inwards,
 							// at the max distance allowed by their objectRange.
 							if objectRange <= 16 {
@@ -933,22 +933,22 @@ function unit_move() {
 										// After resetting all necessary variables, revert back to idle.
 										if objectCurrentCommand == "Move" {
 											objectCurrentCommand = "Idle";
-											currentAction = unit.idle;
+											currentAction = unitAction.idle;
 										}
 										else if objectCurrentCommand == "Attack" {
-											currentAction = unit.attack;
+											currentAction = unitAction.attack;
 										}
 										else if objectCurrentCommand == "Mine" {
-											currentAction = unit.mine;
+											currentAction = unitAction.mine;
 										}
 										else if objectCurrentCommand == "Chop" {
-											currentAction = unit.mine;
+											currentAction = unitAction.mine;
 										}
 										else if objectCurrentCommand == "Farm" {
-											currentAction = unit.mine;
+											currentAction = unitAction.mine;
 										}
 										else if objectCurrentCommand == "Ruby Mine" {
-											currentAction = unit.mine;
+											currentAction = unitAction.mine;
 										}
 										exit;
 									}
@@ -1076,12 +1076,12 @@ function unit_move() {
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
 								if squareTrueIteration >= ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
-									// If the search is being made by a melee object or a ranged unit that isn't targeting
+									// If the search is being made by a melee object or a ranged unitAction that isn't targeting
 									// anything, then expand the search outwards.
 									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
 										squareSizeIncreaseCount++;
 									}
-									// Otherwise, expand the search inwards if the search is being made by a ranged unit
+									// Otherwise, expand the search inwards if the search is being made by a ranged unitAction
 									// that has a valid target.
 									else {
 										// If its still possible to adjust the search inwards, do so
@@ -1144,12 +1144,12 @@ function unit_move() {
 								// count by one, and set baseSquareEdgeSize to equal the correct values based off
 								// of the new squareSizeIncreaseCount value.
 								if squareTrueIteration == ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
-									// If the search is being made by a melee object or a ranged unit that isn't targeting
+									// If the search is being made by a melee object or a ranged unitAction that isn't targeting
 									// anything, then expand the search outwards.
 									if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
 										squareSizeIncreaseCount++;
 									}
-									// Otherwise, expand the search inwards if the search is being made by a ranged unit
+									// Otherwise, expand the search inwards if the search is being made by a ranged unitAction
 									// that has a valid target.
 									else {
 										// If its still possible to adjust the search inwards, do so
@@ -1331,7 +1331,7 @@ function unit_move() {
 						validPathFound = true;
 						validLocationFound = true;
 						// Increment all mining and attack timers each frame at the beginning of this script
-						// Also, don't snap to grid if currently chasing an enemy unit that is also in a movement script - instead, just attack.
+						// Also, don't snap to grid if currently chasing an enemy unitAction that is also in a movement script - instead, just attack.
 						// I'll have to include ways to snap back to grid in weird cases, like if the target swaps to a non-moving state while
 						// the original object is attacking while not snapped to grid.
 						x = floor(targetToMoveToX / 16) * 16;
@@ -1426,29 +1426,29 @@ function unit_move() {
 					ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
 				}
 				if objectCurrentCommand == "Move" {
-					// Specifically if the unit's only command was to move, then remove any targeting that's going on.
+					// Specifically if the unitAction's only command was to move, then remove any targeting that's going on.
 					objectTarget = noone;
 					if ds_exists(objectTargetList, ds_type_list) {
 						ds_list_destroy(objectTargetList);
 						objectTargetList = noone;
 					}
 					objectCurrentCommand = "Idle";
-					currentAction = unit.idle;
+					currentAction = unitAction.idle;
 				}
 				else if objectCurrentCommand == "Attack" {
-					currentAction = unit.attack;
+					currentAction = unitAction.attack;
 				}
 				else if objectCurrentCommand == "Mine" {
-					currentAction = unit.mine;
+					currentAction = unitAction.mine;
 				}
 				else if objectCurrentCommand == "Chop" {
-					currentAction = unit.mine;
+					currentAction = unitAction.mine;
 				}
 				else if objectCurrentCommand == "Farm" {
-					currentAction = unit.mine;
+					currentAction = unitAction.mine;
 				}
 				else if objectCurrentCommand == "Ruby Mine" {
-					currentAction = unit.mine;
+					currentAction = unitAction.mine;
 				}
 				exit;
 			}
@@ -1495,22 +1495,22 @@ function unit_move() {
 		}
 		if objectCurrentCommand == "Move" {
 			objectCurrentCommand = "Idle";
-			currentAction = unit.idle;
+			currentAction = unitAction.idle;
 		}
 		else if objectCurrentCommand == "Attack" {
-			currentAction = unit.attack;
+			currentAction = unitAction.attack;
 		}
 		else if objectCurrentCommand == "Mine" {
-			currentAction = unit.mine;
+			currentAction = unitAction.mine;
 		}
 		else if objectCurrentCommand == "Chop" {
-			currentAction = unit.mine;
+			currentAction = unitAction.mine;
 		}
 		else if objectCurrentCommand == "Farm" {
-			currentAction = unit.mine;
+			currentAction = unitAction.mine;
 		}
 		else if objectCurrentCommand == "Ruby Mine" {
-			currentAction = unit.mine;
+			currentAction = unitAction.mine;
 		}
 	}
 }
