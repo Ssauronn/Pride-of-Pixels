@@ -1,6 +1,6 @@
 // Reset the count for the queue every frame.
 unitQueueCount = 0;
-// Remove all the unit id's from the front of the queue that have already
+// Remove all the unitAction id's from the front of the queue that have already
 // been evaluated for this frame.
 if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 	// If there aren't even enough units to fill the queue, just delete

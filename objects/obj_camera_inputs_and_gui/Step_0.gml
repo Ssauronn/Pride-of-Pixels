@@ -1,7 +1,3 @@
-// Self evident
-//window_set_fullscreen(true);
-
-
 depth = -y;
 
 
@@ -56,7 +52,7 @@ if (mouse_check_button_pressed(mb_left)) && (device_mouse_y_to_gui(0) <= (view_g
 	mbLeftPressedXCoordinate = floor(mouseClampedX / 16) * 16;
 	mbLeftPressedYCoordinate = floor(mouseClampedY / 16) * 16;
 	// Reset the currently selected units
-	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_worker);
+	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_unit);
 	obj_camera_inputs_and_gui.numberOfObjectsSelected = 0;
 	selectedUnitsDefaultDirectionToFace = -1;
 }
@@ -131,7 +127,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		resource_selected_ = false;
 		unit_selected_is_player_ = false;
 		wipe_all_non_players_ = false;
-		with obj_worker {
+		with obj_unit {
 			if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
 				if objectTeam == playerTeam {
 					unit_selected_is_player_ = true;
@@ -158,7 +154,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		}
 		// After adding all units inside the square of selection to the ds_list, cleanse the 
 		// ds_list of any units or objects that were selected that are no longer selected because
-		// the player has highlighted over a player unit or object and they are not part of the
+		// the player has highlighted over a player unitAction or object and they are not part of the
 		// player team.
 		if wipe_all_non_players_ {
 			if ds_exists(objectsSelectedList, ds_type_list) {
@@ -254,7 +250,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		top_line_location_ = floor(mouseClampedY / 16) * 16;
 		right_line_location_ = (floor(mouseClampedX / 16) * 16) + 15;
 		bottom_line_location_ = (floor(mouseClampedY / 16) * 16) + 15;
-		with obj_worker {
+		with obj_unit {
 			if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
 				if !objectSelected {
 					unit_selected_ = true;

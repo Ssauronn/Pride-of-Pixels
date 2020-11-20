@@ -1,3 +1,10 @@
+if !initialized {
+	initialized = true;
+	initialize_object_data();
+}
+// Depth setting
+depth = y;
+
 // Stop certain sections of code if not on screen
 if point_in_rectangle(x, y, view_get_xport(view_camera[0]), view_get_yport(view_camera[0]), view_get_xport(view_camera[0]) + view_get_wport(view_camera[0]), view_get_yport(view_camera[0]) + view_get_hport(view_camera[0])) {
 	objectOnScreen = true;
@@ -256,7 +263,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				/*
 				ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 				else if objectType == "Any other type" {
-					square_size_increase_count_max_ = whatever is an adequate range to search for in a square around the unit
+					square_size_increase_count_max_ = whatever is an adequate range to search for in a square around the unitAction
 				}
 				*/
 			
@@ -367,7 +374,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				// "Neutral" if it is a resource.
 				if object_at_location_.objectTeam == "Neutral" {
 					// Out of all selected objects, if the currently referenced object in the selected
-					// object list belongs to the player, is a unit, and is a worker, then set the
+					// object list belongs to the player, is a unitAction, and is a worker, then set the
 					// resource object that was clicked on as the target.
 					if objectClassification == "Unit" {
 						if objectType == "Worker" {
@@ -383,12 +390,12 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							else if object_at_location_.object_index == obj_ruby_resource {
 								objectCurrentCommand = "Ruby Mine";
 							}
-							else if object_at_location_.object_index == obj_worker {
+							else if object_at_location_.object_index == obj_unit {
 								objectCurrentCommand = "Attack";
 							}
 							/*
 							ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-							else if object_at_location_.object_index == building/unit/whatever that can be attacked {
+							else if object_at_location_.object_index == building/unitAction/whatever that can be attacked {
 								objectCurrentCommand = "Attack";
 							}
 							*/
@@ -436,7 +443,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					}
 					*/
 				}
-				// Else if the object at target location is a friendly unit, nothing should be done and
+				// Else if the object at target location is a friendly unitAction, nothing should be done and
 				// just reset object_at_location_ so that the object can move normally.
 				else if object_at_location_.objectTeam == playerTeam {
 					objectCurrentCommand = "Move";
@@ -539,7 +546,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					y += y_adjustment_;
 				}
 				// Set action to take and sprite direction (different from group direction)
-				currentAction = unit.move;
+				currentAction = unitAction.move;
 				currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
 			}
 		}
@@ -718,7 +725,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					objectTargetList = noone;
 				}
 				// Set action to take and sprite direction (different from group direction)
-				currentAction = unit.move;
+				currentAction = unitAction.move;
 				currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
 			}
 		}
@@ -762,7 +769,6 @@ if ds_exists(objectTargetList, ds_type_list) {
 }
 
 // Detect nearest valid targets and attack, if necessary
-objectDetectTarget--;
 if objectDetectTarget <= 0 {
 	objectDetectTarget = room_speed;
 	detect_nearby_enemy_objects();
@@ -775,13 +781,13 @@ if objectDetectTarget <= 0 {
 			var instance_nearby_ = ds_list_find_value(objectDetectedList, i);
 			var target_of_instance_nearby_ = instance_nearby_.objectTarget;
 			if instance_exists(target_of_instance_nearby_) {
-				// If the target of any enemy object within range is a team member of this unit, attack that enemy object.
+				// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
 				if target_of_instance_nearby_.objectTeam == objectTeam {
 					if objectCurrentCommand != "Attack" {
 						objectCurrentCommand = "Attack";
 						objectTarget = instance_nearby_;
 						objectNeedsToMove = true;
-						if (instance_nearby_.objectClassification == "Unit") && (instance_nearby_.currentAction == unit.move) {
+						if (instance_nearby_.objectClassification == "Unit") && (instance_nearby_.currentAction == unitAction.move) {
 							targetToMoveToX = instance_nearby_.targetToMoveToX;
 							targetToMoveToY = instance_nearby_.targetToMoveToY;
 						}
@@ -789,7 +795,7 @@ if objectDetectTarget <= 0 {
 							targetToMoveToX = instance_nearby_.x;
 							targetToMoveToY = instance_nearby_.y;
 						}
-						//currentAction = unit.attack;
+						//currentAction = unitAction.attack;
 						//currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
 						ds_list_destroy(objectDetectedList);
 						objectDetectedList = noone;
@@ -806,16 +812,16 @@ count_down_timers();
 
 // Switch the state machine's active state
 switch currentAction {
-	case unit.idle:
+	case unitAction.idle:
 		
 		break;
-	case unit.move:
+	case unitAction.move:
 		unit_move();
 		break;
-	case unit.mine:
+	case unitAction.mine:
 		unit_mine();
 		break;
-	case unit.attack:
+	case unitAction.attack:
 		unit_attack();
 		break;
 }

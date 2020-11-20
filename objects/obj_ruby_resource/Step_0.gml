@@ -15,9 +15,11 @@ else if currentHP < maxHP {
 }
 // If current HP is less than the HP a full group of miners could mine in the next frame, boost
 // it so that the HP is above that number.
-if instance_exists(obj_worker) {
-	if currentHP <= (12 * obj_worker.objectRubyMineSpeed) {
-		currentHP += (12 * obj_worker.objectRubyMineSpeed);
+if instance_exists(obj_unit) {
+	if variable_instance_exists(obj_unit, "objectRubyMineSpeed") {
+		if currentHP <= (12 * obj_unit.objectRubyMineSpeed) {
+			currentHP += (12 * obj_unit.objectRubyMineSpeed);
+		}
 	}
 }
 

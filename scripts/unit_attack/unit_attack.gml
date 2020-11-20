@@ -1,5 +1,5 @@
-/// @function								unit_attack();
-/// @description							Attack nearest enemy objects, whether they be buildings or units.
+///@function								unit_attack();
+///@description							Attack nearest enemy objects, whether they be buildings or units.
 
 function unit_attack() {
 	// Check to see if the object should be currently attacking - if not, swap to a different state.
@@ -13,7 +13,7 @@ function unit_attack() {
 			}
 			else {
 				objectNeedsToMove = true;
-				if (objectTarget.objectClassification == "Unit") && (objectTarget.currentAction == unit.move) {
+				if (objectTarget.objectClassification == "Unit") && (objectTarget.currentAction == unitAction.move) {
 					targetToMoveToX = objectTarget.targetToMoveToX;
 					targetToMoveToY = objectTarget.targetToMoveToY;
 				}
@@ -24,21 +24,21 @@ function unit_attack() {
 			}
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Resource") && (objectType == "Worker") {
-			currentAction = unit.mine;
+			currentAction = unitAction.mine;
 			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {
 			target_next_object();
-			currentAction = unit.move;
+			currentAction = unitAction.move;
 		}
 	}
 	else {
 		if objectCurrentCommand == "Move" {
 			objectCurrentCommand = "Idle";
-			currentAction = unit.idle;
+			currentAction = unitAction.idle;
 		}
 		else if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
-			currentAction = unit.mine;
+			currentAction = unitAction.mine;
 		}
 	}
 }

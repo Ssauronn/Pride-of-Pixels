@@ -1,3 +1,7 @@
+// Self evident
+//window_set_fullscreen(true);
+
+
 cameraMovementSpeed = 12;
 
 #region Mouse UI

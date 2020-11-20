@@ -1,4 +1,4 @@
-When adding any new type of interactable object(s) (unit, resource, building, etc.), the following
+When adding any new type of interactable object(s) (unitAction, resource, building, etc.), the following
 needs to be adjusted:
 	- The functions in unit_move(), which deal with searching for valid locations
 	  around differently sized objects for different types of ranged and melee objects.
