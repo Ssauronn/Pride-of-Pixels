@@ -1,4 +1,4 @@
-///@function								initialize_object_data();
+///@function							initialize_object_data();
 ///@description							Assign unit/building specific variables to each object
 
 // State machine - this is initialized only once at the beginning of the game, as this declaration is
