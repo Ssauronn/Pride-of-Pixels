@@ -3,6 +3,12 @@ initialized = false;
 
 // Object classification and type, used for selection and targeting purposes
 objectClassification = "Unit";
+objectSelected = false;
+objectOnScreen = false;
+objectTargetList = noone;
+objectTarget = noone;
+objectTargetTeam = noone;
+objectTargetType = noone;
 // Team 1 is defaulted to player team.
 objectTeam = 1;
 // Possible commands align with state machine: Idle, Move, Mine, Attack

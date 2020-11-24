@@ -52,7 +52,8 @@ if (mouse_check_button_pressed(mb_left)) && (device_mouse_y_to_gui(0) <= (view_g
 	mbLeftPressedXCoordinate = floor(mouseClampedX / 16) * 16;
 	mbLeftPressedYCoordinate = floor(mouseClampedY / 16) * 16;
 	// Reset the currently selected units
-	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_unit);
+	// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_unit, obj_building);
 	obj_camera_inputs_and_gui.numberOfObjectsSelected = 0;
 	selectedUnitsDefaultDirectionToFace = -1;
 }
@@ -266,6 +267,9 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						show_debug_message(string(objectsSelectedList));
 					}
 				}
+				else {
+					unit_selected_ = true;
+				}
 			}
 			else {
 				if objectSelected {
@@ -285,7 +289,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		}
 		if !unit_selected_ {
 			with obj_tree_resource {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 16) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
@@ -317,7 +321,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				}
 			}
 			with obj_gold_resource {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle(x, y, left_line_location_ - 2 - 32, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 16) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;
@@ -333,7 +337,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				}
 			}
 			with obj_ruby_resource {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle(x, y, left_line_location_ - 2 - 48, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 64) {
 					if !objectSelected {
 						resource_selected_ = true;
 						objectSelected = true;

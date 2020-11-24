@@ -31,10 +31,16 @@ function detect_nearby_enemy_objects() {
 	else {
 		target_specified_ = false;
 	}
+	// The offset variables. Since the origin point is the top left corner of a 16x16 box in every
+	// sprite, regardless of the actual sprite size, I need to adjust for that to get a search area
+	// that searches each location around the sprite in equal directions relative to the edge of that
+	// sprite.
+	var x_offset_ = floor(sprite_get_width(self.sprite_index) / 16) * 16;
+	var y_offset_ = (floor(sprite_get_height(self.sprite_index) / 16) * 16) - 16;
 	// The vertical searches
-	for (j = 0; j < (objectCombatAggroRange * 2) + 1; j++) {
+	for (j = 0; j < (objectCombatAggroRange * 2) + 1 + (y_offset_ / 16); j++) {
 		// The horizontal searches
-		for (k = 0; k < (objectCombatAggroRange * 2) + 1; k++) {
+		for (k = 0 - (y_offset_ / 16); k < (objectCombatAggroRange * 2) + 1; k++) {
 			var temp_x_search_area_ = (floor(x / 16) * 16) - (objectCombatAggroRange * 16) + (k * 16);
 			var temp_y_search_area_ = (floor(y / 16) * 16) - (objectCombatAggroRange * 16) + (j * 16);
 			var instance_at_location_ = instance_place(temp_x_search_area_, temp_y_search_area_, all);
@@ -57,4 +63,5 @@ function detect_nearby_enemy_objects() {
 	}
 	return true;
 }
+
 

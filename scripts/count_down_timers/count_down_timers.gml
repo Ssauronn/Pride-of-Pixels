@@ -3,22 +3,27 @@
 
 
 function count_down_timers() {
-	if objectWoodChopSpeedTimer > 0 {
-		objectWoodChopSpeedTimer--;
-	}
-	if objectFoodGatherSpeedTimer > 0 {
-		objectFoodGatherSpeedTimer--;
-	}
-	if objectGoldMineSpeedTimer > 0 {
-		objectGoldMineSpeedTimer--;
-	}
-	if objectRubyMineSpeedTimer > 0 {
-		objectRubyMineSpeedTimer--;
-	}
+	// Universal Timers
 	if objectAttackSpeedTimer > 0 {
 		objectAttackSpeedTimer--;
 	}
 	if objectDetectTarget > 0 {
 		objectDetectTarget--;
+	}
+	// Object Specific Timers
+	// Worker Timers
+	if (objectClassification == "Unit") && (objectType == "Worker") {
+		if objectWoodChopSpeedTimer > 0 {
+			objectWoodChopSpeedTimer--;
+		}
+		if objectFoodGatherSpeedTimer > 0 {
+			objectFoodGatherSpeedTimer--;
+		}
+		if objectGoldMineSpeedTimer > 0 {
+			objectGoldMineSpeedTimer--;
+		}
+		if objectRubyMineSpeedTimer > 0 {
+			objectRubyMineSpeedTimer--;
+		}
 	}
 }

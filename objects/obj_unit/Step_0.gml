@@ -771,36 +771,43 @@ if ds_exists(objectTargetList, ds_type_list) {
 // Detect nearest valid targets and attack, if necessary
 if objectDetectTarget <= 0 {
 	objectDetectTarget = room_speed;
-	detect_nearby_enemy_objects();
-	if ds_exists(objectDetectedList, ds_type_list) {
-		var i;
-		for (i = 0; i < ds_list_size(objectDetectedList); i++) {
-			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-			// In this case specifically, worker units will not aggro to nearby enemy units unless they're in active
-			// combat. With more militiant type units, this will change.
-			var instance_nearby_ = ds_list_find_value(objectDetectedList, i);
-			var target_of_instance_nearby_ = instance_nearby_.objectTarget;
-			if instance_exists(target_of_instance_nearby_) {
-				// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
-				if target_of_instance_nearby_.objectTeam == objectTeam {
-					if objectCurrentCommand != "Attack" {
-						objectCurrentCommand = "Attack";
-						objectTarget = instance_nearby_;
-						objectNeedsToMove = true;
-						if (instance_nearby_.objectClassification == "Unit") && (instance_nearby_.currentAction == unitAction.move) {
-							targetToMoveToX = instance_nearby_.targetToMoveToX;
-							targetToMoveToY = instance_nearby_.targetToMoveToY;
+	if !instance_exists(objectTarget) {
+		detect_nearby_enemy_objects();
+		if ds_exists(objectDetectedList, ds_type_list) {
+			var i, iteration_;
+			iteration_ = irandom_range(0, ds_list_size(objectDetectedList) - 1);
+			for (i = 0; i < ds_list_size(objectDetectedList); i++) {
+				// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+				// In this case specifically, worker units will not aggro to nearby enemy units unless they're in active
+				// combat. With more militiant type units, this will change.
+				var instance_nearby_ = ds_list_find_value(objectDetectedList, iteration_);
+				var target_of_instance_nearby_ = instance_nearby_.objectTarget;
+				if instance_exists(target_of_instance_nearby_) {
+					// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
+					if target_of_instance_nearby_.objectTeam == objectTeam {
+						if objectCurrentCommand != "Attack" {
+							objectCurrentCommand = "Attack";
+							objectTarget = instance_nearby_;
+							objectNeedsToMove = true;
+							if (instance_nearby_.objectClassification == "Unit") && (instance_nearby_.currentAction == unitAction.move) {
+								targetToMoveToX = instance_nearby_.targetToMoveToX;
+								targetToMoveToY = instance_nearby_.targetToMoveToY;
+							}
+							else {
+								targetToMoveToX = instance_nearby_.x;
+								targetToMoveToY = instance_nearby_.y;
+							}
+							//currentAction = unitAction.attack;
+							//currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+							ds_list_destroy(objectDetectedList);
+							objectDetectedList = noone;
+							break;
 						}
-						else {
-							targetToMoveToX = instance_nearby_.x;
-							targetToMoveToY = instance_nearby_.y;
-						}
-						//currentAction = unitAction.attack;
-						//currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
-						ds_list_destroy(objectDetectedList);
-						objectDetectedList = noone;
-						break;
 					}
+				}
+				iteration_++;
+				if iteration_ >= ds_list_size(objectDetectedList) - 1 {
+					iteration_ = 0;
 				}
 			}
 		}
