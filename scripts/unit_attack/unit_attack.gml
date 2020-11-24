@@ -8,7 +8,7 @@ function unit_attack() {
 			if distance_to_object(objectTarget) < objectRange {
 				if objectAttackSpeedTimer <= 0 {
 					objectAttackSpeedTimer = objectAttackSpeed;
-					objectTarget.currentHP -= objectAttackDamage;
+					deal_damage(objectAttackDamage, objectAttackDamageType, objectTarget);
 				}
 			}
 			else {

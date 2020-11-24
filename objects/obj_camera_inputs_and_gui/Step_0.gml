@@ -52,7 +52,8 @@ if (mouse_check_button_pressed(mb_left)) && (device_mouse_y_to_gui(0) <= (view_g
 	mbLeftPressedXCoordinate = floor(mouseClampedX / 16) * 16;
 	mbLeftPressedYCoordinate = floor(mouseClampedY / 16) * 16;
 	// Reset the currently selected units
-	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_unit);
+	// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+	clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_unit, obj_building);
 	obj_camera_inputs_and_gui.numberOfObjectsSelected = 0;
 	selectedUnitsDefaultDirectionToFace = -1;
 }

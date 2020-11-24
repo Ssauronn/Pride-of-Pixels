@@ -1,6 +1,6 @@
-///@function							unit_mine();
+///@function						unit_mine();
 ///@description						Allows workers to collect resources and deposit into
-///										respective players' total resource count.
+///									respective players' total resource count.
 function unit_mine() {
 	// Check to see if the unitAction should currently be mining - if not, then set to a different state.
 	if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
