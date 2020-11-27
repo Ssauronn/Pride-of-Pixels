@@ -260,6 +260,9 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				if objectType == "Worker" {
 					square_size_increase_count_max_ = 10;
 				}
+				else if objectClassification == "Building" {
+					square_size_increase_count_max_ = 15;
+				}
 				/*
 				ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 				else if objectType == "Any other type" {
@@ -369,13 +372,13 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						}
 					}
 				}
-				// If the object at target location is a resource, then mine it if the object selected
-				// is an object that can mine it. An object's "team" (objectTeam) will only be set to
-				// "Neutral" if it is a resource.
+				// If the object at target location is a valid target, then mine/attack it if the
+				// object selected is an object that can mine it. An object's "team" (objectTeam) will
+				// only be set to "Neutral" if it is a resource.
 				if object_at_location_.objectTeam == "Neutral" {
 					// Out of all selected objects, if the currently referenced object in the selected
 					// object list belongs to the player, is a unitAction, and is a worker, then set the
-					// resource object that was clicked on as the target.
+					// object that was clicked on as the target.
 					if objectClassification == "Unit" {
 						if objectType == "Worker" {
 							if object_at_location_.object_index == obj_tree_resource {
@@ -393,6 +396,30 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							else if object_at_location_.object_index == obj_unit {
 								objectCurrentCommand = "Attack";
 							}
+							else if object_at_location_.object_index == obj_building {
+								objectCurrentCommand = "Attack";
+							}
+							/*
+							ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+							else if object_at_location_.object_index == building/unitAction/whatever that can be attacked {
+								objectCurrentCommand = "Attack";
+							}
+							*/
+							if ds_exists(objectTargetList, ds_type_list) {
+								ds_list_destroy(objectTargetList);
+								objectTargetList = noone;
+							}
+							objectTargetList = ds_list_create();
+							if ds_exists(target_list_, ds_type_list) {
+								ds_list_copy(objectTargetList, target_list_);
+								ds_list_insert(objectTargetList, 0, object_at_location_);
+							}
+							else {
+								ds_list_add(objectTargetList, object_at_location_);
+							}
+						}
+						else if (object_at_location_.object_index == obj_unit) || (object_at_location_.object_index == obj_building) {
+							objectCurrentCommand = "Attack";
 							/*
 							ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 							else if object_at_location_.object_index == building/unitAction/whatever that can be attacked {
@@ -421,7 +448,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				// Else if the object at target location is an enemy, attack it if the object selected
 				// is an object that can attack it.
 				else if object_at_location_.objectTeam != objectTeam {
-					if objectClassification == "Unit" {
+					if (objectClassification == "Unit") || (objectClassification == "Building") {
 						objectCurrentCommand = "Attack";
 						if ds_exists(objectTargetList, ds_type_list) {
 							ds_list_destroy(objectTargetList);
@@ -436,12 +463,6 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 							ds_list_add(objectTargetList, object_at_location_);
 						}
 					}
-					/*
-					ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-					else if objectClassification == "Building" {
-						
-					}
-					*/
 				}
 				// Else if the object at target location is a friendly unitAction, nothing should be done and
 				// just reset object_at_location_ so that the object can move normally.

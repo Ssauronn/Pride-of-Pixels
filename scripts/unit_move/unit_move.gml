@@ -977,6 +977,10 @@ function unit_move() {
 							// Set the size of the minimum pattern.
 							var horizontal_edge_size_, vertical_edge_size_;
 							// If the search area is surrounding a 1x1 grid area
+							// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+							// Currently I'm just checking for "objectTarget.objectClassification == "Building"
+							// I need to change that to check specifically for different building type sizes once
+							// I have a set idea of each building type and size.
 							if (objectTarget.objectClassification == "Unit") || (objectTarget.objectType == "Food") || (objectTarget.objectType == "Wood") {
 								horizontal_edge_size_ = 1;
 								vertical_edge_size_ = 1;
@@ -990,6 +994,10 @@ function unit_move() {
 							else if (objectTarget.objectType == "Gold") {
 								horizontal_edge_size_ = 3;
 								vertical_edge_size_ = 2;
+							}
+							else if (objectTarget.objectClassification == "Building") {
+								horizontal_edge_size_ = 1;
+								vertical_edge_size_ = 1;
 							}
 						}
 						while still_need_to_search_ {

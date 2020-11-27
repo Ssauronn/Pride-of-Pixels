@@ -5,8 +5,14 @@ initialized = false;
 objectClassification = "Building";
 objectSelected = false;
 objectOnScreen = false;
-rallyPointX = -1;
-rallyPointY = -1;
+objectTarget = noone;
+rallyPointX = x;
+rallyPointY = y;
+// Function for setting rally point
+function set_rally(x_, y_) {
+	rallyPointX = x_;;
+	rallyPointY = y_;
+}
 // Team 1 is defaulted to player team.
 objectTeam = 1;
 // Timer to detect nearby enemy targets
