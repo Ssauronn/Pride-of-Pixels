@@ -32,14 +32,16 @@ function kill_self() {
 	all units already have automatic handling for situations where the object or target in the list doesn't exist.
 	I do however still destroy the list that this object controls.
 	*/
-	if ds_exists(objectTargetList, ds_type_list) {
-		var instance_found_ = ds_list_find_index(objectTargetList, self.id);
-		if instance_found_ != -1 {
-			if ds_list_size(objectTargetList) > 1 {
-				ds_list_delete(objectTargetList, instance_found_);
-			}
-			else {
-				ds_list_destroy(objectTargetList);
+	if variable_instance_exists(self, "objectTargetList") {
+		if ds_exists(objectTargetList, ds_type_list) {
+			var instance_found_ = ds_list_find_index(objectTargetList, self.id);
+			if instance_found_ != -1 {
+				if ds_list_size(objectTargetList) > 1 {
+					ds_list_delete(objectTargetList, instance_found_);
+				}
+				else {
+					ds_list_destroy(objectTargetList);
+				}
 			}
 		}
 	}

@@ -996,8 +996,8 @@ function unit_move() {
 								vertical_edge_size_ = 2;
 							}
 							else if (objectTarget.objectClassification == "Building") {
-								horizontal_edge_size_ = 1;
-								vertical_edge_size_ = 1;
+								horizontal_edge_size_ = 4;
+								vertical_edge_size_ = 4;
 							}
 						}
 						while still_need_to_search_ {
