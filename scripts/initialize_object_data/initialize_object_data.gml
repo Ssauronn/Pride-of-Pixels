@@ -21,6 +21,7 @@ enum unitDirection {
 function initialize_object_data() {
 	#region Units
 	switch objectType {
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Worker":
 			// Generic variables
 			maxHP = 70;
@@ -79,12 +80,16 @@ function initialize_object_data() {
 			break;
 		#endregion
 		#region Buildings
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "City Hall":
 			// Generic variables
 			maxHP = 1500;
 			currentHP = maxHP;
+			// The distance at which attacks can used, in pixels
 			objectRange = 16 * 5;
+			canAttack = true;
 			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
 			objectCombatAggroRange = 5;
 			objectAttackSpeed = 1 * room_speed;
 			objectAttackSpeedTimer = 0;

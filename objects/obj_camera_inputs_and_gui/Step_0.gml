@@ -237,9 +237,26 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 					}
 				}
 			}
+			with obj_building {
+				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+					if !objectSelected {
+						resource_selected_ = true;
+						objectSelected = true;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
+					}
+				}
+			}
 		}
+		// Else if there are units selected, clear everything that isn't a unit.
 		else {
-			clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource);
+			clear_selections(obj_tree_resource, obj_food_resource, obj_gold_resource, obj_ruby_resource, obj_building);
 		}
 	}
 	// If the player is currently only clicking on one single object to select it
@@ -337,6 +354,22 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				}
 			}
 			with obj_ruby_resource {
+				if point_in_rectangle(x, y, left_line_location_ - 2 - 48, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 64) {
+					if !objectSelected {
+						resource_selected_ = true;
+						objectSelected = true;
+						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
+						if ds_exists(objectsSelectedList, ds_type_list) {
+							ds_list_add(objectsSelectedList, self.id);
+						}
+						else {
+							objectsSelectedList = ds_list_create();
+							ds_list_add(objectsSelectedList, self.id);
+						}
+					}
+				}
+			}
+			with obj_building {
 				if point_in_rectangle(x, y, left_line_location_ - 2 - 48, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 64) {
 					if !objectSelected {
 						resource_selected_ = true;
