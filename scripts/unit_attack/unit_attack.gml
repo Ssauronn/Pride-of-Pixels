@@ -24,7 +24,20 @@ function unit_attack() {
 			}
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Resource") && (objectType == "Worker") {
-			currentAction = unitAction.mine;
+			switch (objectTarget.objectType) {
+				case "Gold":
+					currentAction = unitAction.mine;
+					break;
+				case "Ruby":
+					currentAction = unitAction.mine;
+					break;
+				case "Wood":
+					currentAction = unitAction.chop;
+					break;
+				case "Food":
+					currentAction = unitAction.farm;
+					break;
+			}
 			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {

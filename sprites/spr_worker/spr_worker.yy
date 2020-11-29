@@ -60,7 +60,7 @@
     "eventStubScript": null,
     "parent": {"name":"spr_worker","path":"sprites/spr_worker/spr_worker.yy",},
     "resourceVersion": "1.3",
-    "name": "",
+    "name": "spr_worker",
     "tags": [],
     "resourceType": "GMSequence",
   },

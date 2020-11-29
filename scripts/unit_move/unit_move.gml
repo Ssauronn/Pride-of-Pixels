@@ -227,10 +227,10 @@ function unit_move() {
 				currentAction = unitAction.mine;
 			}
 			else if objectCurrentCommand == "Chop" {
-				currentAction = unitAction.mine;
+				currentAction = unitAction.chop;
 			}
 			else if objectCurrentCommand == "Farm" {
-				currentAction = unitAction.mine;
+				currentAction = unitAction.farm;
 			}
 			else if objectCurrentCommand == "Ruby Mine" {
 				currentAction = unitAction.mine;
@@ -942,10 +942,10 @@ function unit_move() {
 											currentAction = unitAction.mine;
 										}
 										else if objectCurrentCommand == "Chop" {
-											currentAction = unitAction.mine;
+											currentAction = unitAction.chop;
 										}
 										else if objectCurrentCommand == "Farm" {
-											currentAction = unitAction.mine;
+											currentAction = unitAction.farm;
 										}
 										else if objectCurrentCommand == "Ruby Mine" {
 											currentAction = unitAction.mine;
@@ -1450,10 +1450,10 @@ function unit_move() {
 					currentAction = unitAction.mine;
 				}
 				else if objectCurrentCommand == "Chop" {
-					currentAction = unitAction.mine;
+					currentAction = unitAction.chop;
 				}
 				else if objectCurrentCommand == "Farm" {
-					currentAction = unitAction.mine;
+					currentAction = unitAction.farm;
 				}
 				else if objectCurrentCommand == "Ruby Mine" {
 					currentAction = unitAction.mine;
@@ -1512,10 +1512,10 @@ function unit_move() {
 			currentAction = unitAction.mine;
 		}
 		else if objectCurrentCommand == "Chop" {
-			currentAction = unitAction.mine;
+			currentAction = unitAction.chop;
 		}
 		else if objectCurrentCommand == "Farm" {
-			currentAction = unitAction.mine;
+			currentAction = unitAction.farm;
 		}
 		else if objectCurrentCommand == "Ruby Mine" {
 			currentAction = unitAction.mine;

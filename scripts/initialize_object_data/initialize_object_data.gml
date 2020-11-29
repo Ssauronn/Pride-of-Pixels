@@ -7,6 +7,8 @@ enum unitAction {
 	idle,
 	move,
 	mine,
+	chop,
+	farm,
 	attack
 }
 // Sprite setting enums
@@ -43,7 +45,7 @@ function initialize_object_data() {
 			// Mining variables (exclusive to obj_worker)
 			objectWoodChopSpeed = room_speed; // Wood
 			objectWoodChopSpeedTimer = 0; // Wood
-			objectWoodChopDamage = 4; // Wood
+			objectWoodChopDamage = 20; // Wood
 			objectFoodGatherSpeed = room_speed; // Food
 			objectFoodGatherSpeedTimer = 0; // Food
 			objectFoodGatherDamage = 5; // Food
@@ -54,29 +56,43 @@ function initialize_object_data() {
 			objectRubyMineSpeedTimer = 0; // Ruby
 			objectRubyMineDamage = 2; // Ruby
 			// Sprite setting array
-			workerSprite[unitAction.idle][unitDirection.right] = spr_worker;
-			workerSprite[unitAction.idle][unitDirection.up] = spr_worker;
-			workerSprite[unitAction.idle][unitDirection.left] = spr_worker;
-			workerSprite[unitAction.idle][unitDirection.down] = spr_worker;
-			workerSprite[unitAction.move][unitDirection.right] = spr_worker;
-			workerSprite[unitAction.move][unitDirection.up] = spr_worker;
-			workerSprite[unitAction.move][unitDirection.left] = spr_worker;
-			workerSprite[unitAction.move][unitDirection.down] = spr_worker;
-			workerSprite[unitAction.mine][unitDirection.right] = spr_worker;
-			workerSprite[unitAction.mine][unitDirection.up] = spr_worker;
-			workerSprite[unitAction.mine][unitDirection.left] = spr_worker;
-			workerSprite[unitAction.mine][unitDirection.down] = spr_worker;
-			workerSprite[unitAction.attack][unitDirection.right] = spr_worker;
-			workerSprite[unitAction.attack][unitDirection.up] = spr_worker;
-			workerSprite[unitAction.attack][unitDirection.left] = spr_worker;
-			workerSprite[unitAction.attack][unitDirection.down] = spr_worker;
+			workerSprite[unitAction.idle][unitDirection.right] = spr_worker_front_idle;
+			workerSprite[unitAction.idle][unitDirection.up] = spr_worker_front_idle;
+			workerSprite[unitAction.idle][unitDirection.left] = spr_worker_front_idle;
+			workerSprite[unitAction.idle][unitDirection.down] = spr_worker_front_idle;
+			workerSprite[unitAction.move][unitDirection.right] = spr_worker_front_walk;
+			workerSprite[unitAction.move][unitDirection.up] = spr_worker_front_walk;
+			workerSprite[unitAction.move][unitDirection.left] = spr_worker_front_walk;
+			workerSprite[unitAction.move][unitDirection.down] = spr_worker_front_walk;
+			workerSprite[unitAction.mine][unitDirection.right] = spr_worker_front_mine;
+			workerSprite[unitAction.mine][unitDirection.up] = spr_worker_front_mine;
+			workerSprite[unitAction.mine][unitDirection.left] = spr_worker_front_mine;
+			workerSprite[unitAction.mine][unitDirection.down] = spr_worker_front_mine;
+			workerSprite[unitAction.chop][unitDirection.right] = spr_worker_front_chop;
+			workerSprite[unitAction.chop][unitDirection.up] = spr_worker_front_chop;
+			workerSprite[unitAction.chop][unitDirection.left] = spr_worker_front_chop;
+			workerSprite[unitAction.chop][unitDirection.down] = spr_worker_front_chop;
+			workerSprite[unitAction.farm][unitDirection.right] = spr_worker_front_farm;
+			workerSprite[unitAction.farm][unitDirection.up] = spr_worker_front_farm;
+			workerSprite[unitAction.farm][unitDirection.left] = spr_worker_front_farm;
+			workerSprite[unitAction.farm][unitDirection.down] = spr_worker_front_farm;
+			workerSprite[unitAction.attack][unitDirection.right] = spr_worker_front_attack;
+			workerSprite[unitAction.attack][unitDirection.up] = spr_worker_front_attack;
+			workerSprite[unitAction.attack][unitDirection.left] = spr_worker_front_attack;
+			workerSprite[unitAction.attack][unitDirection.down] = spr_worker_front_attack;
 			// Actual Sprite Value
-			currentAction = unitAction.move;
+			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = workerSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			spriteGoldMineTimerSpeed = objectGoldMineSpeed;
+			spriteRubyMineTimerSpeed = objectRubyMineSpeed;
+			spriteWoodChopTimerSpeed = objectWoodChopSpeed;
+			spriteFoodFarmTimerSpeed = objectFoodGatherSpeed;
+			spriteAttackTimerSpeed = objectAttackSpeed;
 			// Index speed
 			currentImageIndex = 0;
-			currentImageIndexSpeed = 10 / room_speed;
+			currentImageIndexSpeed = 8 / room_speed;
 			break;
 		#endregion
 		#region Buildings
