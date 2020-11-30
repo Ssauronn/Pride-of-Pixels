@@ -13,12 +13,98 @@ else {
 	objectOnScreen = false;
 }
 
-// Set sprite index and sprite frame
-sprite_index = currentSprite;
+
+///		 Set sprite index and sprite frame
+// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+// What will need to be adjusted is actually the actions - if any actions are added besides idle, move, chop, farm, mine, and attack,
+// that will need to be added to this.
 currentImageIndex += currentImageIndexSpeed;
+if (currentAction != unitAction.idle) && (currentAction != unitAction.move) {
+	var i, j;
+	var current_action_ = -1;
+	var current_direction_facing_ = -1;
+	// currentAction counting
+	for (i = 0; i < unitAction.length; i++) {
+		// If the current action and direction facing for the currently shown sprite is found, stop searching.
+		if (current_action_ != -1) && (current_direction_facing_ != -1) {
+			break;
+		}
+		else {
+			// currentDirection counting
+			for (j = 0; j < unitDirection.length; j++) {
+				if currentSprite == workerSprite[i][j] {
+					current_action_ = i;
+					current_direction_facing_ = j;
+					break;
+				}
+			}
+		}
+	}
+	if (current_action_ != -1) && (current_direction_facing_ != -1) {
+		if current_direction_facing_ != currentDirection {
+			currentSprite = workerSprite[current_action_][currentDirection];
+		}
+	}
+}
+
+///		Set sprite index and sprite frame. All this code is here to allow for wait periods between animations to match up with their
+///		action speeds.
+// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+// What will need to be adjusted is actually the actions - if any actions are added besides idle, move, chop, farm, mine, and attack,
+// that will need to be added to this.
 if currentImageIndex > (sprite_get_number(sprite_index) - 1) {
 	currentImageIndex = 0;
+	/// Apply a wait time to different animations, so that the animation lines up with the action taken on the other object.
+	// If the object's current action is simply to idle or move, just set the sprite normally.
+	if (currentAction == unitAction.idle) || (currentAction == unitAction.move) {
+		currentSprite = workerSprite[currentAction][currentDirection];
+	}
+	// However, if the object's current action is to mine, chop, farm, or attack, check to see if its currently idling.
+	else if (currentSprite == workerSprite[unitAction.idle][currentDirection]) || (currentSprite == workerSprite[unitAction.move][currentDirection]) {
+		if (currentAction == unitAction.mine) || (currentAction == unitAction.chop) || (currentAction == unitAction.farm) || (currentAction == unitAction.attack) {
+			// If the object is still commanded to mine, chop, farm, or attack, and the idle time is over, start the action animation.
+			if spriteWaitTimer <= 0 {
+				currentSprite = workerSprite[currentAction][currentDirection];
+			}
+		}
+		// Redundant to prevent errors.
+		else {
+			currentSprite = workerSprite[currentAction][currentDirection];
+		}
+	}
+	// Else if the object's action is to mine, chop, farm, or attack, and it is not currently idling, and obviously the animation
+	// for the action has ended because of the very first check at the beginning of this whole section, then set the SPRITE (not
+	// action, just sprite) to idling and wait until its time to act again - that's set to 3 frames before the action is set to
+	// activate, because I want the animation to happen slightly before the action itself occurs, to more accurately line up the
+	// middle of the animation with the action itself.
+	else if currentSprite == workerSprite[currentAction][currentDirection] {
+		if (currentAction != unitAction.idle) && (currentAction != unitAction.move) {
+			switch currentAction {
+				case unitAction.mine:
+					if instance_exists(objectTarget) {
+						if objectTarget.objectType == "Ruby" {
+							spriteWaitTimer = objectRubyMineSpeedTimer - (3 * (1 / currentImageIndexSpeed));
+						}
+						else if objectTarget.objectType == "Gold" {
+							spriteWaitTimer = objectGoldMineSpeedTimer - (3 * (1 / currentImageIndexSpeed));
+						}
+					}
+					break;
+				case unitAction.chop:
+					spriteWaitTimer = objectWoodChopSpeedTimer - (3 * (1 / currentImageIndexSpeed));
+					break;
+				case unitAction.farm:
+					spriteWaitTimer = objectFoodGatherSpeedTimer - (3 * (1 / currentImageIndexSpeed));
+					break;
+				case unitAction.attack:
+					spriteWaitTimer = objectAttackSpeedTimer - (3 * (1 / currentImageIndexSpeed));
+					break;
+			}
+		}
+		currentSprite = workerSprite[unitAction.idle][currentDirection]
+	}
 }
+sprite_index = currentSprite;
 image_index = currentImageIndex;
 
 // If the mouse is on the map and not on the toolbar, then allow clicks
@@ -818,8 +904,8 @@ if objectDetectTarget <= 0 {
 								targetToMoveToX = instance_nearby_.x;
 								targetToMoveToY = instance_nearby_.y;
 							}
-							//currentAction = unitAction.attack;
-							//currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+							currentAction = unitAction.attack;
+							currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
 							ds_list_destroy(objectDetectedList);
 							objectDetectedList = noone;
 							break;
@@ -847,6 +933,12 @@ switch currentAction {
 		unit_move();
 		break;
 	case unitAction.mine:
+		unit_mine();
+		break;
+	case unitAction.chop:
+		unit_mine();
+		break;
+	case unitAction.farm:
 		unit_mine();
 		break;
 	case unitAction.attack:

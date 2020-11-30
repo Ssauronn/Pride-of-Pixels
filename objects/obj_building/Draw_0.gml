@@ -8,10 +8,10 @@ if objectSelected && objectOnScreen {
 			draw_sprite_ext(spr_selected, 0, x, y - 16, 2, 2, 0, c_white, 0.75);
 			break;
 		case 48:
-			draw_sprite_ext(spr_selected, 0, x, y - 32, 2, 2, 0, c_white, 0.75);
+			draw_sprite_ext(spr_selected, 0, x, y - 32, 3, 3, 0, c_white, 0.75);
 			break;
 		case 64:
-			draw_sprite_ext(spr_selected, 0, x, y - 48, 2, 2, 0, c_white, 0.75);
+			draw_sprite_ext(spr_selected, 0, x, y - 48, 4, 4, 0, c_white, 0.75);
 			break;
 	}
 }

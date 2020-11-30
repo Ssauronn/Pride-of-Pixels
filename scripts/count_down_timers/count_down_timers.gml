@@ -10,20 +10,30 @@ function count_down_timers() {
 	if objectDetectTarget > 0 {
 		objectDetectTarget--;
 	}
-	// Object Specific Timers
-	// Worker Timers
-	if (objectClassification == "Unit") && (objectType == "Worker") {
-		if objectWoodChopSpeedTimer > 0 {
-			objectWoodChopSpeedTimer--;
+	/// Object Specific Timers
+	// Unit Specific Timers
+	if (objectClassification == "Unit") {
+		if spriteWaitTimer > 0 {
+			spriteWaitTimer--;
 		}
-		if objectFoodGatherSpeedTimer > 0 {
-			objectFoodGatherSpeedTimer--;
+		// Worker Specific Timers
+		if (objectType == "Worker") {
+			if objectWoodChopSpeedTimer > 0 {
+				objectWoodChopSpeedTimer--;
+			}
+			if objectFoodGatherSpeedTimer > 0 {
+				objectFoodGatherSpeedTimer--;
+			}
+			if objectGoldMineSpeedTimer > 0 {
+				objectGoldMineSpeedTimer--;
+			}
+			if objectRubyMineSpeedTimer > 0 {
+				objectRubyMineSpeedTimer--;
+			}
 		}
-		if objectGoldMineSpeedTimer > 0 {
-			objectGoldMineSpeedTimer--;
-		}
-		if objectRubyMineSpeedTimer > 0 {
-			objectRubyMineSpeedTimer--;
-		}
+	}
+	// Building Specific Timers
+	if (objectClassification == "Unit") {
+		
 	}
 }
