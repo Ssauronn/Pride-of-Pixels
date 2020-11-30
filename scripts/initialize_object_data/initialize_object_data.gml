@@ -3,20 +3,24 @@
 
 // State machine - this is initialized only once at the beginning of the game, as this declaration is
 // outside of a function.
+// I add a "length" enum at the very end of each list to be able to access the length of this list
+// to correctly run for loops.
 enum unitAction {
 	idle,
 	move,
 	mine,
 	chop,
 	farm,
-	attack
+	attack,
+	length
 }
 // Sprite setting enums
 enum unitDirection {
 	right,
 	up,
 	left,
-	down
+	down,
+	length
 }
 
 

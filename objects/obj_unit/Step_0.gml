@@ -13,8 +13,45 @@ else {
 	objectOnScreen = false;
 }
 
-// Set sprite index and sprite frame
+
+///		 Set sprite index and sprite frame
+// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+// What will need to be adjusted is actually the actions - if any actions are added besides idle, move, chop, farm, mine, and attack,
+// that will need to be added to this.
 currentImageIndex += currentImageIndexSpeed;
+if (currentAction != unitAction.idle) && (currentAction != unitAction.move) {
+	var i, j;
+	var current_action_ = -1;
+	var current_direction_facing_ = -1;
+	// currentAction counting
+	for (i = 0; i < unitAction.length; i++) {
+		// If the current action and direction facing for the currently shown sprite is found, stop searching.
+		if (current_action_ != -1) && (current_direction_facing_ != -1) {
+			break;
+		}
+		else {
+			// currentDirection counting
+			for (j = 0; j < unitDirection.length; j++) {
+				if currentSprite == workerSprite[i][j] {
+					current_action_ = i;
+					current_direction_facing_ = j;
+					break;
+				}
+			}
+		}
+	}
+	if (current_action_ != -1) && (current_direction_facing_ != -1) {
+		if current_direction_facing_ != currentDirection {
+			currentSprite = workerSprite[current_action_][currentDirection];
+		}
+	}
+}
+
+///		Set sprite index and sprite frame. All this code is here to allow for wait periods between animations to match up with their
+///		action speeds.
+// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+// What will need to be adjusted is actually the actions - if any actions are added besides idle, move, chop, farm, mine, and attack,
+// that will need to be added to this.
 if currentImageIndex > (sprite_get_number(sprite_index) - 1) {
 	currentImageIndex = 0;
 	/// Apply a wait time to different animations, so that the animation lines up with the action taken on the other object.
