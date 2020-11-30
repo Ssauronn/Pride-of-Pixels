@@ -61,27 +61,27 @@ function initialize_object_data() {
 			objectRubyMineDamage = 2; // Ruby
 			// Sprite setting array
 			workerSprite[unitAction.idle][unitDirection.right] = spr_worker_right_idle;
-			workerSprite[unitAction.idle][unitDirection.up] = spr_worker_front_idle;
+			workerSprite[unitAction.idle][unitDirection.up] = spr_worker_back_idle;
 			workerSprite[unitAction.idle][unitDirection.left] = spr_worker_left_idle;
 			workerSprite[unitAction.idle][unitDirection.down] = spr_worker_front_idle;
 			workerSprite[unitAction.move][unitDirection.right] = spr_worker_right_walk;
-			workerSprite[unitAction.move][unitDirection.up] = spr_worker_front_walk;
+			workerSprite[unitAction.move][unitDirection.up] = spr_worker_back_walk;
 			workerSprite[unitAction.move][unitDirection.left] = spr_worker_left_walk;
 			workerSprite[unitAction.move][unitDirection.down] = spr_worker_front_walk;
 			workerSprite[unitAction.mine][unitDirection.right] = spr_worker_right_mine;
-			workerSprite[unitAction.mine][unitDirection.up] = spr_worker_front_mine;
+			workerSprite[unitAction.mine][unitDirection.up] = spr_worker_back_mine;
 			workerSprite[unitAction.mine][unitDirection.left] = spr_worker_left_mine;
 			workerSprite[unitAction.mine][unitDirection.down] = spr_worker_front_mine;
 			workerSprite[unitAction.chop][unitDirection.right] = spr_worker_right_chop;
-			workerSprite[unitAction.chop][unitDirection.up] = spr_worker_front_chop;
+			workerSprite[unitAction.chop][unitDirection.up] = spr_worker_back_chop;
 			workerSprite[unitAction.chop][unitDirection.left] = spr_worker_left_chop;
 			workerSprite[unitAction.chop][unitDirection.down] = spr_worker_front_chop;
 			workerSprite[unitAction.farm][unitDirection.right] = spr_worker_right_farm;
-			workerSprite[unitAction.farm][unitDirection.up] = spr_worker_front_farm;
+			workerSprite[unitAction.farm][unitDirection.up] = spr_worker_back_farm;
 			workerSprite[unitAction.farm][unitDirection.left] = spr_worker_left_farm;
 			workerSprite[unitAction.farm][unitDirection.down] = spr_worker_front_farm;
 			workerSprite[unitAction.attack][unitDirection.right] = spr_worker_right_attack;
-			workerSprite[unitAction.attack][unitDirection.up] = spr_worker_front_attack;
+			workerSprite[unitAction.attack][unitDirection.up] = spr_worker_back_attack;
 			workerSprite[unitAction.attack][unitDirection.left] = spr_worker_left_attack;
 			workerSprite[unitAction.attack][unitDirection.down] = spr_worker_front_attack;
 			// Actual Sprite Value

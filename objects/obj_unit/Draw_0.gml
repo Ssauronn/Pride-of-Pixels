@@ -18,5 +18,5 @@ if ds_exists(objectTargetList, ds_type_list) {
 */
 
 //draw_text(x, y, string(currentAction))
-draw_text(x, y, string(objectTeam));
+//draw_text(x, y, string(objectTeam));
 
