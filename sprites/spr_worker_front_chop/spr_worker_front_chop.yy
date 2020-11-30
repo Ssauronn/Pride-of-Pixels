@@ -80,8 +80,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"59df5924-be4b-4ebf-9606-1dd5dc9e3b2c","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Units/Sprites.yy",
+    "name": "Chop",
+    "path": "folders/Units/Sprites/Worker/Chop.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_worker_front_chop",

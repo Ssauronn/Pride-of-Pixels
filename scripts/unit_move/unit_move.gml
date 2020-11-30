@@ -133,6 +133,62 @@ Once a valid starting search area is determined, start checking for if the spot 
 */
 
 function unit_move() {
+	if instance_exists(objectTarget) {
+		if !path_exists(myPath) {
+			if distance_to_object(objectTarget) < objectRange {
+				notAtTargetLocation = false;
+				validLocationFound = true;
+				validPathFound = true;
+				needToStartGridSearch = true;
+				x_n_ = 0;
+				y_n_ = 0;
+				right_n_ = 0;
+				top_n_ = 0;
+				left_n_ = 0;
+				bottom_n_ = 0;
+				rightWallFound = false;
+				topWallFound = false;
+				leftWallFound = false;
+				bottomWallFound = false;
+				rightForbidden = false;
+				topForbidden = false;
+				leftForbidden = false;
+				bottomForbidden = false;
+				tempCheckX = -1;
+				tempCheckY = -1;
+				groupRowWidth = 0;
+				specificLocationNeedsToBeChecked = false;
+				specificLocationToBeCheckedX = -1;
+				specificLocationToBeCheckedY = -1;
+				searchHasJustBegun = true;
+				totalTimesSearched = 0;
+				closestPointsToObjectsHaveBeenSet = false;
+				if path_exists(myPath) {
+					path_delete(myPath);
+					myPath = -1;
+				}
+				if objectCurrentCommand == "Move" {
+					objectCurrentCommand = "Idle";
+					currentAction = unitAction.idle;
+				}
+				else if objectCurrentCommand == "Attack" {
+					currentAction = unitAction.attack;
+				}
+				else if objectCurrentCommand == "Mine" {
+					currentAction = unitAction.mine;
+				}
+				else if objectCurrentCommand == "Chop" {
+					currentAction = unitAction.chop;
+				}
+				else if objectCurrentCommand == "Farm" {
+					currentAction = unitAction.farm;
+				}
+				else if objectCurrentCommand == "Ruby Mine" {
+					currentAction = unitAction.mine;
+				}
+			}
+		}
+	}
 	if point_distance(x, y, targetToMoveToX, targetToMoveToY) == 0 {
 		// Just in case the object is on the target location to move to, make sure object is
 		// in the ds_grid before exiting to idle. This will only happen if the original click
@@ -187,7 +243,6 @@ function unit_move() {
 			validLocationFound = true;
 			validPathFound = true;
 			cannot_move_without_better_coordinates_ = false;
-			notAtTargetLocation = false;
 			needToStartGridSearch = true;
 			x_n_ = 0;
 			y_n_ = 0;
