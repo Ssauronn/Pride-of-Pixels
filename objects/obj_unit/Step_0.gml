@@ -3,10 +3,10 @@ if !initialized {
 	initialize_object_data();
 }
 // Depth setting
-depth = y;
+depth = (y / 1000);
 
 // Stop certain sections of code if not on screen
-if point_in_rectangle(x, y, view_get_xport(view_camera[0]), view_get_yport(view_camera[0]), view_get_xport(view_camera[0]) + view_get_wport(view_camera[0]), view_get_yport(view_camera[0]) + view_get_hport(view_camera[0])) {
+if point_in_rectangle(x, y, camera_get_view_x(view_camera[0]), camera_get_view_y(view_camera[0]), camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0])) {
 	objectOnScreen = true;
 }
 else {
@@ -20,22 +20,26 @@ else {
 // that will need to be added to this.
 currentImageIndex += currentImageIndexSpeed;
 if (currentAction != unitAction.idle) && (currentAction != unitAction.move) {
-	var i, j;
+	var i, j, break_;
 	var current_action_ = -1;
 	var current_direction_facing_ = -1;
+	break_ = false;
 	// currentAction counting
 	for (i = 0; i < unitAction.length; i++) {
 		// If the current action and direction facing for the currently shown sprite is found, stop searching.
-		if (current_action_ != -1) && (current_direction_facing_ != -1) {
+		if ((current_action_ != -1) && (current_direction_facing_ != -1)) || break_ {
 			break;
 		}
 		else {
 			// currentDirection counting
 			for (j = 0; j < unitDirection.length; j++) {
+				if break_ {
+					break;
+				}
 				if currentSprite == workerSprite[i][j] {
 					current_action_ = i;
 					current_direction_facing_ = j;
-					break;
+					break_ = true;
 				}
 			}
 		}
@@ -106,6 +110,15 @@ if currentImageIndex > (sprite_get_number(sprite_index) - 1) {
 }
 sprite_index = currentSprite;
 image_index = currentImageIndex;
+
+
+// Check for if the object was very recently in combat, and if so, detect for other potential combat targets.
+// If any exist, set those as the target.
+if objectCurrentCommand == "Attack" {
+	if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
+		check_for_new_target();
+	}
+}
 
 // If the mouse is on the map and not on the toolbar, then allow clicks
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
@@ -553,14 +566,22 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				// Else if the object at target location is a friendly unitAction, nothing should be done and
 				// just reset object_at_location_ so that the object can move normally.
 				else if object_at_location_.objectTeam == playerTeam {
-					objectCurrentCommand = "Move";
-					if ds_exists(objectTargetList, ds_type_list) {
-						ds_list_destroy(objectTargetList);
+					// Sometimes, during movement of targets, a friendly target will pass over an enemy target
+					// at the exact location of object_at_location_. When this happens, if the object running
+					// this code is currently in combat, I don't want to remove it from combat due to this error,
+					// so I skip over running the below code if its currently in combat. The cool thing with this
+					// is that this won't be skipped over no matter what if the player is manually commanding
+					// the object, so it'll never cause issues.
+					if ((objectCurrentCommand != "Attack") && (!ds_exists(objectTargetList, ds_type_list))) || (mouse_check_button_pressed(mb_right)) {
+						objectCurrentCommand = "Move";
+						if ds_exists(objectTargetList, ds_type_list) {
+							ds_list_destroy(objectTargetList);
+						}
+						objectTargetList = noone;
+						objectTarget = noone;
+						objectTargetType = noone;
+						objectTargetTeam = noone;
 					}
-					objectTargetList = noone;
-					objectTarget = noone;
-					objectTargetType = noone;
-					objectTargetTeam = noone;
 				}
 				
 				// Get rid of the temporary ds_list
@@ -571,6 +592,33 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 			
 			
 			
+				// Do a final ds_list cleanse, since sometimes this step event will run over multiple frames
+				// and enemies can die between then.
+				if ds_exists(objectTargetList, ds_type_list) {
+					var m;
+					for (m = 0; m < ds_list_size(objectTargetList); m++) {
+						var temp_instance_ = ds_list_find_value(objectTargetList, m);
+						if !instance_exists(temp_instance_) {
+							if ds_list_size(objectTargetList) > 1 {
+								ds_list_delete(objectTargetList, m);
+							}
+							else {
+								ds_list_destroy(objectTargetList);
+								objectTargetList = noone;
+								if !instance_exists(objectTarget) {
+									objectTarget = noone;
+								}
+							}
+						}
+					}
+				}
+				
+				// After cleansing the list, go back and look for any new targets, one last time.
+				if objectCurrentCommand == "Attack" {
+					if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
+						check_for_new_target();
+					}
+				}
 				// Finally, after setting each object's ds_lists (if necessary), reset all
 				// movement variables for each selected object.
 				if !ds_exists(objectTargetList, ds_type_list) {
@@ -877,46 +925,42 @@ if ds_exists(objectTargetList, ds_type_list) {
 	}
 }
 
-// Detect nearest valid targets and attack, if necessary
+// Detect nearest valid targets and attack, if necessary. If in combat, detect all nearby enemies each frame.
 if objectDetectTarget <= 0 {
-	objectDetectTarget = 0;
-	if !instance_exists(objectTarget) {
-		detect_nearby_enemy_objects();
-		if ds_exists(objectDetectedList, ds_type_list) {
-			var i, iteration_;
-			iteration_ = irandom_range(0, ds_list_size(objectDetectedList) - 1);
-			for (i = 0; i < ds_list_size(objectDetectedList); i++) {
-				// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-				// In this case specifically, worker units will not aggro to nearby enemy units unless they're in active
-				// combat. With more militiant type units, this will change.
-				var instance_nearby_ = ds_list_find_value(objectDetectedList, iteration_);
-				var target_of_instance_nearby_ = instance_nearby_.objectTarget;
-				if instance_exists(target_of_instance_nearby_) {
-					// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
-					if target_of_instance_nearby_.objectTeam == objectTeam {
-						if objectCurrentCommand != "Attack" {
-							objectCurrentCommand = "Attack";
-							objectTarget = instance_nearby_;
-							objectNeedsToMove = true;
-							if (instance_nearby_.objectClassification == "Unit") && (instance_nearby_.currentAction == unitAction.move) {
-								targetToMoveToX = instance_nearby_.targetToMoveToX;
-								targetToMoveToY = instance_nearby_.targetToMoveToY;
-							}
-							else {
+	objectDetectTarget = room_speed;
+	if objectCurrentCommand != "Move" {
+		if !instance_exists(objectTarget) {
+			detect_nearby_enemy_objects();
+			if ds_exists(objectDetectedList, ds_type_list) {
+				var i, iteration_;
+				iteration_ = irandom_range(0, ds_list_size(objectDetectedList) - 1);
+				for (i = 0; i < ds_list_size(objectDetectedList); i++) {
+					// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+					// In this case specifically, worker units will not aggro to nearby enemy units unless they're in active
+					// combat. With more militiant type units, this will change.
+					var instance_nearby_ = ds_list_find_value(objectDetectedList, iteration_);
+					var target_of_instance_nearby_ = instance_nearby_.objectTarget;
+					if instance_exists(target_of_instance_nearby_) {
+						// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
+						if target_of_instance_nearby_.objectTeam == objectTeam {
+							if objectCurrentCommand != "Attack" {
+								objectCurrentCommand = "Attack";
+								objectTarget = instance_nearby_;
+								objectNeedsToMove = true;
 								targetToMoveToX = instance_nearby_.x;
 								targetToMoveToY = instance_nearby_.y;
+								currentAction = unitAction.attack;
+								currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+								ds_list_destroy(objectDetectedList);
+								objectDetectedList = noone;
+								break;
 							}
-							currentAction = unitAction.attack;
-							currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
-							ds_list_destroy(objectDetectedList);
-							objectDetectedList = noone;
-							break;
 						}
 					}
-				}
-				iteration_++;
-				if iteration_ >= ds_list_size(objectDetectedList) - 1 {
-					iteration_ = 0;
+					iteration_++;
+					if iteration_ >= ds_list_size(objectDetectedList) - 1 {
+						iteration_ = 0;
+					}
 				}
 			}
 		}
