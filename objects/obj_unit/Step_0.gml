@@ -553,14 +553,22 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				// Else if the object at target location is a friendly unitAction, nothing should be done and
 				// just reset object_at_location_ so that the object can move normally.
 				else if object_at_location_.objectTeam == playerTeam {
-					objectCurrentCommand = "Move";
-					if ds_exists(objectTargetList, ds_type_list) {
-						ds_list_destroy(objectTargetList);
+					// Sometimes, during movement of targets, a friendly target will pass over an enemy target
+					// at the exact location of object_at_location_. When this happens, if the object running
+					// this code is currently in combat, I don't want to remove it from combat due to this error,
+					// so I skip over running the below code if its currently in combat. The cool thing with this
+					// is that this won't be skipped over no matter what if the player is manually commanding
+					// the object, so it'll never cause issues.
+					if ((objectCurrentCommand != "Attack") || (!ds_exists(objectTargetList, ds_type_list))) || (mouse_check_button_pressed(mb_right)) {
+						objectCurrentCommand = "Move";
+						if ds_exists(objectTargetList, ds_type_list) {
+							ds_list_destroy(objectTargetList);
+						}
+						objectTargetList = noone;
+						objectTarget = noone;
+						objectTargetType = noone;
+						objectTargetTeam = noone;
 					}
-					objectTargetList = noone;
-					objectTarget = noone;
-					objectTargetType = noone;
-					objectTargetTeam = noone;
 				}
 				
 				// Get rid of the temporary ds_list
@@ -899,14 +907,8 @@ if objectDetectTarget <= 0 {
 								objectCurrentCommand = "Attack";
 								objectTarget = instance_nearby_;
 								objectNeedsToMove = true;
-								if (instance_nearby_.objectClassification == "Unit") && (instance_nearby_.currentAction == unitAction.move) {
-									targetToMoveToX = instance_nearby_.targetToMoveToX;
-									targetToMoveToY = instance_nearby_.targetToMoveToY;
-								}
-								else {
-									targetToMoveToX = instance_nearby_.x;
-									targetToMoveToY = instance_nearby_.y;
-								}
+								targetToMoveToX = instance_nearby_.x;
+								targetToMoveToY = instance_nearby_.y;
 								currentAction = unitAction.attack;
 								currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
 								ds_list_destroy(objectDetectedList);

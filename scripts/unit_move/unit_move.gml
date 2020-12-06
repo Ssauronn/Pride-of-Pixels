@@ -66,7 +66,6 @@ function target_next_object() {
 		}
 		else {
 			objectCurrentCommand = "Move";
-			ds_list_destroy(objectTargetList);
 			objectTargetList = noone;
 			objectTarget = noone;
 			targetToMoveToX = originalTargetToMoveToX;
