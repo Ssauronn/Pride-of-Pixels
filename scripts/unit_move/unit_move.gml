@@ -1432,12 +1432,16 @@ function unit_move() {
 											// Adjust this to detect the move target of the opposite object, and if the move
 											// target of the opposite object has already been set, move to a space adjacent to that.
 											if !objectTarget.changeVariablesWhenCloseToTarget {
-												targetToMoveToX = floor(objectTarget.x / 16) * 16;
-												targetToMoveToY = floor(objectTarget.y / 16) * 16;
-											}
-											else {
+												//targetToMoveToX = floor(objectTarget.x / 16) * 16;
+												//targetToMoveToY = floor(objectTarget.y / 16) * 16;
 												targetToMoveToX = floor(x / 16) * 16;
 												targetToMoveToY = floor(y / 16) * 16;
+											}
+											else {
+												//targetToMoveToX = floor(x / 16) * 16;
+												//targetToMoveToY = floor(y / 16) * 16;
+												targetToMoveToX = floor(objectTarget.x / 16) * 16;
+												targetToMoveToY = floor(objectTarget.y / 16) * 16;
 											}
 											cannot_move_without_better_coordinates_ = false;
 											needToStartGridSearch = false;

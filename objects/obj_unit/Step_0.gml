@@ -3,7 +3,7 @@ if !initialized {
 	initialize_object_data();
 }
 // Depth setting
-depth = y;
+depth = (y / 1000);
 
 // Stop certain sections of code if not on screen
 if point_in_rectangle(x, y, camera_get_view_x(view_camera[0]), camera_get_view_y(view_camera[0]), camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0])) {
@@ -20,22 +20,26 @@ else {
 // that will need to be added to this.
 currentImageIndex += currentImageIndexSpeed;
 if (currentAction != unitAction.idle) && (currentAction != unitAction.move) {
-	var i, j;
+	var i, j, break_;
 	var current_action_ = -1;
 	var current_direction_facing_ = -1;
+	break_ = false;
 	// currentAction counting
 	for (i = 0; i < unitAction.length; i++) {
 		// If the current action and direction facing for the currently shown sprite is found, stop searching.
-		if (current_action_ != -1) && (current_direction_facing_ != -1) {
+		if ((current_action_ != -1) && (current_direction_facing_ != -1)) || break_ {
 			break;
 		}
 		else {
 			// currentDirection counting
 			for (j = 0; j < unitDirection.length; j++) {
+				if break_ {
+					break;
+				}
 				if currentSprite == workerSprite[i][j] {
 					current_action_ = i;
 					current_direction_facing_ = j;
-					break;
+					break_ = true;
 				}
 			}
 		}

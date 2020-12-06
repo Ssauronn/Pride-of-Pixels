@@ -73,7 +73,6 @@ function unit_mine() {
 			}
 			// Just send to attack script, and the attack script can handle the rest.
 			currentAction = unitAction.attack;
-			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {
 			target_next_object();

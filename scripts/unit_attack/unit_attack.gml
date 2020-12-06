@@ -60,7 +60,6 @@ function unit_attack() {
 					currentAction = unitAction.farm;
 					break;
 			}
-			currentDirection = floor(point_direction(x, y, objectTarget.x, objectTarget.y) / 16);
 		}
 		else {
 			target_next_object();
