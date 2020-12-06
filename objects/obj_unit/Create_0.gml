@@ -14,8 +14,7 @@ objectTeam = 1;
 // Possible commands align with state machine: Idle, Move, Mine, Attack
 objectCurrentCommand = "Idle";
 // Timer to detect nearby enemy targets
-objectDetectTargetTimer = irandom_range(0, room_speed);
-objectDetectTarget = objectDetectTargetTimer;
+objectDetectTarget = irandom_range(0, room_speed);
 objectDetectedList = noone;
 
 
