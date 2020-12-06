@@ -57,6 +57,8 @@ function unit_mine() {
 				if (objectTarget.objectClassification == "Unit") && (objectTarget.currentAction == unitAction.move) {
 					targetToMoveToX = objectTarget.targetToMoveToX;
 					targetToMoveToY = objectTarget.targetToMoveToY;
+					targetToMoveToX = objectTarget.x;
+					targetToMoveToY = objectTarget.y;
 				}
 				else {
 					targetToMoveToX = objectTarget.x;

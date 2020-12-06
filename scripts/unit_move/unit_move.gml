@@ -36,6 +36,7 @@ function target_next_object() {
 					squareSizeIncreaseCount = 0;
 					baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 					// Variables specifically used by object to move
+					changeVariablesWhenCloseToTarget = true;
 					notAtTargetLocation = true;
 					validLocationFound = true;
 					validPathFound = false;
@@ -136,9 +137,14 @@ function unit_move() {
 	if instance_exists(objectTarget) {
 		if !path_exists(myPath) {
 			if distance_to_object(objectTarget) < objectRange {
-				notAtTargetLocation = false;
-				validLocationFound = true;
-				validPathFound = true;
+				// Change below to set target to closest location within a square
+				// checking each corner of x+/-8 and y+/-8.
+				targetToMoveToX = floor((x + 8) / 16) * 16;
+				targetToMoveToY = floor((y + 8) / 16) * 16;
+				changeVariablesWhenCloseToTarget = false;
+				notAtTargetLocation = true;
+				validLocationFound = false;
+				validPathFound = false;
 				needToStartGridSearch = true;
 				x_n_ = 0;
 				y_n_ = 0;
@@ -166,25 +172,6 @@ function unit_move() {
 				if path_exists(myPath) {
 					path_delete(myPath);
 					myPath = -1;
-				}
-				if objectCurrentCommand == "Move" {
-					objectCurrentCommand = "Idle";
-					currentAction = unitAction.idle;
-				}
-				else if objectCurrentCommand == "Attack" {
-					currentAction = unitAction.attack;
-				}
-				else if objectCurrentCommand == "Mine" {
-					currentAction = unitAction.mine;
-				}
-				else if objectCurrentCommand == "Chop" {
-					currentAction = unitAction.chop;
-				}
-				else if objectCurrentCommand == "Farm" {
-					currentAction = unitAction.farm;
-				}
-				else if objectCurrentCommand == "Ruby Mine" {
-					currentAction = unitAction.mine;
 				}
 			}
 		}
@@ -239,6 +226,7 @@ function unit_move() {
 		// be there, or there are no previous objects registered, period, then reset
 		// the variables and exit script.
 		if (!ds_did_not_exist_) || ((originally_self_is_found_ == noone) && (original_location_is_valid_)) {
+			changeVariablesWhenCloseToTarget = true;
 			notAtTargetLocation = false;
 			validLocationFound = true;
 			validPathFound = true;
@@ -801,6 +789,7 @@ function unit_move() {
 				targetToMoveToY = floor(closestSearchPointToObjectY / 16) * 16;
 				originalTargetToMoveToX = targetToMoveToX;
 				originalTargetToMoveToY = targetToMoveToY;
+				changeVariablesWhenCloseToTarget = true;
 				validPathFound = false;
 				validLocationFound = false;
 				needToStartGridSearch = true;
@@ -903,6 +892,7 @@ function unit_move() {
 								if (ds_exists(objectTargetList, ds_type_list)) && (instance_exists(objectTarget)) {
 									// If the ranged object is already in range of target, don't move! It can act already.
 									if point_distance(x, y, targetToMoveToX, targetToMoveToY) <= objectRange {
+										changeVariablesWhenCloseToTarget = true;
 										notAtTargetLocation = false;
 										validLocationFound = true;
 										validPathFound = true;
@@ -1374,6 +1364,59 @@ function unit_move() {
 				}
 				// Else if a valid location exists, no need to search for one, just move.
 				else {
+					if changeVariablesWhenCloseToTarget {
+						if instance_exists(objectTarget) && ds_exists(unitGridLocation, ds_type_grid) {
+							var target_ = ds_grid_value_y(unitGridLocation, 0, 0, ds_grid_width(unitGridLocation) - 1, ds_grid_height(unitGridLocation) - 1, objectTarget.id);
+							if target_ != -1 {
+								if objectTarget.objectClassification == "Unit" {
+									if objectTarget.currentAction == unitAction.move {
+										if distance_to_object(objectTarget) <= (objectRange) {
+											changeVariablesWhenCloseToTarget = false;
+											notAtTargetLocation = true;
+											validLocationFound = false;
+											validPathFound = false;
+											targetToMoveToX = floor(x / 16) * 16;
+											targetToMoveToY = floor(y / 16) * 16;
+											cannot_move_without_better_coordinates_ = false;
+											needToStartGridSearch = false;
+											x_n_ = 0;
+											y_n_ = 0;
+											right_n_ = 0;
+											top_n_ = 0;
+											left_n_ = 0;
+											bottom_n_ = 0;
+											rightWallFound = false;
+											topWallFound = false;
+											leftWallFound = false;
+											bottomWallFound = false;
+											rightForbidden = false;
+											topForbidden = false;
+											leftForbidden = false;
+											bottomForbidden = false;
+											baseSquareEdgeSize = 0;
+											squareSizeIncreaseCount = 0;
+											squareIteration = 0;
+											squareTrueIteration = 0;
+											tempCheckX = -1;
+											tempCheckY = -1;
+											groupRowWidth = 0;
+											specificLocationNeedsToBeChecked = false;
+											specificLocationToBeCheckedX = -1;
+											specificLocationToBeCheckedY = -1;
+											searchHasJustBegun = true;
+											totalTimesSearched = 0;
+											closestPointsToObjectsHaveBeenSet = false;
+											if path_exists(myPath) {
+												path_delete(myPath);
+												myPath = -1;
+											}
+											exit;
+										}
+									}
+								}
+							}
+						}
+					}
 					if path_get_number(myPath) > 1 {
 						var x_vector_, y_vector_;
 						x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
@@ -1417,6 +1460,7 @@ function unit_move() {
 			// speed during two frames, just teleport the object to that location and reset ALL
 			// variables.
 			else {
+				changeVariablesWhenCloseToTarget = true;
 				notAtTargetLocation = false;
 				validLocationFound = true;
 				validPathFound = true;
@@ -1527,6 +1571,44 @@ function unit_move() {
 	}
 	// Else if its at target location, then exit script.
 	else {
+		if ds_exists(unitGridLocation, ds_type_grid) {
+			var i, self_is_found_;
+			self_is_found_ = noone;
+			if ds_grid_height(unitGridLocation) > 0 {
+				for (i = 0; i < ds_grid_height(unitGridLocation); i++) {
+					var temp_instance_;
+					temp_instance_ = ds_grid_get(unitGridLocation, 0, i);
+					if self.id == temp_instance_.id {
+						self_is_found_ = i;
+						break;
+					}
+				}
+			}
+			// If self is found in the ds_grid, which it shouldn't be, then overwrite
+			// the existing values and replace with correct values. This is just here
+			// as redundancy.
+			if self_is_found_ != noone {
+				ds_grid_set(unitGridLocation, 1, self_is_found_, targetToMoveToX);
+				ds_grid_set(unitGridLocation, 2, self_is_found_, targetToMoveToY);
+			}
+			// If self doesn't exist in the grid, which it normally shouldn't, then
+			// resize the grid to accomodate it and add values.
+			else {
+				ds_grid_resize(unitGridLocation, 3, ds_grid_height(unitGridLocation) + 1);
+				ds_grid_set(unitGridLocation, 0, ds_grid_height(unitGridLocation) - 1, self.id);
+				ds_grid_set(unitGridLocation, 1, ds_grid_height(unitGridLocation) - 1, targetToMoveToX);
+				ds_grid_set(unitGridLocation, 2, ds_grid_height(unitGridLocation) - 1, targetToMoveToY);
+			}
+		}
+		// If the ds_grid doesn't exist, which is possible (but unlikely), then just recreate
+		// the grid and add the object's info.
+		else {
+			unitGridLocation = ds_grid_create(3, 1);
+			ds_grid_set(unitGridLocation, 0, 0, self.id);
+			ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
+			ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
+		}
+		changeVariablesWhenCloseToTarget = true;
 		notAtTargetLocation = false;
 		validLocationFound = true;
 		validPathFound = true;

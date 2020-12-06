@@ -1,8 +1,5 @@
 {
-  "spriteId": {
-    "name": "spr_worker",
-    "path": "sprites/spr_worker/spr_worker.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
