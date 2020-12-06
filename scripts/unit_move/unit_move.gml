@@ -138,8 +138,60 @@ function unit_move() {
 			if distance_to_object(objectTarget) < objectRange {
 				// Change below to set target to closest location within a square
 				// checking each corner of x+/-8 and y+/-8.
-				targetToMoveToX = floor((x + 8) / 16) * 16;
-				targetToMoveToY = floor((y + 8) / 16) * 16;
+				var original_x_ = x;
+				var original_y_ = y;
+				var point_distance_ = distance_to_object(objectTarget);
+				var choice_ = 0;
+				x = original_x_ + 8;
+				y = original_y_ + 8;
+				if (distance_to_object(objectTarget) <= point_distance_) && (position_empty(floor(x / 16) * 16, floor(y / 16) * 16)) {
+					point_distance_ = distance_to_object(objectTarget);
+					choice_ = 1;
+				}
+				x = original_x_ + 8;
+				y = original_y_ - 8;
+				if (distance_to_object(objectTarget) < point_distance_) && (position_empty(floor(x / 16) * 16, floor(y / 16) * 16)) {
+					point_distance_ = distance_to_object(objectTarget);
+					choice_ = 2;
+				}
+				x = original_x_ - 8;
+				y = original_y_ + 8;
+				if (distance_to_object(objectTarget) < point_distance_) && (position_empty(floor(x / 16) * 16, floor(y / 16) * 16)) {
+					point_distance_ = distance_to_object(objectTarget);
+					choice_ = 3;
+				}
+				x = original_x_ - 8;
+				y = original_y_ - 8;
+				if (distance_to_object(objectTarget) < point_distance_) && (position_empty(floor(x / 16) * 16, floor(y / 16) * 16)) {
+					point_distance_ = distance_to_object(objectTarget);
+					choice_ = 4;
+				}
+				x = original_x_;
+				y = original_y_;
+				switch choice_ {
+					case 0:
+						targetToMoveToX = floor(x / 16) * 16;
+						targetToMoveToY = floor(y / 16) * 16;
+						break;
+					case 1:
+						targetToMoveToX = floor((x + 8) / 16) * 16;
+						targetToMoveToY = floor((y + 8) / 16) * 16;
+						break;
+					case 2:
+						targetToMoveToX = floor((x + 8) / 16) * 16;
+						targetToMoveToY = floor((y - 8) / 16) * 16;
+						break;
+					case 3:
+						targetToMoveToX = floor((x - 8) / 16) * 16;
+						targetToMoveToY = floor((y + 8) / 16) * 16;
+						break;
+					case 4:
+						targetToMoveToX = floor((x - 8) / 16) * 16;
+						targetToMoveToY = floor((y - 8) / 16) * 16;
+						break;
+				}
+				//targetToMoveToX = floor((x + 8) / 16) * 16;
+				//targetToMoveToY = floor((y + 8) / 16) * 16;
 				changeVariablesWhenCloseToTarget = false;
 				notAtTargetLocation = true;
 				validLocationFound = false;
@@ -1376,6 +1428,48 @@ function unit_move() {
 											validPathFound = false;
 											targetToMoveToX = floor(x / 16) * 16;
 											targetToMoveToY = floor(y / 16) * 16;
+											cannot_move_without_better_coordinates_ = false;
+											needToStartGridSearch = false;
+											x_n_ = 0;
+											y_n_ = 0;
+											right_n_ = 0;
+											top_n_ = 0;
+											left_n_ = 0;
+											bottom_n_ = 0;
+											rightWallFound = false;
+											topWallFound = false;
+											leftWallFound = false;
+											bottomWallFound = false;
+											rightForbidden = false;
+											topForbidden = false;
+											leftForbidden = false;
+											bottomForbidden = false;
+											baseSquareEdgeSize = 0;
+											squareSizeIncreaseCount = 0;
+											squareIteration = 0;
+											squareTrueIteration = 0;
+											tempCheckX = -1;
+											tempCheckY = -1;
+											groupRowWidth = 0;
+											specificLocationNeedsToBeChecked = false;
+											specificLocationToBeCheckedX = -1;
+											specificLocationToBeCheckedY = -1;
+											searchHasJustBegun = true;
+											totalTimesSearched = 0;
+											closestPointsToObjectsHaveBeenSet = false;
+											if path_exists(myPath) {
+												path_delete(myPath);
+												myPath = -1;
+											}
+											exit;
+										}
+										else if (objectDetectTarget == room_speed - 1) && (distance_to_object(objectTarget) >= (objectRange * 5)) {
+											changeVariablesWhenCloseToTarget = false;
+											notAtTargetLocation = true;
+											validLocationFound = false;
+											validPathFound = false;
+											targetToMoveToX = floor(objectTarget.x / 16) * 16;
+											targetToMoveToY = floor(objectTarget.y / 16) * 16;
 											cannot_move_without_better_coordinates_ = false;
 											needToStartGridSearch = false;
 											x_n_ = 0;

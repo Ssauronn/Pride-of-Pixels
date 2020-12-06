@@ -887,7 +887,6 @@ if ds_exists(objectTargetList, ds_type_list) {
 
 // Detect nearest valid targets and attack, if necessary
 if objectDetectTarget <= 0 {
-	objectDetectTarget = room_speed;
 	if objectCurrentCommand != "Move" {
 		if !instance_exists(objectTarget) {
 			detect_nearby_enemy_objects();
