@@ -597,6 +597,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				originalTargetToMoveToX = targetToMoveToX;
 				originalTargetToMoveToY = targetToMoveToY;
 				// Variables specifically used by object to move
+				changeVariablesWhenCloseToTarget = true;
 				notAtTargetLocation = true;
 				validLocationFound = false;
 				validPathFound = false;
@@ -770,6 +771,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				originalTargetToMoveToX = targetToMoveToX;
 				originalTargetToMoveToY = targetToMoveToY;
 				// Variables specifically used by object to move
+				changeVariablesWhenCloseToTarget = true;
 				notAtTargetLocation = true;
 				validLocationFound = false;
 				validPathFound = false;
@@ -877,7 +879,7 @@ if ds_exists(objectTargetList, ds_type_list) {
 
 // Detect nearest valid targets and attack, if necessary
 if objectDetectTarget <= 0 {
-	objectDetectTarget = room_speed;
+	objectDetectTarget = 0;
 	if !instance_exists(objectTarget) {
 		detect_nearby_enemy_objects();
 		if ds_exists(objectDetectedList, ds_type_list) {

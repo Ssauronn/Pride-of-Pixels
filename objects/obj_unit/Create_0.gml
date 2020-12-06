@@ -23,6 +23,7 @@ objectDetectedList = noone;
 objectNeedsToMove = false;
 myPath = noone;
 validPathFound = true;
+changeVariablesWhenCloseToTarget = true;
 validLocationFound = true;
 notAtTargetLocation = false;
 path_set_kind(myPath, 1);
