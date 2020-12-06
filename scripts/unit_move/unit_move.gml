@@ -83,6 +83,9 @@ function target_next_object() {
 		}
 	}
 	else {
+		check_for_new_target();
+	}
+	if !ds_exists(objectTargetList, ds_type_list) {
 		objectCurrentCommand = "Move";
 		targetToMoveToX = originalTargetToMoveToX;
 		targetToMoveToY = originalTargetToMoveToY;
@@ -190,8 +193,6 @@ function unit_move() {
 						targetToMoveToY = floor((y - 8) / 16) * 16;
 						break;
 				}
-				//targetToMoveToX = floor((x + 8) / 16) * 16;
-				//targetToMoveToY = floor((y + 8) / 16) * 16;
 				changeVariablesWhenCloseToTarget = false;
 				notAtTargetLocation = true;
 				validLocationFound = false;
@@ -1413,7 +1414,7 @@ function unit_move() {
 						}
 					}
 				}
-				// Else if a valid location exists, no need to search for one, just move.
+				// Potentially move the object if a valid location exists.
 				else {
 					if changeVariablesWhenCloseToTarget {
 						if instance_exists(objectTarget) && ds_exists(unitGridLocation, ds_type_grid) {
@@ -1421,13 +1422,23 @@ function unit_move() {
 							if target_ != -1 {
 								if objectTarget.objectClassification == "Unit" {
 									if objectTarget.currentAction == unitAction.move {
+										// If the distance to the target is less than its attack range, and the target its chasing
+										// is also moving, set a new target to move to equal to its own location once its within range.
 										if distance_to_object(objectTarget) <= (objectRange) {
 											changeVariablesWhenCloseToTarget = false;
 											notAtTargetLocation = true;
 											validLocationFound = false;
 											validPathFound = false;
-											targetToMoveToX = floor(x / 16) * 16;
-											targetToMoveToY = floor(y / 16) * 16;
+											// Adjust this to detect the move target of the opposite object, and if the move
+											// target of the opposite object has already been set, move to a space adjacent to that.
+											if !objectTarget.changeVariablesWhenCloseToTarget {
+												targetToMoveToX = floor(objectTarget.x / 16) * 16;
+												targetToMoveToY = floor(objectTarget.y / 16) * 16;
+											}
+											else {
+												targetToMoveToX = floor(x / 16) * 16;
+												targetToMoveToY = floor(y / 16) * 16;
+											}
 											cannot_move_without_better_coordinates_ = false;
 											needToStartGridSearch = false;
 											x_n_ = 0;
@@ -1463,8 +1474,13 @@ function unit_move() {
 											}
 											exit;
 										}
-										else if (objectDetectTarget == room_speed - 1) && (distance_to_object(objectTarget) >= (objectRange * 5)) {
-											changeVariablesWhenCloseToTarget = false;
+										// If the object is not within range of the target, and the target its chasing is also moving,
+										// set the target to move to equal to the target's exact location. I don't do this every frame,
+										// only once every second or so, because this is deleting the path to take each time to make a new
+										// one, and if I ran this every frame, no object with a valid target further than its objectRange would
+										// ever move, because no path would ever exist.
+										else if (objectDetectTarget == room_speed - 1) && (distance_to_object(objectTarget) > objectRange) {
+											changeVariablesWhenCloseToTarget = true;
 											notAtTargetLocation = true;
 											validLocationFound = false;
 											validPathFound = false;
@@ -1510,6 +1526,7 @@ function unit_move() {
 							}
 						}
 					}
+					// Else if a valid location exists, no need to search for one, just move.
 					if path_get_number(myPath) > 1 {
 						var x_vector_, y_vector_;
 						x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));

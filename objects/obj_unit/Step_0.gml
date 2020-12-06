@@ -107,6 +107,15 @@ if currentImageIndex > (sprite_get_number(sprite_index) - 1) {
 sprite_index = currentSprite;
 image_index = currentImageIndex;
 
+
+// Check for if the object was very recently in combat, and if so, detect for other potential combat targets.
+// If any exist, set those as the target.
+if objectCurrentCommand == "Attack" {
+	if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
+		check_for_new_target();
+	}
+}
+
 // If the mouse is on the map and not on the toolbar, then allow clicks
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
 	var target_list_ = noone;
@@ -559,7 +568,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					// so I skip over running the below code if its currently in combat. The cool thing with this
 					// is that this won't be skipped over no matter what if the player is manually commanding
 					// the object, so it'll never cause issues.
-					if ((objectCurrentCommand != "Attack") || (!ds_exists(objectTargetList, ds_type_list))) || (mouse_check_button_pressed(mb_right)) {
+					if ((objectCurrentCommand != "Attack") && (!ds_exists(objectTargetList, ds_type_list))) || (mouse_check_button_pressed(mb_right)) {
 						objectCurrentCommand = "Move";
 						if ds_exists(objectTargetList, ds_type_list) {
 							ds_list_destroy(objectTargetList);
@@ -579,6 +588,33 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 			
 			
 			
+				// Do a final ds_list cleanse, since sometimes this step event will run over multiple frames
+				// and enemies can die between then.
+				if ds_exists(objectTargetList, ds_type_list) {
+					var m;
+					for (m = 0; m < ds_list_size(objectTargetList); m++) {
+						var temp_instance_ = ds_list_find_value(objectTargetList, m);
+						if !instance_exists(temp_instance_) {
+							if ds_list_size(objectTargetList) > 1 {
+								ds_list_delete(objectTargetList, m);
+							}
+							else {
+								ds_list_destroy(objectTargetList);
+								objectTargetList = noone;
+								if !instance_exists(objectTarget) {
+									objectTarget = noone;
+								}
+							}
+						}
+					}
+				}
+				
+				// After cleansing the list, go back and look for any new targets, one last time.
+				if objectCurrentCommand == "Attack" {
+					if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
+						check_for_new_target();
+					}
+				}
 				// Finally, after setting each object's ds_lists (if necessary), reset all
 				// movement variables for each selected object.
 				if !ds_exists(objectTargetList, ds_type_list) {
@@ -885,7 +921,7 @@ if ds_exists(objectTargetList, ds_type_list) {
 	}
 }
 
-// Detect nearest valid targets and attack, if necessary
+// Detect nearest valid targets and attack, if necessary. If in combat, detect all nearby enemies each frame.
 if objectDetectTarget <= 0 {
 	if objectCurrentCommand != "Move" {
 		if !instance_exists(objectTarget) {
