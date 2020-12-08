@@ -1483,7 +1483,7 @@ function unit_move() {
 										// only once every second or so, because this is deleting the path to take each time to make a new
 										// one, and if I ran this every frame, no object with a valid target further than its objectRange would
 										// ever move, because no path would ever exist.
-										else if (objectDetectTarget == room_speed - 1) && (distance_to_object(objectTarget) > objectRange) {
+										else if (objectDetectTarget % 30 == 0) && (distance_to_object(objectTarget) > objectRange) {
 											changeVariablesWhenCloseToTarget = true;
 											notAtTargetLocation = true;
 											validLocationFound = false;

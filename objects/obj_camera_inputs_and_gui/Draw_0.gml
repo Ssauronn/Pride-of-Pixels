@@ -1,4 +1,6 @@
-/*var i;
+/*
+// Draw the movement grid
+var i;
 for (i = 0; i <= floor(room_width / 16); i++) {
 	draw_line_color(i * 16, 0, i * 16, room_height, c_red, c_red);
 }
