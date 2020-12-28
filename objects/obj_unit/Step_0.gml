@@ -942,7 +942,7 @@ if objectDetectTarget <= 0 {
 					var target_of_instance_nearby_ = instance_nearby_.objectTarget;
 					if instance_exists(target_of_instance_nearby_) {
 						// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
-						if target_of_instance_nearby_.objectTeam == objectTeam {
+						if (target_of_instance_nearby_.objectTeam == objectTeam) {
 							if objectCurrentCommand != "Attack" {
 								objectCurrentCommand = "Attack";
 								objectTarget = instance_nearby_;
