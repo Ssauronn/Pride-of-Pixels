@@ -128,7 +128,61 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 		// found object is not an object its commanded to attack or mine, change the object it should be attacking or mining
 		// to something valid.
 		if objectNeedsToMove {
-			var object_at_location_ = instance_place(floor(targetToMoveToX / 16) * 16, floor(targetToMoveToY / 16) * 16, all);
+			// Get the ID of every single object currently at the click location, and depending on what the object
+			// was commanded to do previously, determine which object currently at the click location should be the
+			// target of the click.
+			var object_at_location_, list_of_objects_, number_of_objects_, target_found_;
+			target_found_ = false;
+			list_of_objects_ = ds_list_create();
+			number_of_objects_ = instance_place_list((targetToMoveToX / 16) * 16, floor(targetToMoveToY / 16) * 16, all, list_of_objects_, true);
+			if number_of_objects_ > 1 {
+				var n;
+				for (n = 0; n < ds_list_size(list_of_objects_); n++) {
+					var temp_instance_to_reference_ = ds_list_find_value(list_of_objects_, n);
+					if objectCurrentCommand == "Attack" {
+						if (temp_instance_to_reference_.objectClassification == "Unit") || (temp_instance_to_reference_.objectClassification == "Building") {
+							object_at_location_ = temp_instance_to_reference_;
+							target_found_ = true;
+						}
+					}
+					else if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Ruby Mine") || (objectCurrentCommand == "Farm") {
+						if temp_instance_to_reference_.objectClassification == "Resource" {
+							object_at_location_ = temp_instance_to_reference_;
+							target_found_ = true;
+						}
+					}
+					else if (objectCurrentCommand == "Idle") || (objectCurrentCommand == "Move") {
+						object_at_location_ = temp_instance_to_reference_;
+						target_found_ = true;
+					}
+					// If the whole list of objects at the target location have been evaluated and none match the given commands,
+					// just set the object_at_location_ to noone. I have code in place later to handle that event correctly, no need
+					// to write it twice.
+					if n == (ds_list_size(list_of_objects_) - 1) {
+						object_at_location_ = noone;
+						target_found_ = true;
+					}
+					if target_found_ {
+						break;
+					}
+				}
+			}
+			else {
+				if number_of_objects_ == 1 {
+					object_at_location_ = ds_list_find_value(list_of_objects_, 0);
+				}
+				else {
+					object_at_location_ = noone;
+				}
+			}
+			// Clean up that ds_list to prevent memory leaks
+			if ds_exists(list_of_objects_, ds_type_list) {
+				ds_list_destroy(list_of_objects_);
+			}
+			list_of_objects_ = noone;
+			// Check for what is at the current location and if the current object doesn't match the type its looking for,
+			// look for the correct type. This won't really activate if a manual click happens, so there's no risk of a
+			// user input being overridden.
 			var temp_object_at_location_ = noone;
 			if instance_exists(object_at_location_) {
 				if (object_at_location_.objectClassification != "Resource") && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
@@ -929,7 +983,9 @@ if ds_exists(objectTargetList, ds_type_list) {
 if objectDetectTarget <= 0 {
 	objectDetectTarget = room_speed;
 	if objectCurrentCommand != "Move" {
-		if !instance_exists(objectTarget) {
+		// If the object doesn't have a target yet, or if its just collecting resources, continue on to check for
+		// any potential threats.
+		if (!instance_exists(objectTarget)) || (objectTarget.objectClassification == "Resource") {
 			detect_nearby_enemy_objects();
 			if ds_exists(objectDetectedList, ds_type_list) {
 				var i, iteration_;
@@ -937,23 +993,25 @@ if objectDetectTarget <= 0 {
 				for (i = 0; i < ds_list_size(objectDetectedList); i++) {
 					// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 					// In this case specifically, worker units will not aggro to nearby enemy units unless they're in active
-					// combat. With more militiant type units, this will change.
+					// combat. With more militiant type units, this will change to aggro'ing to any enemy target within range.
 					var instance_nearby_ = ds_list_find_value(objectDetectedList, iteration_);
-					var target_of_instance_nearby_ = instance_nearby_.objectTarget;
-					if instance_exists(target_of_instance_nearby_) {
-						// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
-						if (target_of_instance_nearby_.objectTeam == objectTeam) {
-							if objectCurrentCommand != "Attack" {
-								objectCurrentCommand = "Attack";
-								objectTarget = instance_nearby_;
-								objectNeedsToMove = true;
-								targetToMoveToX = instance_nearby_.x;
-								targetToMoveToY = instance_nearby_.y;
-								currentAction = unitAction.attack;
-								currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
-								ds_list_destroy(objectDetectedList);
-								objectDetectedList = noone;
-								break;
+					if objectType == "Worker" {
+						var target_of_instance_nearby_ = instance_nearby_.objectTarget;
+						if instance_exists(target_of_instance_nearby_) {
+							// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
+							if (target_of_instance_nearby_.objectTeam == objectTeam) {
+								if objectCurrentCommand != "Attack" {
+									objectCurrentCommand = "Attack";
+									objectTarget = instance_nearby_;
+									objectNeedsToMove = true;
+									targetToMoveToX = instance_nearby_.x;
+									targetToMoveToY = instance_nearby_.y;
+									currentAction = unitAction.attack;
+									currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+									ds_list_destroy(objectDetectedList);
+									objectDetectedList = noone;
+									break;
+								}
 							}
 						}
 					}
