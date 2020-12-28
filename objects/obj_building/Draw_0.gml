@@ -1,22 +1,24 @@
 // Draw sprite indicating selection
-if objectSelected && objectOnScreen {
-	switch sprite_width {
-		case 16:
-			draw_sprite_ext(spr_selected, 0, x, y, 1, 1, 0, c_white, 0.75);
-			break;
-		case 32:
-			draw_sprite_ext(spr_selected, 0, x, y - 16, 2, 2, 0, c_white, 0.75);
-			break;
-		case 48:
-			draw_sprite_ext(spr_selected, 0, x, y - 32, 3, 3, 0, c_white, 0.75);
-			break;
-		case 64:
-			draw_sprite_ext(spr_selected, 0, x, y - 48, 4, 4, 0, c_white, 0.75);
-			break;
+if objectOnScreen {
+	if objectSelected {
+		switch sprite_width {
+			case 16:
+				draw_sprite_ext(spr_selected, 0, x, y, 1, 1, 0, c_white, 0.75);
+				break;
+			case 32:
+				draw_sprite_ext(spr_selected, 0, x, y - 16, 2, 2, 0, c_white, 0.75);
+				break;
+			case 48:
+				draw_sprite_ext(spr_selected, 0, x, y - 32, 3, 3, 0, c_white, 0.75);
+				break;
+			case 64:
+				draw_sprite_ext(spr_selected, 0, x, y - 48, 4, 4, 0, c_white, 0.75);
+				break;
+		}
 	}
+	// Draw self
+	draw_self();
 }
-// Draw self
-draw_self();
 
 /* Draw object coordinates
 if ds_exists(objectTargetList, ds_type_list) {

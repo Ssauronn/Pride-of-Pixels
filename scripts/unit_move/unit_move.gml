@@ -1424,22 +1424,57 @@ function unit_move() {
 									if objectTarget.currentAction == unitAction.move {
 										// If the distance to the target is less than its attack range, and the target its chasing
 										// is also moving, set a new target to move to equal to its own location once its within range.
-										if distance_to_object(objectTarget) <= (objectRange) {
-											changeVariablesWhenCloseToTarget = false;
+										var adjusted_object_range_ = objectRange * 6;
+										if distance_to_object(objectTarget) <= adjusted_object_range_ {
 											notAtTargetLocation = true;
 											validLocationFound = false;
 											validPathFound = false;
-											// Adjust this to detect the move target of the opposite object, and if the move
-											// target of the opposite object has already been set, move to a space adjacent to that.
-											if !objectTarget.changeVariablesWhenCloseToTarget {
-												//targetToMoveToX = floor(objectTarget.x / 16) * 16;
-												//targetToMoveToY = floor(objectTarget.y / 16) * 16;
-												targetToMoveToX = floor(x / 16) * 16;
-												targetToMoveToY = floor(y / 16) * 16;
+											var target_path_exists_ = false;
+											with objectTarget {
+												if variable_instance_exists(self.id, "myPath") {
+													if path_exists(myPath) {
+														target_path_exists_ = true;
+														var target_paths_target_x_ = path_get_point_x(myPath, path_get_number(myPath) - 1);
+														var target_paths_target_y_ = path_get_point_y(myPath, path_get_number(myPath) - 1)
+													}
+												}
+											}
+											if target_path_exists_ {
+												var distance_to_target_end_path_location_ = distance_to_point(target_paths_target_x_, target_paths_target_y_);
+												// If this object's target is itself, they're moving towards each other and they
+												// should meet in the middle.
+												if objectTarget.objectTarget == self.id {
+													changeVariablesWhenCloseToTarget = false;
+													var halfway_x_ = (objectTarget.x - x) / 2;
+													var halfway_y_ = (objectTarget.y - y) / 2;
+													targetToMoveToX = floor((x + halfway_x_) / 16) * 16;
+													targetToMoveToY = floor((y + halfway_y_) / 16) * 16;
+												}
+												// Else if this object's target's target is not itself, determine the target's target location.
+												else if (distance_to_target_end_path_location_ < adjusted_object_range_) {
+													// If this object's target is not attacking any other object to begin with, then just move to
+													// it's target's end movement location.
+													if objectTarget.objectCurrentCommand != "Attack" {
+														changeVariablesWhenCloseToTarget = false;
+														targetToMoveToX = floor(target_paths_target_x_ / 16) * 16;
+														targetToMoveToY = floor(target_paths_target_y_ / 16) * 16;
+													}
+													// Else if this object's target is attacking, and the target's target exists, but this object's
+													// target's target is not itself (already checked above) then just move to the target's end location.
+													else if instance_exists(objectTarget.objectTarget) {
+														changeVariablesWhenCloseToTarget = false;
+														targetToMoveToX = floor(target_paths_target_x_ / 16) * 16;
+														targetToMoveToY = floor(target_paths_target_y_ / 16) * 16;
+													}
+												}
+												// If the target's end location after moving is not within range, then just keep following
+												// the target.
+												else {
+													targetToMoveToX = floor(objectTarget.x / 16) * 16;
+													targetToMoveToY = floor(objectTarget.y / 16) * 16;
+												}
 											}
 											else {
-												//targetToMoveToX = floor(x / 16) * 16;
-												//targetToMoveToY = floor(y / 16) * 16;
 												targetToMoveToX = floor(objectTarget.x / 16) * 16;
 												targetToMoveToY = floor(objectTarget.y / 16) * 16;
 											}
@@ -1483,7 +1518,7 @@ function unit_move() {
 										// only once every second or so, because this is deleting the path to take each time to make a new
 										// one, and if I ran this every frame, no object with a valid target further than its objectRange would
 										// ever move, because no path would ever exist.
-										else if (objectDetectTarget == room_speed - 1) && (distance_to_object(objectTarget) > objectRange) {
+										else if (objectDetectTarget % (room_speed - 1) == 0) && (distance_to_object(objectTarget) > adjusted_object_range_) {
 											changeVariablesWhenCloseToTarget = true;
 											notAtTargetLocation = true;
 											validLocationFound = false;

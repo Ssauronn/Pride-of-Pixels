@@ -27,22 +27,22 @@ mouseClampedX = clamp(mouse_x, camera_get_view_x(view_camera[0]), camera_get_vie
 mouseClampedY = clamp(mouse_y, camera_get_view_y(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]));
 if (mouseClampedX - camera_get_view_x(view_camera[0])) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("A")) {
-		x -= cameraMovementSpeed;
+		//x -= cameraMovementSpeed;
 	}
 }
 else if (camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]) - mouseClampedX) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("D")) {
-		x += cameraMovementSpeed;
+		//x += cameraMovementSpeed;
 	}
 }
 if (mouseClampedY - camera_get_view_y(view_camera[0])) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("W")) {
-		y -= cameraMovementSpeed;
+		//y -= cameraMovementSpeed;
 	}
 }
 else if (camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) - mouseClampedY) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("S")) {
-		y += cameraMovementSpeed;
+		//y += cameraMovementSpeed;
 	}
 }
 
