@@ -36,7 +36,11 @@ function detect_closest_enemy_object() {
 			// and if so, attack that target.
 			if instance_exists(instance_at_location_) {
 				if instance_at_location_.objectClassification != "Resource" {
-					if instance_at_location_.objectTeam != objectTeam {
+					// Specifically check to see if the visible team, AND real team is not equal to the
+					// same team as the object calling this script. This prevents any automatic check from
+					// registering friendly spies who are commanded to look like enemy units, or registering
+					// enemy spies who are commanded to look like friendly units. 
+					if ((instance_at_location_.objectVisibleTeam != objectRealTeam && instance_at_location_.objectRealTeam != objectRealTeam)) {
 						if (!target_specified_) || (instance_at_location_.objectType == target_specified_) {
 							if !instance_exists(closest_object_) {
 								closest_object_ = instance_at_location_.id;

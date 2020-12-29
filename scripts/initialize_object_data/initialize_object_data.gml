@@ -25,8 +25,9 @@ enum unitDirection {
 
 
 function initialize_object_data() {
-	#region Units
+	objectVisibleTeam = objectRealTeam;
 	switch objectType {
+		#region Units
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Worker":
 			// Generic variables

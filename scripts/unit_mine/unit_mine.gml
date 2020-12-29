@@ -66,7 +66,7 @@ function unit_mine() {
 				}
 			}
 		}
-		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectTeam != objectTeam) {
+		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectRealTeam != objectRealTeam) {
 			currentDirection = floor((point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) / 90);
 			if currentDirection > 3 {
 				currentDirection -= 4;

@@ -14,7 +14,8 @@ function set_rally(x_, y_) {
 	rallyPointY = y_;
 }
 // Team 1 is defaulted to player team.
-objectTeam = 1;
+objectRealTeam = 1;
+objectVisibleTeam = objectRealTeam;
 // Timer to detect nearby enemy targets
 objectDetectTarget = irandom_range(0, room_speed);
 objectDetectedList = noone;

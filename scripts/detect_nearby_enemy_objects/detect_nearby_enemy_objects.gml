@@ -49,7 +49,11 @@ function detect_nearby_enemy_objects() {
 			// at location matches the specified target type, then add that object's ID to the list.
 			if instance_exists(instance_at_location_) {
 				if instance_at_location_.objectClassification != "Resource" {
-					if instance_at_location_.objectTeam != objectTeam {
+					// Specifically check to see if the visible team, AND real team is not equal to the
+					// same team as the object calling this script. This prevents any automatic check from
+					// registering friendly spies who are commanded to look like enemy units, or registering
+					// enemy spies who are commanded to look like friendly units. 
+					if ((instance_at_location_.objectVisibleTeam != objectRealTeam && instance_at_location_.objectRealTeam != objectRealTeam)) {
 						if (!target_specified_) || (instance_at_location_.objectType == target_specified_) {
 							if !ds_exists(objectDetectedList, ds_type_list) {
 								objectDetectedList = ds_list_create();

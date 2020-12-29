@@ -10,7 +10,8 @@ objectTarget = noone;
 objectTargetTeam = noone;
 objectTargetType = noone;
 // Team 1 is defaulted to player team.
-objectTeam = 1;
+objectRealTeam = playerTeam;
+objectVisibleTeam = objectRealTeam;
 // Possible commands align with state machine: Idle, Move, Mine, Attack
 objectCurrentCommand = "Idle";
 // Timer to detect nearby enemy targets
