@@ -28,7 +28,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 			// If the object clicked on is not a resource, is not on the building's team, and the building
 			// is a type of building that can attack, attack the object. Otherwise, again, just set the
 			// rally point as normal.
-			else if object_at_location_.objectTeam != objectTeam {
+			else if object_at_location_.objectVisibleTeam != objectRealTeam {
 				// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 				if (objectType == "City Hall") || (objectType == "Tower") || (objectType == "Outpost") {
 					if distance_to_object(object_at_location_) <= objectCombatAggroRange {

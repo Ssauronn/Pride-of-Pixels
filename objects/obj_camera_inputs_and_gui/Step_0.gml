@@ -130,13 +130,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		wipe_all_non_players_ = false;
 		with obj_unit {
 			if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
-				if objectTeam == playerTeam {
+				if objectVisibleTeam == playerTeam {
 					unit_selected_is_player_ = true;
 					wipe_all_non_players_ = true;
 				}
 				unit_selected_ = true;
 				if !objectSelected {
-					if (unit_selected_is_player_ && objectTeam == playerTeam) || (!unit_selected_is_player_) {
+					if (unit_selected_is_player_ && objectVisibleTeam == playerTeam) || (!unit_selected_is_player_) {
 						objectSelected = true;
 						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
@@ -163,7 +163,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				for (j = 0; j < ds_list_size(objectsSelectedList); j++) {
 					var instance_to_reference_ = ds_list_find_value(objectsSelectedList, j);
 					if instance_exists(instance_to_reference_) {
-						if (unit_selected_is_player_) && (instance_to_reference_.objectTeam != playerTeam) {
+						if (unit_selected_is_player_) && ((instance_to_reference_.objectVisibleTeam != playerTeam) && (instance_to_reference_.objectRealTeam != playerTeam)) {
 							clear_selections(instance_to_reference_.id);
 						}
 					}

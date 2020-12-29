@@ -1,2 +1,2 @@
 objectType = "Worker";
-objectTeam = 2;
+objectRealTeam = 2;
