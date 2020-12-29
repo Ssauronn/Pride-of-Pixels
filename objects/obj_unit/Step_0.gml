@@ -1024,6 +1024,10 @@ if objectDetectTarget <= 0 {
 		}
 	}
 }
+if ds_exists(objectDetectedList, ds_type_list) {
+	ds_list_destroy(objectDetectedList);
+}
+objectDetectedList = noone;
 
 // Count down various timers
 count_down_timers();

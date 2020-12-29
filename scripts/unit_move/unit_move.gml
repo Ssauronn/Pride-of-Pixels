@@ -1424,8 +1424,8 @@ function unit_move() {
 									if objectTarget.currentAction == unitAction.move {
 										// If the distance to the target is less than its attack range, and the target its chasing
 										// is also moving, set a new target to move to equal to its own location once its within range.
-										var adjusted_object_range_ = objectRange * 6;
-										if distance_to_object(objectTarget) <= adjusted_object_range_ {
+										var adjusted_object_range_ = 16 * 6;
+										if (distance_to_object(objectTarget) <= adjusted_object_range_) && (path_get_number(myPath) < ((adjusted_object_range_ / 16) * 2)) {
 											notAtTargetLocation = true;
 											validLocationFound = false;
 											validPathFound = false;
@@ -1518,7 +1518,7 @@ function unit_move() {
 										// only once every second or so, because this is deleting the path to take each time to make a new
 										// one, and if I ran this every frame, no object with a valid target further than its objectRange would
 										// ever move, because no path would ever exist.
-										else if (objectDetectTarget % (room_speed - 1) == 0) && (distance_to_object(objectTarget) > adjusted_object_range_) {
+										else if (objectDetectTarget % (room_speed - 1) == 0) && ((distance_to_object(objectTarget) > adjusted_object_range_) || (path_get_number(myPath) >= ((adjusted_object_range_ / 16) * 2))) {
 											changeVariablesWhenCloseToTarget = true;
 											notAtTargetLocation = true;
 											validLocationFound = false;
