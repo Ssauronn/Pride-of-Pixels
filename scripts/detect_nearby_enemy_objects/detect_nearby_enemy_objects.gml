@@ -1,6 +1,6 @@
 ///@function					detect_nearby_enemy_objects();
-///@param    					{string} [optional] objectType
-///@description				Detects all nearby hostile objects within a given range. Can take
+///@param	{string}			optional - the objectType looking for.
+///@description					Detects all nearby hostile objects within a given range. Can take
 ///								optional arguments to determine if specific types of enemies are
 ///								nearby. Return a ds_list of all found objects.
 

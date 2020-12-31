@@ -1,5 +1,5 @@
 ///@function									ds_list_sort_distance();
-///@param										{real} DSListToSort
+///@param	{real} DSListToSort					The ds_list to sort.
 ///@description									Sort objects in a ds_list by distance, in pixels, relative to the object
 ///												calling this function. Only works with objects.
 function ds_list_sort_distance() {

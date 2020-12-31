@@ -1,6 +1,6 @@
 ///@function					detect_closest_enemy_object();
-///@param    					{string} [optional] objectType
-///@description				Detects all nearby objects within a given range. Can take optional
+///@param	{string} [optional] objectType
+///@description					Detects all nearby objects within a given range. Can take optional
 ///								arguments to determine if specific types of enemies are nearby.
 
 function detect_closest_enemy_object() {
