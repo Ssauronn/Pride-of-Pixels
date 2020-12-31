@@ -62,9 +62,7 @@ if objectDetectTarget <= 0 {
 	if !instance_exists(objectTarget) {
 		detect_nearby_enemy_objects();
 		if ds_exists(objectDetectedList, ds_type_list) {
-			var iteration_;
-			iteration_ = irandom_range(0, ds_list_size(objectDetectedList) - 1);
-			var instance_nearby_ = ds_list_find_value(objectDetectedList, iteration_);
+			var instance_nearby_ = ds_list_find_value(objectDetectedList, 0);
 			objectTarget = instance_nearby_.id;
 			ds_list_destroy(objectDetectedList);
 			objectDetectedList = noone;

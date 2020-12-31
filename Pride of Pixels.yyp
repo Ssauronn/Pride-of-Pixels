@@ -60,6 +60,7 @@
     {"id":{"name":"obj_tree_resource","path":"objects/obj_tree_resource/obj_tree_resource.yy",},"order":0,},
     {"id":{"name":"deal_damage","path":"scripts/deal_damage/deal_damage.yy",},"order":2,},
     {"id":{"name":"obj_food_resource","path":"objects/obj_food_resource/obj_food_resource.yy",},"order":1,},
+    {"id":{"name":"ds_list_sort_distance","path":"scripts/ds_list_sort_distance/ds_list_sort_distance.yy",},"order":8,},
     {"id":{"name":"detect_nearby_enemy_objects","path":"scripts/detect_nearby_enemy_objects/detect_nearby_enemy_objects.yy",},"order":5,},
     {"id":{"name":"spr_worker_left_chop","path":"sprites/spr_worker_left_chop/spr_worker_left_chop.yy",},"order":2,},
     {"id":{"name":"UnitsMovement","path":"notes/UnitsMovement/UnitsMovement.yy",},"order":0,},

@@ -65,6 +65,13 @@ function detect_nearby_enemy_objects() {
 			}
 		}
 	}
+	// After creating the ds_list, just sort by distance to the object calling this function, just to be
+	// careful.
+	if ds_exists(objectDetectedList, ds_type_list) {
+		if ds_list_size(objectDetectedList) > 1 {
+			ds_list_sort_distance(objectDetectedList);
+		}
+	}
 	return true;
 }
 

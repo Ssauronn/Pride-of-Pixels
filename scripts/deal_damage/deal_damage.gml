@@ -1,7 +1,7 @@
 ///@function						deal_damage();
-///@param				    		damageValue
-///@param    						damageType
-///@param    						targetID
+///@param				    		{real} damageValue
+///@param    						{string} damageType
+///@param    						{index} targetID
 ///@description						Deal damage to the target. Takes into account the 
 //									damage value and damage type to correctly calculate
 //									actual damage dealt to target.
