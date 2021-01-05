@@ -1,5 +1,6 @@
 // Variable used to control one time inizialization of unit specific variables
 initialized = false;
+justSpawned = false;
 
 // Object classification and type, used for selection and targeting purposes
 objectClassification = "Unit";

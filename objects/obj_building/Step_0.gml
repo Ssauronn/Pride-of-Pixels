@@ -1,3 +1,8 @@
+if --spawnUnit <= 0 {
+	spawnUnit = room_speed * 4;
+	spawn_unit("Worker", playerTeam);
+}
+
 if !initialized {
 	initialized = true;
 	initialize_object_data();

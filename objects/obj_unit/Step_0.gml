@@ -680,14 +680,16 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				}
 				// Finally, after setting each object's ds_lists (if necessary), reset all
 				// movement variables for each selected object.
-				if !ds_exists(objectTargetList, ds_type_list) {
-					targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
-					targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
-				}
-				else {
-					var target_ = ds_list_find_value(objectTargetList, 0);
-					targetToMoveToX = floor(target_.x / 16) * 16;
-					targetToMoveToY = floor(target_.y / 16) * 16;
+				if !justSpawned {
+					if !ds_exists(objectTargetList, ds_type_list) {
+						targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
+						targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
+					}
+					else {
+						var target_ = ds_list_find_value(objectTargetList, 0);
+						targetToMoveToX = floor(target_.x / 16) * 16;
+						targetToMoveToY = floor(target_.y / 16) * 16;
+					}
 				}
 				if targetToMoveToX < 0 {
 					targetToMoveToX = 0;
@@ -855,13 +857,15 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 			if ((((ds_exists(objectsSelectedList, ds_type_list)) && (ds_list_find_index(objectsSelectedList, id) != -1)) || objectSelected == true) && (objectRealTeam == playerTeam)) || objectNeedsToMove {
 				// Set regular variables
 				objectCurrentCommand = "Move";
-				if objectNeedsToMove {
-					targetToMoveToX = floor(targetToMoveToX / 16) * 16;
-					targetToMoveToY = floor(targetToMoveToY / 16) * 16;
-				}
-				else {
-					targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
-					targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
+				if !justSpawned {
+					if objectNeedsToMove {
+						targetToMoveToX = floor(targetToMoveToX / 16) * 16;
+						targetToMoveToY = floor(targetToMoveToY / 16) * 16;
+					}
+					else {
+						targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
+						targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
+					}
 				}
 				if targetToMoveToX < 0 {
 					targetToMoveToX = 0;
