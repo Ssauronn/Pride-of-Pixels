@@ -1,5 +1,5 @@
 ///@function								target_next_object();
-///@description							If there are other entries in the target list, remove the entry 
+///@description								If there are other entries in the target list, remove the entry 
 ///											that turned out to be an invalid target and search for the next entry.
 
 function target_next_object() {
@@ -508,7 +508,7 @@ function unit_move() {
 						specificLocationNeedsToBeChecked = false;
 						current_target_to_move_to_x_ = originalTargetToMoveToX + ((right_n_ - left_n_) * 16);
 						current_target_to_move_to_y_ = originalTargetToMoveToY + ((bottom_n_ - top_n_) * 16);
-						if mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true) {
+						if  (mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true)) {
 							// If a path does exist to the newly checked location, great!
 							validPathFound = true;
 							targetToMoveToX = current_target_to_move_to_x_;
@@ -1432,7 +1432,6 @@ function unit_move() {
 											notAtTargetLocation = true;
 											validLocationFound = false;
 											validPathFound = false;
-											justSpawned = false;
 											var target_path_exists_ = false;
 											with objectTarget {
 												if variable_instance_exists(self.id, "myPath") {
@@ -1527,7 +1526,6 @@ function unit_move() {
 											notAtTargetLocation = true;
 											validLocationFound = false;
 											validPathFound = false;
-											justSpawned = false;
 											targetToMoveToX = floor(objectTarget.x / 16) * 16;
 											targetToMoveToY = floor(objectTarget.y / 16) * 16;
 											cannot_move_without_better_coordinates_ = false;

@@ -116,20 +116,61 @@ function spawn_unit()	{
 	
 	// Check to see if a spawn location has been found, and if so, spawn a unit there.
 	if spawn_found_ {
+		var self_ = self.id;
 		var unit_spawned_ = instance_create_depth(floor(check_x_ / 16) * 16, floor(check_y_ / 16) * 16, check_y_, obj_unit);
-		unit_spawned_.justSpawned = true;
-		unit_spawned_.objectVisibleTeam = objectRealTeam;
-		unit_spawned_.objectRealTeam = objectRealTeam;
-		unit_spawned_.objectClassification = "Unit";
-		unit_spawned_.objectType = "Worker";
-		unit_spawned_.objectCurrentCommand = "Attack";
-		unit_spawned_.objectNeedsToMove = true;
-		unit_spawned_.targetToMoveToX = rallyPointX;
-		unit_spawned_.targetToMoveToY = rallyPointY;
-		unit_spawned_.currentAction = unitAction.move;
-		unit_spawned_.currentDirection = floor(point_direction(x, y, unit_spawned_.targetToMoveToX, unit_spawned_.targetToMoveToY) / 90);
 		with unit_spawned_ {
+			justSpawned = true;
+			objectVisibleTeam = self_.objectRealTeam;
+			objectRealTeam = self_.objectRealTeam;
+			objectClassification = "Unit";
+			objectType = "Worker";
+			objectCurrentCommand = "Move";
+			objectNeedsToMove = true;
+			targetToMoveToX = self_.rallyPointX;
+			targetToMoveToY = self_.rallyPointY;
+			changeVariablesWhenCloseToTarget = true;
+			notAtTargetLocation = true;
+			validLocationFound = false;
+			validPathFound = false;
+			needToStartGridSearch = true;
+			x_n_ = 0;
+			y_n_ = 0;
+			right_n_ = 0;
+			top_n_ = 0;
+			left_n_ = 0;
+			bottom_n_ = 0;
+			rightWallFound = false;
+			topWallFound = false;
+			leftWallFound = false;
+			bottomWallFound = false;
+			rightForbidden = false;
+			topForbidden = false;
+			leftForbidden = false;
+			bottomForbidden = false;
+			specificLocationNeedsToBeChecked = false;
+			specificLocationToBeCheckedX = -1;
+			specificLocationToBeCheckedY = -1;
+			baseSquareEdgeSize = 0;
+			squareSizeIncreaseCount = 0;
+			squareIteration = 0;
+			squareTrueIteration = 0;
+			tempCheckX = targetToMoveToX;
+			tempCheckY = targetToMoveToY;
+			searchHasJustBegun = true;
+			totalTimesSearched = 0;
+			closestPointsToObjectsHaveBeenSet = false;
+			if path_exists(myPath) {
+				path_delete(myPath);
+				myPath = -1;
+			}
+			currentAction = unitAction.move;
+			currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
 			event_perform(ev_step, ev_step_normal);
+		}
+		// Variables specifically used by object to move
+		/**/
+		with unit_spawned_ {
+			
 		}
 	}
 	else {
