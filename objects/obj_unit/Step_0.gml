@@ -529,38 +529,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 						}
 					}
 				}
-				// After the target_list_ is created, go through and sort that list by closest to furthest,
-				// with closest being at index 0.
-				if ds_exists(target_list_, ds_type_list) {
-					// No need to sort if there's only 1 value in the list
-					if ds_list_size(target_list_) > 1 {
-						var holding_list_ = ds_list_create();
-						ds_list_copy(holding_list_, target_list_);
-						var t, p;
-						// Start at the top of the list, to get the value to search for.
-						for (t = 0; t < ds_list_size(holding_list_); t++) {
-							var temp_instance_to_reference_ = ds_list_find_value(holding_list_, t);
-							var temp_instance_distance_ = distance_to_object(temp_instance_to_reference_);
-							// Now that I have the value and distance to search for, compare it against the 
-							// actual list, sorting downwards.
-							for (p = ds_list_size(target_list_) - 1; p >= 0; p--) {
-								var instance_to_compare_against_ = ds_list_find_value(target_list_, p);
-								var temp_compare_instance_distance_ = distance_to_object(instance_to_compare_against_);
-								// If the instance in the list is at a distance less than the instance at the bottom of the list,
-								// move it to above that further object's index in the original list.
-								if temp_instance_distance_ > temp_compare_instance_distance_ {
-									// First, delete the line that contains that instance's value
-									ds_list_delete(target_list_, ds_list_find_index(target_list_, temp_instance_to_reference_));
-									// Then, insert a new line at the correct location that contains the instance's value
-									ds_list_insert(target_list_, ds_list_find_index(target_list_, instance_to_compare_against_) + 1, temp_instance_to_reference_.id);
-									break;
-								}
-							}
-						}
-						ds_list_destroy(holding_list_);
-						holding_list_ = noone;
-					}
-				}
+				ds_list_sort_distance(target_list_);
 				// If the object at target location is a valid target, then mine/attack it if the
 				// object selected is an object that can mine it. An object's actual "team" 
 				// (objectRealTeam) will only be set to "Neutral" if it is a resource.
@@ -711,14 +680,16 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				}
 				// Finally, after setting each object's ds_lists (if necessary), reset all
 				// movement variables for each selected object.
-				if !ds_exists(objectTargetList, ds_type_list) {
-					targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
-					targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
-				}
-				else {
-					var target_ = ds_list_find_value(objectTargetList, 0);
-					targetToMoveToX = floor(target_.x / 16) * 16;
-					targetToMoveToY = floor(target_.y / 16) * 16;
+				if !justSpawned {
+					if !ds_exists(objectTargetList, ds_type_list) {
+						targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
+						targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
+					}
+					else {
+						var target_ = ds_list_find_value(objectTargetList, 0);
+						targetToMoveToX = floor(target_.x / 16) * 16;
+						targetToMoveToY = floor(target_.y / 16) * 16;
+					}
 				}
 				if targetToMoveToX < 0 {
 					targetToMoveToX = 0;
@@ -886,13 +857,15 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 			if ((((ds_exists(objectsSelectedList, ds_type_list)) && (ds_list_find_index(objectsSelectedList, id) != -1)) || objectSelected == true) && (objectRealTeam == playerTeam)) || objectNeedsToMove {
 				// Set regular variables
 				objectCurrentCommand = "Move";
-				if objectNeedsToMove {
-					targetToMoveToX = floor(targetToMoveToX / 16) * 16;
-					targetToMoveToY = floor(targetToMoveToY / 16) * 16;
-				}
-				else {
-					targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
-					targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
+				if !justSpawned {
+					if objectNeedsToMove {
+						targetToMoveToX = floor(targetToMoveToX / 16) * 16;
+						targetToMoveToY = floor(targetToMoveToY / 16) * 16;
+					}
+					else {
+						targetToMoveToX = floor(obj_camera_inputs_and_gui.mouseClampedX / 16) * 16;
+						targetToMoveToY = floor(obj_camera_inputs_and_gui.mouseClampedY / 16) * 16;
+					}
 				}
 				if targetToMoveToX < 0 {
 					targetToMoveToX = 0;
@@ -1024,13 +997,12 @@ if objectDetectTarget <= 0 {
 		if (!instance_exists(objectTarget)) || (objectTarget.objectClassification == "Resource") {
 			detect_nearby_enemy_objects();
 			if ds_exists(objectDetectedList, ds_type_list) {
-				var i, iteration_;
-				iteration_ = irandom_range(0, ds_list_size(objectDetectedList) - 1);
+				var i;
 				for (i = 0; i < ds_list_size(objectDetectedList); i++) {
 					// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 					// In this case specifically, worker units will not aggro to nearby enemy units unless they're in active
 					// combat. With more militiant type units, this will change to aggro'ing to any enemy target within range.
-					var instance_nearby_ = ds_list_find_value(objectDetectedList, iteration_);
+					var instance_nearby_ = ds_list_find_value(objectDetectedList, i);
 					if objectType == "Worker" {
 						var target_of_instance_nearby_ = instance_nearby_.objectTarget;
 						if instance_exists(target_of_instance_nearby_) {
@@ -1050,10 +1022,6 @@ if objectDetectTarget <= 0 {
 								}
 							}
 						}
-					}
-					iteration_++;
-					if iteration_ >= ds_list_size(objectDetectedList) - 1 {
-						iteration_ = 0;
 					}
 				}
 			}

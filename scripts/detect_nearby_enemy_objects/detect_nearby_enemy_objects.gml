@@ -1,6 +1,6 @@
 ///@function					detect_nearby_enemy_objects();
-///@param    					{string} [optional] objectType
-///@description				Detects all nearby hostile objects within a given range. Can take
+///@param	{string}			optional - the objectType looking for.
+///@description					Detects all nearby hostile objects within a given range. Can take
 ///								optional arguments to determine if specific types of enemies are
 ///								nearby. Return a ds_list of all found objects.
 
@@ -63,6 +63,13 @@ function detect_nearby_enemy_objects() {
 					}
 				}
 			}
+		}
+	}
+	// After creating the ds_list, just sort by distance to the object calling this function, just to be
+	// careful.
+	if ds_exists(objectDetectedList, ds_type_list) {
+		if ds_list_size(objectDetectedList) > 1 {
+			ds_list_sort_distance(objectDetectedList);
 		}
 	}
 	return true;

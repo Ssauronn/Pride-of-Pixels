@@ -1,2 +1,2 @@
 objectType = "City Hall";
-objectRealTeam = 2;
+objectRealTeam = 1;

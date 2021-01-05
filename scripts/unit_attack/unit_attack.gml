@@ -7,7 +7,7 @@ function unit_attack() {
 		if (instance_exists(objectTarget)) && ((objectTarget.objectClassification == "Unit") || (objectTarget.objectClassification == "Building")) && (objectTarget.objectRealTeam != objectRealTeam) {
 			currentDirection = floor((point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) / 90);
 			if currentDirection > 3 {
-				currentDirection -= 4;
+				currentDirection = 0;
 			}
 			if distance_to_object(objectTarget) < objectRange {
 				// Here I detect if the animation for the current action is active, and only then do
