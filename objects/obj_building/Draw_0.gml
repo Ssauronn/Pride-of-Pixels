@@ -15,10 +15,12 @@ if objectOnScreen {
 				draw_sprite_ext(spr_selected, 0, x, y - 48, 4, 4, 0, c_white, 0.75);
 				break;
 		}
+		draw_sprite(spr_rally_point, 1, floor(rallyPointX / 16) * 16, floor(rallyPointY / 16) * 16);
 	}
 	// Draw self
 	draw_self();
 }
+
 
 /* Draw object coordinates
 if ds_exists(objectTargetList, ds_type_list) {
