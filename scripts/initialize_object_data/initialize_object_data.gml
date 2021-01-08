@@ -115,6 +115,9 @@ function initialize_object_data() {
 			objectPierceResistance = 1;
 			objectCrushResistance = 0.7;
 			objectMagicResistance = 1;
+			// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
 			sprite_index = spr_building_xlarge;
 			var floor_x_ = floor(x / 16) * 16;
 			var floor_y_ = floor(y / 16) * 16;

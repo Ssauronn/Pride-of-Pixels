@@ -19,8 +19,8 @@ function spawn_unit()	{
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		// In this case, I'll need to add a case for any new building that I add, to match its dimensions.
 		case "City Hall":
-			horizontal_offset_ = 2;
-			vertical_offset_ = 2;
+			horizontal_offset_ = 3;
+			vertical_offset_ = 3;
 			break;
 		case "House":
 			horizontal_offset_ = 0;
@@ -52,27 +52,38 @@ function spawn_unit()	{
 		vertical_side_square_size_ = (square_iteration_ * 2) + 1 + vertical_offset_;
 		total_square_size_perimeter_ = (horizontal_side_square_size_ * 2) + (vertical_side_square_size_ * 2);
 		
-		// Set the search location start point. If no rally point is set, the units will spawn
-		// at the bottom.
-		if (rallyPointX != x) || (rallyPointY != y) {
-			var spawn_direction_ = floor((point_direction(x, y, rallyPointX, rallyPointY) + 45) / 90);
-			if spawn_direction_ > 3 {
-				spawn_direction_ = 0;
-			}
-			switch spawn_direction_ {
-				case 0:
-					iteration_ = horizontal_side_square_size_ + (round(vertical_side_square_size_ / 2)) - 3;
-					break;
-				case 1:
-					iteration_ = round(horizontal_side_square_size_ / 2) - 3;
-					break;
-				case 2:
-					iteration_ = (horizontal_side_square_size_ * 2) + vertical_side_square_size_ + (round(vertical_side_square_size_ / 2)) - 3;
-					break;
-				case 3:
-					iteration_ = horizontal_side_square_size_ + vertical_side_square_size_ + (round(horizontal_side_square_size_ / 2)) - 3;
-					break;
-			}
+		// Set the search location start point.
+		var center_x_, center_y_, left_side_, right_side_, top_side_, bottom_side_, x_offset_, y_offset_, width_, height_;
+		width_ = sprite_get_width(sprite_index);
+		height_ = sprite_get_height(sprite_index);
+		x_offset_ = sprite_get_xoffset(sprite_index);
+		y_offset_ = sprite_get_yoffset(sprite_index);
+		
+		right_side_ = x + width_ - x_offset_;
+		left_side_ = x - x_offset_;
+		center_x_ = x + ((right_side_ - left_side_) / 2);
+		
+		top_side_ = y + height_ - y_offset_;
+		bottom_side_ = y - y_offset_;
+		center_y_ = y + ((bottom_side_ - top_side_) / 2);
+		
+		var spawn_direction_ = floor((point_direction(center_x_, center_y_, rallyPointX, rallyPointY) + 45) / 90);
+		if spawn_direction_ > 3 {
+			spawn_direction_ = 0;
+		}
+		switch spawn_direction_ {
+			case 0:
+				iteration_ = horizontal_side_square_size_ + (round(vertical_side_square_size_ / 2));
+				break;
+			case 1:
+				iteration_ = round(horizontal_side_square_size_ / 2);
+				break;
+			case 2:
+				iteration_ = (horizontal_side_square_size_ * 2) + vertical_side_square_size_ + (round(vertical_side_square_size_ / 2));
+				break;
+			case 3:
+				iteration_ = horizontal_side_square_size_ + vertical_side_square_size_ + (round(horizontal_side_square_size_ / 2));
+				break;
 		}
 		
 		// Start the search for a valid location to move to
@@ -86,17 +97,18 @@ function spawn_unit()	{
 				check_y_ = y - ((square_iteration_ + vertical_offset_) * 16) + ((iteration_ - horizontal_side_square_size_) * 16);
 			}
 			else if iteration_ < (horizontal_side_square_size_ * 2) + vertical_side_square_size_ {
-				check_x_ = x - (square_iteration_ * 16) + ((horizontal_side_square_size_ - 1) * 16) - (iteration_ - (horizontal_side_square_size_ + vertical_side_square_size_));
+				check_x_ = x - (square_iteration_ * 16) + ((horizontal_side_square_size_ - 1) * 16) - ((iteration_ - (horizontal_side_square_size_ + vertical_side_square_size_)) * 16);
 				check_y_ = y - ((square_iteration_ + vertical_offset_) * 16) + ((vertical_side_square_size_ - 1) * 16);
 			}
 			else if iteration_ < total_square_size_perimeter_ {
 				check_x_ = x - (square_iteration_ * 16);
-				check_y_ = y - ((square_iteration_ + vertical_offset_) * 16) + ((vertical_side_square_size_ - 1) * 16) - (iteration_ - ((horizontal_side_square_size_ * 2) + vertical_side_square_size_));
+				check_y_ = y - ((square_iteration_ + vertical_offset_) * 16) + ((vertical_side_square_size_ - 1) * 16) - ((iteration_ - ((horizontal_side_square_size_ * 2) + vertical_side_square_size_)) * 16);
 			}
 			
 			// Check to see if the spawn point is valid, and if it is, set that as true.
 			if mp_grid_get_cell(movementGrid, (check_x_ / 16), (check_y_ / 16)) == 0 {
 				spawn_found_ = true;
+				break;
 			}
 			
 			// If no valid spawn location found yet, iterate correct values and start the search
@@ -126,8 +138,8 @@ function spawn_unit()	{
 			objectType = "Worker";
 			objectCurrentCommand = "Move";
 			objectNeedsToMove = true;
-			targetToMoveToX = self_.rallyPointX;
-			targetToMoveToY = self_.rallyPointY;
+			targetToMoveToX = floor(self_.rallyPointX / 16) * 16;
+			targetToMoveToY = floor(self_.rallyPointY / 16) * 16;
 			changeVariablesWhenCloseToTarget = true;
 			notAtTargetLocation = true;
 			validLocationFound = false;

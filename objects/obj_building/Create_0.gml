@@ -1,6 +1,6 @@
 // Function for setting rally point
 function set_rally(x_, y_) {
-	rallyPointX = x_;;
+	rallyPointX = x_;
 	rallyPointY = y_;
 }
 
@@ -12,8 +12,8 @@ objectClassification = "Building";
 objectSelected = false;
 objectOnScreen = false;
 objectTarget = noone;
-rallyPointX = x;
-rallyPointY = y;
+rallyPointX = floor((x / 16) * 16);
+rallyPointY = floor((y / 16) * 16);
 
 // Team 1 is defaulted to player team.
 objectRealTeam = 1;

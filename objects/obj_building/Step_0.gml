@@ -21,7 +21,7 @@ else {
 // If the mouse is on the map and not on the toolbar, then allow clicks
 if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
 	if mouse_check_button_pressed(mb_right) && (objectSelected) {
-		var object_at_location_ = instance_place(floor(mouse_x / 16) * 16, floor(mouse_y / 16) * 16, all);
+		var object_at_location_ = instance_place((floor(mouse_x / 16) * 16), (floor(mouse_y / 16) * 16), all);
 		if instance_exists(object_at_location_) {
 			var object_mid_x_ = (floor(object_at_location_.x / 16) * 16) + 8;
 			var object_mid_y_ = (floor(object_at_location_.y / 16) * 16) + 8;
