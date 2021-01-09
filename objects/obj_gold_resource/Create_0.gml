@@ -18,7 +18,7 @@ mp_grid_add_rectangle(movementGrid, x, y - 16 + 1, x + sprite_get_width(sprite_i
 // Object type, used for selection and targeting purposes
 objectClassification = "Resource";
 objectType = "Gold";
-objectRealTeam = "Neutral";
+objectRealTeam = player[0].team;
 objectVisibleTeam = objectRealTeam;
 objectSelected = false;
 objectOnScreen = false;

@@ -11,7 +11,7 @@ objectTarget = noone;
 objectTargetTeam = noone;
 objectTargetType = noone;
 // Team 1 is defaulted to player team.
-objectRealTeam = playerTeam;
+objectRealTeam = player[1].team;
 objectVisibleTeam = objectRealTeam;
 // Possible commands align with state machine: Idle, Move, Mine, Attack
 objectCurrentCommand = "Idle";

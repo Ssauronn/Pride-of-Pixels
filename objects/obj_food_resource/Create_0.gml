@@ -18,7 +18,7 @@ mp_grid_add_cell(movementGrid, floor(x / 16), floor(y / 16));
 // Object type, used for selection and targeting purposes
 objectClassification = "Resource";
 objectType = "Food";
-objectRealTeam = "Neutral";
+objectRealTeam = player[0].team;
 objectVisibleTeam = objectRealTeam;
 objectSelected = false;
 objectOnScreen = false;
