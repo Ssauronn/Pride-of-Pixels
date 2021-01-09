@@ -246,7 +246,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 		}
 		// If the object wasn't automatically instructed to move, that means the right mouse button was clicked, and if
 		// the object selected is part of the player team, it can move.
-		else if objectRealTeam == playerTeam {
+		else if objectRealTeam == player[1].team {
 			var object_at_location_ = instance_place(floor(mouse_x / 16) * 16, floor(mouse_y / 16) * 16, all);
 		}
 		// Else if the object wasn't automatically instructed to move, it shouldn't move even if the right mouse button
@@ -258,7 +258,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 		// object's type, create a ds_list including that and all other objects of the same type for
 		// use later, and send to movement script.
 		if object_at_location_ != noone {
-			if objectRealTeam == playerTeam {
+			if objectRealTeam == player[1].team {
 				// Set the selected group's direction to search for in the targeting script
 				if ds_exists(objectsSelectedList, ds_type_list) {
 					var i, number_of_selected_targeting_right_, number_of_selected_targeting_up_, number_of_selected_targeting_left_, number_of_selected_targeting_down_;
@@ -268,7 +268,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					number_of_selected_targeting_down_ = 0;
 					for (i = 0; i < ds_list_size(objectsSelectedList); i++) {
 						with ds_list_find_value(objectsSelectedList, i) {
-							if objectRealTeam == playerTeam {
+							if objectRealTeam == player[1].team {
 								// Create a list of all instances of the same type and team of the original
 								// object that was clicked on. I COULD do this outside of the for i loop, which
 								// would run this instead only once for all selected targets and really speed
@@ -533,7 +533,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				// If the object at target location is a valid target, then mine/attack it if the
 				// object selected is an object that can mine it. An object's actual "team" 
 				// (objectRealTeam) will only be set to "Neutral" if it is a resource.
-				if object_at_location_.objectRealTeam == "Neutral" {
+				if object_at_location_.objectRealTeam == player[0].team {
 					// Out of all selected objects, if the currently referenced object in the selected
 					// object list belongs to the player, is a unitAction, and is a worker, then set the
 					// object that was clicked on as the target.
@@ -624,7 +624,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 				}
 				// Else if the object at target location is a friendly unitAction, nothing should be done and
 				// just reset object_at_location_ so that the object can move normally.
-				else if object_at_location_.objectRealTeam == playerTeam {
+				else if object_at_location_.objectRealTeam == player[1].team {
 					// Sometimes, during movement of targets, a friendly target will pass over an enemy target
 					// at the exact location of object_at_location_. When this happens, if the object running
 					// this code is currently in combat, I don't want to remove it from combat due to this error,
@@ -769,7 +769,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 		}
 		// Else if the area that was clicked on is empty, just move normally.
 		else {
-			if objectRealTeam == playerTeam {
+			if objectRealTeam == player[1].team {
 				// Set the selected group's direction to face while pathfinding
 				if ds_exists(objectsSelectedList, ds_type_list) {
 					var i, number_of_selected_targeting_right_, number_of_selected_targeting_up_, number_of_selected_targeting_left_, number_of_selected_targeting_down_;
@@ -779,7 +779,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 					number_of_selected_targeting_down_ = 0;
 					for (i = 0; i < ds_list_size(objectsSelectedList); i++) {
 						with ds_list_find_value(objectsSelectedList, i) {
-							if objectRealTeam == playerTeam {
+							if objectRealTeam == player[1].team {
 								// Create a list of all instances of the same type and team of the original
 								// object that was clicked on. I COULD do this outside of the for i loop, which
 								// would run this instead only once for all selected targets and really speed
@@ -854,7 +854,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 			}
 			// If the object is selected and player controlled, or if the object has been automatically instructed to move,
 			// do so.
-			if ((((ds_exists(objectsSelectedList, ds_type_list)) && (ds_list_find_index(objectsSelectedList, id) != -1)) || objectSelected == true) && (objectRealTeam == playerTeam)) || objectNeedsToMove {
+			if ((((ds_exists(objectsSelectedList, ds_type_list)) && (ds_list_find_index(objectsSelectedList, id) != -1)) || objectSelected == true) && (objectRealTeam == player[1].team)) || objectNeedsToMove {
 				// Set regular variables
 				objectCurrentCommand = "Move";
 				if !justSpawned {

@@ -27,22 +27,22 @@ mouseClampedX = clamp(mouse_x, camera_get_view_x(view_camera[0]), camera_get_vie
 mouseClampedY = clamp(mouse_y, camera_get_view_y(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]));
 if (mouseClampedX - camera_get_view_x(view_camera[0])) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("A")) {
-		//x -= cameraMovementSpeed;
+		x -= cameraMovementSpeed;
 	}
 }
 else if (camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]) - mouseClampedX) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("D")) {
-		//x += cameraMovementSpeed;
+		x += cameraMovementSpeed;
 	}
 }
 if (mouseClampedY - camera_get_view_y(view_camera[0])) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("W")) {
-		//y -= cameraMovementSpeed;
+		y -= cameraMovementSpeed;
 	}
 }
 else if (camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) - mouseClampedY) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("S")) {
-		//y += cameraMovementSpeed;
+		y += cameraMovementSpeed;
 	}
 }
 
@@ -130,13 +130,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		wipe_all_non_players_ = false;
 		with obj_unit {
 			if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
-				if objectVisibleTeam == playerTeam {
+				if objectVisibleTeam == player[1].team {
 					unit_selected_is_player_ = true;
 					wipe_all_non_players_ = true;
 				}
 				unit_selected_ = true;
 				if !objectSelected {
-					if (unit_selected_is_player_ && objectVisibleTeam == playerTeam) || (!unit_selected_is_player_) {
+					if (unit_selected_is_player_ && objectVisibleTeam == player[1].team) || (!unit_selected_is_player_) {
 						objectSelected = true;
 						obj_camera_inputs_and_gui.numberOfObjectsSelected++;
 						if ds_exists(objectsSelectedList, ds_type_list) {
@@ -163,7 +163,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				for (j = 0; j < ds_list_size(objectsSelectedList); j++) {
 					var instance_to_reference_ = ds_list_find_value(objectsSelectedList, j);
 					if instance_exists(instance_to_reference_) {
-						if (unit_selected_is_player_) && ((instance_to_reference_.objectVisibleTeam != playerTeam) && (instance_to_reference_.objectRealTeam != playerTeam)) {
+						if (unit_selected_is_player_) && ((instance_to_reference_.objectVisibleTeam != player[1].team) && (instance_to_reference_.objectRealTeam != player[1].team)) {
 							clear_selections(instance_to_reference_.id);
 						}
 					}

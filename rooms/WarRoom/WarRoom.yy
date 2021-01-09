@@ -17,7 +17,7 @@
         {"instances":[
             {"properties":[],"isDnd":false,"objectId":{"name":"obj_camera_inputs_and_gui","path":"objects/obj_camera_inputs_and_gui/obj_camera_inputs_and_gui.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":528.0,"y":592.0,"resourceVersion":"1.0","name":"inst_6B5ABC3C","tags":[],"resourceType":"GMRInstance",},
             {"properties":[],"isDnd":false,"objectId":{"name":"obj_mp_grid_controller","path":"objects/obj_mp_grid_controller/obj_mp_grid_controller.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":0.0,"y":0.0,"resourceVersion":"1.0","name":"inst_4BA7674C","tags":[],"resourceType":"GMRInstance",},
-            {"properties":[],"isDnd":false,"objectId":{"name":"obj_team_manager","path":"objects/obj_team_manager/obj_team_manager.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":16.0,"y":0.0,"resourceVersion":"1.0","name":"inst_38B966A6","tags":[],"resourceType":"GMRInstance",},
+            {"properties":[],"isDnd":false,"objectId":{"name":"obj_stat_manager","path":"objects/obj_stat_manager/obj_stat_manager.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":32.0,"y":0.0,"resourceVersion":"1.0","name":"inst_365A0641","tags":[],"resourceType":"GMRInstance",},
           ],"visible":true,"depth":100,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":16,"gridY":16,"layers":[],"hierarchyFrozen":false,"resourceVersion":"1.0","name":"Initialize_Instances","tags":[],"resourceType":"GMRInstanceLayer",},
       ],"hierarchyFrozen":false,"resourceVersion":"1.0","name":"FL_Initialize_Instances","tags":[],"resourceType":"GMRLayer",},
     {"visible":true,"depth":200,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[
@@ -400,9 +400,9 @@
   "creationCodeFile": "${project_dir}/rooms/WarRoom/RoomCreationCode.gml",
   "inheritCode": false,
   "instanceCreationOrder": [
+    {"name":"inst_365A0641","path":"rooms/WarRoom/WarRoom.yy",},
     {"name":"inst_6B5ABC3C","path":"rooms/WarRoom/WarRoom.yy",},
     {"name":"inst_4BA7674C","path":"rooms/WarRoom/WarRoom.yy",},
-    {"name":"inst_38B966A6","path":"rooms/WarRoom/WarRoom.yy",},
     {"name":"inst_7B14AD7C","path":"rooms/WarRoom/WarRoom.yy",},
     {"name":"inst_6DEA5559","path":"rooms/WarRoom/WarRoom.yy",},
     {"name":"inst_764F3AAD","path":"rooms/WarRoom/WarRoom.yy",},

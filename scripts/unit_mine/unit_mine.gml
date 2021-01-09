@@ -29,24 +29,28 @@ function unit_mine() {
 							if objectWoodChopSpeedTimer <= 0 {
 								objectWoodChopSpeedTimer = objectWoodChopSpeed;
 								objectTarget.currentHP -= objectWoodChopDamage;
+								player[objectRealTeam].wood += objectWoodChopDamage;
 							}
 							break;
 						case "Food":
 							if objectFoodGatherSpeedTimer <= 0 {
 								objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
 								objectTarget.currentHP -= objectFoodGatherDamage;
+								player[objectRealTeam].food += objectFoodGatherDamage;
 							}
 							break;
 						case "Gold":
 							if objectGoldMineSpeedTimer <= 0 {
 								objectGoldMineSpeedTimer = objectGoldMineSpeed;
 								objectTarget.currentHP -= objectGoldMineDamage;
+								player[objectRealTeam].gold += objectGoldMineDamage;
 							}
 							break;
 						case "Ruby":
 							if objectRubyMineSpeedTimer <= 0 {
 								objectRubyMineSpeedTimer = objectRubyMineSpeed;
 								objectTarget.currentHP -= objectRubyMineDamage;
+								player[objectRealTeam].rubies += objectRubyMineDamage;
 							}
 							break;
 					}
