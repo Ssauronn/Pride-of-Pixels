@@ -6,6 +6,7 @@ team_struct = function(team_) constructor {
 	wood = 0;
 	gold = 0;
 	rubies = 0;
+	population = 0;
 }
 // Create an array and assign it to globalvar player, then give each array a struct to hold.
 globalvar player, totalAmountOfTeams;

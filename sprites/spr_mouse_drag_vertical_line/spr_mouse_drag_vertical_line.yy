@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"e90c2051-3059-47d6-8b0c-9bf80d302dcf","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/UI/Sprites.yy",
+    "name": "In-Match Unit Selection",
+    "path": "folders/UI/Sprites/In-Match Unit Selection.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_mouse_drag_vertical_line",
