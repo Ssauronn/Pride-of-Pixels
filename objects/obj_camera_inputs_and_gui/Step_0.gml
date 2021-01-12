@@ -48,7 +48,7 @@ else if (camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[
 
 #region Mouse UX
 // Setting the coordinates used to draw a selection box if the player holds the mouse button down.
-if (mouse_check_button_pressed(mb_left)) && (device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - toolbarHeight)) {
+if (mouse_check_button_pressed(mb_left)) && ((device_mouse_y_to_gui(0) <= toolbarTopY) || ((device_mouse_x_to_gui(0) <= toolbarLeftX) || (device_mouse_x_to_gui(0) >= toolbarRightX))) {
 	mbLeftPressedXCoordinate = floor(mouseClampedX / 16) * 16;
 	mbLeftPressedYCoordinate = floor(mouseClampedY / 16) * 16;
 	// Reset the currently selected units

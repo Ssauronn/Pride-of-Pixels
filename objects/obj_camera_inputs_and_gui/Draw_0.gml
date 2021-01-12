@@ -21,7 +21,7 @@ else {
 #region Mouse UX
 // Draw the selection box if the player holds the mouse down as long
 // as the player isn't hovering over the toolbar at the bottom.
-if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - toolbarHeight) {
+if (device_mouse_y_to_gui(0) <= toolbarTopY) || ((device_mouse_x_to_gui(0) <= toolbarLeftX) || (device_mouse_x_to_gui(0) >= toolbarRightX)) {
 	if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 		var current_mouse_x_ = floor(mouse_x / 16) * 16;
 		var current_mouse_y_ = floor(mouse_y / 16) * 16;

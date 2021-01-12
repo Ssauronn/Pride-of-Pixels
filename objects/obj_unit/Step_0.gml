@@ -178,6 +178,7 @@ if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inpu
 			// Clean up that ds_list to prevent memory leaks
 			if ds_exists(list_of_objects_, ds_type_list) {
 				ds_list_destroy(list_of_objects_);
+				list_of_objects_ = noone;
 			}
 			list_of_objects_ = noone;
 			// Check for what is at the current location and if the current object doesn't match the type its looking for,
@@ -1030,6 +1031,7 @@ if objectDetectTarget <= 0 {
 }
 if ds_exists(objectDetectedList, ds_type_list) {
 	ds_list_destroy(objectDetectedList);
+	objectDetectedList = noone;
 }
 objectDetectedList = noone;
 

@@ -1,6 +1,19 @@
 #region Toolbar
 // Draw the toolbar
-draw_sprite_ext(spr_toolbar_background, 0, view_get_xport(view_camera[0]), toolbarTopY, view_get_wport(view_hport[0]), toolbarHeight, 0, c_white, 1);
+draw_sprite_ext(spr_toolbar_background, 0, toolbarLeftX, toolbarTopY, toolbarWidth, toolbarHeight, 0, c_white, 1);
+draw_sprite(spr_ruby_icon, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 1) - string_height("y"));
+draw_sprite(spr_gold_icon, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 2) - string_height("y"));
+draw_sprite(spr_wood_icon, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 3) - string_height("y"));
+draw_sprite(spr_food_icon, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 4) - string_height("y"));
+draw_sprite(spr_worker_front_idle, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 5) - string_height("y"));
+draw_text(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.05), toolbarTopY + ((toolbarHeight * 0.2) * 1) - string_height("y") - 1, string(player[1].rubies));
+draw_text(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.05), toolbarTopY + ((toolbarHeight * 0.2) * 2) - string_height("y") - 1, string(player[1].gold));
+draw_text(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.05), toolbarTopY + ((toolbarHeight * 0.2) * 3) - string_height("y") - 1, string(player[1].wood));
+draw_text(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.05), toolbarTopY + ((toolbarHeight * 0.2) * 4) - string_height("y") - 1, string(player[1].food));
+draw_text(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.05), toolbarTopY + ((toolbarHeight * 0.2) * 5) - string_height("y") - 1, string(player[1].population));
+
+// Draw global stats on toolbar
+//draw_text()
 
 // Set up variables used to determine what is selected.
 var selected_instance_, unit_selected_, building_selected_, resource_selected_, nothing_selected_;

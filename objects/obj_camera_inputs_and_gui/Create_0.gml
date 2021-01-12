@@ -5,7 +5,7 @@ window_set_fullscreen(true);
 cameraMovementSpeed = 12;
 
 #region Mouse UI
-mouseBufferDistanceToEdgeOfScreen = 7;
+mouseBufferDistanceToEdgeOfScreen = 3;
 
 mbLeftPressedXCoordinate = -1;
 mbLeftPressedYCoordinate = -1;
@@ -22,8 +22,14 @@ objectsSelectedList = noone;
 
 #region Menu UX
 #region Toolbar
-toolbarHeight = view_get_hport(view_camera[0]) / 5;
-toolbarTopY = (view_get_yport(view_camera[0]) + view_get_hport(view_camera[0])) - toolbarHeight;
+toolbarPercentOfEmptyScreenOnTop = 80;
+toolbarTopY = (view_get_yport(view_camera[0]) + (view_get_hport(view_camera[0]) * (toolbarPercentOfEmptyScreenOnTop / 100)));
+toolbarBottomY = view_get_yport(view_camera[0]) + view_get_hport(view_camera[0]);
+toolbarHeight = toolbarBottomY - toolbarTopY;
+toolbarPercentOfEmptyScreenOnEitherSide = 15;
+toolbarLeftX = view_get_xport(view_camera[0]) + (view_get_wport(view_camera[0]) * (toolbarPercentOfEmptyScreenOnEitherSide / 100));
+toolbarRightX = view_get_xport(view_camera[0]) + view_get_wport(view_camera[0]) - (view_get_wport(view_camera[0]) * (toolbarPercentOfEmptyScreenOnEitherSide / 100));
+toolbarWidth = toolbarRightX - toolbarLeftX;
 #endregion
 #endregion
 

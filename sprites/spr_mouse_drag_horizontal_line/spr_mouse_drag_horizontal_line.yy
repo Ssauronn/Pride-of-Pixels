@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"03aa8406-5b34-4931-84d5-85530bf9e43b","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/UI/Sprites.yy",
+    "name": "In-Match Unit Selection",
+    "path": "folders/UI/Sprites/In-Match Unit Selection.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_mouse_drag_horizontal_line",

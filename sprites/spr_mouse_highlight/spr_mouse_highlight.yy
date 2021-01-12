@@ -72,8 +72,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"8f8af9fb-fae4-4131-9a64-2ed208ac5a91","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/UI/Sprites.yy",
+    "name": "In-Match Unit Selection",
+    "path": "folders/UI/Sprites/In-Match Unit Selection.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_mouse_highlight",

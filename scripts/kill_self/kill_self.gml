@@ -24,6 +24,7 @@ function kill_self() {
 			}
 			else {
 				ds_list_destroy(unitQueueForPathfindingList);
+				unitQueueForPathfindingList = noone;
 			}
 		}
 	}
@@ -41,6 +42,7 @@ function kill_self() {
 				}
 				else {
 					ds_list_destroy(objectTargetList);
+					objectTargetList = noone;
 				}
 			}
 		}
