@@ -127,7 +127,7 @@ if objectCurrentCommand == "Attack" {
 
 var target_list_ = noone;
 // If the mouse is on the map and not on the toolbar, then allow clicks. Or if the unit is being autonomously commanded to move, move it.
-if (mouse_check_button_pressed(mb_right) && (objectSelected) && (((device_mouse_y_to_gui(0) / 2) <= obj_gui.toolbarTopY) || (((device_mouse_x_to_gui(0) / 2) <= obj_gui.toolbarLeftX) || ((device_mouse_x_to_gui(0) / 2) >= obj_gui.toolbarRightX)))) || objectNeedsToMove {
+if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y_to_gui(0) <= obj_gui.toolbarTopY) || ((device_mouse_x_to_gui(0) <= obj_gui.toolbarLeftX) || (device_mouse_x_to_gui(0) >= obj_gui.toolbarRightX)))) || objectNeedsToMove {
 	// Firstly, if the object was automatically instructed to move, check for what object is at its target location and if the
 	// found object is not an object its commanded to attack or mine, change the object it should be attacking or mining
 	// to something valid.
