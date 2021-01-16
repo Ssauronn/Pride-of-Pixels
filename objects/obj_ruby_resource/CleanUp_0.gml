@@ -1,3 +1,3 @@
-mp_grid_clear_rectangle(movementGrid, x - 33, y - 32, x + 33, y - 1);
+mp_grid_clear_rectangle(movementGrid, x, y, x + sprite_get_width(sprite_index) - 1, y + 16 - 1);
 
 
