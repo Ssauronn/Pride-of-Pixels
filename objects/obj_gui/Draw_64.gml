@@ -3,17 +3,18 @@
 #region Toolbar
 // Draw the toolbar
 draw_sprite_ext(spr_toolbar_background, 0, toolbarLeftX, toolbarTopY, toolbarWidth, toolbarHeight, 0, c_white, 1);
-draw_sprite(spr_ruby_icon, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y"));
-draw_sprite(spr_gold_icon, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y"));
-draw_sprite(spr_wood_icon, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y"));
-draw_sprite(spr_food_icon, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y"));
-draw_sprite_ext(spr_worker_front_idle, 0, toolbarLeftX + (toolbarWidth * 0.02), toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y"), 2, 2, 0, c_white, 1);
-draw_text_transformed(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.04), toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].rubies), 2, 2, 0);
-draw_text_transformed(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.04), toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].gold), 2, 2, 0);
-draw_text_transformed(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.04), toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].wood), 2, 2, 0);
-draw_text_transformed(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.04), toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].food), 2, 2, 0);
-draw_text_transformed(toolbarLeftX + (toolbarWidth * 0.02) + (toolbarWidth * 0.04), toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].population), 2, 2, 0);
-
+draw_sprite(spr_ruby_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y"));
+draw_sprite(spr_gold_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y"));
+draw_sprite(spr_wood_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y"));
+draw_sprite(spr_food_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y"));
+draw_sprite_ext(spr_worker_front_idle, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y"), 2, 2, 0, c_white, 1);
+draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].rubies), 2, 2, 0);
+draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].gold), 2, 2, 0);
+draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].wood), 2, 2, 0);
+draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].food), 2, 2, 0);
+draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].population), 2, 2, 0);
+draw_sprite_ext(spr_divider, 0, toolbarLeftDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
+draw_sprite_ext(spr_divider, 0, toolbarMidDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
 
 // Draw global stats on toolbar
 //draw_text()
