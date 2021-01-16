@@ -1087,7 +1087,7 @@ function unit_move() {
 							}
 							// If the search area is surrounding a 1(vertical)x3(horizontal) grid area
 							else if (objectTarget.objectType == "Ruby") {
-								horizontal_edge_size_ = 3;
+								horizontal_edge_size_ = 4;
 								vertical_edge_size_ = 1;
 							}
 							// If the search area is surrounding a 2(vertical)x3(horizontal) grid area
