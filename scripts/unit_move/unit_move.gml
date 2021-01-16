@@ -390,7 +390,7 @@ function unit_move() {
 				break;
 		}
 		original_direction_to_search_in_ = direction_to_search_in_;
-		groupRowWidth = floor(sqrt(obj_camera_inputs_and_gui.numberOfObjectsSelected));
+		groupRowWidth = floor(sqrt(obj_inputs.numberOfObjectsSelected));
 		#endregion
 
 		#region Start the search
