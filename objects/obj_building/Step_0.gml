@@ -11,7 +11,11 @@ if !initialized {
 depth = y;
 
 // Stop certain sections of code if not on screen
-if point_in_rectangle(x, y, camera_get_view_x(view_camera[0]), camera_get_view_y(view_camera[0]), camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0])) {
+var top_y_ = y - sprite_get_height(sprite_index) + 16;
+var bottom_y_ = y + 16;
+var left_x_ = x;
+var right_x_ = x + sprite_get_width(sprite_index);
+if rectangle_in_rectangle(left_x_, top_y_, right_x_, bottom_y_, viewX, viewY, viewX + viewW, viewY + viewH) > 0 {
 	objectOnScreen = true;
 }
 else {
@@ -19,7 +23,7 @@ else {
 }
 
 // If the mouse is on the map and not on the toolbar, then allow clicks
-if device_mouse_y_to_gui(0) <= (view_get_hport(view_camera[0]) - obj_camera_inputs_and_gui.toolbarHeight) {
+if (device_mouse_y_to_gui(0) / 2) <= (viewH - obj_gui.toolbarHeight) {
 	if mouse_check_button_pressed(mb_right) && (objectSelected) {
 		var object_at_location_ = instance_place((floor(mouse_x / 16) * 16), (floor(mouse_y / 16) * 16), all);
 		if instance_exists(object_at_location_) {

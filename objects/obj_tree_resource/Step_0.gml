@@ -1,5 +1,9 @@
 // Stop certain sections of code if not on screen
-if point_in_rectangle(x, y, camera_get_view_x(view_camera[0]), camera_get_view_y(view_camera[0]), camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]), camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0])) {
+var top_y_ = y - sprite_get_height(sprite_index) + 16;
+var bottom_y_ = y + 16;
+var left_x_ = x;
+var right_x_ = x + sprite_get_width(sprite_index);
+if rectangle_in_rectangle(left_x_, top_y_, right_x_, bottom_y_, viewX, viewY, viewX + viewW, viewY + viewH) > 0 {
 	objectOnScreen = true;
 }
 else {
