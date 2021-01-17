@@ -7,15 +7,15 @@
   "edgeFiltering": false,
   "collisionTolerance": 0,
   "swfPrecision": 2.525,
-  "bbox_left": 3,
-  "bbox_right": 15,
+  "bbox_left": 0,
+  "bbox_right": 31,
   "bbox_top": 0,
-  "bbox_bottom": 15,
+  "bbox_bottom": 31,
   "HTile": false,
   "VTile": false,
   "For3D": false,
-  "width": 16,
-  "height": 16,
+  "width": 32,
+  "height": 32,
   "textureGroupId": {
     "name": "Default",
     "path": "texturegroups/Default",
@@ -24,12 +24,12 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"7410070f-cf38-49d9-aeda-1303e3032c34","path":"sprites/spr_rally_point/spr_rally_point.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"7410070f-cf38-49d9-aeda-1303e3032c34","path":"sprites/spr_rally_point/spr_rally_point.yy",},"LayerId":{"name":"7f1232b5-ba38-4a8a-ba4d-7e9eb1073344","path":"sprites/spr_rally_point/spr_rally_point.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_rally_point","path":"sprites/spr_rally_point/spr_rally_point.yy",},"resourceVersion":"1.0","name":"7410070f-cf38-49d9-aeda-1303e3032c34","tags":[],"resourceType":"GMSpriteFrame",},
+    {"compositeImage":{"FrameId":{"name":"c72732eb-51f7-49d4-8236-8bd2f110f03a","path":"sprites/spr_square_button/spr_square_button.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
+        {"FrameId":{"name":"c72732eb-51f7-49d4-8236-8bd2f110f03a","path":"sprites/spr_square_button/spr_square_button.yy",},"LayerId":{"name":"f9e73f7f-41d7-48e4-8163-9d268ad98fc6","path":"sprites/spr_square_button/spr_square_button.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+      ],"parent":{"name":"spr_square_button","path":"sprites/spr_square_button/spr_square_button.yy",},"resourceVersion":"1.0","name":"c72732eb-51f7-49d4-8236-8bd2f110f03a","tags":[],"resourceType":"GMSpriteFrame",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_rally_point","path":"sprites/spr_rally_point/spr_rally_point.yy",},
+    "spriteId": {"name":"spr_square_button","path":"sprites/spr_square_button/spr_square_button.yy",},
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 30.0,
@@ -41,7 +41,7 @@
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"76cb9675-6f0d-4c94-a7ca-703b89362269","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"7410070f-cf38-49d9-aeda-1303e3032c34","path":"sprites/spr_rally_point/spr_rally_point.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"2e89fb7c-90df-455f-b11d-a3c414fa1fea","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"c72732eb-51f7-49d4-8236-8bd2f110f03a","path":"sprites/spr_square_button/spr_square_button.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"modifiers":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack",},
     ],
     "visibleRange": null,
@@ -58,21 +58,21 @@
     "yorigin": 0,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_rally_point","path":"sprites/spr_rally_point/spr_rally_point.yy",},
+    "parent": {"name":"spr_square_button","path":"sprites/spr_square_button/spr_square_button.yy",},
     "resourceVersion": "1.3",
-    "name": "spr_rally_point",
+    "name": "spr_square_button",
     "tags": [],
     "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"7f1232b5-ba38-4a8a-ba4d-7e9eb1073344","tags":[],"resourceType":"GMImageLayer",},
+    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"f9e73f7f-41d7-48e4-8163-9d268ad98fc6","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
     "name": "In-Match Menus",
     "path": "folders/UI/Sprites/In-Match Menus.yy",
   },
   "resourceVersion": "1.0",
-  "name": "spr_rally_point",
+  "name": "spr_square_button",
   "tags": [],
   "resourceType": "GMSprite",
 }

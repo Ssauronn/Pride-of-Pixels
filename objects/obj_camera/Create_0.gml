@@ -1,5 +1,5 @@
 /// @description Initialize Camera Variables
-//window_set_fullscreen(true);
+window_set_fullscreen(true);
 target = obj_camera;
 idealHeight = 576;
 displayWidth = display_get_width();
