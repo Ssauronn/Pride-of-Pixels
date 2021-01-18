@@ -1,6 +1,8 @@
 ///@description Draw UI Elements on Screen
 
 #region Toolbar
+// Draw the name of the object selected, if one exists
+draw_text_transformed(toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 0) + (toolbarButtonSpacing * 1), toolbarTopY - (toolbarButtonSpacing * 0.5) - (string_height("Building") * 3), "Building", 3, 3, 0);
 // Draw the toolbar
 draw_sprite_ext(spr_toolbar_background, 0, toolbarLeftX, toolbarTopY, toolbarWidth, toolbarHeight, 0, c_white, 1);
 // Resource Icons - Always Present
@@ -18,7 +20,7 @@ draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2)
 // Dividers
 // Vertical Dividers
 draw_sprite_ext(spr_divider, 0, toolbarLeftDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
-draw_sprite_ext(spr_divider, 0, toolbarMidDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
+draw_sprite_ext(spr_divider, 0, toolbarRightDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
 // Horizontal Dividers
 draw_sprite_ext(spr_horizontal_divider, 0, toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarButtonSpacing, toolbarHorizontalDividerY, toolbarHorizontalDividerXScale, toolbarDividerXScale, 0, c_white, 1);
 draw_sprite_ext(spr_solid_divider, 0, toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarButtonSpacing, toolbarTopY + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 4) + (sprite_get_width(spr_divider) * toolbarDividerXScale), toolbarSolidDividerXScale, toolbarSolidDividerYScale, 0, c_white, 1); 
@@ -57,7 +59,29 @@ draw_text(toolbarQueuedCollectiveTimerInfoX, toolbarQueuedTopTimerInfoY, "10 min
 draw_text(toolbarQueuedCollectiveCountInfoX, toolbarQueuedTopTimerInfoY, "15 / 15");
 draw_text_transformed(toolbarQueuedButtonX + (toolbarButtonWidth * 6) + (toolbarButtonSpacing * 6), toolbarQueuedButtonY, "+2", 2, 2, 0);
 // Divider Bars for Upgrade Trees
-draw_sprite_ext(spr_horizontal_solid_divider, 0, toolbarMidDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarUpgradeHorizontalDividerSpacing, toolbarTopY + toolbarButtonSpacing, toolbarUpgradeHorizontalDividerXScale, toolbarUpgradeHorizontalDividerYScale, 0, c_white, 1);
+draw_sprite_ext(spr_horizontal_solid_divider, 0, toolbarUpgradeHorizontalDividerFirstX, toolbarTopY + toolbarButtonSpacing, toolbarUpgradeHorizontalDividerXScale, toolbarUpgradeHorizontalDividerYScale, 0, c_white, 1);
+draw_sprite_ext(spr_horizontal_solid_divider, 0, toolbarUpgradeHorizontalDividerFirstX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 1) + (toolbarUpgradeHorizontalDividerSpacing * 1), toolbarTopY + toolbarButtonSpacing, toolbarUpgradeHorizontalDividerXScale, toolbarUpgradeHorizontalDividerYScale, 0, c_white, 1);
+draw_sprite_ext(spr_horizontal_solid_divider, 0, toolbarUpgradeHorizontalDividerFirstX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 2) + (toolbarUpgradeHorizontalDividerSpacing * 2), toolbarTopY + toolbarButtonSpacing, toolbarUpgradeHorizontalDividerXScale, toolbarUpgradeHorizontalDividerYScale, 0, c_white, 1);
+draw_sprite_ext(spr_horizontal_solid_divider, 0, toolbarUpgradeHorizontalDividerFirstX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 3) + (toolbarUpgradeHorizontalDividerSpacing * 3), toolbarTopY + toolbarButtonSpacing, toolbarUpgradeHorizontalDividerXScale, toolbarUpgradeHorizontalDividerYScale, 0, c_white, 1);
+// First row of upgrade buttons
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX, toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 2), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 1) + (toolbarUpgradeHorizontalDividerSpacing * 1), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 2), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 2) + (toolbarUpgradeHorizontalDividerSpacing * 2), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 2), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 3) + (toolbarUpgradeHorizontalDividerSpacing * 3), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 2), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+// Second row of upgrade buttons
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX, toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 3) + (toolbarButtonWidth * 1), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 1) + (toolbarUpgradeHorizontalDividerSpacing * 1), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 3) + (toolbarButtonWidth * 1), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 2) + (toolbarUpgradeHorizontalDividerSpacing * 2), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 3) + (toolbarButtonWidth * 1), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 3) + (toolbarUpgradeHorizontalDividerSpacing * 3), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 3) + (toolbarButtonWidth * 1), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+// Third row of upgrade buttons
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX, toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 4) + (toolbarButtonWidth * 2), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 1) + (toolbarUpgradeHorizontalDividerSpacing * 1), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 4) + (toolbarButtonWidth * 2), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 2) + (toolbarUpgradeHorizontalDividerSpacing * 2), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 4) + (toolbarButtonWidth * 2), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_square_button, 0, toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 3) + (toolbarUpgradeHorizontalDividerSpacing * 3), toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 4) + (toolbarButtonWidth * 2), toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+// Upgrade tree access button
+draw_sprite_ext(spr_circle_button, 0, toolbarRightX - toolbarButtonSpacing - toolbarButtonWidth, toolbarTopY + toolbarButtonSpacing, toolbarButtonScale, toolbarButtonScale, 0, c_white, 1);
+draw_sprite_ext(spr_upgrade_tree_icon, 0, toolbarRightX - toolbarButtonSpacing - toolbarButtonWidth + toolbarCircleButtonIconOffset, toolbarTopY + toolbarButtonSpacing + toolbarCircleButtonIconOffset, toolbarCircleButtonUpgradeTreeIconScale, toolbarCircleButtonUpgradeTreeIconScale, 0, c_white, 1);
+
 
 // Set up variables used to determine what is selected.
 var selected_instance_, unit_selected_, building_selected_, resource_selected_, nothing_selected_;

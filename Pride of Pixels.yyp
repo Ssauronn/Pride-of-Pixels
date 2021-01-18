@@ -46,6 +46,7 @@
     {"id":{"name":"spr_building_xlarge","path":"sprites/spr_building_xlarge/spr_building_xlarge.yy",},"order":3,},
     {"id":{"name":"spr_worker_right_farm","path":"sprites/spr_worker_right_farm/spr_worker_right_farm.yy",},"order":1,},
     {"id":{"name":"spr_food_3","path":"sprites/spr_food_3/spr_food_3.yy",},"order":2,},
+    {"id":{"name":"spr_upgrade_tree_icon","path":"sprites/spr_upgrade_tree_icon/spr_upgrade_tree_icon.yy",},"order":13,},
     {"id":{"name":"spr_worker_right_mine","path":"sprites/spr_worker_right_mine/spr_worker_right_mine.yy",},"order":1,},
     {"id":{"name":"spr_ruby","path":"sprites/spr_ruby/spr_ruby.yy",},"order":3,},
     {"id":{"name":"spr_selected","path":"sprites/spr_selected/spr_selected.yy",},"order":3,},
