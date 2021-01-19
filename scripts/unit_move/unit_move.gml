@@ -83,7 +83,9 @@ function target_next_object() {
 		}
 	}
 	else {
-		check_for_new_target();
+		if objectCurrentCommand == "Attack" {
+			check_for_new_target();
+		}
 	}
 	if !ds_exists(objectTargetList, ds_type_list) {
 		objectCurrentCommand = "Move";
