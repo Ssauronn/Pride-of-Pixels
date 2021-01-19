@@ -4,7 +4,7 @@
 // Draw the name of the object selected, if one exists
 draw_text_transformed(toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 0) + (toolbarButtonSpacing * 1), toolbarTopY - (toolbarButtonSpacing * 0.5) - (string_height("Building") * 3), "Building", 3, 3, 0);
 // Draw the toolbar
-draw_sprite_ext(spr_toolbar_background, 0, toolbarLeftX, toolbarTopY, toolbarWidth, toolbarHeight, 0, c_white, 1);
+draw_sprite_ext(spr_toolbar_background, 0, universalGUI.background.x, universalGUI.background.y, universalGUI.background.xScaling, universalGUI.background.yScaling, 0, c_white, 1);
 // Resource Icons - Always Present
 draw_sprite(spr_ruby_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y"));
 draw_sprite(spr_gold_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y"));
@@ -21,7 +21,7 @@ draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2)
 // Vertical Dividers
 draw_sprite_ext(spr_divider, 0, toolbarLeftDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
 draw_sprite_ext(spr_divider, 0, toolbarRightDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
-// Horizontal Dividers
+// Solid Dividers - Left Section
 draw_sprite_ext(spr_horizontal_divider, 0, toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarButtonSpacing, toolbarHorizontalDividerY, toolbarHorizontalDividerXScale, toolbarDividerXScale, 0, c_white, 1);
 draw_sprite_ext(spr_solid_divider, 0, toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarButtonSpacing, toolbarTopY + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 4) + (sprite_get_width(spr_divider) * toolbarDividerXScale), toolbarSolidDividerXScale, toolbarSolidDividerYScale, 0, c_white, 1); 
 // First row of buttons
@@ -55,9 +55,9 @@ draw_sprite_ext(spr_square_button, 0, toolbarQueuedButtonX + (toolbarButtonWidth
 draw_text(toolbarQueuedButtonX, toolbarQueuedTopTimerInfoY, "20 sec.");
 // The text here is alligned to the right. The variable toolbarQueuedCollectiveTimerInfoX should change based on the
 // length of the string currently provided, so that it's always aligned correctly to the right. 
-draw_text(toolbarQueuedCollectiveTimerInfoX, toolbarQueuedTopTimerInfoY, "10 min. 59 sec.");
+draw_text_transformed(toolbarQueuedCollectiveTimerInfoX, toolbarQueuedTopTimerInfoY, "10 min. 59 sec.", 1, buildingGUI.leftSection.queueSection.information.individualTimer.yScaling, 0);
 draw_text(toolbarQueuedCollectiveCountInfoX, toolbarQueuedTopTimerInfoY, "15 / 15");
-draw_text_transformed(toolbarQueuedButtonX + (toolbarButtonWidth * 6) + (toolbarButtonSpacing * 6), toolbarQueuedButtonY, "+2", 2, 2, 0);
+draw_text_transformed(buildingGUI.leftSection.queueSection.information.extraQueued.x, buildingGUI.leftSection.queueSection.information.extraQueued.y, "+2", buildingGUI.leftSection.queueSection.information.extraQueued.xScaling, buildingGUI.leftSection.queueSection.information.extraQueued.yScaling, 0);
 // Divider Bars for Upgrade Trees
 draw_sprite_ext(spr_horizontal_solid_divider, 0, toolbarUpgradeHorizontalDividerFirstX, toolbarTopY + toolbarButtonSpacing, toolbarUpgradeHorizontalDividerXScale, toolbarUpgradeHorizontalDividerYScale, 0, c_white, 1);
 draw_sprite_ext(spr_horizontal_solid_divider, 0, toolbarUpgradeHorizontalDividerFirstX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 1) + (toolbarUpgradeHorizontalDividerSpacing * 1), toolbarTopY + toolbarButtonSpacing, toolbarUpgradeHorizontalDividerXScale, toolbarUpgradeHorizontalDividerYScale, 0, c_white, 1);

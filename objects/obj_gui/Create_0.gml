@@ -63,55 +63,71 @@ toolbarUpgradeHorizontalDividerFirstX = toolbarRightDividerX + (sprite_get_width
 
 #region GUI Information in Structs
 universalGUI = {
+	background : {
+		x : toolbarLeftX,
+		y : toolbarTopY,
+		xScaling : toolbarWidth / sprite_get_width(spr_toolbar_background),
+		yScaling : toolbarHeight / sprite_get_height(spr_toolbar_background)
+	},
 	rubyIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y"),
-		scaling : (toolbarButtonWidth / sprite_get_width(spr_ruby_icon))
+		xScaling : (toolbarButtonWidth / sprite_get_width(spr_ruby_icon)),
+		yScaling : (toolbarButtonWidth / sprite_get_width(spr_ruby_icon))
 	},
 	rubyAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		scaling : 2
+		xScaling : 2,
+		yScaling : 2
 	},
 	goldIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y"),
-		scaling : (toolbarButtonWidth / sprite_get_width(spr_gold_icon))
+		xScaling : (toolbarButtonWidth / sprite_get_width(spr_gold_icon)),
+		yScaling : (toolbarButtonWidth / sprite_get_width(spr_gold_icon))
 	},
 	goldAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		scaling : 2
+		xScaling : 2,
+		yScaling : 2
 	},
 	woodIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y"),
-		scaling : (toolbarButtonWidth / sprite_get_width(spr_wood_icon))
+		xScaling : (toolbarButtonWidth / sprite_get_width(spr_wood_icon)),
+		yScaling : (toolbarButtonWidth / sprite_get_width(spr_wood_icon))
 	},
 	woodAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		scaling : 2
+		xScaling : 2,
+		yScaling : 2
 	},
 	foodIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y"),
-		scaling : (toolbarButtonWidth / sprite_get_width(spr_food_icon))
+		xScaling : (toolbarButtonWidth / sprite_get_width(spr_food_icon)),
+		yScaling : (toolbarButtonWidth / sprite_get_width(spr_food_icon))
 	},
 	foodAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		scaling : 2
+		xScaling : 2,
+		yScaling : 2
 	},
 	popIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y"),
-		scaling : (toolbarButtonWidth / sprite_get_width(spr_worker_front_idle))
+		xScaling : (toolbarButtonWidth / sprite_get_width(spr_worker_front_idle)),
+		yScaling : (toolbarButtonWidth / sprite_get_width(spr_worker_front_idle))
 	},
 	popAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		scaling : 2
+		xScaling : 2,
+		yScaling : 2
 	},
 	leftDivider : {
 		x : toolbarLeftDividerX,
@@ -127,7 +143,238 @@ universalGUI = {
 	}
 };
 buildingGUI = {
-	
+	name : {
+		x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarButtonSpacing,
+		y :  toolbarTopY - (toolbarButtonSpacing * 0.5) - (string_height("Building") * 3),
+		xScaling : 3,
+		yScaling : 3
+	},
+	leftSection : {
+		topRow : {
+			rallyButton : {
+				x : toolbarCircleButtonX,
+				y : toolbarTopY + toolbarButtonSpacing,
+				xScaling : toolbarButtonWidth / sprite_get_width(spr_circle_button),
+				yScaling : toolbarButtonWidth / sprite_get_width(spr_circle_button)
+			},
+			rallyButtonIcon : {
+				x : toolbarCircleButtonX + toolbarCircleButtonIconOffset,
+				y : toolbarTopY + toolbarButtonSpacing + toolbarCircleButtonIconOffset,
+				xScaling : toolbarCircleButtonRallyIconScale,
+				yScaling : toolbarCircleButtonRallyIconScale
+			},
+			first : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 0) + (toolbarButtonSpacing * 1),
+				y : toolbarTopY + toolbarButtonSpacing,
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			second : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 1) + (toolbarButtonSpacing * 2),
+				y : toolbarTopY + toolbarButtonSpacing,
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			third : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 3),
+				y : toolbarTopY + toolbarButtonSpacing,
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			fourth : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 3) + (toolbarButtonSpacing * 4),
+				y : toolbarTopY + toolbarButtonSpacing,
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			fifth : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 4) + (toolbarButtonSpacing * 5),
+				y : toolbarTopY + toolbarButtonSpacing,
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			}
+		},
+		bottomRow : {
+			attackButton : {
+				x : toolbarCircleButtonX,
+				y : toolbarTopY + toolbarButtonWidth + (toolbarButtonSpacing * 2),
+				xScaling : toolbarButtonWidth / sprite_get_width(spr_circle_button),
+				yScaling : toolbarButtonWidth / sprite_get_width(spr_circle_button)
+			},
+			attackButtonIcon : {
+				x : toolbarCircleButtonX + toolbarCircleButtonIconOffset,
+				y : toolbarTopY + toolbarButtonWidth + (toolbarButtonSpacing * 2) + toolbarCircleButtonIconOffset,
+				xScaling : toolbarCircleButtonSwordIconScale,
+				yScaling : toolbarCircleButtonSwordIconScale
+			},
+			first : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 0) + (toolbarButtonSpacing * 1),
+				y : toolbarTopY + toolbarButtonWidth + (toolbarButtonSpacing * 2),
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			second : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 1) + (toolbarButtonSpacing * 2),
+				y : toolbarTopY + toolbarButtonWidth + (toolbarButtonSpacing * 2),
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			third : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 3),
+				y : toolbarTopY + toolbarButtonWidth + (toolbarButtonSpacing * 2),
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			fourth : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 3) + (toolbarButtonSpacing * 4),
+				y : toolbarTopY + toolbarButtonWidth + (toolbarButtonSpacing * 2),
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			fifth : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + (toolbarButtonWidth * 4) + (toolbarButtonSpacing * 5),
+				y : toolbarTopY + toolbarButtonWidth + (toolbarButtonSpacing * 2),
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			}
+		},
+		dividers : {
+			horizontal : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarButtonSpacing,
+				y : toolbarHorizontalDividerY,
+				xScaling : toolbarHorizontalDividerXScale,
+				yScaling : toolbarDividerXScale
+			},
+			vertical : {
+				x : toolbarLeftDividerX + (sprite_get_width(spr_solid_divider) * toolbarDividerXScale) + toolbarButtonSpacing,
+				y : toolbarTopY + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 4) + (sprite_get_width(spr_divider) * toolbarDividerXScale),
+				xScaling : toolbarSolidDividerXScale,
+				yScaling : toolbarSolidDividerYScale
+			}
+		},
+		queueSection : {
+			information : {
+				individualTimer : {
+					x : toolbarQueuedButtonX,
+					y : toolbarQueuedTopTimerInfoY,
+					xScaling : 1,
+					yScaling : (toolbarQueuedButtonY - (toolbarHorizontalDividerY + (sprite_get_height(spr_horizontal_divider) * toolbarDividerXScale))) / string_height("Building") * 0.86
+				},
+				collectiveTimer : {
+					x : toolbarQueuedCollectiveTimerInfoX,
+					y : toolbarQueuedTopTimerInfoY,
+					xScaling : 1,
+					yScaling : (toolbarQueuedButtonY - (toolbarHorizontalDividerY + (sprite_get_height(spr_horizontal_divider) * toolbarDividerXScale))) / string_height("Building") * 0.86
+				},
+				queueCount : {
+					x : toolbarQueuedCollectiveCountInfoX,
+					y : toolbarQueuedTopTimerInfoY,
+					xScaling : 1,
+					yScaling : (toolbarQueuedButtonY - (toolbarHorizontalDividerY + (sprite_get_height(spr_horizontal_divider) * toolbarDividerXScale))) / string_height("Building") * 0.86
+				},
+				extraQueued : {
+					x : toolbarQueuedButtonX + (toolbarButtonWidth * 6) + (toolbarButtonSpacing * 6) + ((toolbarButtonWidth - (string_height("Building") * (toolbarButtonWidth * 0.9) / string_height("Building"))) / 2),
+					y : toolbarQueuedButtonY + ((toolbarButtonWidth - (string_height("Building") * (toolbarButtonWidth * 0.9) / string_height("Building"))) / 2),
+					xScaling : (toolbarButtonWidth * 0.9) / string_height("Building"),
+					yScaling : (toolbarButtonWidth * 0.9) / string_height("Building")
+				}
+			},
+			queueButtons : {
+				first : {
+					x : toolbarQueuedButtonX + (toolbarButtonWidth * 0) + (toolbarButtonSpacing * 0),
+					y : toolbarQueuedButtonY,
+					xScaling : toolbarButtonScale,
+					yScaling : toolbarButtonScale
+				},
+				second : {
+					x : toolbarQueuedButtonX + (toolbarButtonWidth * 1) + (toolbarButtonSpacing * 1),
+					y : toolbarQueuedButtonY,
+					xScaling : toolbarButtonScale,
+					yScaling : toolbarButtonScale
+				},
+				third : {
+					x : toolbarQueuedButtonX + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 2),
+					y : toolbarQueuedButtonY,
+					xScaling : toolbarButtonScale,
+					yScaling : toolbarButtonScale
+				},
+				fourth : {
+					x : toolbarQueuedButtonX + (toolbarButtonWidth * 3) + (toolbarButtonSpacing * 3),
+					y : toolbarQueuedButtonY,
+					xScaling : toolbarButtonScale,
+					yScaling : toolbarButtonScale
+				},
+				fifth : {
+					x : toolbarQueuedButtonX + (toolbarButtonWidth * 4) + (toolbarButtonSpacing * 4),
+					y : toolbarQueuedButtonY,
+					xScaling : toolbarButtonScale,
+					yScaling : toolbarButtonScale
+				}
+			}
+		}
+	},
+	rightSection : {
+		dividers : {
+			horizontal : {
+				first : {
+					x : toolbarUpgradeHorizontalDividerFirstX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 0) + (toolbarUpgradeHorizontalDividerSpacing * 0),
+					y : toolbarTopY + toolbarButtonSpacing,
+					xScaling : toolbarUpgradeHorizontalDividerXScale,
+					yScaling : toolbarUpgradeHorizontalDividerYScale
+				},
+				second : {
+					x : toolbarUpgradeHorizontalDividerFirstX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 1) + (toolbarUpgradeHorizontalDividerSpacing * 1),
+					y : toolbarTopY + toolbarButtonSpacing,
+					xScaling : toolbarUpgradeHorizontalDividerXScale,
+					yScaling : toolbarUpgradeHorizontalDividerYScale
+				},
+				third : {
+					x : toolbarUpgradeHorizontalDividerFirstX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 2) + (toolbarUpgradeHorizontalDividerSpacing * 2),
+					y : toolbarTopY + toolbarButtonSpacing,
+					xScaling : toolbarUpgradeHorizontalDividerXScale,
+					yScaling : toolbarUpgradeHorizontalDividerYScale
+				},
+				fourth : {
+					x : toolbarUpgradeHorizontalDividerFirstX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 3) + (toolbarUpgradeHorizontalDividerSpacing * 3),
+					y : toolbarTopY + toolbarButtonSpacing,
+					xScaling : toolbarUpgradeHorizontalDividerXScale,
+					yScaling : toolbarUpgradeHorizontalDividerYScale
+				}
+			}
+		},
+		upgradeButtons : {
+			upgradeTree : {
+				x : toolbarRightX - toolbarButtonSpacing - toolbarButtonWidth,
+				y : toolbarTopY + toolbarButtonSpacing,
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			upgradeTreeIcon : {
+				x : toolbarRightX - toolbarButtonSpacing - toolbarButtonWidth + toolbarCircleButtonIconOffset,
+				y : toolbarTopY + toolbarButtonSpacing + toolbarCircleButtonIconOffset,
+				xScaling : toolbarCircleButtonUpgradeTreeIconScale,
+				yScaling : toolbarCircleButtonUpgradeTreeIconScale
+			},
+			firstRow : {
+				x : toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 0) + (toolbarUpgradeHorizontalDividerSpacing * 0),
+				y : toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 2) + (toolbarButtonWidth * 0),
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			secondRow : {
+				x : toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 1) + (toolbarUpgradeHorizontalDividerSpacing * 1),
+				y : toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 3) + (toolbarButtonWidth * 1),
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			},
+			thirdRow : {
+				x : toolbarUpgradeHorizontalDividerFirstX + toolbarUpgradeButtonXOffsetFromDividerX + (sprite_get_width(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerXScale * 2) + (toolbarUpgradeHorizontalDividerSpacing * 2),
+				y : toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * toolbarUpgradeHorizontalDividerYScale) + (toolbarButtonSpacing * 4) + (toolbarButtonWidth * 2),
+				xScaling : toolbarButtonScale,
+				yScaling : toolbarButtonScale
+			}
+		}
+	}
 };
 #endregion
 #endregion
