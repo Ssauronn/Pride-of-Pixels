@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"25181bc9-a26a-4c5c-b8b9-15d6398f6755","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "In-Match Menus",
-    "path": "folders/UI/Sprites/In-Match Menus.yy",
+    "name": "Toolbar",
+    "path": "folders/UI/Sprites/In-Match Menus/Toolbar.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_upgrade_tree_icon",

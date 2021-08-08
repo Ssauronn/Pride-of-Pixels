@@ -139,6 +139,13 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 						wipe_all_non_players_ = true;
 					}
 					unit_selected_ = true;
+				}
+				else {
+					clear_selections(self.id);
+				}
+			}
+			with obj_unit {
+				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
 					if !objectSelected {
 						if (unit_selected_is_player_ && objectVisibleTeam == player[1].team) || (!unit_selected_is_player_) {
 							objectSelected = true;

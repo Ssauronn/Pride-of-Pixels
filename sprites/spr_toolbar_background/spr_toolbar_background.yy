@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"c11e5ae0-c10f-4f57-8a67-dce818c56a01","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "In-Match Menus",
-    "path": "folders/UI/Sprites/In-Match Menus.yy",
+    "name": "Toolbar",
+    "path": "folders/UI/Sprites/In-Match Menus/Toolbar.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_toolbar_background",

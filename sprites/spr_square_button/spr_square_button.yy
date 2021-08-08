@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"f9e73f7f-41d7-48e4-8163-9d268ad98fc6","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "In-Match Menus",
-    "path": "folders/UI/Sprites/In-Match Menus.yy",
+    "name": "Toolbar",
+    "path": "folders/UI/Sprites/In-Match Menus/Toolbar.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_square_button",
