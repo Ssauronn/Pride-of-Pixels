@@ -1113,12 +1113,7 @@ function unit_move() {
 								vertical_edge_size_ = 4;
 							}
 						}
-						var looped_ = 0;
 						while still_need_to_search_ {
-							looped_++;
-							if looped_ > 650 {
-								var yeet_ = 1;
-							}
 							// If, after checking for a specific location, it still wasn't valid,
 							// move on and continue the search.
 							if still_need_to_search_ {
@@ -1390,7 +1385,7 @@ function unit_move() {
 								// So, check if the current coordinates for the moving unit is inside a solid object, and if so assume its
 								// clipping into a corner and shift the check coordinates outwards.
 								var shifted_x_ = 0;
-								var shifted_y_ = 0;
+								var shifted_y_ = 0; 
 								if mp_grid_get_cell(movementGrid, x_ / 16, y_ / 16) == -1 {
 									// If closer to the left edge, shift left, otherwise shift right.
 									if x - x_ < 8 {
