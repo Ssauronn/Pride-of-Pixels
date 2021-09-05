@@ -20,4 +20,12 @@ if ds_exists(unitQueueForPathfindingList, ds_type_list) {
 	}
 }
 
+// Count the queue timer down to allow another queue object to be determined
+if unitQueueTimer > 0 {
+	unitQueueTimer -= delta_time;
+}
+else {
+	unitQueueTimer = unitQueueTimerStart;
+}
+
 
