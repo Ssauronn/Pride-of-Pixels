@@ -530,6 +530,11 @@ function unit_move() {
 							// Else if the new location to check for is still not valid, mark it as such, reset the x_n_ variables
 							// to pick up where they left off in the search, and continue the search.
 							else {
+								// Reset path
+								if path_exists(myPath) {
+									path_delete(myPath);
+									myPath = noone;
+								}
 								// Reset direction to search in, since the for loop using totalTimesSearched will
 								// correctly set it back.
 								direction_to_search_in_ = original_direction_to_search_in_;
@@ -595,11 +600,21 @@ function unit_move() {
 								// Else if a path doesn't exist, adjust variables to continue searching.
 								else {
 									searchHasJustBegun = false;
+									// Reset path
+									if path_exists(myPath) {
+										path_delete(myPath);
+										myPath = noone;
+									}
 								}
 							}
 							// Else expand outwards, searching for a wall until one is found, and after one is found, 
 							// the empty space after that wall can be a potential check area.
 							else if !validPathFound {
+								// Reset path
+								if path_exists(myPath) {
+									path_delete(myPath);
+									myPath = noone;
+								}
 								// If all 4 directions to search in aren't exhausted yet, then always continue the
 								// search.
 								var still_need_to_search_ = true;
@@ -1450,6 +1465,11 @@ function unit_move() {
 								}
 								else {
 									still_need_to_search_ = true;
+									// Reset path
+									if path_exists(myPath) {
+										path_delete(myPath);
+										myPath = noone;
+									}
 								}
 							}
 						}
