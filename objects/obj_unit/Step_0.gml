@@ -580,6 +580,9 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 						else {
 							ds_list_add(objectTargetList, object_at_location_);
 						}
+						if !mouse_check_button_pressed(mb_right) && !objectSelected {
+							ds_list_sort_distance(objectTargetList);
+						}
 					}
 					else if (object_at_location_.object_index == obj_unit) || (object_at_location_.object_index == obj_building) {
 						objectCurrentCommand = "Attack";
@@ -600,6 +603,9 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 						}
 						else {
 							ds_list_add(objectTargetList, object_at_location_);
+						}
+						if !mouse_check_button_pressed(mb_right) && !objectSelected {
+							ds_list_sort_distance(objectTargetList);
 						}
 					}
 					else {
@@ -624,6 +630,9 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 					}
 					else {
 						ds_list_add(objectTargetList, object_at_location_);
+					}
+					if !mouse_check_button_pressed(mb_right) && !objectSelected {
+						ds_list_sort_distance(objectTargetList);
 					}
 				}
 			}

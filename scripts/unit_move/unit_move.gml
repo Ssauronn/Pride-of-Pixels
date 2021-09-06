@@ -520,7 +520,10 @@ function unit_move() {
 							specificLocationNeedsToBeChecked = false;
 							current_target_to_move_to_x_ = originalTargetToMoveToX + ((right_n_ - left_n_) * 16);
 							current_target_to_move_to_y_ = originalTargetToMoveToY + ((bottom_n_ - top_n_) * 16);
-							if  (mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true)) {
+							var yeet_ = 1; // I can check here to see if a direct line of sight exists, and if so, I don't
+							// even need to check for a path below, just set the variables that are set below and include a movement
+							// section using mp_potential to move the unit.
+							if (mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true)) {
 								// If a path does exist to the newly checked location, great!
 								validPathFound = true;
 								targetToMoveToX = current_target_to_move_to_x_;

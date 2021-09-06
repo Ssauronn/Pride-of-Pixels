@@ -6,10 +6,7 @@
 //									damage value and damage type to correctly calculate
 //									actual damage dealt to target.
 
-function deal_damage() {
-	var damage_value_ = argument0;
-	var damage_type_ = argument1;
-	var target_ = argument2;
+function deal_damage(damage_value_, damage_type_, target_) {
 	// Multiply the base damage by the target's resistance to that damage type to get the true value
 	var true_damage_value_ = 0;
 	switch damage_type_ {
