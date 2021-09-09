@@ -473,6 +473,12 @@ function unit_move() {
 				}
 			}
 		}
+		// Only check for a straight shot to the target location if the current command is to move. Otherwise, I should be
+		// checking for a path anyways to resources or enemies.
+		if line_of_sight_exists_to_target(x_, y_, targetToMoveToX, targetToMoveToY) && (objectCurrentCommand == "Move") {
+			validPathFound = true;
+			can_be_evaluated_this_frame_ = true;
+		}
 		// If no list of targets exists, and no target is currently set, that means this target was commanded to A) an empty
 		// location or B) a target location invalid to the type of object being commanded, then just run pathfinding as normal.
 		if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
@@ -520,10 +526,22 @@ function unit_move() {
 							specificLocationNeedsToBeChecked = false;
 							current_target_to_move_to_x_ = originalTargetToMoveToX + ((right_n_ - left_n_) * 16);
 							current_target_to_move_to_y_ = originalTargetToMoveToY + ((bottom_n_ - top_n_) * 16);
-							var yeet_ = 1; // I can check here to see if a direct line of sight exists, and if so, I don't
-							// even need to check for a path below, just set the variables that are set below and include a movement
-							// section using mp_potential to move the unit.
-							if (mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true)) {
+							// I can check here to see if a direct line of sight exists, and if so, I don't
+							// even need to check for a path below, just set the variables that are set below
+							// and include a movement section using mp_potential to move the unit.
+							if line_of_sight_exists_to_target(x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_) && (objectCurrentCommand == "Move") {
+								// Reset path
+								if path_exists(myPath) {
+									path_delete(myPath);
+									myPath = noone;
+								}
+								// If a direct line of sight exists, no need to check for a path, just go.
+								validPathFound = true;
+								targetToMoveToX = current_target_to_move_to_x_;
+								targetToMoveToY = current_target_to_move_to_y_;
+								new_location_needs_to_be_checked_ = false;
+							}
+							else if (mp_grid_path(movementGrid, myPath, x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_, true)) {
 								// If a path does exist to the newly checked location, great!
 								validPathFound = true;
 								targetToMoveToX = current_target_to_move_to_x_;
@@ -593,8 +611,23 @@ function unit_move() {
 							// This will only activate at the very beginning, when specificLocationNeedsToBeChecked is set to false
 							// and so is new_location_needs_to_be_checked_.
 							if !new_location_needs_to_be_checked_ {
+								// I can check here to see if a direct line of sight exists, and if so, I don't
+								// even need to check for a path below, just set the variables that are set below
+								// and include a movement section using mp_potential to move the unit.
+								if line_of_sight_exists_to_target(x_, y_, originalTargetToMoveToX, originalTargetToMoveToY) && (objectCurrentCommand == "Move") {
+									// Reset path
+									if path_exists(myPath) {
+										path_delete(myPath);
+										myPath = noone;
+									}
+									// If a direct line of sight exists, no need to check for a path, just go.
+									validPathFound = true;
+									targetToMoveToX = floor(originalTargetToMoveToX / 16) * 16;;
+									targetToMoveToY = floor(originalTargetToMoveToY / 16) * 16;
+									new_location_needs_to_be_checked_ = false;
+								}
 								// If a path exists, great!
-								if mp_grid_path(movementGrid, myPath, x_, y_, originalTargetToMoveToX, originalTargetToMoveToY, true) {
+								else if mp_grid_path(movementGrid, myPath, x_, y_, originalTargetToMoveToX, originalTargetToMoveToY, true) {
 									validPathFound = true;
 									targetToMoveToX = floor(originalTargetToMoveToX / 16) * 16;
 									targetToMoveToY = floor(originalTargetToMoveToY / 16) * 16;
@@ -1420,7 +1453,20 @@ function unit_move() {
 										shifted_y_ = 16;
 									}
 								}
-								if mp_grid_path(movementGrid, myPath, x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY, true) {
+								// Check to see if a direct line of sight exists to the move target - and if not, check to see if a path exists
+								// to the move target. If neither of those are the case, that's fine, just continue the search.
+								var path_found_ = false;
+								if line_of_sight_exists_to_target(x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY) && (objectCurrentCommand == "Move") {
+									path_found_ = true;
+									if path_exists(myPath) {
+										path_delete(myPath);
+										myPath = noone;
+									}
+								}
+								else if mp_grid_path(movementGrid, myPath, x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY, true) {
+									path_found_ = true;
+								}
+								if path_found_ {
 									still_need_to_search_ = false;
 									validPathFound = true;
 									targetToMoveToX = specificLocationToBeCheckedX;
@@ -1630,7 +1676,34 @@ function unit_move() {
 						}
 					}
 					// Else if a valid location exists, no need to search for one, just move.
-					if path_get_number(myPath) > 1 {
+					if !path_exists(myPath) {
+						if point_distance(x, y, targetToMoveToX, targetToMoveToY) >= movementSpeed * 2 {
+							var x_vector_, y_vector_;
+							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
+							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
+							currentDirection = floor((point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45) / 90);
+							if currentDirection > 3 {
+								currentDirection -= 4;
+							}
+							x += x_vector_;
+							y += y_vector_;
+						}
+						else {
+							if path_exists(myPath) {
+								path_delete(myPath);
+								myPath = noone;
+							}
+							validPathFound = true;
+							validLocationFound = true;
+							// Increment all mining and attack timers each frame at the beginning of this script
+							// Also, don't snap to grid if currently chasing an enemy unitAction that is also in a movement script - instead, just attack.
+							// I'll have to include ways to snap back to grid in weird cases, like if the target swaps to a non-moving state while
+							// the original object is attacking while not snapped to grid.
+							x = floor(targetToMoveToX / 16) * 16;
+							y = floor(targetToMoveToY / 16) * 16;
+						}
+					}
+					else if path_get_number(myPath) > 1 {
 						var x_vector_, y_vector_;
 						x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
 						y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
@@ -1653,8 +1726,10 @@ function unit_move() {
 						y += y_vector_;
 					}
 					else {
-						path_delete(myPath);
-						myPath = noone;
+						if path_exists(myPath) {
+							path_delete(myPath);
+							myPath = noone;
+						}
 						validPathFound = true;
 						validLocationFound = true;
 						// Increment all mining and attack timers each frame at the beginning of this script

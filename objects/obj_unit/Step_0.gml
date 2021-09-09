@@ -580,7 +580,7 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 						else {
 							ds_list_add(objectTargetList, object_at_location_);
 						}
-						if !mouse_check_button_pressed(mb_right) && !objectSelected {
+						if !mouse_check_button(mb_right) && !objectSelected {
 							ds_list_sort_distance(objectTargetList);
 						}
 					}
