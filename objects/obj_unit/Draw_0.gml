@@ -18,6 +18,16 @@ if ds_exists(objectTargetList, ds_type_list) {
 	}
 }
 */
+// Draw path if it exists
+if path_exists(myPath) {
+	draw_path(myPath, x, y, true);
+}
+if foundALeaderYeet {
+	draw_text(x, y, "found a leader");
+}
+else if movementLeaderOrFollowing == "Leader" {
+	draw_text(x, y, "is a leader");
+}
 
 //draw_text(x, y, string(currentAction))
 //draw_text(x, y, string(objectRealTeam) + " = Real Team");

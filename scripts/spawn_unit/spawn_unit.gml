@@ -175,6 +175,7 @@ function spawn_unit(type_, team_) {
 			}
 			currentAction = unitAction.move;
 			currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+			movementLeaderOrFollowing = "Leader";
 			event_perform(ev_step, ev_step_normal);
 		}
 		// Variables specifically used by object to move

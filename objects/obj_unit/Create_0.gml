@@ -2,6 +2,8 @@
 initialized = false;
 justSpawned = false;
 
+foundALeaderYeet = false;
+
 // Object classification and type, used for selection and targeting purposes
 objectClassification = "Unit";
 objectSelected = false;
@@ -54,7 +56,6 @@ squareIteration = 0;
 squareTrueIteration = 0;
 tempCheckX = -1;
 tempCheckY = -1;
-amountOfTimesShifted = 0;
 groupRowWidth = 0;
 specificLocationNeedsToBeChecked = false;
 specificLocationToBeCheckedX = -1;

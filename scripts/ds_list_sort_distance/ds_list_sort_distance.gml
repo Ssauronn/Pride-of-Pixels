@@ -13,14 +13,16 @@ function ds_list_sort_distance(original_list_) {
 			for (total_ = 0; total_ < ds_list_size(original_list_); total_++) {
 				for (current_ = total_; current_ < ds_list_size(original_list_); current_++) {
 					var instance_to_reference_ = ds_list_find_value(original_list_, current_);
-					var distance_to_referenced_instance_ = distance_to_object(instance_to_reference_);
-					if furthest_object_ == noone {
-						furthest_object_ = instance_to_reference_;
-						longest_distance_ = distance_to_referenced_instance_;
-					}
-					else if distance_to_referenced_instance_ > longest_distance_ {
-						furthest_object_ = instance_to_reference_;
-						longest_distance_ = distance_to_referenced_instance_;
+					if instance_exists(instance_to_reference_) {
+						var distance_to_referenced_instance_ = distance_to_object(instance_to_reference_);
+						if furthest_object_ == noone {
+							furthest_object_ = instance_to_reference_;
+							longest_distance_ = distance_to_referenced_instance_;
+						}
+						else if distance_to_referenced_instance_ > longest_distance_ {
+							furthest_object_ = instance_to_reference_;
+							longest_distance_ = distance_to_referenced_instance_;
+						}
 					}
 				}
 				ds_list_delete(original_list_, ds_list_find_index(original_list_, furthest_object_));

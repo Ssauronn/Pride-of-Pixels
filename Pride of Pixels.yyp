@@ -3,6 +3,7 @@
     {"id":{"name":"obj_building","path":"objects/obj_building/obj_building.yy",},"order":0,},
     {"id":{"name":"unit_attack","path":"scripts/unit_attack/unit_attack.yy",},"order":2,},
     {"id":{"name":"spr_worker_front_mine","path":"sprites/spr_worker_front_mine/spr_worker_front_mine.yy",},"order":0,},
+    {"id":{"name":"determine_leader_or_follower","path":"scripts/determine_leader_or_follower/determine_leader_or_follower.yy",},"order":11,},
     {"id":{"name":"test_sprite","path":"sprites/test_sprite/test_sprite.yy",},"order":0,},
     {"id":{"name":"count_down_timers","path":"scripts/count_down_timers/count_down_timers.yy",},"order":4,},
     {"id":{"name":"spr_solid_divider","path":"sprites/spr_solid_divider/spr_solid_divider.yy",},"order":9,},
