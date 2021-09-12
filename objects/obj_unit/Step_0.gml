@@ -779,11 +779,6 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 			// Set action to take and sprite direction (different from group direction)
 			currentAction = unitAction.move;
 			currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
-			// Run this script to determine if it should be making its own path, or following the path
-			// of another.
-			if movementLeaderOrFollowing == noone {
-				determine_leader_or_follower();
-			}
 		}
 	}
 	// Else if the area that was clicked on is empty, just move normally.
@@ -966,11 +961,6 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 			// Set action to take and sprite direction (different from group direction)
 			currentAction = unitAction.move;
 			currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
-			// Run this script to determine if it should be making its own path, or following the path
-			// of another.
-			if movementLeaderOrFollowing == noone {
-				determine_leader_or_follower();
-			}
 		}
 	}
 	objectNeedsToMove = false;

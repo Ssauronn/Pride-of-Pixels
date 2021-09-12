@@ -24,7 +24,6 @@ function determine_leader_or_follower() {
 					// and is assigned as a leader, set that unit as a potential leader.
 					if instance_to_reference_.object_index == obj_unit {
 						if instance_to_reference_.movementLeaderOrFollowing == "Leader" {
-							foundALeaderYeet = true;
 							if instance_to_reference_.objectRealTeam == objectRealTeam {
 								if line_of_sight_exists_to_target(x, y, instance_to_reference_.x, instance_to_reference_.y) {
 									if instance_to_reference_.currentAction == unitAction.move {

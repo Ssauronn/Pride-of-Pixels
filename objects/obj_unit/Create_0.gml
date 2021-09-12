@@ -2,8 +2,6 @@
 initialized = false;
 justSpawned = false;
 
-foundALeaderYeet = false;
-
 // Object classification and type, used for selection and targeting purposes
 objectClassification = "Unit";
 objectSelected = false;

@@ -910,6 +910,8 @@ function unit_move() {
 					}
 				}
 			}
+			// Else if the unit is set to follow another unit, determine various situations where it should or should not 
+			// wait for the leader unit to create a path to follow along.
 			else if movementLeaderOrFollowing != "Leader" && instance_exists(movementLeaderOrFollowing) {
 				if (line_of_sight_exists_to_target(x, y, targetToMoveToX, targetToMoveToY)) && (!path_exists(myPath)) {
 					validPathFound = false;
