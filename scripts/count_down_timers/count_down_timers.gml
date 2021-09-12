@@ -1,16 +1,15 @@
-///@function					count_down_timers();
-///@description				Counts down various timers for different objects
+///@function				count_down_timers();
+///@description				Counts down various timers for different units and buildings
 
 
 function count_down_timers() {
-	// Universal Timers
+	// Universal Timers for Units
 	if objectAttackSpeedTimer > 0 {
 		objectAttackSpeedTimer--;
 	}
 	if objectDetectTarget > 0 {
 		objectDetectTarget--;
 	}
-	/// Object Specific Timers
 	// Unit Specific Timers
 	if (objectClassification == "Unit") {
 		if spriteWaitTimer > 0 {
@@ -33,7 +32,7 @@ function count_down_timers() {
 		}
 	}
 	// Building Specific Timers
-	if (objectClassification == "Unit") {
+	if (objectClassification == "Building") {
 		
 	}
 }

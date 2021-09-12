@@ -1,6 +1,6 @@
 if --spawnUnit <= 0 {
 	spawnUnit = room_speed * 4;
-	spawn_unit("Worker", player[1].team);
+	//spawn_unit("Worker", player[1].team);
 }
 
 if !initialized {

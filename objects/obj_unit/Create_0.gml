@@ -54,7 +54,6 @@ squareIteration = 0;
 squareTrueIteration = 0;
 tempCheckX = -1;
 tempCheckY = -1;
-amountOfTimesShifted = 0;
 groupRowWidth = 0;
 specificLocationNeedsToBeChecked = false;
 specificLocationToBeCheckedX = -1;

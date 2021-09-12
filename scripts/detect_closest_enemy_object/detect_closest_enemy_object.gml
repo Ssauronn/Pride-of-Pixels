@@ -40,13 +40,15 @@ function detect_closest_enemy_object() {
 					// same team as the object calling this script. This prevents any automatic check from
 					// registering friendly spies who are commanded to look like enemy units, or registering
 					// enemy spies who are commanded to look like friendly units. 
-					if ((instance_at_location_.objectVisibleTeam != objectRealTeam && instance_at_location_.objectRealTeam != objectRealTeam)) {
-						if (!target_specified_) || (instance_at_location_.objectType == target_specified_) {
-							if !instance_exists(closest_object_) {
-								closest_object_ = instance_at_location_.id;
-							}
-							else if (point_distance(x, y, instance_at_location_.x, instance_at_location_.y)) < (point_distance(x, y, closest_object_.x, closest_object_.y)) {
-								closest_object_ = instance_at_location_.id;
+					if (instance_at_location_.objectVisibleTeam != objectRealTeam) && (instance_at_location_.objectRealTeam != objectRealTeam) {
+						if line_of_sight_exists_to_target(floor(x / 16) * 16, floor(y / 16) * 16, floor(instance_at_location_.x / 16) * 16, floor(instance_at_location_.y / 16) * 16) {
+							if (!target_specified_) || (instance_at_location_.objectType == target_specified_) {
+								if !instance_exists(closest_object_) {
+									closest_object_ = instance_at_location_.id;
+								}
+								else if (point_distance(x, y, instance_at_location_.x, instance_at_location_.y)) < (point_distance(x, y, closest_object_.x, closest_object_.y)) {
+									closest_object_ = instance_at_location_.id;
+								}
 							}
 						}
 					}

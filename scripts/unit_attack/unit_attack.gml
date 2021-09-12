@@ -64,6 +64,9 @@ function unit_attack() {
 		else {
 			target_next_object();
 			currentAction = unitAction.move;
+			// Run this script to determine if it should be making its own path, or following the path
+			// of another.
+			determine_leader_or_follower();
 		}
 	}
 	else {

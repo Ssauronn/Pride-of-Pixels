@@ -90,6 +90,7 @@ function initialize_object_data() {
 			currentDirection = unitDirection.right;
 			currentSprite = workerSprite[currentAction][currentDirection];
 			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;

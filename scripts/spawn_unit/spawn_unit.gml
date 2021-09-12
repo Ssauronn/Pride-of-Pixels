@@ -5,9 +5,7 @@
 ///										location to the building if no rally point is established, 
 ///										and otherwise will spawn at a random adjacent location to the
 ///										building and move to the rally point.
-function spawn_unit()	{
-	var type_ = argument0;
-	var team_ = argument1;
+function spawn_unit(type_, team_) {
 	var i, iteration_, square_iteration_, check_x_, check_y_, horizontal_offset_, vertical_offset_, horizontal_side_square_size_, vertical_side_square_size_, total_square_size_perimeter_, spawn_found_;
 	iteration_ = 0;
 	square_iteration_ = 1;
@@ -177,6 +175,7 @@ function spawn_unit()	{
 			}
 			currentAction = unitAction.move;
 			currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+			movementLeaderOrFollowing = "Leader";
 			event_perform(ev_step, ev_step_normal);
 		}
 		// Variables specifically used by object to move

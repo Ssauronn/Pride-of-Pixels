@@ -580,6 +580,9 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 						else {
 							ds_list_add(objectTargetList, object_at_location_);
 						}
+						if !mouse_check_button_pressed(mb_right) || (mouse_check_button_pressed(mb_right) && !objectSelected) {
+							ds_list_sort_distance(objectTargetList);
+						}
 					}
 					else if (object_at_location_.object_index == obj_unit) || (object_at_location_.object_index == obj_building) {
 						objectCurrentCommand = "Attack";
@@ -600,6 +603,9 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 						}
 						else {
 							ds_list_add(objectTargetList, object_at_location_);
+						}
+						if !mouse_check_button_pressed(mb_right) || (mouse_check_button_pressed(mb_right) && !objectSelected) {
+							ds_list_sort_distance(objectTargetList);
 						}
 					}
 					else {
@@ -624,6 +630,9 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 					}
 					else {
 						ds_list_add(objectTargetList, object_at_location_);
+					}
+					if !mouse_check_button_pressed(mb_right) || (mouse_check_button_pressed(mb_right) && !objectSelected) {
+						ds_list_sort_distance(objectTargetList);
 					}
 				}
 			}
@@ -957,6 +966,8 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 	objectNeedsToMove = false;
 }
 
+
+
 // Manage targets
 if ds_exists(objectTargetList, ds_type_list) {
 	if instance_exists(ds_list_find_value(objectTargetList, 0)) {
@@ -1007,22 +1018,24 @@ if objectDetectTarget <= 0 {
 					// In this case specifically, worker units will not aggro to nearby enemy units unless they're in active
 					// combat. With more militiant type units, this will change to aggro'ing to any enemy target within range.
 					var instance_nearby_ = ds_list_find_value(objectDetectedList, i);
-					if objectType == "Worker" {
-						var target_of_instance_nearby_ = instance_nearby_.objectTarget;
-						if instance_exists(target_of_instance_nearby_) {
-							// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
-							if (target_of_instance_nearby_.objectRealTeam == objectRealTeam) {
-								if objectCurrentCommand != "Attack" {
-									objectCurrentCommand = "Attack";
-									objectTarget = instance_nearby_;
-									objectNeedsToMove = true;
-									targetToMoveToX = instance_nearby_.x;
-									targetToMoveToY = instance_nearby_.y;
-									currentAction = unitAction.attack;
-									currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
-									ds_list_destroy(objectDetectedList);
-									objectDetectedList = noone;
-									break;
+					if line_of_sight_exists_to_target(x, y, instance_nearby_.x, instance_nearby_.y) {
+						if objectType == "Worker" {
+							var target_of_instance_nearby_ = instance_nearby_.objectTarget;
+							if instance_exists(target_of_instance_nearby_) {
+								// If the target of any enemy object within range is a team member of this unitAction, attack that enemy object.
+								if (target_of_instance_nearby_.objectRealTeam == objectRealTeam) {
+									if objectCurrentCommand != "Attack" {
+										objectCurrentCommand = "Attack";
+										objectTarget = instance_nearby_;
+										objectNeedsToMove = true;
+										targetToMoveToX = instance_nearby_.x;
+										targetToMoveToY = instance_nearby_.y;
+										currentAction = unitAction.attack;
+										currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+										ds_list_destroy(objectDetectedList);
+										objectDetectedList = noone;
+										break;
+									}
 								}
 							}
 						}
