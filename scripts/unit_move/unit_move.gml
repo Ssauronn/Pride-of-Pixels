@@ -911,7 +911,27 @@ function unit_move() {
 				}
 			}
 			else if movementLeaderOrFollowing != "Leader" && instance_exists(movementLeaderOrFollowing) {
-				validPathFound = true;
+				if (line_of_sight_exists_to_target(x, y, targetToMoveToX, targetToMoveToY)) && (!path_exists(myPath)) {
+					validPathFound = false;
+					movementLeaderOrFollowing = "Leader";
+				}
+				else if path_exists(movementLeaderOrFollowing.myPath) {
+					validPathFound = true;
+				}
+				else if (movementLeaderOrFollowing.currentAction == unitAction.move) && (point_distance(movementLeaderOrFollowing.x, movementLeaderOrFollowing.y, movementLeaderOrFollowing.targetToMoveToX, movementLeaderOrFollowing.targetToMoveToY) > movementSpeed) {
+					validPathFound = true;
+				}
+				else if (movementLeaderOrFollowing.currentAction != unitAction.move) && path_exists(myPath) {
+					validPathFound = true;
+				}
+				else if !path_exists(myPath) {
+					validPathFound = false;
+					movementLeaderOrFollowing = "Leader";
+				}
+			}
+			else if movementLeaderOrFollowing != "Leader" && !instance_exists(movementLeaderOrFollowing) {
+				validPathFound = false;
+				movementLeaderOrFollowing = "Leader";
 			}
 			if cannot_move_without_better_coordinates_ {
 				cannot_move_without_better_coordinates_ = false;
