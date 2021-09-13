@@ -2,7 +2,8 @@
 // sort the objects on screen between higher and lower on the screen.
 depth = -y;
 
-mp_grid_add_rectangle(movementGrid, x, y, x + sprite_get_width(sprite_index) - 1, y + 16 - 1);
+mask_index = spr_64_32;
+mp_grid_add_instances(movementGrid, self, true);
 
 
 // Object type, used for selection and targeting purposes

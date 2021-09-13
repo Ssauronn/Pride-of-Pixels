@@ -18,6 +18,9 @@ if ds_exists(objectTargetList, ds_type_list) {
 	}
 }
 */
+if path_exists(myPath) {
+	draw_path(myPath, x, y, true);
+}
 
 //draw_text(x, y, string(currentAction))
 //draw_text(x, y, string(objectRealTeam) + " = Real Team");
