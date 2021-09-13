@@ -91,6 +91,7 @@ function initialize_object_data() {
 			currentSprite = workerSprite[currentAction][currentDirection];
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
@@ -122,7 +123,9 @@ function initialize_object_data() {
 			sprite_index = spr_building_xlarge;
 			var floor_x_ = floor(x / 16) * 16;
 			var floor_y_ = floor(y / 16) * 16;
-			mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mask_index = spr_64_64;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
 			break;
 		#endregion
 	}
