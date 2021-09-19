@@ -355,11 +355,11 @@ function unit_move() {
 		}
 		// Used only if click area does not have any valid spots to move to - in which case,
 		// this variable takes over, reassigns originalTargetToMoveTo variables to nearest
-		// location within the search area to the object that's also within a plus sign design
+		// location within the search area to the object that's also within a plus sign shape
 		// around the object.
 		cannot_move_without_better_coordinates_ = false;
-
-
+		
+		
 		#region Check for valid start for search
 		var direction_to_search_in_, original_direction_to_search_in_;
 		// Search towards the object first starting at the click point
@@ -532,7 +532,6 @@ function unit_move() {
 						// If a search has already happened before, and a location seperate from the click location is now needing
 						// to be checked, check that location instead.
 						if specificLocationNeedsToBeChecked {
-							specificLocationNeedsToBeChecked = false;
 							current_target_to_move_to_x_ = originalTargetToMoveToX + ((right_n_ - left_n_) * 16);
 							current_target_to_move_to_y_ = originalTargetToMoveToY + ((bottom_n_ - top_n_) * 16);
 							// I can check here to see if a direct line of sight exists, and if so, I don't
@@ -620,6 +619,11 @@ function unit_move() {
 							// This will only activate at the very beginning, when specificLocationNeedsToBeChecked is set to false
 							// and so is new_location_needs_to_be_checked_.
 							if !new_location_needs_to_be_checked_ {
+								if path_exists(myPath) {
+									path_delete(myPath);
+									myPath = noone;
+								}
+								myPath = path_add();
 								// I can check here to see if a direct line of sight exists, and if so, I don't
 								// even need to check for a path below, just set the variables that are set below
 								// and include a movement section using mp_potential to move the unit.
@@ -906,6 +910,11 @@ function unit_move() {
 									forbidden_to_search_ = false;
 								}
 							}
+						}
+						// I reset this variable here, because the above two statements before this rely on whether this variable
+						// is true or not, and I can't reset it until after both have ran their course.
+						if specificLocationNeedsToBeChecked {
+							specificLocationNeedsToBeChecked = false;
 						}
 					}
 				}
@@ -1528,7 +1537,10 @@ function unit_move() {
 									else if (movementLeaderOrFollowing != "Leader") {
 										myPath = path_duplicate(movementLeaderOrFollowing.myPath);
 										var check_for_alt_paths_ = false;
-										if path_get_number(myPath) > 1 {
+										if !line_of_sight_exists_to_target(x + 8, y + 8, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) {
+											create_new_path_ = true;
+										}
+										else if path_get_number(myPath) > 1 {
 											if path_get_number(myPath) > 2 {
 												// - 2 because path_get_number gets the number of points on a path, while the points are ordered
 												// starting at 0, so I subtract 1 to get to the index of the last point in the path, and then I
@@ -1944,8 +1956,61 @@ function unit_move() {
 							if currentDirection > 3 {
 								currentDirection -= 4;
 							}
-							x += x_vector_ + x_clip_vector_;
-							y += y_vector_ + y_clip_vector_;
+							// Set the vector to avoid clipping into solid objects
+							var p, x_adjustor_, y_adjustor_, x_avoidance_vector_, y_avoidance_vector_;
+							x_adjustor_ = 0;
+							y_adjustor_ = 0;
+							x_avoidance_vector_ = 0;
+							y_avoidance_vector_ = 0;
+							for (p = 0; p < 4; p++) {
+								// If the count for the for loop is odd or even, set various variables
+								if p & 1 {
+									if p == 3 {
+										x_adjustor_ = 0;
+										y_adjustor_ = 15;
+									}
+									else {
+										x_adjustor_ = 15;
+										y_adjustor_ = 0;
+									}
+								}
+								else {
+									if p == 0 {
+										x_adjustor_ = 0;
+										y_adjustor_ = 0;
+									}
+									else {
+										x_adjustor_ = 15;
+										y_adjustor_ = 15;
+									}
+								}
+								if mp_grid_get_cell(movementGrid, floor(((x + x_adjustor_) + x_vector_ + x_clip_vector_) / 16), floor(((y + y_adjustor_) + y_vector_ + y_clip_vector_) / 16)) == -1 {
+									if mp_grid_get_cell(movementGrid, floor(((x + x_adjustor_) + x_vector_ + x_clip_vector_) / 16), floor((y + y_adjustor_) / 16)) == 0 {
+										x_avoidance_vector_ = abs(y_vector_) * sign(x_vector_);
+										y_vector_ = 0;
+										y_clip_vector_ = 0;
+										break;
+									}
+									if mp_grid_get_cell(movementGrid, floor((x + x_adjustor_) / 16), floor(((y + y_adjustor_) + y_vector_ + y_clip_vector_) / 16)) == 0 {
+										y_avoidance_vector_ = abs(x_vector_) * sign(y_vector_);
+										x_vector_ = 0;
+										x_clip_vector_ = 0;
+										break;
+									}
+								}
+							}
+							// Finally, check to see if there's movement. I discovered there are rare instances where rounding 
+							// ends up with a decimal number that shifts the unit into a situation where it can't move due to a
+							// tiny decimal off placing the unit. So I just round the value to the nearest whole number if no
+							// movement exists to fix that automatically.
+							if ((x_vector_ + x_clip_vector_ + x_avoidance_vector_) == 0) && ((y_vector_ + y_clip_vector_ + y_avoidance_vector_) == 0) {
+								x = round(x);
+								y = round(y);
+							}
+							else {
+								x += x_vector_ + x_clip_vector_ + x_avoidance_vector_;
+								y += y_vector_ + y_clip_vector_ + y_avoidance_vector_;
+							}
 						}
 						// Otherwise if the path only has 1 point on it, move it
 						else if point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) > movementSpeed * 2 {
@@ -1956,8 +2021,61 @@ function unit_move() {
 							if currentDirection > 3 {
 								currentDirection -= 4;
 							}
-							x += x_vector_ + x_clip_vector_;
-							y += y_vector_ + y_clip_vector_;
+							// Set the vector to avoid clipping into solid objects
+							var p, x_adjustor_, y_adjustor_, x_avoidance_vector_, y_avoidance_vector_;
+							x_adjustor_ = 0;
+							y_adjustor_ = 0;
+							x_avoidance_vector_ = 0;
+							y_avoidance_vector_ = 0;
+							for (p = 0; p < 4; p++) {
+								// If the count for the for loop is odd or even, set various variables
+								if p & 1 {
+									if p == 3 {
+										x_adjustor_ = 0;
+										y_adjustor_ = 15;
+									}
+									else {
+										x_adjustor_ = 15;
+										y_adjustor_ = 0;
+									}
+								}
+								else {
+									if p == 0 {
+										x_adjustor_ = 0;
+										y_adjustor_ = 0;
+									}
+									else {
+										x_adjustor_ = 15;
+										y_adjustor_ = 15;
+									}
+								}
+								if mp_grid_get_cell(movementGrid, floor(((x + x_adjustor_) + x_vector_ + x_clip_vector_) / 16), floor(((y + y_adjustor_) + y_vector_ + y_clip_vector_) / 16)) == -1 {
+									if mp_grid_get_cell(movementGrid, floor(((x + x_adjustor_) + x_vector_ + x_clip_vector_) / 16), floor((y + y_adjustor_) / 16)) == 0 {
+										x_avoidance_vector_ = abs(y_vector_) * sign(x_vector_);
+										y_vector_ = 0;
+										y_clip_vector_ = 0;
+										break;
+									}
+									if mp_grid_get_cell(movementGrid, floor((x + x_adjustor_) / 16), floor(((y + y_adjustor_) + y_vector_ + y_clip_vector_) / 16)) == 0 {
+										y_avoidance_vector_ = abs(x_vector_) * sign(y_vector_);
+										x_vector_ = 0;
+										x_clip_vector_ = 0;
+										break;
+									}
+								}
+							}
+							// Finally, check to see if there's movement. I discovered there are rare instances where rounding 
+							// ends up with a decimal number that shifts the unit into a situation where it can't move due to a
+							// tiny decimal off placing the unit. So I just round the value to the nearest whole number if no
+							// movement exists to fix that automatically.
+							if ((x_vector_ + x_clip_vector_ + x_avoidance_vector_) == 0) && ((y_vector_ + y_clip_vector_ + y_avoidance_vector_) == 0) {
+								x = round(x);
+								y = round(y);
+							}
+							else {
+								x += x_vector_ + x_clip_vector_ + x_avoidance_vector_;
+								y += y_vector_ + y_clip_vector_ + y_avoidance_vector_;
+							}
 						}
 						// Else if the unit is close enough that a path is not needed, finish movement.
 						else {
@@ -1974,6 +2092,7 @@ function unit_move() {
 							path_delete_point(myPath, 0);
 						}
 					}
+					
 				}
 			}
 			// Else if point distance between object and target location is less than the move
