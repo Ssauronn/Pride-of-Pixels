@@ -477,7 +477,7 @@ function unit_move() {
 		}
 		// Only check for a straight shot to the target location if the current command is to move. Otherwise, I should be
 		// checking for a path anyways to resources or enemies.
-		if line_of_sight_exists_to_target(x_, y_, targetToMoveToX, targetToMoveToY) && (objectCurrentCommand == "Move") {
+		if (line_of_sight_exists_to_target(x_, y_, targetToMoveToX, targetToMoveToY) && line_of_sight_exists_to_target(x_ + 15, y_ + 15, targetToMoveToX, targetToMoveToY)) && (objectCurrentCommand == "Move") {
 			validPathFound = true;
 			can_be_evaluated_this_frame_ = true;
 		}
@@ -531,13 +531,16 @@ function unit_move() {
 						myPath = path_add();
 						// If a search has already happened before, and a location seperate from the click location is now needing
 						// to be checked, check that location instead.
+						var specificLocationNeedsToBeChecked_was_true_ = false;
 						if specificLocationNeedsToBeChecked {
+							specificLocationNeedsToBeChecked = false;
+							specificLocationNeedsToBeChecked_was_true_ = true;
 							current_target_to_move_to_x_ = originalTargetToMoveToX + ((right_n_ - left_n_) * 16);
 							current_target_to_move_to_y_ = originalTargetToMoveToY + ((bottom_n_ - top_n_) * 16);
 							// I can check here to see if a direct line of sight exists, and if so, I don't
 							// even need to check for a path below, just set the variables that are set below
 							// and include a movement section using mp_potential to move the unit.
-							if line_of_sight_exists_to_target(x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_) && (objectCurrentCommand == "Move") {
+							if ((line_of_sight_exists_to_target(x_, y_, current_target_to_move_to_x_, current_target_to_move_to_y_)) && (line_of_sight_exists_to_target(x_ + 15, y_ + 15, current_target_to_move_to_x_, current_target_to_move_to_y_))) && (objectCurrentCommand == "Move") {
 								// Reset path
 								if path_exists(myPath) {
 									path_delete(myPath);
@@ -608,7 +611,7 @@ function unit_move() {
 						// and it was found to be invalid, start searching for a new specific location to check, if needed.
 						// On the very first time this code is run, it will check for an mp_grid_path to original location
 						// and never run that line again.
-						if (!specificLocationNeedsToBeChecked) || new_location_needs_to_be_checked_ {
+						if (!specificLocationNeedsToBeChecked_was_true_) || new_location_needs_to_be_checked_ {
 							// Check for a path only if there wasn't already a previous check at a different location
 							// in this frame. Since new_location_needs_to_be_checked_ is set to true when the
 							// specificLocationNeedsToBeChecked wasn't valid, this will only activate a path check
@@ -627,7 +630,7 @@ function unit_move() {
 								// I can check here to see if a direct line of sight exists, and if so, I don't
 								// even need to check for a path below, just set the variables that are set below
 								// and include a movement section using mp_potential to move the unit.
-								if line_of_sight_exists_to_target(x_, y_, originalTargetToMoveToX, originalTargetToMoveToY) && (objectCurrentCommand == "Move") {
+								if ((line_of_sight_exists_to_target(x_, y_, originalTargetToMoveToX, originalTargetToMoveToY)) && (line_of_sight_exists_to_target(x_ + 15, y_ + 15, originalTargetToMoveToX, originalTargetToMoveToY))) && (objectCurrentCommand == "Move") {
 									// Reset path
 									if path_exists(myPath) {
 										path_delete(myPath);
@@ -911,18 +914,13 @@ function unit_move() {
 								}
 							}
 						}
-						// I reset this variable here, because the above two statements before this rely on whether this variable
-						// is true or not, and I can't reset it until after both have ran their course.
-						if specificLocationNeedsToBeChecked {
-							specificLocationNeedsToBeChecked = false;
-						}
 					}
 				}
 			}
 			// Else if the unit is set to follow another unit, determine various situations where it should or should not 
 			// wait for the leader unit to create a path to follow along.
 			else if movementLeaderOrFollowing != "Leader" && instance_exists(movementLeaderOrFollowing) {
-				if (line_of_sight_exists_to_target(x, y, targetToMoveToX, targetToMoveToY)) && (!path_exists(myPath)) {
+				if ((line_of_sight_exists_to_target(x, y, targetToMoveToX, targetToMoveToY)) && (line_of_sight_exists_to_target(x + 15, y + 15, targetToMoveToX, targetToMoveToY))) && (!path_exists(myPath)) {
 					validPathFound = false;
 					movementLeaderOrFollowing = "Leader";
 				}
@@ -1046,6 +1044,13 @@ function unit_move() {
 						follower_can_find_path_ = true;
 					}
 					else if (instance_exists(movementLeaderOrFollowing)) && (path_exists(movementLeaderOrFollowing.myPath)) {
+						follower_can_find_path_ = true;
+					}
+					// If the follower is not in line of sight, but the leader is, and the leader doesn't 
+					// make a path but begins moving towards the target location, the follower needs to
+					// set itself to a leader to make its own path.
+					else if (instance_exists(movementLeaderOrFollowing)) && (!path_exists(movementLeaderOrFollowing.myPath)) && movementLeaderOrFollowing.validLocationFound && movementLeaderOrFollowing.validPathFound {
+						movementLeaderOrFollowing = "Leader";
 						follower_can_find_path_ = true;
 					}
 					// Figure out a valid path to an adjusted location if allowed
@@ -1517,7 +1522,7 @@ function unit_move() {
 									// to the move target. If neither of those are the case, that's fine, just continue the search.
 									var path_found_ = false;
 									var create_new_path_ = false;
-									if line_of_sight_exists_to_target(x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY) && (objectCurrentCommand == "Move") {
+									if ((line_of_sight_exists_to_target(x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY)) && (line_of_sight_exists_to_target(x_ + shifted_x_ + 15, y_ + shifted_y_ + 15, specificLocationToBeCheckedX, specificLocationToBeCheckedY))) && (objectCurrentCommand == "Move") {
 										path_found_ = true;
 										if path_exists(myPath) {
 											path_delete(myPath);

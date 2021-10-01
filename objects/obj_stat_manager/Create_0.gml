@@ -10,7 +10,7 @@ team_struct = function(team_) constructor {
 }
 // Create an array and assign it to globalvar player, then give each array a struct to hold.
 globalvar player, totalAmountOfTeams;
-// Neutral, player, and enemy team means that this number will normally never dip below 3.
+// Neutral, player, and enemy team means that the count will normally never dip below 3.
 totalAmountOfTeams = 3;
 var i;
 for (i = 0; i < totalAmountOfTeams; i++) {
