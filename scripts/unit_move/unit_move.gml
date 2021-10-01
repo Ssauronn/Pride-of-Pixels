@@ -432,7 +432,14 @@ function unit_move() {
 			}
 			// Move the unit while waiting for a path to be found.
 			if point_distance(x, y, targetToMoveToX, targetToMoveToY) > groupRowWidth * 16 {
+				var orig_x_, orig_y_;
+				orig_x_ = x;
+				orig_y_ = y;
 				mp_potential_step(targetToMoveToX, targetToMoveToY, movementSpeed, false);
+				if (mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor((y + 15) / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + 15) / 16)) == -1) {
+					x = orig_x_;
+					y = orig_y_;
+				}
 			}
 		}
 		else {
