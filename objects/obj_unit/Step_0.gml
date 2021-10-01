@@ -755,36 +755,6 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 				path_delete(myPath);
 				myPath = -1;
 			}
-			/*
-			if x or y + the additional movement puts the unit into a space occupied by a non-moving object (like a resource
-			or building) then don't move it in that direction, and instead add the movement that was going to the x or y
-			coordinate to the opposite coordingate, via adjusting the vectors. I add the value of the absolute value of the 
-			opposite vectors but I multiply by the sign of the original vectors to make sure I'm not just subtracting from 
-			the original vectors.
-			*/
-			/*var x_adjustment_, y_adjustment_;
-			x_adjustment_ = 0;
-			y_adjustment_ = 0;
-			// If the top of the object is colliding with another object
-			if (mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1) && (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor(y / 16)) == -1) {
-				y_adjustment_ = ((floor((y + 16) / 16) * 16) - y);
-				y += y_adjustment_;
-			}
-			// If the right side of the object is colliding with another object
-			else if (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor(y / 16)) == -1) && (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor((y + 15) / 16)) == -1) {
-				x_adjustment_ = (x - (floor(x / 16) * 16));
-				x -= x_adjustment_;
-			}
-			// If the bottom side of the object is colliding with another object
-			else if (mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + 15) / 16)) == -1) && (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor((y + 15) / 16)) == -1) {
-				y_adjustment_ = (y - (floor(y / 16) * 16));
-				y -= y_adjustment_;
-			}
-			// If the left side of the object is colliding with another object
-			else if (mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1) && (mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + 15) / 16)) == -1) {
-				x_adjustment_ = ((floor((x + 16) / 16) * 16) - x);
-				x += x_adjustment_;
-			}*/
 			
 			// Set action to take and sprite direction (different from group direction)
 			currentAction = unitAction.move;
