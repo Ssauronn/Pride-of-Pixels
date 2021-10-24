@@ -1116,6 +1116,7 @@ function unit_move() {
 											searchHasJustBegun = true;
 											totalTimesSearched = 0;
 											closestPointsToObjectsHaveBeenSet = false;
+											movementLeaderOrFollowing = noone;
 											objectTarget = noone;
 											if path_exists(myPath) {
 												path_delete(myPath);
@@ -1757,6 +1758,7 @@ function unit_move() {
 											searchHasJustBegun = true;
 											totalTimesSearched = 0;
 											closestPointsToObjectsHaveBeenSet = false;
+											movementLeaderOrFollowing = noone;
 											if path_exists(myPath) {
 												path_delete(myPath);
 												myPath = -1;
@@ -1804,6 +1806,7 @@ function unit_move() {
 											searchHasJustBegun = true;
 											totalTimesSearched = 0;
 											closestPointsToObjectsHaveBeenSet = false;
+											movementLeaderOrFollowing = noone;
 											if path_exists(myPath) {
 												path_delete(myPath);
 												myPath = -1;
@@ -2100,7 +2103,7 @@ function unit_move() {
 							x = floor(targetToMoveToX / 16) * 16;
 							y = floor(targetToMoveToY / 16) * 16;
 						}
-						if ((path_get_number(myPath) > 1) && (point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= (sprite_width / 2))) || ((path_get_number(myPath) == 1) && (point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= movementSpeed)) {
+						if ((path_get_number(myPath) > 1) && (point_distance((x + 8), (y + 8), path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= (sprite_width / 2))) || ((path_get_number(myPath) == 1) && (point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= movementSpeed)) {
 							path_delete_point(myPath, 0);
 						}
 					}
@@ -2263,42 +2266,42 @@ function unit_move() {
 			ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
 			ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
 		}
-		changeVariablesWhenCloseToTarget = true;//
-		notAtTargetLocation = false;//
-		validLocationFound = true;//
-		validPathFound = true;//
-		justSpawned = false;//
+		changeVariablesWhenCloseToTarget = true;
+		notAtTargetLocation = false;
+		validLocationFound = true;
+		validPathFound = true;
+		justSpawned = false;
 		cannot_move_without_better_coordinates_ = false;
 		notAtTargetLocation = false;
-		needToStartGridSearch = false;//
-		x_n_ = 0;//
-		y_n_ = 0;//
-		right_n_ = 0;//
-		top_n_ = 0;//
-		left_n_ = 0;//
-		bottom_n_ = 0;//
-		rightWallFound = false;//
-		topWallFound = false;//
-		leftWallFound = false;//
-		bottomWallFound = false;//
-		rightForbidden = false;//
-		topForbidden = false;//
-		leftForbidden = false;//
-		bottomForbidden = false;//
-		baseSquareEdgeSize = 0;//
-		squareSizeIncreaseCount = 0;//
-		squareIteration = 0;//
-		squareTrueIteration = 0;//
-		tempCheckX = -1;//
-		tempCheckY = -1;//
-		groupRowWidth = 0;//
-		specificLocationNeedsToBeChecked = false;//
-		specificLocationToBeCheckedX = -1;//
-		specificLocationToBeCheckedY = -1;//
-		searchHasJustBegun = true;//
-		totalTimesSearched = 0;//
-		closestPointsToObjectsHaveBeenSet = false;//
-		movementLeaderOrFollowing = noone;//
+		needToStartGridSearch = false;
+		x_n_ = 0;
+		y_n_ = 0;
+		right_n_ = 0;
+		top_n_ = 0;
+		left_n_ = 0;
+		bottom_n_ = 0;
+		rightWallFound = false;
+		topWallFound = false;
+		leftWallFound = false;
+		bottomWallFound = false;
+		rightForbidden = false;
+		topForbidden = false;
+		leftForbidden = false;
+		bottomForbidden = false;
+		baseSquareEdgeSize = 0;
+		squareSizeIncreaseCount = 0;
+		squareIteration = 0;
+		squareTrueIteration = 0;
+		tempCheckX = -1;
+		tempCheckY = -1;
+		groupRowWidth = 0;
+		specificLocationNeedsToBeChecked = false;
+		specificLocationToBeCheckedX = -1;
+		specificLocationToBeCheckedY = -1;
+		searchHasJustBegun = true;
+		totalTimesSearched = 0;
+		closestPointsToObjectsHaveBeenSet = false;
+		movementLeaderOrFollowing = noone;
 		if path_exists(myPath) {
 			path_delete(myPath);
 			myPath = -1;

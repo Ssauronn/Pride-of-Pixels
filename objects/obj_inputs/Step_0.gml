@@ -31,17 +31,17 @@ if (mouseClampedX - viewX) <= mouseBufferDistanceToEdgeOfScreen {
 		obj_camera.x -= obj_camera.cameraMovementSpeed;
 	}
 }
-else if (viewX + viewW - mouseClampedX) <= mouseBufferDistanceToEdgeOfScreen {
+if (viewX + viewW - mouseClampedX) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("D")) {
 		obj_camera.x += obj_camera.cameraMovementSpeed;
 	}
 }
-else if (mouseClampedY - viewY) <= mouseBufferDistanceToEdgeOfScreen {
+if (mouseClampedY - viewY) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("W")) {
 		obj_camera.y -= obj_camera.cameraMovementSpeed;
 	}
 }
-else if (viewY + viewH - mouseClampedY) <= mouseBufferDistanceToEdgeOfScreen {
+if (viewY + viewH - mouseClampedY) <= mouseBufferDistanceToEdgeOfScreen {
 	if !keyboard_check(ord("S")) {
 		obj_camera.y += obj_camera.cameraMovementSpeed;
 	}
@@ -133,7 +133,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 			unit_selected_is_player_ = false;
 			wipe_all_non_players_ = false;
 			with obj_unit {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle((x + 8), (y + 8), left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
 					if objectVisibleTeam == player[1].team {
 						unit_selected_is_player_ = true;
 						wipe_all_non_players_ = true;
@@ -145,7 +145,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 				}
 			}
 			with obj_unit {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle((x + 8), (y + 8), left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
 					if !objectSelected {
 						if (unit_selected_is_player_ && objectVisibleTeam == player[1].team) || (!unit_selected_is_player_) {
 							objectSelected = true;
@@ -280,7 +280,7 @@ if (mbLeftPressedXCoordinate != -1) && (mbLeftPressedYCoordinate != -1) {
 			right_line_location_ = (floor(mouseClampedX / 16) * 16) + 15;
 			bottom_line_location_ = (floor(mouseClampedY / 16) * 16) + 15;
 			with obj_unit {
-				if point_in_rectangle(x, y, left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
+				if point_in_rectangle((x + 8), (y + 8), left_line_location_ - 2, top_line_location_ - 2, right_line_location_, bottom_line_location_) {
 					if !objectSelected {
 						unit_selected_ = true;
 						objectSelected = true;

@@ -1,5 +1,5 @@
 /// @description Initialize Camera Variables
-//window_set_fullscreen(true);
+window_set_fullscreen(true);
 target = obj_camera;
 idealHeight = 576;
 displayWidth = display_get_width();
@@ -9,7 +9,7 @@ aspectRatio = displayWidth / displayHeight;
 idealWidth = round(idealHeight * aspectRatio);
 
 // Camera movement
-cameraMovementSpeed = 12;
+cameraMovementSpeed = 10;
 
 // Perfect Pixel Scaling
 if displayWidth mod idealWidth != 0 {
