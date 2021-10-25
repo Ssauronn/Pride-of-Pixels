@@ -1669,7 +1669,7 @@ function unit_move() {
 				else /*if valid location exists*/{
 					if changeVariablesWhenCloseToTarget {
 						if instance_exists(objectTarget) && ds_exists(unitGridLocation, ds_type_grid) {
-							var target_ = ds_grid_value_y(unitGridLocation, 0, 0, ds_grid_width(unitGridLocation) - 1, ds_grid_height(unitGridLocation) - 1, objectTarget.id);
+						    var target_ = ds_grid_value_y(unitGridLocation, 0, 0, ds_grid_width(unitGridLocation) - 1, ds_grid_height(unitGridLocation) - 1, objectTarget.id);
 							if target_ != -1 {
 								if objectTarget.objectClassification == "Unit" {
 									if objectTarget.currentAction == unitAction.move {
