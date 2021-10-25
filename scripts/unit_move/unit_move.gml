@@ -2103,11 +2103,51 @@ function unit_move() {
 							x = floor(targetToMoveToX / 16) * 16;
 							y = floor(targetToMoveToY / 16) * 16;
 						}
+						// Clear each point on the path as the unit passes that point
 						if ((path_get_number(myPath) > 1) && (point_distance((x + 8), (y + 8), path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= (sprite_width / 2))) || ((path_get_number(myPath) == 1) && (point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= movementSpeed)) {
 							path_delete_point(myPath, 0);
 						}
+						// If the unit is within a narrow angle of the next pathway, but no line of sight exists to it's path point,
+						// the only possible situation is that its on the edge of a wall in the way. Simplest fix is to simply add another
+						// path point going around the wall.
+						var path_0_x_, path_0_y_;
+						path_0_x_ = path_get_point_x(myPath, 0);
+						path_0_y_ = path_get_point_y(myPath, 0);
+						var direction_to_path_point_0_ = point_direction((x + 8), (y + 8), path_0_x_, path_0_y_);
+						var deviation_from_right_angle_directions_ = direction_to_path_point_0_ mod 90;
+						if (deviation_from_right_angle_directions_ <= 10) || (deviation_from_right_angle_directions_ >= 80) {
+							if (!line_of_sight_exists_to_target((x + 8), (y + 8), path_0_x_, path_0_y_)) && (((x_vector_ + x_clip_vector_ + x_avoidance_vector_) == 0) || ((y_vector_ + y_clip_vector_ + y_avoidance_vector_) == 0)) {
+								var adjusted_direction_to_path_point_0_ = (direction_to_path_point_0_ + 45) div 90;
+								if adjusted_direction_to_path_point_0_ > 3 {
+									adjusted_direction_to_path_point_0_ -= 4;
+								}
+								if adjusted_direction_to_path_point_0_ > 1 {
+									adjusted_direction_to_path_point_0_ -= 2;
+								}
+								var mid_x_, mid_y_;
+								mid_x_ = (x + 8) + (lengthdir_x(point_distance((x + 8), (y + 8), path_0_x_, path_0_y_), direction_to_path_point_0_) / 2);
+								mid_y_ = (y + 8) + (lengthdir_y(point_distance((x + 8), (y + 8), path_0_x_, path_0_y_), direction_to_path_point_0_) / 2);
+								switch adjusted_direction_to_path_point_0_ {
+									case 0:
+										if mp_grid_get_cell(movementGrid, floor(mid_x_ / 16), (floor(mid_y_ / 16) + 1)) == 0 {
+											path_insert_point(myPath, 0, (floor(mid_x_ / 16) * 16) + 7, ((floor(mid_y_ / 16) * 16) + 16 + 7), 0);
+										}
+										else if mp_grid_get_cell(movementGrid, floor(mid_x_ / 16), (floor(mid_y_ / 16) - 1)) == 0 {
+											path_insert_point(myPath, 0, (floor(mid_x_ / 16) * 16) + 7, ((floor(mid_y_ / 16) * 16) - 16 - 8), 0);
+										}
+										break;
+									case 1:
+										if mp_grid_get_cell(movementGrid, (floor(mid_x_ / 16) + 1), floor(mid_y_ / 16)) == 0 {
+											path_insert_point(myPath, 0, ((floor(mid_x_ / 16) * 16) + 16 + 7), (floor(mid_y_ / 16) * 16) + 7, 0);
+										}
+										else if mp_grid_get_cell(movementGrid, (floor(mid_x_ / 16) - 1), floor(mid_y_ / 16)) == 0 {
+											path_insert_point(myPath, 0, ((floor(mid_x_ / 16) * 16) - 16 - 8), (floor(mid_y_ / 16) * 16) + 7, 0);
+										}
+										break;
+								}
+							}
+						}
 					}
-					
 				}
 			}
 			// Else if point distance between object and target location is less than the move
