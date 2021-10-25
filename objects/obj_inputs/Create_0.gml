@@ -1,6 +1,6 @@
 ///@description Initialize Input Variables
 #region Mouse UI
-mouseBufferDistanceToEdgeOfScreen = 4;
+mouseBufferDistanceToEdgeOfScreen = 7;
 
 mbLeftPressedXCoordinate = -1;
 mbLeftPressedYCoordinate = -1;

@@ -3,7 +3,7 @@ if !initialized {
 	initialize_object_data();
 }
 // Depth setting
-depth = (y / 1000);
+depth = -y//(y / 1000);
 
 // Stop certain sections of code if not on screen
 var top_y_ = y - sprite_get_height(sprite_index) + 16;

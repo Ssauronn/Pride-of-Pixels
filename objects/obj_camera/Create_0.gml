@@ -9,7 +9,7 @@ aspectRatio = displayWidth / displayHeight;
 idealWidth = round(idealHeight * aspectRatio);
 
 // Camera movement
-cameraMovementSpeed = 12;
+cameraMovementSpeed = 10;
 
 // Perfect Pixel Scaling
 if displayWidth mod idealWidth != 0 {

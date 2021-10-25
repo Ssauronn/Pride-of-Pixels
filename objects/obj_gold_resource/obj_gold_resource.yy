@@ -6,8 +6,8 @@
   "solid": true,
   "visible": true,
   "spriteMaskId": {
-    "name": "spr_16_16",
-    "path": "sprites/spr_16_16/spr_16_16.yy",
+    "name": "spr_48_32",
+    "path": "sprites/spr_48_32/spr_48_32.yy",
   },
   "persistent": false,
   "parentObjectId": null,
