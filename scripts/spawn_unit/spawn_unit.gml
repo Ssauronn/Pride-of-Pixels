@@ -65,7 +65,7 @@ function spawn_unit(type_, team_) {
 		bottom_side_ = y - y_offset_;
 		center_y_ = y + ((bottom_side_ - top_side_) / 2);
 		
-		var spawn_direction_ = floor((point_direction(center_x_, center_y_, rallyPointX, rallyPointY) + 45) / 90);
+		var spawn_direction_ = (point_direction(center_x_, center_y_, rallyPointX, rallyPointY) + 45) div 90;
 		if spawn_direction_ > 3 {
 			spawn_direction_ = 0;
 		}

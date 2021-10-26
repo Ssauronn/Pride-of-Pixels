@@ -1938,7 +1938,7 @@ function unit_move() {
 							var x_vector_, y_vector_;
 							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
 							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
-							currentDirection = floor((point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45) / 90);
+							currentDirection = (point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
 							}
@@ -1967,7 +1967,7 @@ function unit_move() {
 							var x_vector_, y_vector_;
 							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
 							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
-							currentDirection = floor((point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8) + 45) / 90);
+							currentDirection = (point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
 							}
@@ -2032,7 +2032,7 @@ function unit_move() {
 							var x_vector_, y_vector_;
 							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
 							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
-							currentDirection = floor((point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) + 45) / 90);
+							currentDirection = (point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
 							}
