@@ -12,8 +12,8 @@ objectClassification = "Building";
 objectSelected = false;
 objectOnScreen = false;
 objectTarget = noone;
-rallyPointX = floor((x / 16) * 16);
-rallyPointY = floor((y / 16) * 16);
+rallyPointX = (x div 16) * 16;
+rallyPointY = (y div 16) * 16;
 
 // Team 1 is defaulted to player team.
 objectRealTeam = 1;
