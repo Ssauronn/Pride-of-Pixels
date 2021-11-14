@@ -6,21 +6,21 @@ draw_text_transformed(toolbarLeftDividerX + (sprite_get_width(spr_divider) * too
 // Draw the toolbar
 draw_sprite_ext(spr_toolbar_background, 0, universalGUI.background.x, universalGUI.background.y, universalGUI.background.xScaling, universalGUI.background.yScaling, 0, c_white, 1);
 // Resource Icons - Always Present
-draw_sprite(spr_ruby_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y"));
-draw_sprite(spr_gold_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y"));
-draw_sprite(spr_wood_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y"));
-draw_sprite(spr_food_icon, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y"));
-draw_sprite_ext(spr_worker_front_idle, 0, toolbarResourceIconX, toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y"), 2, 2, 0, c_white, 1);
+draw_sprite_ext(spr_ruby_icon, 0, universalGUI.rubyIcon.x, universalGUI.rubyIcon.y, universalGUI.rubyIcon.xScaling, universalGUI.rubyIcon.yScaling, 0, c_white, 1);
+draw_sprite_ext(spr_gold_icon, 0, universalGUI.goldIcon.x, universalGUI.goldIcon.y, universalGUI.goldIcon.xScaling, universalGUI.goldIcon.yScaling, 0, c_white, 1);
+draw_sprite_ext(spr_wood_icon, 0, universalGUI.woodIcon.x, universalGUI.woodIcon.y, universalGUI.woodIcon.xScaling, universalGUI.woodIcon.yScaling, 0, c_white, 1);
+draw_sprite_ext(spr_food_icon, 0, universalGUI.foodIcon.x, universalGUI.foodIcon.y, universalGUI.foodIcon.xScaling, universalGUI.foodIcon.xScaling, 0, c_white, 1);
+draw_sprite_ext(spr_worker_front_idle, 0, universalGUI.popIcon.x, universalGUI.popIcon.y, universalGUI.popIcon.xScaling, universalGUI.popIcon.yScaling, 0, c_white, 1);
 // Resource Text - Always Present
-draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].rubies), 2, 2, 0);
-draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].gold), 2, 2, 0);
-draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].wood), 2, 2, 0);
-draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].food), 2, 2, 0);
-draw_text_transformed(toolbarResourceTextX, toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y") - 1, string(player[1].population), 2, 2, 0);
+draw_text_transformed(universalGUI.rubyAmount.x, universalGUI.rubyAmount.y - 1, string(player[1].rubies), universalGUI.rubyAmount.xScaling, universalGUI.rubyAmount.yScaling, 0);
+draw_text_transformed(universalGUI.goldAmount.x, universalGUI.goldAmount.y - 1, string(player[1].gold), universalGUI.goldAmount.xScaling, universalGUI.goldAmount.yScaling, 0);
+draw_text_transformed(universalGUI.woodAmount.x, universalGUI.woodAmount.y - 1, string(player[1].wood), universalGUI.woodAmount.xScaling, universalGUI.woodAmount.yScaling, 0);
+draw_text_transformed(universalGUI.foodAmount.x, universalGUI.foodAmount.y - 1, string(player[1].food), universalGUI.foodAmount.xScaling, universalGUI.foodAmount.yScaling, 0);
+draw_text_transformed(universalGUI.popAmount.x, universalGUI.popAmount.y - 1, string(player[1].population), universalGUI.popAmount.xScaling, universalGUI.popAmount.yScaling, 0);
 // Dividers
 // Vertical Dividers
-draw_sprite_ext(spr_divider, 0, toolbarLeftDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
-draw_sprite_ext(spr_divider, 0, toolbarRightDividerX, toolbarDividerY, toolbarDividerXScale, toolbarDividerYScale, 0, c_white, 1);
+draw_sprite_ext(spr_divider, 0, universalGUI.leftDivider.x, universalGUI.leftDivider.y, universalGUI.leftDivider.xScaling, universalGUI.leftDivider.yScaling, 0, c_white, 1);
+draw_sprite_ext(spr_divider, 0, universalGUI.rightDivider.x, universalGUI.rightDivider.y, universalGUI.rightDivider.xScaling, universalGUI.rightDivider.yScaling, 0, c_white, 1);
 // Solid Dividers - Left Section
 draw_sprite_ext(spr_horizontal_divider, 0, toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarButtonSpacing, toolbarHorizontalDividerY, toolbarHorizontalDividerXScale, toolbarDividerXScale, 0, c_white, 1);
 draw_sprite_ext(spr_solid_divider, 0, toolbarLeftDividerX + (sprite_get_width(spr_divider) * toolbarDividerXScale) + toolbarButtonSpacing, toolbarTopY + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 4) + (sprite_get_width(spr_divider) * toolbarDividerXScale), toolbarSolidDividerXScale, toolbarSolidDividerYScale, 0, c_white, 1); 

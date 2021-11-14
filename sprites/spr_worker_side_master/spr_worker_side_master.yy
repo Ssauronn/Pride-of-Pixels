@@ -153,8 +153,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Worker",
-    "path": "folders/Units/Sprites/Worker.yy",
+    "name": "Master",
+    "path": "folders/Units/Sprites/Worker/Master.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_worker_side_master",
