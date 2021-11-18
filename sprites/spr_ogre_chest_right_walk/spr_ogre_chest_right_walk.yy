@@ -82,7 +82,7 @@
   "nineSlice": null,
   "parent": {
     "name": "Walk",
-    "path": "folders/Units/Sprites/Ogre/Torso/Walk.yy",
+    "path": "folders/Units/Sprites/Ogre/Chest/Walk.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_ogre_chest_right_walk",

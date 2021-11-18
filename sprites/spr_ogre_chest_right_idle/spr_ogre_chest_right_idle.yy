@@ -74,7 +74,7 @@
   "nineSlice": null,
   "parent": {
     "name": "Idle",
-    "path": "folders/Units/Sprites/Ogre/Torso/Idle.yy",
+    "path": "folders/Units/Sprites/Ogre/Chest/Idle.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_ogre_chest_right_idle",

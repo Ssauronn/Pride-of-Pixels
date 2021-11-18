@@ -90,7 +90,7 @@
   "nineSlice": null,
   "parent": {
     "name": "Attack",
-    "path": "folders/Units/Sprites/Ogre/Torso/Attack.yy",
+    "path": "folders/Units/Sprites/Ogre/Chest/Attack.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_ogre_chest_left_attack",
