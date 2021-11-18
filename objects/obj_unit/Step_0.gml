@@ -758,7 +758,7 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 			
 			// Set action to take and sprite direction (different from group direction)
 			currentAction = unitAction.move;
-			currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+			currentDirection = point_direction(x, y, targetToMoveToX, targetToMoveToY) div 90;
 		}
 	}
 	// Else if the area that was clicked on is empty, just move normally.
@@ -790,7 +790,7 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 							if adjusted_click_direction_ >= 360 {
 								adjusted_click_direction_ -= 360;
 							}
-							click_direction_ = floor(adjusted_click_direction_ / 90);
+							click_direction_ = adjusted_click_direction_ div 90;
 							switch click_direction_ {
 								case 0:
 									x_sign_ = 1;
@@ -840,11 +840,11 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 				}
 			}
 			else {
-				groupDirectionToMoveIn = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+				groupDirectionToMoveIn = point_direction(x, y, targetToMoveToX, targetToMoveToY) div 90;
 			}
 		}
 		else {
-			groupDirectionToMoveIn = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+			groupDirectionToMoveIn = point_direction(x, y, targetToMoveToX, targetToMoveToY) div 90;
 		}
 		// If the object is selected and player controlled, or if the object has been automatically instructed to move,
 		// do so.
@@ -940,7 +940,7 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 			}
 			// Set action to take and sprite direction (different from group direction)
 			currentAction = unitAction.move;
-			currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+			currentDirection = point_direction(x, y, targetToMoveToX, targetToMoveToY) div 90;
 		}
 	}
 	objectNeedsToMove = false;
@@ -1011,7 +1011,7 @@ if objectDetectTarget <= 0 {
 										targetToMoveToX = instance_nearby_.x;
 										targetToMoveToY = instance_nearby_.y;
 										currentAction = unitAction.attack;
-										currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
+										currentDirection = point_direction(x, y, targetToMoveToX, targetToMoveToY) div 90;
 										ds_list_destroy(objectDetectedList);
 										objectDetectedList = noone;
 										break;

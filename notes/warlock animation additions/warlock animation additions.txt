@@ -1,0 +1,2 @@
+some sort of particle effect or animation showing a charging up of the fireball before launching
+- an increasing amount of particles gathering in front of hands before coalescing into the fireball?

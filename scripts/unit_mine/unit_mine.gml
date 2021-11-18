@@ -7,7 +7,7 @@ function unit_mine() {
 		// Check to see if a target to mine exists and the target is a valid target, or if a target
 		// to attack exists and is valid - otherwise, active variables to search for a new target.
 		if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Resource") {
-			currentDirection = floor((point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) / 90);
+			currentDirection = (point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) div 90;
 			if currentDirection > 3 {
 				currentDirection -= 4;
 			}
@@ -71,7 +71,7 @@ function unit_mine() {
 			}
 		}
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Unit") && (objectTarget.objectRealTeam != objectRealTeam) {
-			currentDirection = floor((point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) / 90);
+			currentDirection = (point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) div 90;
 			if currentDirection > 3 {
 				currentDirection -= 4;
 			}

@@ -73,61 +73,61 @@ universalGUI = {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y"),
 		xScaling : (toolbarButtonWidth / sprite_get_width(spr_ruby_icon)),
-		yScaling : (toolbarButtonWidth / sprite_get_width(spr_ruby_icon))
+		yScaling : (toolbarButtonWidth / sprite_get_height(spr_ruby_icon))
 	},
 	rubyAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		xScaling : 2,
-		yScaling : 2
+		xScaling : toolbarButtonWidth / string_height("y"),
+		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	goldIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y"),
 		xScaling : (toolbarButtonWidth / sprite_get_width(spr_gold_icon)),
-		yScaling : (toolbarButtonWidth / sprite_get_width(spr_gold_icon))
+		yScaling : (toolbarButtonWidth / sprite_get_height(spr_gold_icon))
 	},
 	goldAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		xScaling : 2,
-		yScaling : 2
+		xScaling : toolbarButtonWidth / string_height("y"),
+		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	woodIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y"),
 		xScaling : (toolbarButtonWidth / sprite_get_width(spr_wood_icon)),
-		yScaling : (toolbarButtonWidth / sprite_get_width(spr_wood_icon))
+		yScaling : (toolbarButtonWidth / sprite_get_height(spr_wood_icon))
 	},
 	woodAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		xScaling : 2,
-		yScaling : 2
+		xScaling : toolbarButtonWidth / string_height("y"),
+		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	foodIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y"),
 		xScaling : (toolbarButtonWidth / sprite_get_width(spr_food_icon)),
-		yScaling : (toolbarButtonWidth / sprite_get_width(spr_food_icon))
+		yScaling : (toolbarButtonWidth / sprite_get_height(spr_food_icon))
 	},
 	foodAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		xScaling : 2,
-		yScaling : 2
+		xScaling : toolbarButtonWidth / string_height("y"),
+		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	popIcon : {
 		x : toolbarResourceIconX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y"),
-		xScaling : (toolbarButtonWidth / sprite_get_width(spr_worker_front_idle)),
-		yScaling : (toolbarButtonWidth / sprite_get_width(spr_worker_front_idle))
+		xScaling : (sprite_get_width(spr_food_icon) * (toolbarButtonWidth / sprite_get_width(spr_food_icon))) / sprite_get_width(spr_worker_front_idle) * (sprite_get_width(spr_food_icon) / sprite_get_width(spr_worker_front_idle)),
+		yScaling : (sprite_get_height(spr_food_icon) * (toolbarButtonWidth / sprite_get_height(spr_food_icon))) / sprite_get_height(spr_worker_front_idle) * (sprite_get_height(spr_food_icon) / sprite_get_height(spr_worker_front_idle))
 	},
 	popAmount : {
 		x : toolbarResourceTextX,
 		y : toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y") - 1,
-		xScaling : 2,
-		yScaling : 2
+		xScaling : toolbarButtonWidth / string_height("y"),
+		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	leftDivider : {
 		x : toolbarLeftDividerX,

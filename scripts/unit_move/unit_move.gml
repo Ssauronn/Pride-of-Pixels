@@ -1669,7 +1669,7 @@ function unit_move() {
 				else /*if valid location exists*/{
 					if changeVariablesWhenCloseToTarget {
 						if instance_exists(objectTarget) && ds_exists(unitGridLocation, ds_type_grid) {
-							var target_ = ds_grid_value_y(unitGridLocation, 0, 0, ds_grid_width(unitGridLocation) - 1, ds_grid_height(unitGridLocation) - 1, objectTarget.id);
+						    var target_ = ds_grid_value_y(unitGridLocation, 0, 0, ds_grid_width(unitGridLocation) - 1, ds_grid_height(unitGridLocation) - 1, objectTarget.id);
 							if target_ != -1 {
 								if objectTarget.objectClassification == "Unit" {
 									if objectTarget.currentAction == unitAction.move {
@@ -1938,7 +1938,7 @@ function unit_move() {
 							var x_vector_, y_vector_;
 							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
 							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
-							currentDirection = floor((point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45) / 90);
+							currentDirection = (point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
 							}
@@ -1967,7 +1967,7 @@ function unit_move() {
 							var x_vector_, y_vector_;
 							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
 							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
-							currentDirection = floor((point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8) + 45) / 90);
+							currentDirection = (point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
 							}
@@ -2032,7 +2032,7 @@ function unit_move() {
 							var x_vector_, y_vector_;
 							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
 							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
-							currentDirection = floor((point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) + 45) / 90);
+							currentDirection = (point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
 							}
