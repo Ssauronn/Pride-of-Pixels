@@ -41,6 +41,8 @@ function unit_attack() {
 				}
 			}
 		}
+		// If the unit has a target, the target is a resource, and the unit is a worker, make it collect from
+		// that resource.
 		else if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Resource") && (objectType == "Worker") {
 			currentDirection = (point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) div 90;
 			if currentDirection > 3 {

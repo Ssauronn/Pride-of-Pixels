@@ -436,6 +436,9 @@ function unit_move() {
 				orig_x_ = x;
 				orig_y_ = y;
 				mp_potential_step(targetToMoveToX, targetToMoveToY, movementSpeed, false);
+				if objectRealTeam != 1 {
+					var yeet_ = 1;
+				}
 				if (mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor((y + 15) / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + 15) / 16)) == -1) {
 					x = orig_x_;
 					y = orig_y_;
@@ -1599,8 +1602,29 @@ function unit_move() {
 											}
 										}
 									}
+									// If the unit is a leader, and either no attack target exists, or the attack target is within
+									// line of sight of the new location to move to, then set that new location to move to as a valid
+									// path target. Otherwise, keep searching.
 									else if mp_grid_path(movementGrid, myPath, x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY, true) {
-										path_found_ = true;
+										// If the unit has a target
+										if instance_exists(objectTarget) {
+											// If the target is within line of sight, then that's a valid path
+											if line_of_sight_exists_to_target(specificLocationToBeCheckedX, specificLocationToBeCheckedY, objectTarget.x + 8, objectTarget.y + 8) {
+												path_found_ = true;
+											}
+											// If the target isn't within line of sight, then that isn't a valid path
+											else {
+												path_found_ = false;
+												if path_exists(myPath) {
+													path_delete(myPath);
+													myPath = noone;
+												}
+											}
+										}
+										// If the unit doesn't have a target, then its a valid path
+										else {
+											path_found_ = true;
+										}
 									}
 									if path_found_ {
 										still_need_to_search_ = false;
@@ -1612,6 +1636,20 @@ function unit_move() {
 										// script, so that in case something dynamic changes during movement, it can change its own
 										// path freely.
 										movementLeaderOrFollowing = "Leader";
+										// If this unit is targeting another unit, erase the first path point. It might be placed
+										// behind this unit, in which case this unit would perform a weird backtrack before continuing
+										// to chase, which I don't want.
+										if instance_exists(objectTarget) {
+											// If the path has more than a single path point on it, delete the first point.
+											//if path_get_number(myPath) > 1 {
+											//	path_delete_point(myPath, 0);
+											//}
+											// Else if the path only has a single movement point on it, which normally shouldn't
+											// ever happen, move that point down towards the center of the square its on.
+											//else if path_get_number(myPath) == 1 {
+												path_change_point(myPath, 0, path_get_point_x(myPath, 0) + 8, path_get_point_y(myPath, 0) + 8, 0);
+											//}
+										}
 										// Add self back to the unitGridLocation, so that other objects don't
 										// move on the same square.
 										if ds_exists(unitGridLocation, ds_type_grid) {
@@ -1675,7 +1713,7 @@ function unit_move() {
 									if objectTarget.currentAction == unitAction.move {
 										// If the distance to the target is less than its attack range, and the target its chasing
 										// is also moving, set a new target to move to equal to its own location once its within range.
-										var adjusted_object_range_ = 16 * 6;
+										var adjusted_object_range_ = objectRange;
 										if (distance_to_object(objectTarget) <= adjusted_object_range_) && (path_get_number(myPath) < ((adjusted_object_range_ / 16) * 2)) {
 											notAtTargetLocation = true;
 											validLocationFound = false;
@@ -1758,7 +1796,7 @@ function unit_move() {
 											searchHasJustBegun = true;
 											totalTimesSearched = 0;
 											closestPointsToObjectsHaveBeenSet = false;
-											movementLeaderOrFollowing = noone;
+											movementLeaderOrFollowing = "Leader";
 											if path_exists(myPath) {
 												path_delete(myPath);
 												myPath = -1;
@@ -1806,7 +1844,7 @@ function unit_move() {
 											searchHasJustBegun = true;
 											totalTimesSearched = 0;
 											closestPointsToObjectsHaveBeenSet = false;
-											movementLeaderOrFollowing = noone;
+											movementLeaderOrFollowing = "Leader";
 											if path_exists(myPath) {
 												path_delete(myPath);
 												myPath = -1;
@@ -1944,6 +1982,9 @@ function unit_move() {
 							}
 							x += x_vector_ + x_clip_vector_;
 							y += y_vector_ + y_clip_vector_;
+							if objectRealTeam != 1 {
+								var yeet_;
+							}
 						}
 						else {
 							if path_exists(myPath) {
@@ -2025,6 +2066,9 @@ function unit_move() {
 							else {
 								x += x_vector_ + x_clip_vector_ + x_avoidance_vector_;
 								y += y_vector_ + y_clip_vector_ + y_avoidance_vector_;
+								if objectRealTeam != 1 {
+									var yeet_;
+								}
 							}
 						}
 						// Otherwise if the path only has 1 point on it, move it
@@ -2090,6 +2134,9 @@ function unit_move() {
 							else {
 								x += x_vector_ + x_clip_vector_ + x_avoidance_vector_;
 								y += y_vector_ + y_clip_vector_ + y_avoidance_vector_;
+								if objectRealTeam != 1 {
+									var yeet_;
+								}
 							}
 						}
 						// Else if the unit is close enough that a path is not needed, finish movement.
