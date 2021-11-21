@@ -436,9 +436,6 @@ function unit_move() {
 				orig_x_ = x;
 				orig_y_ = y;
 				mp_potential_step(targetToMoveToX, targetToMoveToY, movementSpeed, false);
-				if objectRealTeam != 1 {
-					var yeet_ = 1;
-				}
 				if (mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor((y + 15) / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + 15) / 16)) == -1) {
 					x = orig_x_;
 					y = orig_y_;
@@ -1982,9 +1979,6 @@ function unit_move() {
 							}
 							x += x_vector_ + x_clip_vector_;
 							y += y_vector_ + y_clip_vector_;
-							if objectRealTeam != 1 {
-								var yeet_;
-							}
 						}
 						else {
 							if path_exists(myPath) {
@@ -2066,9 +2060,6 @@ function unit_move() {
 							else {
 								x += x_vector_ + x_clip_vector_ + x_avoidance_vector_;
 								y += y_vector_ + y_clip_vector_ + y_avoidance_vector_;
-								if objectRealTeam != 1 {
-									var yeet_;
-								}
 							}
 						}
 						// Otherwise if the path only has 1 point on it, move it
@@ -2134,9 +2125,6 @@ function unit_move() {
 							else {
 								x += x_vector_ + x_clip_vector_ + x_avoidance_vector_;
 								y += y_vector_ + y_clip_vector_ + y_avoidance_vector_;
-								if objectRealTeam != 1 {
-									var yeet_;
-								}
 							}
 						}
 						// Else if the unit is close enough that a path is not needed, finish movement.
