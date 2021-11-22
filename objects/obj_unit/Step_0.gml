@@ -850,7 +850,6 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 		// do so.
 		if ((((ds_exists(objectsSelectedList, ds_type_list)) && (ds_list_find_index(objectsSelectedList, id) != -1)) || objectSelected == true) && (objectRealTeam == player[1].team)) || objectNeedsToMove {
 			// Set regular variables
-			objectCurrentCommand = "Move";
 			if !justSpawned {
 				if objectNeedsToMove {
 					targetToMoveToX = floor(targetToMoveToX / 16) * 16;
@@ -908,12 +907,19 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 			searchHasJustBegun = true;
 			totalTimesSearched = 0;
 			closestPointsToObjectsHaveBeenSet = false;
-			objectTarget = noone;
-			objectTargetType = noone;
-			objectTargetTeam = noone;
-			if path_exists(myPath) {
-				path_delete(myPath);
-				myPath = -1;
+			if !objectNeedsToMove {
+				objectCurrentCommand = "Move";
+				objectTarget = noone;
+				objectTargetType = noone;
+				objectTargetTeam = noone;
+				if ds_exists(objectTargetList, ds_type_list) {
+					ds_list_destroy(objectTargetList);
+					objectTargetList = noone;
+				}
+				if path_exists(myPath) {
+					path_delete(myPath);
+					myPath = -1;
+				}
 			}
 			if mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1 {
 				var x_adjustment_, y_adjustment_;
@@ -933,10 +939,6 @@ if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y
 				}
 				x += x_adjustment_;
 				y += y_adjustment_;
-			}
-			if ds_exists(objectTargetList, ds_type_list) {
-				ds_list_destroy(objectTargetList);
-				objectTargetList = noone;
 			}
 			// Set action to take and sprite direction (different from group direction)
 			currentAction = unitAction.move;
