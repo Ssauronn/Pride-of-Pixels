@@ -1,6 +1,57 @@
 ///@description Set up Variables
 
-#region Menu UX
+#region Start Menu UX
+// Initialized here first, because the measurements for everything in the below struct
+// are based off of these values.
+startMenuBackgroundX = viewX + (viewW * (1 / 8)) * 2;
+startMenuBackgroundY = viewY + (viewH * (1 / 8)) * 2;
+startMenuBackgroundWidth = (viewX + (viewW * (7 / 8)) * 2) - startMenuBackgroundX;
+startMenuBackgroundHeight = (viewY + (viewH * (7 / 8)) * 2) - startMenuBackgroundY;
+titleTextString = "Pride of Pixels"
+
+startMenu = {
+	background : {
+		x : startMenuBackgroundX,
+		y : startMenuBackgroundY,
+		width : startMenuBackgroundWidth,
+		height : startMenuBackgroundHeight,
+		backgroundColor : c_white
+	},
+	titleText : {
+		x : viewX + (viewW * (2 / 8)) * 2,
+		y : startMenuBackgroundY + (startMenuBackgroundHeight * (1 / 8)),
+		// startMenu.startButton.width / width of title text
+		xMultiplier : (((viewX + (viewW * (4 / 8)) * 2) / sprite_get_width(spr_start_menu_button_edge) * sprite_get_width(spr_start_menu_button_edge)) / string_width(titleTextString)),
+		// startMenu.startButton.height * 2 / height of title text
+		yMultiplier : (((startMenuBackgroundHeight * (1 / 8)) / sprite_get_height(spr_start_menu_button_edge) * sprite_get_height(spr_start_menu_button_edge)) * 2) / string_height("Y")
+	},
+	startButton : {
+		x : viewX + (viewW * (2 / 8)) * 2,
+		y : startMenuBackgroundY + (startMenuBackgroundHeight * (4 / 8)),
+		xMultiplier : (viewX + (viewW * (4 / 8)) * 2) / sprite_get_width(spr_start_menu_button_edge),
+		yMultiplier : (startMenuBackgroundHeight * (1 / 8)) / sprite_get_height(spr_start_menu_button_edge),
+		// The width of the background is 6/8 of the total viewport width (viewW), so the width
+		// of the buttons themselves should be 4/8 of that same value (viewW).
+		width : (viewX + (viewW * (4 / 8)) * 2) / sprite_get_width(spr_start_menu_button_edge) * sprite_get_width(spr_start_menu_button_edge),
+		// Base the heigh simply off the a fraction of the height of the background.
+		height : (startMenuBackgroundHeight * (1 / 8)) / sprite_get_height(spr_start_menu_button_edge) * sprite_get_height(spr_start_menu_button_edge),
+		backgroundColor : c_white,
+		textColor : c_black
+	},
+	exitButton : {
+		x : viewX + (viewW * (2 / 8)) * 2,
+		y : startMenuBackgroundY + (startMenuBackgroundHeight * (6 / 8)),
+		xMultiplier : (viewX + (viewW * (4 / 8)) * 2) / sprite_get_width(spr_start_menu_button_edge),
+		yMultiplier : (startMenuBackgroundHeight * (1 / 8)) / sprite_get_height(spr_start_menu_button_edge),
+		width : (viewX + (viewW * (4 / 8)) * 2) / sprite_get_width(spr_start_menu_button_edge) * sprite_get_width(spr_start_menu_button_edge),
+		height : (startMenuBackgroundHeight * (1 / 8)) / sprite_get_height(spr_start_menu_button_edge) * sprite_get_height(spr_start_menu_button_edge),
+		backgroundColor : c_white,
+		textColor : c_black
+	}
+}
+#endregion
+
+#region In Game Menu UX
 #region Toolbar Base Units
 // Toolbar background
 toolbarPercentOfEmptyScreenOnTop = 80;
