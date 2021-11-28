@@ -3,36 +3,38 @@
 
 
 function count_down_timers() {
-	// Universal Timers for Units
-	if objectAttackSpeedTimer > 0 {
-		objectAttackSpeedTimer--;
-	}
-	if objectDetectTarget > 0 {
-		objectDetectTarget--;
-	}
-	// Unit Specific Timers
-	if (objectClassification == "Unit") {
-		if spriteWaitTimer > 0 {
-			spriteWaitTimer--;
+	if !obj_gui.startMenu.active {
+		// Universal Timers for Units
+		if objectAttackSpeedTimer > 0 {
+			objectAttackSpeedTimer--;
 		}
-		// Worker Specific Timers
-		if (objectType == "Worker") {
-			if objectWoodChopSpeedTimer > 0 {
-				objectWoodChopSpeedTimer--;
+		if objectDetectTarget > 0 {
+			objectDetectTarget--;
+		}
+		// Unit Specific Timers
+		if (objectClassification == "Unit") {
+			if spriteWaitTimer > 0 {
+				spriteWaitTimer--;
 			}
-			if objectFoodGatherSpeedTimer > 0 {
-				objectFoodGatherSpeedTimer--;
-			}
-			if objectGoldMineSpeedTimer > 0 {
-				objectGoldMineSpeedTimer--;
-			}
-			if objectRubyMineSpeedTimer > 0 {
-				objectRubyMineSpeedTimer--;
+			// Worker Specific Timers
+			if (objectType == "Worker") {
+				if objectWoodChopSpeedTimer > 0 {
+					objectWoodChopSpeedTimer--;
+				}
+				if objectFoodGatherSpeedTimer > 0 {
+					objectFoodGatherSpeedTimer--;
+				}
+				if objectGoldMineSpeedTimer > 0 {
+					objectGoldMineSpeedTimer--;
+				}
+				if objectRubyMineSpeedTimer > 0 {
+					objectRubyMineSpeedTimer--;
+				}
 			}
 		}
-	}
-	// Building Specific Timers
-	if (objectClassification == "Building") {
+		// Building Specific Timers
+		if (objectClassification == "Building") {
 		
+		}
 	}
 }

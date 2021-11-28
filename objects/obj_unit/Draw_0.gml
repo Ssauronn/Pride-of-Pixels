@@ -4,9 +4,18 @@ if objectOnScreen {
 		draw_sprite_ext(spr_selected, 0, x, y, 1, 1, 0, c_white, 0.75);
 	}
 	// Draw self
-	draw_self();
+	draw_sprite(currentSprite, currentImageIndex, x, y);
 }
 
+if path_exists(myPath) {
+	draw_path(myPath, x, y, true);
+}
+
+
+
+// Debugging stuff
+//draw_text(x, y, string(currentAction))
+//draw_text(x, y, string(objectRealTeam) + " = Real Team");
 /* Draw object coordinates
 if ds_exists(objectTargetList, ds_type_list) {
 	var i;
@@ -18,10 +27,5 @@ if ds_exists(objectTargetList, ds_type_list) {
 	}
 }
 */
-if path_exists(myPath) {
-	draw_path(myPath, x, y, true);
-}
 
-//draw_text(x, y, string(currentAction))
-//draw_text(x, y, string(objectRealTeam) + " = Real Team");
 

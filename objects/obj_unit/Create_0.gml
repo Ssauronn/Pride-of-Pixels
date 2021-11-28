@@ -1,7 +1,7 @@
 // Variable used to control one time inizialization of unit specific variables
 initialized = false;
 justSpawned = false;
-
+image_speed = 0;
 // Object classification and type, used for selection and targeting purposes
 objectClassification = "Unit";
 objectSelected = false;

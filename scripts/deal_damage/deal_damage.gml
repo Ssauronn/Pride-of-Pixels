@@ -13,9 +13,6 @@ function deal_damage(damage_value_, damage_type_, target_) {
 		case "Slash":
 			true_damage_value_ = damage_value_ * target_.objectSlashResistance;
 			break;
-		case "Crush":
-			true_damage_value_ = damage_value_ * target_.objectCrushResistance;
-			break;
 		case "Pierce":
 			true_damage_value_ = damage_value_ * target_.objectPierceResistance;
 			break;
@@ -29,7 +26,7 @@ function deal_damage(damage_value_, damage_type_, target_) {
 	}
 	// If the true damage value is not a whole number, always round up to the next integer.
 	if frac(true_damage_value_) != 0 {
-		true_damage_value_ = floor(true_damage_value_) + 1;
+		true_damage_value_ = ceil(true_damage_value_);
 	}
 	target_.currentHP -= true_damage_value_;
 }
