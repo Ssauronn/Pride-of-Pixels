@@ -1,16 +1,5 @@
 ///@description Draw UI Elements on Screen
 
-if room_get_name(room) == "StartMenu" {
-	draw_sprite_ext(spr_start_menu_background, 0, startMenuBackgroundX, startMenuBackgroundY, startMenuBackgroundWidth, startMenuBackgroundHeight, 0, startMenu.background.backgroundColor, 1);
-	draw_text_ext_transformed_color(startMenu.titleText.x, startMenu.titleText.y, titleTextString, 1, startMenu.startButton.width, startMenu.titleText.xMultiplier, startMenu.titleText.yMultiplier, 0, c_white, c_white, c_white, c_white, 1);
-	draw_sprite_ext(spr_start_menu_button_edge, 0, startMenu.startButton.x, startMenu.startButton.y, startMenu.startButton.xMultiplier, startMenu.startButton.yMultiplier, 0, c_white, 1);
-	draw_sprite_ext(spr_start_menu_button_background, 0, startMenu.startButton.x, startMenu.startButton.y, startMenu.startButton.xMultiplier, startMenu.startButton.yMultiplier, 0, startMenu.startButton.backgroundColor, 1);
-	draw_text_ext_transformed_color(startMenu.startButton.x + (startMenu.startButton.width * (3 / 8)), startMenu.startButton.y + (startMenu.startButton.height * (2 / 8)), "Start", 1, startMenu.startButton.width * (4 / 8), (startMenu.startButton.width * (2 / 8)) / string_width("Start"), (startMenu.startButton.height * (4 / 8)) / string_height("Start"), 1, startMenu.startButton.textColor, startMenu.startButton.textColor, startMenu.startButton.textColor, startMenu.startButton.textColor, 1);
-	draw_sprite_ext(spr_start_menu_button_edge, 0, startMenu.exitButton.x, startMenu.exitButton.y, startMenu.exitButton.xMultiplier, startMenu.exitButton.yMultiplier, 0, c_white, 1);
-	draw_sprite_ext(spr_start_menu_button_background, 0, startMenu.exitButton.x, startMenu.exitButton.y, startMenu.exitButton.xMultiplier, startMenu.exitButton.yMultiplier, 0, startMenu.exitButton.backgroundColor, 1);
-	draw_text_ext_transformed_color(startMenu.exitButton.x + (startMenu.exitButton.width * (3 / 8)), startMenu.exitButton.y + (startMenu.exitButton.height * (2 / 8)), "Exit", 1, startMenu.exitButton.width * (4 / 8), (startMenu.exitButton.width * (2 / 8)) / string_width("Exit"), (startMenu.exitButton.height * (4 / 8)) / string_height("Exit"), 1, startMenu.exitButton.textColor, startMenu.exitButton.textColor, startMenu.exitButton.textColor, startMenu.exitButton.textColor, 1);
-}
-
 if room_get_name(room) == "WarRoom" {
 	#region Toolbar
 	// Draw the name of the object selected, if one exists
@@ -140,6 +129,23 @@ if room_get_name(room) == "WarRoom" {
 
 	// Debugging - draw the mouse coordinates to screen
 	draw_text(0, 0, string(floor(mouse_x / 16) * 16) + ", " + string(floor(mouse_y / 16) * 16));
+}
+
+
+if (room_get_name(room) == "StartMenu") || (startMenu.active == true) {
+	draw_sprite_ext(spr_start_menu_background, 0, startMenuBackgroundX, startMenuBackgroundY, startMenuBackgroundWidth, startMenuBackgroundHeight, 0, startMenu.background.backgroundColor, 1);
+	draw_text_ext_transformed_color(startMenu.titleText.x, startMenu.titleText.y, titleTextString, 1, startMenu.startButton.width, startMenu.titleText.xMultiplier, startMenu.titleText.yMultiplier, 0, c_white, c_white, c_white, c_white, 1);
+	draw_sprite_ext(spr_start_menu_button_edge, 0, startMenu.startButton.x, startMenu.startButton.y, startMenu.startButton.xMultiplier, startMenu.startButton.yMultiplier, 0, c_white, 1);
+	draw_sprite_ext(spr_start_menu_button_background, 0, startMenu.startButton.x, startMenu.startButton.y, startMenu.startButton.xMultiplier, startMenu.startButton.yMultiplier, 0, startMenu.startButton.backgroundColor, 1);
+	if room_get_name(room) == "StartMenu" {
+		draw_text_ext_transformed_color(startMenu.startButton.x + (startMenu.startButton.width * (3 / 8)), startMenu.startButton.y + (startMenu.startButton.height * (2 / 8)), "Start", 1, startMenu.startButton.width * (4 / 8), (startMenu.startButton.width * (2 / 8)) / string_width("Start"), (startMenu.startButton.height * (4 / 8)) / string_height("Start"), 1, startMenu.startButton.textColor, startMenu.startButton.textColor, startMenu.startButton.textColor, startMenu.startButton.textColor, 1);
+	}
+	else if startMenu.active {
+		draw_text_ext_transformed_color(startMenu.startButton.x + (startMenu.startButton.width * (3 / 8)), startMenu.startButton.y + (startMenu.startButton.height * (2 / 8)), "Resume", 1, startMenu.startButton.width * (4 / 8), (startMenu.startButton.width * (2 / 8)) / string_width("Resume"), (startMenu.startButton.height * (4 / 8)) / string_height("Resume"), 1, startMenu.startButton.textColor, startMenu.startButton.textColor, startMenu.startButton.textColor, startMenu.startButton.textColor, 1);
+	}
+	draw_sprite_ext(spr_start_menu_button_edge, 0, startMenu.exitButton.x, startMenu.exitButton.y, startMenu.exitButton.xMultiplier, startMenu.exitButton.yMultiplier, 0, c_white, 1);
+	draw_sprite_ext(spr_start_menu_button_background, 0, startMenu.exitButton.x, startMenu.exitButton.y, startMenu.exitButton.xMultiplier, startMenu.exitButton.yMultiplier, 0, startMenu.exitButton.backgroundColor, 1);
+	draw_text_ext_transformed_color(startMenu.exitButton.x + (startMenu.exitButton.width * (3 / 8)), startMenu.exitButton.y + (startMenu.exitButton.height * (2 / 8)), "Exit", 1, startMenu.exitButton.width * (4 / 8), (startMenu.exitButton.width * (2 / 8)) / string_width("Exit"), (startMenu.exitButton.height * (4 / 8)) / string_height("Exit"), 1, startMenu.exitButton.textColor, startMenu.exitButton.textColor, startMenu.exitButton.textColor, startMenu.exitButton.textColor, 1);
 }
 
 

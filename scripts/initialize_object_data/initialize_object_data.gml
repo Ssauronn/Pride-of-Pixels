@@ -45,7 +45,6 @@ function initialize_object_data() {
 			// from that damage type.
 			objectSlashResistance = 0.9;
 			objectPierceResistance = 1;
-			objectCrushResistance = 0.7;
 			objectMagicResistance = 1;
 			// Mining variables (exclusive to obj_worker)
 			objectWoodChopSpeed = room_speed; // Wood
@@ -115,7 +114,6 @@ function initialize_object_data() {
 			objectAttackDamageType = "Pierce";
 			objectSlashResistance = 0.9;
 			objectPierceResistance = 1;
-			objectCrushResistance = 0.7;
 			objectMagicResistance = 1;
 			// Rally Point
 			rallyPointX = x + 32;

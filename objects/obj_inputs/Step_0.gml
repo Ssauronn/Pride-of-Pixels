@@ -2,18 +2,23 @@ depth = -y;
 
 
 // Escaping the Game
-if keyboard_check(vk_escape) {
-	game_end();
+if keyboard_check_pressed(vk_escape) {
+	obj_gui.startMenu.active = !obj_gui.startMenu.active;
 }
 
 // If in start menu
-if room_get_name(room) == "StartMenu" {
+if (room_get_name(room) == "StartMenu") || (obj_gui.startMenu.active) {
 	if (device_mouse_x_to_gui(0) > obj_gui.startMenu.startButton.x) && (device_mouse_x_to_gui(0) < (obj_gui.startMenu.startButton.x + obj_gui.startMenu.startButton.width)) {
 		if (device_mouse_y_to_gui(0) > obj_gui.startMenu.startButton.y) && (device_mouse_y_to_gui(0) < (obj_gui.startMenu.startButton.y + obj_gui.startMenu.startButton.height)) {
 			obj_gui.startMenu.startButton.backgroundColor = c_gray;
 			obj_gui.startMenu.startButton.textColor = c_white;
 			if mouse_check_button_pressed(mb_left) {
-				room_goto_next();
+				if room_get_name(room) == "StartMenu" {
+					room_goto_next();
+				}
+				else {
+					obj_gui.startMenu.active = false;
+				}
 			}
 		}
 		else {
@@ -45,7 +50,7 @@ if room_get_name(room) == "StartMenu" {
 }
 
 // If actually in the game
-if room_get_name(room) == "WarRoom" {
+if (room_get_name(room) == "WarRoom") && (!obj_gui.startMenu.active) {
 	// Camera Movement Controlling
 	if keyboard_check(ord("A")) {
 		obj_camera.x -= obj_camera.cameraMovementSpeed;

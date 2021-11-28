@@ -10,6 +10,7 @@ startMenuBackgroundHeight = (viewY + (viewH * (7 / 8)) * 2) - startMenuBackgroun
 titleTextString = "Pride of Pixels"
 
 startMenu = {
+	active : false,
 	background : {
 		x : startMenuBackgroundX,
 		y : startMenuBackgroundY,
