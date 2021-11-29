@@ -395,7 +395,7 @@ buildingGUI = {
 			}
 		},
 		upgradeButtons : {
-			upgradeTree : {
+			upgradeTreeBackground : {
 				x : toolbarRightX - toolbarButtonSpacing - toolbarButtonWidth,
 				y : toolbarTopY + toolbarButtonSpacing,
 				xScaling : toolbarButtonScale,
