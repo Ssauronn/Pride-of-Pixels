@@ -1,13 +1,35 @@
 ///@description Track Global Stats
 // Create the function used to create a struct for each team in the game
-team_struct = function(team_) constructor {
-	team = team_;
-	food = 0;
-	wood = 0;
-	gold = 0;
-	rubies = 0;
-	population = 0;
+enum eUpgradeTree {
+	universal,
+	magic,
+	technology
 }
+enum eUpgradeType {
+	offensive,
+	defensive,
+	innovation,
+	special
+}
+enum eUpgradeOrder {
+	one,
+	two,
+	three,
+	four,
+	five,
+	six,
+	seven,
+	eight,
+	nine,
+	ten
+}
+enum eUpgradeSibling {
+	a,
+	b,
+	c,
+	noone
+}
+
 // Create an array and assign it to globalvar player, then give each array a struct to hold.
 globalvar player, totalAmountOfTeams;
 // Neutral, player, and enemy team means that the count will normally never dip below 3.
@@ -22,5 +44,6 @@ for (i = 0; i < totalAmountOfTeams; i++) {
 	}
 }
 
-
+// Debug testing
+show_debug_message(string(player[1].cityHall.discovery.description));
 
