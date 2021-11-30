@@ -34,6 +34,18 @@ function initialize_object_data() {
 			maxHP = 70;
 			currentHP = maxHP;
 			objectRange = 16;
+			// Building variables
+			canBuildFarm = false;
+			canBuildThicket = false;
+			canBuildMine = false;
+			canBuildRubyPit = false;
+			canBuildObelisk = false;
+			canBuildSoulSubjugator = false;
+			canBuildRitualGrounds = false;
+			canBuildUnholyZiggurat = false;
+			canBuildRailGun = false;
+			canBuildStasisField = false;
+			canBuildLaunchSite = false;
 			// Combat variables
 			objectCombatAggroRange = 8; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 1.5 * room_speed;
