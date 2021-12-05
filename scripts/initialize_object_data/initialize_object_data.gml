@@ -23,6 +23,51 @@ enum unitDirection {
 	length
 }
 
+// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+// In this case, I need to have a function that loops through all possible stats and all applicable
+// upgrades available on each building, and apply those on spawn to each unit and/or building that
+// is fresthly spawned. Stat upgrades are located in the script initialize_stat_data and the object
+// obj_stat_manager.
+function apply_all_upgrades_at_spawn() {
+	/*
+		// keep in mind, all this code is called in initialize_object_data(), which itself is ran in
+		// the object step event (obj_unit or obj_building). So the code below is built using
+		// variables already set in initialize_object_data().
+		if (object_index == ...) {
+			- apply only the upgrades of player[i] that correspond to that players' upgrades. For
+			  example, if player[1] has all upgrades, a building spawned by player[2] should not be
+			  given all upgrades afforded to player[1].
+			with player[objectRealTeam] {
+				- loop through each possible upgrade for each object where broad object upgrades apply
+			}
+		}
+		if objectType == "..." {
+			// If an upgrade listed below applies to the object type listed above, apply that upgrade.
+			if player[objectRealTeam].... {
+				
+			}
+			if player[objectRealTeam].... {
+				
+			}
+			etc. {
+				
+			}
+		}
+		else if objectType == "..." {
+			// If an upgrade listed below applies to the object type listed above, apply that upgrade.
+			if player[objectRealTeam].... {
+				
+			}
+			if player[objectRealTeam].... {
+				
+			}
+			etc. {
+				
+			}
+		}
+	}
+	*/
+}
 
 function initialize_object_data() {
 	objectVisibleTeam = objectRealTeam;
@@ -34,7 +79,7 @@ function initialize_object_data() {
 			maxHP = 70;
 			currentHP = maxHP;
 			objectRange = 16;
-			// Building variables
+			// Availability variables
 			canBuildFarm = false;
 			canBuildThicket = false;
 			canBuildMine = false;
@@ -46,6 +91,7 @@ function initialize_object_data() {
 			canBuildRailGun = false;
 			canBuildStasisField = false;
 			canBuildLaunchSite = false;
+			canMineRuby = false;
 			// Combat variables
 			objectCombatAggroRange = 8; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 1.5 * room_speed;
@@ -114,6 +160,7 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 1500;
 			currentHP = maxHP;
+			populationProvided = 25;
 			// The distance at which attacks can used, in pixels
 			objectRange = 16 * 5;
 			canAttack = true;

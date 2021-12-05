@@ -29,6 +29,9 @@ enum eUpgradeSibling {
 	c,
 	noone
 }
+// Some basic stat tracking variables
+anyStatUpdated = false;
+anyStatBeingUpdated = false;
 
 // Create an array and assign it to globalvar player, then give each array a struct to hold.
 globalvar player, totalAmountOfTeams;
