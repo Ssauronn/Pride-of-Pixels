@@ -17,7 +17,8 @@ function team_struct(team_) constructor {
 	// This function is called in count_down_timers(), which itself is called and relevant code ran in each step
 	// event of buildings and units (obj_building and obj_unit). So this function is built with the variables already
 	// existing in those objects in mind. KEEP IN MIND, this is only activated once on a random unit or building. So I
-	// still need to check all of that type.
+	// still need to check all of that type. Its only activated once because timers for upgrades are contained in the
+	// global struct player[i], which has only 1 timer for all of whatever object the upgrade is for.
 	///@function			upgrade_stats();
 	///@param				team_upgrading_				The team (integer) this upgrade applies to.
 	///@param				upgrade_available_for_		The object (ID) or objectType (string) that this applies to.
@@ -43,74 +44,68 @@ function team_struct(team_) constructor {
 		}
 		if is_string(upgrade_available_for_) {
 			if (objectType == upgrade_available_for_) && (objectRealTeam == team_upgrading_) {
-				if player_being_upgraded_ {
-					if is_string(upgrade_values_to_add_) {
-						var current_stat_to_add_to_in_string_ = stats_to_upgrade_;
-						var current_value_to_add_to_stat_in_string_ = upgrade_values_to_add_;
-						var space_at_ = 0;
-						// While there's still a space in the string, keep adding to the relevant variables, and continuing
-						// onto the next substring. After all spaces have been eliminated, I add whatever the last value is
-						// to the last variable, as the while statement won't do that before ending.
-						while string_pos(" ", stats_to_upgrade_) {
-							space_at_ = string_pos(" ", stats_to_upgrade_);
-							// Take the first string of letters in this and isolate them.
-							string_delete(current_stat_to_add_to_in_string_, space_at_, (string_length(current_stat_to_add_to_in_string_) - space_at_));
-							// Now that the first string of letters in this is isolated, remove them from the origin string.
-							string_delete(stats_to_upgrade_, 1, space_at_);
-							// Repeat the same process with the current_value_to_add_to_stat_in_string_ and upgrade_values_to_add_.
-							space_at_ = string_pos(" ", upgrade_values_to_add_);
-							string_delete(current_value_to_add_to_stat_in_string_, space_at_, (string_length(current_value_to_add_to_stat_in_string_) - space_at_));
-							string_delete(upgrade_values_to_add_, 1, space_at_);
-							
-							// Now that two respective strings (the stat to add to, and the value itself to add), add that value
-							// to the stat.
-							variable_struct_set(player[team_upgrading_], current_stat_to_add_to_in_string_, (variable_struct_get(player[team_upgrading_], current_stat_to_add_to_in_string_) + real(current_value_to_add_to_stat_in_string_)));
-							
-							// Now that that's done, set the two temporary variables here to the origin values (which have now
-							// been editted). If the origin values no longer have a space in it and thus the while statement exits,
-							// I can just use the temporary variables now to set the last variable to the last correct value.
-							current_stat_to_add_to_in_string_ = stats_to_upgrade_;
-							current_value_to_add_to_stat_in_string_ = upgrade_values_to_add_;
-						}
-						// Now the the while statement has exited, I can add the last value to the last stat here.
+				var current_stat_to_add_to_in_string_ = stats_to_upgrade_;
+				var current_value_to_add_to_stat_in_string_ = upgrade_values_to_add_;
+				var space_at_ = 0;
+				// While there's still a space in the string, keep adding to the relevant variables, and continuing
+				// onto the next substring. After all spaces have been eliminated, I add whatever the last value is
+				// to the last variable, as the while statement won't do that before ending.
+				while string_pos(" ", stats_to_upgrade_) != 0 {
+					space_at_ = string_pos(" ", stats_to_upgrade_);
+					// Take the first string of letters in this and isolate them.
+					string_delete(current_stat_to_add_to_in_string_, space_at_, (string_length(current_stat_to_add_to_in_string_) - space_at_));
+					// Now that the first string of letters in this is isolated, remove them from the origin string.
+					string_delete(stats_to_upgrade_, 1, space_at_);
+					// Repeat the same process with the current_value_to_add_to_stat_in_string_ and upgrade_values_to_add_.
+					space_at_ = string_pos(" ", upgrade_values_to_add_);
+					string_delete(current_value_to_add_to_stat_in_string_, space_at_, (string_length(current_value_to_add_to_stat_in_string_) - space_at_));
+					string_delete(upgrade_values_to_add_, 1, space_at_);
+			
+					// Now that two respective strings (the stat to add to, and the value itself to add), add that value
+					// to the stat.
+					if player_being_upgraded_ {
 						variable_struct_set(player[team_upgrading_], current_stat_to_add_to_in_string_, (variable_struct_get(player[team_upgrading_], current_stat_to_add_to_in_string_) + real(current_value_to_add_to_stat_in_string_)));
 					}
-					else {
-						variable_struct_set(player[team_upgrading_], stats_to_upgrade_, variable_struct_get(player[team_upgrading_], stats_to_upgrade_) + upgrade_values_to_add_);
-					}
-				}
-				else if unit_being_upgrade_ {
-					with obj_unit {
-						if objectType == upgrade_available_for_ {
-							if is_string(upgrade_values_to_add_) {
-							
-							}
-							else {
-								variable_instance_set(self.id, stats_to_upgrade_, variable_instance_get(self.id, stats_to_upgrade_) + upgrade_values_to_add_);
+					else if unit_being_upgrade_ {
+						with obj_unit {
+							if objectType == upgrade_available_for_ {
+								variable_instance_set(self.id, current_stat_to_add_to_in_string_, (variable_instance_get(self.id, current_stat_to_add_to_in_string_) + real(current_value_to_add_to_stat_in_string_)));
 							}
 						}
 					}
-				}
-				else if building_being_upgrade_ {
-					with obj_building {
-						if objectType == upgrade_available_for_ {
-							if is_string(upgrade_values_to_add_) {
-							
-							}
-							else {
-								variable_instance_set(self.id, stats_to_upgrade_, variable_instance_get(self.id, stats_to_upgrade_) + upgrade_values_to_add_);
+					else if building_being_upgrade_ {
+						with obj_building {
+							if objectType == upgrade_available_for_ {
+								variable_instance_set(self.id, current_stat_to_add_to_in_string_, (variable_instance_get(self.id, current_stat_to_add_to_in_string_) + real(current_value_to_add_to_stat_in_string_)));
 							}
 						}
 					}
+					
+					// Now that that's done, set the two temporary variables here to the origin values (which have now
+					// been editted). If the origin values no longer have a space in it and thus the while statement exits,
+					// I can just use the temporary variables now to set the last variable to the last correct value.
+					current_stat_to_add_to_in_string_ = stats_to_upgrade_;
+					current_value_to_add_to_stat_in_string_ = upgrade_values_to_add_;
 				}
+				// Now the the while statement has exited, I can add the last value to the last stat here.
+				variable_struct_set(player[team_upgrading_], current_stat_to_add_to_in_string_, (variable_struct_get(player[team_upgrading_], current_stat_to_add_to_in_string_) + real(current_value_to_add_to_stat_in_string_)));
 			}
 		}
 		// Else if the upgrade_available_for_ wasn't a string, it then applies to an object index, and I can blanket apply
 		// the upgrade to that object index.
 		else {
-			if object_index == upgrade_available_for_ {
-				if objectRealTeam == team_upgrading_ {
-					variable_instance_set(self.id, stats_to_upgrade_, variable_instance_get(self.id, stats_to_upgrade_) + upgrade_values_to_add_);
+			if obj_building.object_index == upgrade_available_for_.object_index {
+				with obj_building {
+					if objectRealTeam == team_upgrading_ {
+						variable_instance_set(self.id, stats_to_upgrade_, variable_instance_get(self.id, stats_to_upgrade_) + upgrade_values_to_add_);
+					}
+				}
+			}
+			else if obj_unit.object_index == upgrade_available_for_.object_index {
+				with obj_unit {
+					if objectRealTeam == team_upgrading_ {
+						variable_instance_set(self.id, stats_to_upgrade_, variable_instance_get(self.id, stats_to_upgrade_) + upgrade_values_to_add_);
+					}
 				}
 			}
 		}
