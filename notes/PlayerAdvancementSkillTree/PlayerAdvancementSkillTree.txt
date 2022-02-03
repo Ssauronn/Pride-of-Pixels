@@ -1,0 +1,199 @@
+MAGIC
+
+THIRD TIER - CHOSEN AT GAME CREATION
+UNLOCKS TIER 3 UPGRADES
+ Can build Abominations
+ Flasks
+ - Flasks are map wide commanded, usable by all units. Consumes all 
+   unit's flask upon command and provides the relevant buff. Flasks
+   cannot be used again for (average unit creation time * 5). A unit
+   can refill its flask by entering the range of a Laboratory.
+ - Can choose between:
+	- Flask of Stoneskin: Temporarily boosts all unit's armor.
+	  Reduces the rate at which resources drain from collection
+	  by your Workers.
+	- Flask of Power: Temporarily boosts all unit's damage.
+	  Increases the resource collection speed of Workers.
+	- Flask of Speed: Temporarily boosts all unit's movement
+	  speed and reduces special ability cooldowns. Increases
+	  the build speed of workers.
+
+SECOND TIER
+UNLOCKS TIER 2 UPGRADES
+ Obelisk
+ - Allows Obelisks to be built. These are large sight line buildings
+   with a number of abilities. Obelisks can be upgraded to provide
+   a narrow line of sight between another chosen Obelisk, as well as
+   upgraded to boost the damage and armor of all friendly buildings
+   and units within range.
+ - Can choose between two of the following:
+	- Provides true sight, revealing all Rogues and Subverters
+	  within range.
+	- Will summon a Demon when an enemy is within range. Short
+	  cooldown.
+	- An Obelisk can link to one unit. Once linked, if that unit
+	  would have been killed, the unit is instead saved from death,
+	  set to 1 HP, teleported to the Obelisk, and the Obelisk's 
+	  maximum HP is reduced by the total health pool of the unit 
+	  it is linked to. The link is visible by all players. A unit's
+	  link to the Obelisk is removed if its total health pool
+	  exceeds that of the Obelisk.
+ Empowered Wizardry
+ - Wizards or Acolytes can now be commanded to link with other Wizards
+   or Acolytes. Requires 3 of the same unit type. If Wizards are
+   linked, provides the ability to deal damage to a 2x2 location within 
+   a massive radius, or if Acolytes are linked, provides the ability to
+   heal a 2x2 location within a massive radius. Any friendly or enemy
+   units within the target locations are affected by the damage or
+   healing. All linked units will cast their ability at the same time
+   as other identical linked units within range, and any additional
+   casts beyond the first linked circle will target a random location
+   within an additional 2 spaces in any direction beyond the first
+   target location.
+
+FIRST TIER
+UNLOCKS TIER 1 UPGRADES
+ The Occult
+ - The Occult are different structures the player can build to perform
+   different functions. Some are more passive than others. The player
+   may only choose between one of the building options.
+ - Choose between:
+	- Soul Subjugator: Has a chance to capture the soul of any
+	  slain ally within a massive range and give them a second 
+	  chance at life, respawning them. Will not activate if the
+	  respawned unit would exceed the player's Population cap.
+		- All units are granted additional health. Units
+		  respawned with Soul Subjugator lose this effect.
+	- Ritual Grounds: Requires a Warlock within range to activate.
+	  Continuously spawns Demons that are Soulbound to the nearest
+	  Warlock. If that Warlock dies, the Demons will follow suite
+	  shortly after. Demons cannot stray too far from their
+	  Soulbound Warlock and will die if they are out of range.
+	  Demons do not take up Population. A maximum of 20 Demons
+	  summoned by Ritual Grounds can be active at any point.
+		- All Demons are empowered, and gain additional damage.
+	- Unholy Ziggurat: Requires units to be sacrificed at the
+	  Unholy Ziggurat to charge up. Can reach 3 different charge
+	  levels at 5, 10, and 20 sacrifices. Unholy Ziggurat can be
+	  commanded to power up a location on the map once charged, 
+	  granting all friendly units in that location extra damage, 
+	  armor, and a chance to heal when dealing damage. Each charge 
+	  level increases the effects of the power up. Unholy Ziggurat
+	  cannot power up other units or locations within the time frame
+	  of the currently active power up.
+		- Any unit empowered by Unholy Ziggurat may be sacrificed
+		  to immediately recharge Unholy Ziggurat to the charge
+		  level it was just at. Units not currently empowered by
+		  Unholy Ziggurat at the time they're sacrificed will be
+		  considered normal sacrifices.
+ - Abominations can be sacrificed at a Temple for body parts, and then
+   those body parts can be used to custom build Abominations with their
+   own stats. Each body part provides a different boost to stats.
+
+
+
+TECHNOLOGY
+
+THIRD TIER - CHOSEN AT GAME CREATION
+UNLOCKS TIER 3 UPGRADES
+ Can build Automatons
+ Combat Specialty
+ - Choose between:
+	- Stealth:
+		- Rogues will teleport to the nearest space to their
+		  target within range while invisible.
+		- Subverter are equipped with explosives and can be
+		  commanded to explode, dealing massive damage within
+		  a short range to all units and buildings. Destroys
+		  the Subverter in the process.
+	- Recklessness:
+		- Berserkers activate nanotech in their blood when in
+		  combat, dealing constant damage to all nearby enemy
+		  units in range.
+		- Automatons can release a wave of Tachyon particles,
+		  dealing small damage initially to all units and
+		  buildings in range, with the damage then being
+		  increased to a large amount over a short amount of 
+		  time. The Automaton is unable to move or attack while
+		  channeling this ability.
+	- Protectorates:
+		- Knights will taunt one unit not attacking it or
+		  another Knight during combat. This taunt ability
+		  is on a long cooldown and forces that unit to attack
+		  it for the next 5 seconds.
+		- Wizards can be commanded to protect a unit
+		  automatically selected in combat and redirect part
+		  of the damage taken by that unit for a short duration 
+		  to a Knight if one is in range. If no Knight is
+		  within range, the damage is redirected to the Wizard.
+		  Does not work on other Wizards.
+
+SECOND TIER
+UNLOCKS TIER 2 UPGRADES
+ Obelisk
+ - Allows Obelisks to be built. These are large sight line buildings
+   with a number of abilities. Obelisks can be upgraded to provide
+   a narrow line of sight between another chosen Obelisk, as well as
+   upgraded to boost the damage and armor of all friendly buildings
+   and units within range.
+ - Can choose between two of the following:
+	- Provides true sight, revealing all Rogues and Subverters
+	  within range.
+	- Allows units to teleport between Obelisks.
+	- Launches rockets at enemy units within range, dealing small
+	  area of effect damage.
+ Shock Troopers
+ - Automatons gain the ability to teleport to any unit in combat. Does
+   not activate for Automatons already in combat. This activates for
+   all Automatons not in combat. The player may choose a point on the
+   map within range of any combat where the Automatons will teleport to.
+   This ability has a long cooldown.
+
+FIRST TIER
+UNLOCKS TIER 1 UPGRADES
+ ADVANCED WEAPONRY
+ - Advanced Weaponry are various structures that provide different
+   powerful effects. The player may only chooses between one of the
+   building options.
+ - Choose between:
+	- Rail Gun: A large turret building capable of single shot
+	  damage dealing massive damage to all units in a line.
+	  Long recharge time between each shot. The damage is reduced
+	  for each unit hit beyond the first. The Rail Gun has a
+	  large range but requires active sight on an enemy and must
+	  be facing the direction of the enemy to attack.
+	- Stasis Field: A building with a massive range. The player can
+	  choose a location within the building's range to target, and
+	  freeze all units and buildings in time. Lasts for 15 seconds.
+	  Units and buildings caught inside the stasis field cannot
+	  move or attack for the duration.
+	- Launch Site: A rocket launch facility capable of
+	  putting a salvo station into orbit. Once in orbit, an orbital
+	  bombardment can be called down on any area in the map for
+	  massive damage to everything in that area. Requires time
+	  between each bombardment for a new salvo station to be placed
+	  into orbit.
+- Acolytes now have greater control over their nano tech and deal slow
+  damage to all enemies within range over time.
+
+
+UNIT EFFECTS
+instant building time on cooldown
+sight on whole map
+rail gun (massive damage, long range)
+stasis field
+
+
+
+
+
+
+TECHNOLOGY
+ -Drones, robots, etc.
+ -Scientific upgrades and weapons, etc.
+ -Workers don't have to drop resources off to a drop point
+  by using drones to drop the resources off instead.
+ -Subverters can deal heavy instant damage to any building
+  via explosives (kills them in the process).
+ -Obelisks can now be converted to rockets, to deal massive damage
+  to any target location within a huge radius.

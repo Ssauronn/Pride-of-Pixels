@@ -1,0 +1,464 @@
+PIXEL RTS GAME
+
+Resources
+-Food
+-Wood
+-Gold
+-Ruby
+----Rubies are guarded in-game by hostile-to-all NPC's. This adds a minimum power requirement to access.
+    Rubies are required to build magical units and buildings, and research magical upgrades.
+    Wizards can mine Rubies at 100% efficiency of a worker, meaning that bringing wizards along for any Ruby
+    raid is a smart idea, since they can fight and then mine.
+    This means that, early game, raiding and taking Rubies requires Workers, which are easily killed. Afterwards,
+    once you have enough Rubies to regularly build Wizards, you can use Wizards to mine. This adds an inverse
+    difficulty curve to obtaining Rubies. At first, you need to break into a Ruby area with non-magical units.
+    Then you need to collect Rubies using Workers, which is a direct reduction to the production of your other
+    resources. After that, you can finally create Wizards, which can mine and defend themselves, all the while
+    your workers can now focus on collecting other resources.
+
+
+Resource Nodes
+-Powerful Aura
+----Small area with blue and red glowing smoke rising up.
+----Allows City Halls and Diamond Pits to be built on top of it.
+-Berry Bushes and Vegetable Bushes
+----Provides Food
+-Trees
+----Provides Wood
+-Gold Veins
+----Provides Gold
+-Ruby
+----Massive Ruby that glows red, and stands upright.
+----Provides Rubies
+
+
+Types of Units
+Normal Units
+-Worker
+----Can build things and mine things. 
+    Low attack, low HP.
+-Berserker
+----Temporarily enrages while in combat, increases the Berserker's damage.
+    High attack, low HP.
+-Rogue
+----Will go invisible whenever not in combat. The first attack dealt to an enemy unit will deal massive damage and
+    remove the rogue from invisibility. Does not work on buildings. If no chosen target exists, will focus targets 
+    with lowest HP. Any damage taken will remove the rogue from invisibility. (need some sort of weakness for them -
+    maybe moving within a certain range of any enemy will reveal them after a short time?)
+    High attack, low HP.
+-Soldier
+----Attack is increased with each additional friendly soldier in combat with it.
+    Medium attack, medium HP.
+-Ranger
+----Damage reduced against buildings.
+    High attack, medium HP.
+-Knight
+----Meant to front line attacks. High resistances to all damage types. Deals slash damage in an area of effect.
+    Low damage, high HP.
+Ruby Units
+-Automaton - REQUIRES RUBIES TO BUILD
+----Can build additional Automatons anywhere, using the wood from a tree within range to do so. If no tree
+    is within range, the Automaton instead draw's from the player's Gold reserves. No matter the secondary
+    resource used, Rubies are also required.
+    Medium attack, medium HP.
+-Abomination - REQUIRES RUBIES TO BUILD
+----Body is pieced together from different animals, allocating different stats each creation. An abomination
+    can be sacrificed if standing adjacent to a Temple for up to the full resource cost, dependent on the
+    Abomination's current health. Acolytes refuse to heal Abominations.
+    Low to high attack, low to high HP. Attack is inversely proportional to HP and vice versa.
+-Acolyte - REQUIRES RUBIES TO BUILD
+----Can heal other targets. Slowly regenerates HP over time.
+    Low attack, low HP.
+-Wizard - REQUIRES RUBIES TO BUILD
+----Can cast spells at a distance. Will only cast single target spells. If upgraded through the Laboratory, they
+    can then also cast Area of Effect spells (spell choice is automatic depending on how many enemies are adjacent
+    to target in combat).
+    Wizards can mine Rubies at 100% efficiency of a worker.
+    Medium attack, medium HP.
+-Warlock - REQUIRES RUBIES TO BUILD
+----Can summon additional units during battle that persist for a short amount of time. After summoning will cast 
+    single target spells at a distance. Upon dying will deal small damage in an area around it.
+    High attack, low HP.
+    Summoned units: Low attack, low HP.
+-Subverter - REQUIRES RUBIES TO BUILD
+----Will appear to the enemy as a unit of their own. Subverters can be commanded to sabotage buildings and will
+    accomplish different things depending on the building chosen.
+
+
+
+Types of Buildings
+-City Hall
+----Can be built on top of Powerful Auras, and you automatically start every game with a City Hall.
+    Automatically attacks with arrows when enemies are within range.
+    Can research building-specific upgrades.
+    Can spawn Workers.
+-House
+----Provides additional population.
+-Barracks
+----Can spawn all normal units.
+-Temple
+----Can spawn all magic units. Requires rubies to build.
+-Laboratory
+----Can research upgrades for units and buildings.
+-Outpost
+----Automatically attacks with arrows when enemies are within range. Can be upgraded to Tower.
+-Tower
+----Can be populated with one unit. The unit is destroyed in the process but the Tower now gains effects from
+    that unit. Melee units grant the tower extra defense. Ranged units grant the tower extra attack. Magic units
+    grant the tower a special ability. Certain upgrade trees can allow the garrison of more units, or additional
+    effects granted from all different types of units.
+-Obelisk
+----Provides bonuses to all nearby friendly structures. Upgrade paths can allow for additional uses like the
+    ability to teleport units between Obelisks, true sight within radius to see Rogues and Subverters, and
+    healing for damaged units.
+-Wall
+----Stops all units from moving over it. Can be upgraded to Magic Wall.
+-Magic Wall
+----Stops only enemies units from moving over it. Can only be obtained by upgrading a Wall.
+    Bonus production when not near other buildings.
+-Farm
+----Can be used by Workers. Provides endless food at a reduced rate when compared to gathering.
+    Bonus production when not near other buildings.
+-Thicket
+----Can be used by Workers. Provides endless wood at a reduced rate when compared to gathering.
+    Bonus production when not near other buildings.
+-Mine
+----Can be used by Workers. Provides endless gold at a reduced rate when compared to gathering.
+    Bonus production when not near other buildings.
+-Ruby Pit
+----Can be used by Workers. Only placeable on top of Powerful Auras. Provides endless Rubies at
+    a reduced rate when compared to gathering.
+
+
+Upgrades Possible
+-City Hall
+	-Packed Meetings
+	----Each City Hall and House owned now provides additional population.
+	-Defensive Positions
+	----Adds additional arrows fired per volley when the City Hall is defending.
+	-Reinforced Walls
+	----Adds additional HP for the City Hall.
+-Barracks
+	-Iron Will
+	----Upgrades the attack of each basic unit.
+	-Iron Chains
+	----Upgrades the HP of each basic unit.
+	-Steel Tipped
+	----Upgrades the attack of each basic unit. REQUIRES IRON WILL.
+	-Steel Links
+	----Upgrades the HP of each basic unit. REQUIRES IRON CHAINS.
+	-Blessed Metal
+	----Upgrades the attack of each basic unit. REQUIRES STEEL TIPPED.
+	-Sanctified Armor
+	----Upgrades the HP of each basic unit. REQUIRES STEEL LINKS.
+-Temple
+	-Power Hungry
+	----Upgrades the attack of each magical unit.
+	-Magical Shield
+	----Upgrades the HP of each magical unit.
+	-Powerful
+	----Upgrades the attack of each magical unit. REQUIRES POWER HUNGRY.
+	-Magical Barrier
+	----Upgrades the HP of each magical unit. REQUIRES MAGICAL SHIELD.
+	-Power Eternal
+	----Upgrades the attack of each magical unit. REQUIRES POWERFULL
+	-Magical Citadel
+	----Upgrades the HP of each magical unit. REQUIRES MAGICAL BARRIER.
+-Laboratory
+	-Strength in Magic
+	----Provides a slight HP upgrade to each unit and building.
+	-Greater Demon
+	----Upgrades the units summoned by Warlocks to have more HP and attack.
+	-Flaming Arrows
+	----Removes Ranger's damage reduction when attacking buildings.
+	-Steel Tools
+	----Increases the speed at which Workers collect resources and build buildings.
+	-Elder Knowledge
+	----Allows Wizards to also cast powerful Area of Effect spells. Choice of spell is made
+	automatically durring combat, depending on how many enemies are adjacent to the Wizard's
+	target.
+	-Bloodlust
+	----Berserkers now gain a small permanent increase in damage for each unit they land a
+	killing blow on.
+	-Ritual of the Gods
+	----Acolytes now heal for double the amount without losing any additional HP while
+	healing.
+	-Camouflage
+	----Rogues can now avoid detection from buildings. Rogues can also pass through enemy
+	Magic Walls, but in doing so will lose their ability to attack for a medium amount of
+	time. During this time, they will appear to the opponent like a friendly unit, but the
+	opponent cannot control them. If the Rogue avoids detection for the period of time they
+	cannot attack, they will then no longer appear as a friendly unit to the opponent. They
+	can also enter back into stealth and attack.
+-Outpost/Tower
+	-Tower
+	----Upgrades the Outpost to a Tower.
+	-Crenelations
+	----Upgrades the damage of the arrows of each Outpost and Tower when attacking.
+	-Armory
+	----Allows for each Tower to attack with arrows even if a unit is garrisoned inside.
+-Wall/Magic Wall
+	-Magic Wall
+	----Upgrades the Wall to a Magic Wall.
+	-Iron Bands
+	----Upgrades the HP of each Wall and Magic Wall.
+	-Steel Reinforcements
+	----Upgrades the HP of each Wall and Magic Wall.
+	-Ruby Plating
+	----Upgrades the HP of each Wall and Magic Wall.
+
+
+
+CODE NEEDED:
+-Grid System
+	-GRID box selected will always be floor(mouse_x / 16) and floor(mouse_y / 16) - this will
+	result in accurate mouse representation of the grid the player is hovering over, via always
+	getting the top left coordinate of that box. Just slap a partially transparent square
+	sprite on that coordinate, with the sprite origin at the top left of the sprite, and it
+	will give the illusion of selecting the correct box in the grid. Grid will appear via draw
+	functions when needed.
+-Placing Buildings
+	-BUILDINGS will be able to be built using the grid system, with their sprite origin on the
+	bottom left, displaced upwards by 16 pixels. Buildings will snap to grid with the building
+	outline shown on mouse being drawn using draw_sprite functions and using the same x and y
+	coordinate that the "grid box selected" is at. This means, as the player moves the mouse,
+	the building outline will snap from grid location to grid location as the player drags the
+	mouse across the map.
+-Selecting Units and Commanding Units
+	-SELECTING units and buildings will be done based off of a simple collision detection with
+	the mouse true coordinates and any object collision box. If the mouse true coordinates are
+	on an object, that object is selected.
+	-CLICK and drag selecting will ignore buildings, and only register units. If the player
+	clicks and drags, the original grid box selected's coordinates are stored. Each time the
+	mouse moves across a grid box (i.e., the floor values for the mouse_x or mouse_y are
+	changed) a function will go through and try to detect an object in each of the grid boxes,
+	right in the center. Since its possible multiple units can occupy one space I need to make
+	sure it can detect every object it collides with. Each time the mouse moves across a grid
+	box, all new and/or old boxes will be detected and objects within those boxes will be
+	added/removed to the selected units.
+	-DEPENDING on whether multiple objects or just one, and what type of object is selected,
+	will determine what populates the menu at the bottom. The information shown will be
+	determined by boolean values located in the object(s) selected, as well as a manager
+	object that controls more general values. For example, selecting an Outpost will show the
+	Tower upgrade available, whereas after upgrading, selecting a Tower will show the Tower
+	sprite and tower upgrade sprite as already taken.
+-Pathfinding for Units
+	-MP_POTENTIAL_STEP and mp_grid for 99% of movement. That grid will be updated in real time
+	the moment a building is placed (even while not fully placed, the building cannot be
+	walked over). The grid will also be updated in real time the moment any building is
+	destroyed. This includes resource deposits. Pathfinding will be made simple, passing by
+	and through units, using mp_grid_add_cell and mp_grid_remove_cell (documentation for this
+	found here:
+	https://docs.yoyogames.com/source/dadiospice/002_reference/movement%20and%20collisions/motion%20planning/index.html
+	). Using this, it'll be extremely easy to update the mp_grid as things are happening. Units
+	will be able to pass through each other if they're currently moving, as units in movement
+	will have no collision whatsoever with any other object (this will prevent clipping and
+	glitching on corners). A separate mp_grid will exist for each player and/or AI - the grid
+	specific to each player/AI will include the STATIONARY locations of all ENEMY units, along
+	with the standard locations of each building and resource deposit - however, each grid will
+	not contain the stationary locations of each FRIENDLY unit. As explained below, this means <------------------------ important
+	each unit, when first looking to move to a new location, can ignore the locations of
+	friendly units while moving, and only needs to pay attention when determining a target
+	location to move to. When a box is determined to have no friendly units inside, then I can
+	check if its occupied using mp_grid_get_cell, and finally I can determine if a valid path
+	exists to the valid box. If no valid path exists to that box, then apparently I'm selecting
+	a location that cannot be reached, and it should default to [the paragraph describing a
+	function that searches for nearest available box, marked as important down below].
+	-Units, when commanded to move, cannot land on another unit and cannot pass through enemy
+	units; however, they can pass through friendly units if their final destination is not
+	landing them on a friendly unit.
+	-Pathfinding should always choose a random adjacent tile around the target, never the target
+	tile itself. If that isn't available, move around in a circle around the target, looking for a
+	new tile that is available. This will prevent lots of issues.
+	-While Rogues are invisible, they should mark tiles as occupied for friendlies but they should <------------------- important
+	not add themselves to mp_grids, so that any enemy army passing by them will not notice a rogue
+	taking up space in what looks like empty area. This also means that rogues still won't be able
+	to be commanded to move on top of an enemy.
+	-FOR groups of units, a selection for the player will be available to set their pathfinding
+	AI to move into rows or squares. Each unit will take a turn looking for a valid
+	box to move to closest to the original box clicked on by the player. The only difference
+	between box and row pathfinding is how the units will search for a new box to move to once
+	the originally clicked on box is taken: if units are marked to move into rows, a set row
+	size (based on the total amount of units selected) will be searched through first,
+	perpendicular to the direction (divided by 90 and floored) between the units' current
+	location and the unit's final destination. After that is searched through, a row in front,
+	and then a row behind, alternating until all units have found a box to move to, will be
+	populated. For boxes, the search will be identical except that the row width limit will be
+	drastically lowered (essentially, the floor of the square root of the total amount of units
+	selected plus 1).
+	-If the player selects a location to move to that is not valid, a single function ran once <----------------------- important
+	for each unit selected will determine the closest grid location that is valid to move to,
+	using the method described above, except this time moving in a circular fashion around the
+	original spot clicked on. This will guarantee that no matter where the player clicks on, the
+	units selected will get as close as possible to that location.
+	---IMPORTANT--- For any of this to work, pathfinding specifically needs to search only for <----------------------- important
+	grid boxes to move to, then move to those boxes - and boxes will need to be marked as
+	occupied but not in the ds_grid, to allow correct movement. This means a ds_list will need
+	to exist if a unit ever moves, which contains the current grid coordinates that are not 
+	available to move to. Then, I can use FIRST my custom pathfinding to find available boxes,
+	then check those available boxes using mp_grid_get_cell, and finally set a path once a valid
+	box is found using mp_potential_step.
+	---IMPORTANT--- None of this applies when targeting a moving target not yet touching its target <------------------ important
+	box. If friendly units decide to chase a moving target, they will always focus the enemy target 
+	itself - right up until the enemy target first touches its own target box to move to, at which
+	point it will mark a boolean value that friendly units read, to determine valid boxes to move to
+	around the enemy target. In other words, while an enemy is moving, friendly units will just try to
+	move directly towards the target, ONLY using mp_potential_step until the enemy target first touches
+	its own target box (which means it won't move from that box). At that point, the friendly targets
+	need to run the standard pathfinding to find available boxes to move around the unit to attack
+	that unit.
+-Combat
+	-All units have a personal "sight range" and a personal "tether range". "Sight range" is 
+	what the unit can see through the fog of war. "Tether range" is the combat range, the range 
+	at which the unit will begin to attack an enemy unit or building. If an enemy unit or building
+	enters the view of the unit, it needs then create its own personal combat list and add itself
+	and every other enemy object within range to that list. The units will not start combat until
+	movement orders to a rally point are completed for that specific unit (if a unit is told to move
+	somewhere by the AI or player, it will not engage or mark itself as in combat until it reaches
+	its target). The list will be updated only right before determining new targets (which is described
+	in the second paragraph below this one).
+-NPC Decision Making for Individual Units (Micro AI)
+	-All units will determine target based on what is closest. If no available space exists to 
+	attack the currently selected target, that target will be added to a temporary blacklist
+	ds_list and not be considered, and a new target will be chosen. Once a valid target is chosen,
+	the blacklist ds_list is destroyed. Every real time second, this targeting function is ran
+	again for all units that are currently moving from one grid box to another, meaning that 
+	decision making for most units will be dynamic, changing as their positioning changes.
+	-New targets will not be determined until the current target is destroyed, or the player
+	commands a new target.
+	-If units are commanded by player to target a specific enemy unit, all units regardless of
+	distance will first attempt to target the player target before moving onto a new automatic
+	target.
+	-Melee units will check for all 9 available spaces adjacent to an enemy unit, or all X available
+	spaces adjacent to an enemy building.
+	-Ranged units will check for all available spaces in a box around the target, where the bounds
+	of the box is the max range of the unit, and the first spaces to check for are the the boxes
+	closest to the ranged unit doing the checking.
+	-SPECIFICALLY for Wizards, Wizards will check a set range of boxes around target for enemies.
+	If enough are found, the Wizard will use an AoE ability instead, to maximise damage.
+	-All units will prioritize enemy units within range over enemy buildings within range EXCEPT FOR
+	ROGUES, ACOLYTES, AND BERSERKERS. All units will never attack walls, specifically unless walls are
+	the only available enemy unit to target within range.
+	-ROGUES will not target enemy buildings unless commanded to. Rogues will always target lowest HP
+	enemy units within combat, and not closest units.
+	-BERSERKERS will prioritize enemy buildings that can attack over enemy units. Once enemy buildings
+	that can attack are no longer in combat, Berserkers will then focus resource buildings and City
+	Halls within range. If none of either of those exist within range, only then will Berserkers focus
+	enemy units.
+	-ACOLYTES will only attack targets that other units are already targeting. If no valid target
+	like that exists, they will attack nearest enemy unit. Acolytes will only heal out of combat and
+	their heal cannot be controlled - they will always choose the lowest HP friendly target (that
+	isn't at full health and that isn't being focused by a different Acolyte), heal that target, and
+	then move onto the next target.
+-NPC Decision Making for AI Opponent (Macro AI)
+	-AI DIFFICULTY SHOULD SIMPLY BE THE DIFFERENCE IN TIME BETWEEN ACTIVE COMMANDS.
+	-AI should be vulnerable to fog of war, meaning that if the AI doesn't have active eyes on an area,
+	an enemy can populate that area without contest.
+	-AI should prioritize, more than anything else, basic military units being used as scouts
+	constantly, with random movement paths across the map. The AI can set a random grid box for the
+	unit to move to, and the unit can move directly there (or as close as possible) before marking its
+	scouting task as complete and moving onto the next scouting task.
+	-If any enemies are found, the AI should create armies to thoroughly explore an area. If any enemy
+	units or buildings are found, the area to explore and the task to explore is reset. This means an
+	enemy will continue, forever, attacking an area until it has fully explored an area without finding
+	a single enemy unit or building. All the while, its scouts will continue to explore.
+	-When the AI has found an enemy and sends an army to explore, it should take over the standard
+	exploration commands and command its units to attack an enemy if any exist in its active vision,
+	but only if the unit in question is not yet in combat. If it is, leave it alone. This means the
+	passive AI can be used to mostly control the individual units. It also means that any units who
+	end up killing all enemy units within range will not stand idely by and will continue to attack,
+	commanded by the AI, if needed, to attack whatever is an enemy and is in the AI's active vision.
+	-This means the AI needs to keep a ds_grid of all resources it has seen and then left in the fog
+	of war. The AI can send Workers to each resource node its aware of. The AI needs to also keep
+	coordinate locations of enemies, and if those exist, attack those with armies.
+	-The AI should focus the first enemy it discovers, HOWEVER, it should dedicate armies instead to
+	defending if enemies are found within a certain (relatively small) pixel range of its home City Hall.
+	-In regards to Workers specifically, the AI should focus on splitting the load between resources
+	evenly (assuming costs for armies is spread evenly among all the troops). The AI should however
+	adapt its Workers to meet the costs of the current army its creating. So the current army, which
+	in this example could have adapted to kill Berserkers using a lot of Rangers, needs a lot of wood. So
+	the workers need to move away from gold and food to get more wood. A minimum amount of Workers
+	however should always be working on each resource, and that cannot be touched. The minimum number
+	should be set directly based on how many total workers exist.
+	-In regards to Rubies, the AI should add them to the resource list to watch out for only once
+	a Ruby is discovered (since you need to mine rubies in the first place to be able to build Ruby Pits,
+	I won't cause the AI to consider Powerful Aura locations until later). Once a Ruby is discovered, the
+	AI should focus that before other enemies that have been discovered, unless of course the enemies are
+	within a certain range of its home City Hall. Once enemies are cleared from a Ruby, the AI should
+	then split its workers evenly between the 4, with a skew towards Rubies for a set amount of time. 
+	The army that cleared the hostile AI's from the Ruby should stay and wait until that set amount of time
+	has passed, in which case it can start a scouting route.
+	-In regards to upgrades, the AI should, at regular intervals, focus instead on a set of upgrades before
+	creating units. While this happens, the army previously created should be set to defend the City Hall.
+	The AI should only consider upgrades that require Rubies once Rubies have been obtained. Otherwise, it
+	should only consider upgrades that require normal materials. And this goes in line with the skew for
+	the Worker's assignments: once Rubies are discovered and captured, Rubies should be mined by the enemy
+	more than any other resource, to support the inevitable Ruby cost incoming.
+	-To handle armies, the AI should decide on a set size for an army, create a set number of units,
+	assign all those units to a ds_list, and then issue commands to that army via the ds_list.
+	-In regards to how many units to create per army, and what units to create, the AI should create as
+	much as possible within a time frame, made flexible by the amount of resources its acquiring per 
+	second or minute. If the AI is pulling in large amounts of resources, it should begin to build
+	additional barracks at certain resource-per-minute thresholds. And the more resources are being
+	pulled in, the larger the armies that should be created and added to the army ds_list before being
+	commanded to attack enemy units or buildings. In other words, the more resources that are being pulled
+	in, the more units the AI should create before consolidating and starting on a new army. As for what
+	the AI should create, it should start with the 3 basic units, a set mix of them, before adapting to
+	enemy armies. If enemy armies have a lot of Berserkers, the AI should create more Rangers. If the enemy
+	armies have a lot of Warlocks, the AI should create more rogues. That sort of thing.
+-Fog of War
+	-Each grid box inside the camera is evaluated each frame. If the grid box location has not been marked
+	as discovered inside a ds_list specific to each player/AI, then the grid box does not draw anything to
+	the screen and only draws a black square sprite. As units move throughout the map, every location of each
+	resource and building is stored in a ds_list specific to that player/AI. The sprites, not the objects
+	themselves are drawn in areas where there is not direct vision. The ds_list only updates itself if there
+	is direct vision to an object, and only if an object is destroyed or created, or if a unit's direct vision
+	moves over one of the coordinates listed in that ds_list where it did not originally see the coordinate. 
+	If so, the ds_list updates that specific coordinate with whatever currently exists there. If a tree was 
+	chopped down off screen by an AI, it will update to no  longer show a tree there.
+	-This means: all objects can still run off screen without taking any GPU power, all objects can still
+	update and run while on screen without taking any GPU power if there isn't active sight, and there will
+	be MUCH reduced GPU usage even after discovering an area if not in acitve sight as just the tiles and
+	sprite indexes will be drawn at given coordinates (and again, they'll only be drawn if on screen).
+-Camera
+	-Controlled either when the mouse_gui_x or mouse_gui_y approached within 1 pixel of the gui border (moving
+	the camera itself in that direction).
+	-Also controlled by direct player controls.
+	-Also can snap to a location if clicked on the mini map.
+-Player Controls
+	-Should be obvious and should be created to be intuitive. WASD type stuff.
+-Permanent Menu at the Bottom
+	-Far left should be resources with icons
+	-Next to that should be currently selected unit(s) or building with icons, upgrades listed below in mini
+	icons, and the amount of each unit listed next to the main icons.
+	-If singular unit or building selected, HP bar should appear.
+	-If group of units selected, a "Square Formation" and "Line Formation" button should exist next to the
+	icons. A group HP bar should also appear, which is just an average of the total HP percentages of all units
+	selected.
+	-Next to the icons and information should be possible upgrades, if any exist. If none exist, then nothing.
+	-Next to that, the mini map.
+-Mini Map
+	-Should be a representation of what is covered by the fog of war, what has been discovered but is not in active
+	sight, and what is currently in active sight. 
+	-Should be easy enough - draw a much more pixelated version of the entire map, with various pixel colors and blobs
+	to indicate various resources and buildings. Every time a building is built, that can be updated by a colored block
+	on the mini map. And the mini map can draw straight from the ds_list described in the Fog of War section, which
+	means it will also be accurate, always, to the fog of war.
+-Basic Damage Handling
+	-Animations should play but I don't need hitboxes, I just a target to hit and the damage value, and that's it. Just
+	play the animation in tandem with the HP going down by that amount of damage and it'll look good enough.
+	-If an enemy is chasing another enemy and catches up, it should stop moving (but not need to snap to a grid location),
+	play the attack animation, deal damage to the enemy, and then continue chasing. 
+-Pausing
+	-Make sure to include pausing capabilities. This needs to especially pause the AI decisions.
+
+
+
+
+
+determine size classification to set initial search modifier values
+just adjust the search pattern automatically using the modifier values
+
+
+
+

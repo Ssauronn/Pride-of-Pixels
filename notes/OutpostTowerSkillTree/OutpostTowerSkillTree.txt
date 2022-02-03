@@ -1,0 +1,29 @@
+OUTPOST/TOWER
+
+TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
+- INNOVATION 1a	Increases sight range.
+
+TIER 2 UPGRADES
+- SPECIAL 1 -	Upgrades Outpost to a Tower, with further attack range and more damage.
+- OFFENSIVE 1 -	Increases the damage of the Tower/Outpost/Mage Spire.
+AFTER OUTPOST IS UPGRADED TO A TOWER:
+- DEFENSIVE 1a -Upgrades Tower armor.
+- DEFENSIVE 1b -Upgrades Tower health.
+- INNOVATION 1b	Allows the garrison of a single normal unit. The Tower gains bonuses depending on the type
+  of unit garrisoned.
+	- Worker: The Tower slowly heals over time.
+	- All other normal units: The Tower gains additional attack speed.
+
+TIER 1 UPGRADES
+- SPECIAL 2 -	Upgrades Tower to a Mage Spire, with additional Magic damage applied to each arrow.
+- OFFENSIVE 2 -	Increases the damage of the Tower/Outpost/Mage Spire.
+AFTER TOWER IS UPGRADED TO A MAGE SPIRE
+- DEFENSIVE 2a -Upgrades Mage Spire armor.
+- DEFENSIVE 2b -Upgrades Mage Spire health.
+- INNOVATION 1c	Allows the garrison of a single Ruby unit, in addition to the garrisoned normal unit. 
+  The Mage Spire gains bonuses depending on the type of Ruby unit garrisoned.
+	- Automaton: The Mage Spire can now attack two targets at once.
+	- Abomination: The Mage Spire launches occasional boulders in addition to its regular
+	  attacks, dealing large damage with each boulder.
+	- All other Ruby units: The Mage Spire now launches fireballs at a slower rate,
+	  dealing pure magic damage to all enemies in a large area around the target.

@@ -1,0 +1,62 @@
+TEMPLE
+
+TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
+- SPECIAL 1 -	Special Abilities: Unlocks the Special Ability for the ruby unit chosen in your Combat
+		Specialty skill.
+
+TIER 2 UPGRADES
+- SPECIAL 2a -	Ruby Units: Allows ruby units to be built.
+- INNOVATION 1a Ordained: Acolyte healing is increased.
+- INNOVATION 1b Swift Footed: Subverters gain additional movement speed.
+- OFFENSIVE 1 -	Enlightened: Increases the damage of all Ruby units.
+- DEFENSIVE 1a -Hide Armor: Increases the slash armor of Wizards and Warlocks.
+- DEFENSIVE 1b -Cover: Increases the pierce armor of Subverters and Acolytes.
+MAGICAL UPGRADES
+- SPECIAL 2b -	Abominations: Allows Abominations to be built.
+- INNOVATION 2a Fire Linked: Unlocks the Link ability for Wizards, allowing one to link with two others.
+		The group of linked Wizards lose the ability to fight normally, but the player
+		can choose a target location on the map for all linked Wizards to attack. The
+		linked Wizards launch fireballs at the target location, dealing damage to all
+		enemies within that location.
+- INNOVATION 2b Shrine of Vitality: Unlocks the Link ability for Acolytes, allowing one to link 
+		with two others. The group of linked Acolytes lose the ability to heal normally, 
+		but the player can choose a target location on the map for all linked Acolytes to 
+		heal. The linked Acolytes launch fireballs at the target location, healing all allies
+		within that location. 
+TECHNOLOGY UPGRADES
+- SPECIAL 2b -	Automatons: Allows Automatons to be built.
+- INNOVATION 2 -Shocktroopers: Unlocks the Shocktroopers ability for Automatons, allowing the player to
+		teleport all Automatons not currently in combat to a location within range
+		of a friendly unit that is in combat. This ability has a long cooldown.
+
+TIER 1 UPGRADES
+- INNOVATION 3a Fireballs: Wizards now cast fireballs, dealing full damage to their target and reduced
+		damage to any adjacent targets. Deals full damage to any adjacent enemy buildings.
+- INNOVATION 3b Enslavement: Warlock pets are now permanent.
+- INNOVATION 3c Sanctified: Acolyte healing is further increased.
+- OFFENSIVE 2 -	Empowered: Further increases the damage of all Ruby units.
+- OFFENSIVE 3a -Power Potions: Increases the damage of Warlocks and Wizards.
+- OFFENSIVE 3b -Preparation: Increases the effectiveness of all Subverter effects on buildings.
+- DEFENSIVE 2a -Magic Barrier: Increases the magic armor of all ruby units.
+- DEFENSIVE 2b -Thickened Skin: Increases the slash armor of all ruby units.
+- DEFENSIVE 2c -Slowing Field: Increases the pierce armor of all ruby units.
+MAGICAL UPGRADES
+- SPECIAL 3a -	Sacrifice: Abominations can now be sacrificed at a Temple, which provides the player with the
+		body parts the Abomination was created with. The player can then create Abominations
+		with those body parts, thereby allowing the player to design what kind of
+		Abomination they would like.
+- SPECIAL 3b -	Frankensteins: Abominations are now given bonuses depending on the parts they're created with.
+		Each Werewolf part increases the movement speed of Abominations. Each Robot part
+		increases the damage of Abominations. Each Ogre part increases the health of
+		Abominations.
+- SPECIAL 3c -	Soulwell: IF SOUL SUBJUGATOR CHOSEN: All ruby units are granted additional health. Ruby units
+		respawned with Soul Subjugator lose this effect.
+- SPECIAL 3c -	Mass Enslavement: IF RITUAL GROUNDS CHOSEN: Warlocks now summon 3 Demons at once. The Warlock
+		will not summon more Demons until all 3 are dead.
+- SPECIAL 3c -	Cycling: IF UNHOLY ZIGGURAT CHOSEN: Any unit currently empowered by Unholy Ziggurat can be
+		sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the
+		charge level it was previously at, minus one charge level. No more than one unit
+		empowered by Unholy Ziggurat may be sacrificed per use.
+TECHNOLOGY UPGRADES
+- SPECIAL 4 -	Blessed Aura: Acolytes now increase the movement speed of all friendly units within range.
+- INNOVATION 4 -Rechargeable Batteries: Reduces the cooldown of your Shocktrooper ability.

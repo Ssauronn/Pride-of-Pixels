@@ -1,0 +1,44 @@
+OBELISK
+
+TIER 2 UPGRADES
+- INNOVATION 1	Increases the sight range of Obelisks.
+- SPECIAL 1 -	Obelisks now provide an armor bonus for all units and buildings within range.
+MAGICAL UPGRADES
+- CHOOSE TWO OF THE FOLLOWING
+	- SPECIAL 2a -	Provides True Sight, revealing all Rogues and Subverters within range.
+		- INNOVATION 2a	You retain True Sight on Rogues and Subverters revealed by your
+		  Obelisks for a short time after they leave the Obelisk's range.
+		- SPECIAL 3a -	All enemy units are slowed while in range of the Obelisk.
+	- SPECIAL 2b -	Will summon a Demon when an enemy comes within range. Medium cooldown.
+		- INNOVATION 2b	Demons summoned by the Obelisk have increased speed and attack
+		  for a short time after being summoned.
+		- SPECIAL 3b -	The Obelisk will summon a small number of Demons if it is
+		  destroyed.
+	- SPECIAL 2c -	An Obelisk can link to one unit. Once linked, if that unit would have
+	  been killed, the unit is instead saved from death, set to 1 HP,
+	  teleported to the Obelisk, and the Obelisk is then destroyed. An Obelisk
+	  cannot be linked to a unit if it is not at full health.
+		- INNOVATION 2c	The Obelisk is no longer destroyed when the linked unit would
+		  have been killed and is instead set to 1 HP.
+		- SPECIAL 3c -	Buildings within range of the Obelisk slowly heal over time.
+TECHNOLOGY UPGRADES
+ - CHOOSE TWO OF THE FOLLOWING
+	- SPECIAL 2a -	Provides true sight, revealing all Rogues and Subverters within range.
+		- INNOVATION 2a	You retain True Sight on Rogues and Subverters revealed by your
+		  Obelisks for a short time after they leave the Obelisk's range.
+		- SPECIAL 3a -	All enemy units are slowed while in range of the Obelisk.
+	- SPECIAL 2b -	Allows units to teleport between Obelisks.
+		- INNOVATION 2b	Units gain a temporary speed boost after teleporting using the
+		  Obelisk.
+		- SPECIAL 3b -	
+	- SPECIAL 2c -	Fires beams of lasers at single targets, dealing high damage over time.
+		- INNOVATION 2c	Laser beam is upgraded to plasma beam, dealing even more damage.
+		- SPECIAL 3c -	The Obelisk now ignores the target's magic armor.
+
+TIER 1 UPGRADES
+- INNOVATION 2d	Increases the effect range of Obelisks.
+- SPECIAL 3d -	Obelisks now provide an attack bonus for all units and buildings within range.
+- SPECIAL 4 -	You may now choose one sight target for each Obelisk. The sight target can only
+  be another Obelisk. A narrow line of Vision is constantly provided between the
+  original Obelisk and its sight target. Enemies can see your sight lines.
+- DEFENSIVE 1 -	Increases the armor of the Obelisk.

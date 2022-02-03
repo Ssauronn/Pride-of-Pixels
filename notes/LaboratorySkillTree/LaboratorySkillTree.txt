@@ -1,0 +1,28 @@
+LABORATORY
+
+TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
+MAGICAL UPGRADES
+- INNOVATION 1 -Improves the effectiveness of Flasks.
+TECHNOLOGY UPGRADES
+- INNOVATION 1 -Reduces the effectiveness of basic unit Combat Specialty abilities.
+			- Support: Workers mine faster.
+			- Stealth: Reduces the cooldown of the teleport.
+			- Recklessness: Berserkers deal more damage with their nanotech
+			  aura.
+			- Protectorates: Knights take less damage while an enemy unit
+			  is taunted.
+			- Swarm: Soldiers also gain additional movement speed for each
+			  friendly unit within range.
+
+TIER 2 UPGRADES
+- OFFENSIVE 1 -	Increases the damage that all buildings do.
+- DEFENSIVE 1 -	Increases the armor of all buildings.
+MAGICAL UPGRADES
+- INNOVATION 2 -Increases the area of effect by 1 square for the targeted area by linked
+		Wizards or Acolytes.
+TECHNOLOGY UPGRADES
+- INNOVATION 2 -Reduces the cooldown of Shocktroopers. 
+
+TIER 1 UPGRADES
+- OFFENSIVE 2 -	Increases all magic damage dealt by ruby units.
+- DEFENSIVE 2 -	Increases magic armor for all units.

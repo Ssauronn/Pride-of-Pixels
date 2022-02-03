@@ -1,0 +1,31 @@
+CITY HALL
+
+GAME START
+UNIVERSAL UPGRADES
+- SPECIAL 1 -	Discovery: Upgrade to the First Age.
+
+TIER 3 UPGRADES
+UNIVERSAL UPGRADES
+- DEFENSIVE 1 -	Foundations: Increases the armor of all buildings.
+- OFFENSIVE 1 -	Parapets: Increases the attack all of buildings that deal damage.
+- INNOVATION 1a	Farming: Unlocks the Farm structure and allows it to be built.
+- SPECIAL 2 -	Experimentation: Upgrade to Second Age.
+TECHNOLOGY UPGRADES
+- INNOVATION 1b	Drones: Workers no longer need to drop base resources off at a Storehouse. 
+  		(Upgrade also available at Storehouse).
+
+TIER 2 UPGRADES
+UNIVERSAL UPGRADES
+- DEFENSIVE 2 -	Ramparts: Further increases the armor of all buildings.
+- SPECIAL 3a -	Drilling: Allows Workers to mine Ruby.
+  		(Upgrade also available at Storehouse).
+- INNOVATION 2	Thickets: Unlocks the Thicket structure and allows it to be built.
+- SPECIAL 3b -	Refinement: Upgrade to Third Age.
+
+TIER 1 UPGRADES
+- DEFENSIVE 3 -	Bastion: Further increases the armor of all buildings.
+- DEFENSIVE 4 -	Shielding: Upgrades the magic armor of all buildings.
+- INNOVATION 3a	Mines: Unlocks the Mine structure and allows it to be built.
+- SPECIAL 3c -	Ballroom: Each City Hall and House provides additional population.
+- INNOVATION 3b	Unlocks the building of the Tier specific chosen structures
+  		for your specialization.
