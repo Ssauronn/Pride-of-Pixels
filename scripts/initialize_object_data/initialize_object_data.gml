@@ -98,6 +98,8 @@ function initialize_object_data() {
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 12;
 			objectAttackDamageType = "Slash";
+			objectIsRubyUnit = false;
+			objectCanUseSpecialAbility = false;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.

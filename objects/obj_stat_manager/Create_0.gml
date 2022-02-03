@@ -29,8 +29,13 @@ enum eUpgradeSibling {
 	c,
 	noone
 }
-// Some basic stat tracking variables
+/// Some basic stat tracking variables
+// Set once any stat has finished an update to true, otherwise always set to false
 anyStatUpdated = false;
+// Set to false by default, else set to a string equal to the building type that is currently
+// being updated. If multiple building types are counting down upgrade timers, this will be set
+// to any of those buildings' types (the specific type doesn't matter as once an upgrade finishes,
+// another check goes through all stats to see if anything else is being updated).
 anyStatBeingUpdated = false;
 
 // Create an array and assign it to globalvar player, then give each array a struct to hold.
