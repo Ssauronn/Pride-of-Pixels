@@ -6,7 +6,7 @@
     "path": "folders/Scripts/Building_Specific.yy",
   },
   "resourceVersion": "1.0",
-  "name": "spawn_unit",
+  "name": "spawn_building",
   "tags": [],
   "resourceType": "GMScript",
 }

@@ -1,11 +1,11 @@
-///@function	spawn_unit();			
+///@function	building_spawn_unit();			
 ///@param	{string}	unit_type		The type of unit to spawn.
 ///@param	{real}	unit_team			The team the unit will belong to.
 ///@description							Spawn a unit at a location. It will spawn at a random adjacent
 ///										location to the building if no rally point is established, 
 ///										and otherwise will spawn at a random adjacent location to the
 ///										building and move to the rally point.
-function spawn_unit(type_, team_) {
+function building_spawn_unit(type_, team_) {
 	var i, iteration_, square_iteration_, check_x_, check_y_, horizontal_offset_, vertical_offset_, horizontal_side_square_size_, vertical_side_square_size_, total_square_size_perimeter_, spawn_found_;
 	iteration_ = 0;
 	square_iteration_ = 1;
@@ -133,7 +133,7 @@ function spawn_unit(type_, team_) {
 			objectVisibleTeam = self_.objectRealTeam;
 			objectRealTeam = self_.objectRealTeam;
 			objectClassification = "Unit";
-			objectType = "Worker";
+			objectType = type_;
 			objectCurrentCommand = "Move";
 			objectNeedsToMove = true;
 			targetToMoveToX = floor(self_.rallyPointX / 16) * 16;
@@ -177,11 +177,6 @@ function spawn_unit(type_, team_) {
 			currentDirection = floor(point_direction(x, y, targetToMoveToX, targetToMoveToY) / 90);
 			movementLeaderOrFollowing = "Leader";
 			event_perform(ev_step, ev_step_normal);
-		}
-		// Variables specifically used by object to move
-		/**/
-		with unit_spawned_ {
-			
 		}
 	}
 	else {

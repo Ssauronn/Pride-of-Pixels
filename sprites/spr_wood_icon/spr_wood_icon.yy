@@ -69,8 +69,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Toolbar",
-    "path": "folders/UI/Sprites/In-Match Menus/Toolbar.yy",
+    "name": "Elements",
+    "path": "folders/UI/Sprites/In-Match Menus/Toolbar/Elements.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_wood_icon",

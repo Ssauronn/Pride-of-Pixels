@@ -9,6 +9,7 @@ initialized = false;
 
 // Object classification and type, used for selection and targeting purposes
 objectClassification = "Building";
+objectType = "City Hall"
 objectSelected = false;
 objectOnScreen = false;
 objectTarget = noone;
