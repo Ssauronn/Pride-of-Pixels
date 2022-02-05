@@ -1,5 +1,8 @@
 STOREHOUSE
 
+GAME START
+
+
 TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 - INNOVATION 1a	Increases the gathering speed of all base resources by Workers.
 TECHNOLOGY UPGRADES

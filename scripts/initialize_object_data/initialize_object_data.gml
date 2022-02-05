@@ -185,6 +185,19 @@ function initialize_object_data() {
 			mask_index = spr_64_64;
 			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
 			mp_grid_add_instances(movementGrid, self, true);
+			
+			// Specific Variables
+			
+			
+			break;
+		case "Temple":
+			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+			// In this case, all the generic variables need to be added here, copied from City Hall,
+			// in addition to the building specific variable
+			// Generic Variables
+			
+			// Specific Variables
+			canTrainRubyUnits = false;
 			break;
 		#endregion
 	}

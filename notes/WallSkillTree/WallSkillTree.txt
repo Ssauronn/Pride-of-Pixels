@@ -1,0 +1,18 @@
+WALL
+
+GAME START
+UNIVERSAL
+- INNOVATION 1 -Stone Walls: Upgrades Walls to Stone Walls, with more HP and basic Defense.
+
+TIER 3 UPGRADES
+UNIVERSAL
+- INNOVATION 2 -Reinforced Walls: Upgrades Stone Walls to Reinforced Walls, with more HP and basic Defense.
+
+TIER 2 UPGRADES
+UNIVERSAL
+- INNOVATION 3 -Iron Walls: Upgrades Reinforced Walls to Iron Walls, with more HP and basic Defense.
+
+TIER 1 UPGRADES
+UNIVERSAL
+- INNOVATION 4 -Magic Walls: Upgrades Iron Walls to Magic Walls, with more HP and universal Defenses.
+
