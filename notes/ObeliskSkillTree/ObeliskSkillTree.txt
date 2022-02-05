@@ -1,5 +1,11 @@
 OBELISK
 
+GAME START
+
+
+TIER 3 UPGRADES
+
+
 TIER 2 UPGRADES
 - INNOVATION 1	Increases the sight range of Obelisks.
 - SPECIAL 1 -	Obelisks now provide an armor bonus for all units and buildings within range.

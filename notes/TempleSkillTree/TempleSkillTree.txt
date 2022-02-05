@@ -1,6 +1,9 @@
 TEMPLE
 
-TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
+GAME START
+
+
+TIER 3 UPGRADES
 - SPECIAL 1 -	Special Abilities: Unlocks the Special Ability for the ruby unit chosen in your Combat
 		Specialty skill.
 

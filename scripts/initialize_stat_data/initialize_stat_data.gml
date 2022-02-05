@@ -293,15 +293,15 @@ function _city_hall() constructor {
 				false, 3, false, noone, "City Hall", "Worker", "canBuildUnholyZiggurat", noone, 1, 90, 200, 
 				200, 200, 200);
 	railGun = new _upgrade_options("Rail Gun", "Unlocks the Rail Gun structure and allows it to be built by Workers.", 
-				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 3, false, noone, "City Hall", "Worker", "canBuildRailGun", noone, 1, 90, 200, 
 				200, 200, 200);
 	stasisField = new _upgrade_options("Stasis Field", "Unlocks the Stasis Field structure and allows it to be built by Workers.", 
-				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 3, false, noone, "City Hall", "Worker", "canBuildStasisField", noone, 1, 90, 200, 
 				200, 200, 200);
 	launchSite = new _upgrade_options("Launch Site", "Unlocks the Launch Site structure and allows it to be built by Workers.", 
-				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 3, false, noone, "City Hall", "Worker", "canBuildLaunchSite", noone, 1, 90, 200, 
 				200, 200, 200);
 }
@@ -309,9 +309,33 @@ function _temple() constructor {
 	statUpdated = false;
 	specialAbilities = new _upgrade_options("Special Abilities", "Unlocks Ruby Unit Special Abilities and allows them to be used in combat.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 0, true, noone, "Temple", obj_unit, "objectCanUseSpecialAbility", noone, 1, 60, 
+				false, 1, true, noone, "Temple", obj_unit, "objectCanUseSpecialAbility", noone, 1, 60, 
 				100, 0, 200, 0);
-	rubyUnits = new _upgrade_options("Ruby Units", );
+	rubyUnits = new _upgrade_options("Ruby Units", "Allows Ruby Units to be built.", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 2, false, noone, "Temple", obj_building, "canTrainRubyUnits", noone, 1, 60, 100, 
+				100, 200, 0);
+	ordained = new _upgrade_options("Ordained", "Acolyte healing is increased.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 2, false, noone, "Temple", "Acolyte", "outCombatHealValue and inCombatHealValue", 
+				noone, "20 and 2", 45, 150, 0, 150, 0);
+	swiftFooted = new _upgrade_options("Swift Footed", "Subverters gain additional movement speed.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 2, false, noone, "Temple", "Subverter", "movementSpeed", noone, 1, 45, 150, 0, 
+				150, 0);
+	enlightened = new _upgrade_options("Enlightened", "Increases the damage of all Ruby Units.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Temple", "Abomination and Automaton and Acolyte and Wizard and Warlock and Subverter", 
+				"objectAttackDamage", noone, 8, 90, 50, 100, 150, 200);
+	hideArmor = new _upgrade_options("Hide Armor", "Increases the slash armor of Wizards and Warlocks", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 2, false, noone, "Temple", "Wizard and Warlock", "objectSlashResistance", noone, 
+				-0.1, 60, 200, 0, 100, 0);
+	cover = new _upgrade_options("Cover", "Increases the pierce armor of Subverters and Acolytes", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 2, false, noone, "Temple", "Subverter and Acolyte", "objectPierceResistance", noone, 
+				-0.1, 60, 50, 200, 100, 0);
+	
 }
 
 /*

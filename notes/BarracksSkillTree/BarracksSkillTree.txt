@@ -1,5 +1,8 @@
 BARRACKS
 
+GAME START
+
+
 TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 - OFFENSIVE 1a -Upgrades the range of Rangers.
 - OFFENSIVE 1b -Upgrades the attack bonus of Berserker's enrage ability.
