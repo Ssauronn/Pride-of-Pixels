@@ -1603,24 +1603,13 @@ function unit_move() {
 									// line of sight of the new location to move to, then set that new location to move to as a valid
 									// path target. Otherwise, keep searching.
 									else if mp_grid_path(movementGrid, myPath, x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY, true) {
-										// If the unit has a target
-										if instance_exists(objectTarget) {
-											// If the target is within line of sight, then that's a valid path
-											if line_of_sight_exists_to_target(specificLocationToBeCheckedX, specificLocationToBeCheckedY, objectTarget.x + 8, objectTarget.y + 8) {
-												path_found_ = true;
+										path_found_ = true;
+										// If the target is within line of sight, then that's a valid path
+										if line_of_sight_exists_to_target(specificLocationToBeCheckedX, specificLocationToBeCheckedY, objectTarget.x + 8, objectTarget.y + 8) {
+											if path_exists(myPath) {
+												path_delete(myPath);
+												myPath = noone;
 											}
-											// If the target isn't within line of sight, then that isn't a valid path
-											else {
-												path_found_ = false;
-												if path_exists(myPath) {
-													path_delete(myPath);
-													myPath = noone;
-												}
-											}
-										}
-										// If the unit doesn't have a target, then its a valid path
-										else {
-											path_found_ = true;
 										}
 									}
 									if path_found_ {
