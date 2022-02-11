@@ -15,7 +15,7 @@ function unit_attack() {
 				var i;
 				var correct_animation_active_ = false;
 				for (i = 0; i < unitDirection.length; i++) {
-					if currentSprite == workerSprite[currentAction][i] {
+					if currentSprite == unitSprite[currentAction][i] {
 						correct_animation_active_ = true;
 						break;
 					}

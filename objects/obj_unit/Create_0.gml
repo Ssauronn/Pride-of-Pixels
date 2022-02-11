@@ -58,7 +58,6 @@ groupRowWidth = 0;
 specificLocationNeedsToBeChecked = false;
 specificLocationToBeCheckedX = -1;
 specificLocationToBeCheckedY = -1;
-movementSpeed = 2;
 searchHasJustBegun = true;
 totalTimesSearched = 0;
 closestSearchPointToObjectX = -1;

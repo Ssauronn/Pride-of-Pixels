@@ -12,6 +12,7 @@ enum unitAction {
 	chop,
 	farm,
 	attack,
+	specialAttack,
 	length
 }
 // Sprite setting enums
@@ -79,7 +80,13 @@ function initialize_object_data() {
 			maxHP = 70;
 			currentHP = maxHP;
 			objectRange = 16;
+			movementSpeed = 1;
+			objectIsRubyUnit = false;
 			// Availability variables
+			objectHasSpecialAbility = false;
+			objectCanUseSpecialAbility = false;
+			objectHasCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false;
 			canBuildFarm = false;
 			canBuildThicket = false;
 			canBuildMine = false;
@@ -98,8 +105,6 @@ function initialize_object_data() {
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 12;
 			objectAttackDamageType = "Slash";
-			objectIsRubyUnit = false;
-			objectCanUseSpecialAbility = false;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -120,34 +125,34 @@ function initialize_object_data() {
 			objectRubyMineSpeedTimer = 0; // Ruby
 			objectRubyMineDamage = 2; // Ruby
 			// Sprite setting array
-			workerSprite[unitAction.idle][unitDirection.right] = spr_worker_right_idle;
-			workerSprite[unitAction.idle][unitDirection.up] = spr_worker_back_idle;
-			workerSprite[unitAction.idle][unitDirection.left] = spr_worker_left_idle;
-			workerSprite[unitAction.idle][unitDirection.down] = spr_worker_front_idle;
-			workerSprite[unitAction.move][unitDirection.right] = spr_worker_right_walk;
-			workerSprite[unitAction.move][unitDirection.up] = spr_worker_back_walk;
-			workerSprite[unitAction.move][unitDirection.left] = spr_worker_left_walk;
-			workerSprite[unitAction.move][unitDirection.down] = spr_worker_front_walk;
-			workerSprite[unitAction.mine][unitDirection.right] = spr_worker_right_mine;
-			workerSprite[unitAction.mine][unitDirection.up] = spr_worker_back_mine;
-			workerSprite[unitAction.mine][unitDirection.left] = spr_worker_left_mine;
-			workerSprite[unitAction.mine][unitDirection.down] = spr_worker_front_mine;
-			workerSprite[unitAction.chop][unitDirection.right] = spr_worker_right_chop;
-			workerSprite[unitAction.chop][unitDirection.up] = spr_worker_back_chop;
-			workerSprite[unitAction.chop][unitDirection.left] = spr_worker_left_chop;
-			workerSprite[unitAction.chop][unitDirection.down] = spr_worker_front_chop;
-			workerSprite[unitAction.farm][unitDirection.right] = spr_worker_right_farm;
-			workerSprite[unitAction.farm][unitDirection.up] = spr_worker_back_farm;
-			workerSprite[unitAction.farm][unitDirection.left] = spr_worker_left_farm;
-			workerSprite[unitAction.farm][unitDirection.down] = spr_worker_front_farm;
-			workerSprite[unitAction.attack][unitDirection.right] = spr_worker_right_attack;
-			workerSprite[unitAction.attack][unitDirection.up] = spr_worker_back_attack;
-			workerSprite[unitAction.attack][unitDirection.left] = spr_worker_left_attack;
-			workerSprite[unitAction.attack][unitDirection.down] = spr_worker_front_attack;
+			unitSprite[unitAction.idle][unitDirection.right] = spr_worker_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_worker_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_worker_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_worker_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_worker_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_worker_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_worker_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_worker_front_walk;
+			unitSprite[unitAction.mine][unitDirection.right] = spr_worker_right_mine;
+			unitSprite[unitAction.mine][unitDirection.up] = spr_worker_back_mine;
+			unitSprite[unitAction.mine][unitDirection.left] = spr_worker_left_mine;
+			unitSprite[unitAction.mine][unitDirection.down] = spr_worker_front_mine;
+			unitSprite[unitAction.chop][unitDirection.right] = spr_worker_right_chop;
+			unitSprite[unitAction.chop][unitDirection.up] = spr_worker_back_chop;
+			unitSprite[unitAction.chop][unitDirection.left] = spr_worker_left_chop;
+			unitSprite[unitAction.chop][unitDirection.down] = spr_worker_front_chop;
+			unitSprite[unitAction.farm][unitDirection.right] = spr_worker_right_farm;
+			unitSprite[unitAction.farm][unitDirection.up] = spr_worker_back_farm;
+			unitSprite[unitAction.farm][unitDirection.left] = spr_worker_left_farm;
+			unitSprite[unitAction.farm][unitDirection.down] = spr_worker_front_farm;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_worker_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_worker_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_worker_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_worker_front_attack;
 			// Actual Sprite Value
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
-			currentSprite = workerSprite[currentAction][currentDirection];
+			currentSprite = unitSprite[currentAction][currentDirection];
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -155,6 +160,231 @@ function initialize_object_data() {
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
 			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Wizard":
+			// Generic variables
+			maxHP = 100;
+			currentHP = maxHP;
+			objectRange = 16 * 4;
+			movementSpeed = 1.5;
+			objectIsRubyUnit = true;
+			// Availability variables
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false;
+			wizardsCanLink = false;
+			// Combat variables
+			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 2 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 30;
+			objectAttackDamageType = "Magic";
+			objectSpecialAttackDamage = 50;
+			objectSpecialAttackDamageType = "Magic";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 1;
+			objectMagicResistance = 0.95;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_wizard_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_wizard_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_wizard_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_wizard_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_wizard_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_wizard_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_wizard_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_wizard_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_wizard_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_wizard_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_wizard_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_wizard_front_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.right] = spr_wizard_right_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.up] = spr_wizard_back_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.left] = spr_wizard_left_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.down] = spr_wizard_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Acolyte":
+			// Generic variables
+			maxHP = 100;
+			currentHP = maxHP;
+			objectRange = 16 * 4;
+			movementSpeed = 1.5;
+			objectIsRubyUnit = true;
+			// Availability variables
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
+			objectHasCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false;
+			acolytesCanLink = false;
+			// Combat variables
+			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 2 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 30;
+			objectAttackDamageType = "Magic";
+			objectSpecialAttackDamage = 50;
+			objectSpecialAttackDamageType = "Magic";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 1;
+			objectMagicResistance = 0.95;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_wizard_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_wizard_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_wizard_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_wizard_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_wizard_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_wizard_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_wizard_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_wizard_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_wizard_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_wizard_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_wizard_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_wizard_front_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.right] = spr_wizard_right_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.up] = spr_wizard_back_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.left] = spr_wizard_left_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.down] = spr_wizard_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Abomination":
+			// Generic variables
+			maxHP = 100;
+			currentHP = maxHP;
+			objectRange = 16 * 4;
+			movementSpeed = 1.5;
+			objectIsRubyUnit = true;
+			// Availability variables
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
+			objectHasCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false;
+			abominationsCanSacrifice = false;
+			// Combat variables
+			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 2 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 30;
+			objectAttackDamageType = "Magic";
+			objectSpecialAttackDamage = 50;
+			objectSpecialAttackDamageType = "Magic";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 1;
+			objectMagicResistance = 0.95;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_wizard_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_wizard_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_wizard_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_wizard_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_wizard_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_wizard_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_wizard_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_wizard_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_wizard_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_wizard_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_wizard_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_wizard_front_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.right] = spr_wizard_right_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.up] = spr_wizard_back_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.left] = spr_wizard_left_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.down] = spr_wizard_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Automaton":
+			// Generic variables
+			maxHP = 100;
+			currentHP = maxHP;
+			objectRange = 16 * 4;
+			movementSpeed = 1.5;
+			objectIsRubyUnit = true;
+			// Availability variables
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false;
+			automatonsCanShocktrooper = false;
+			// Combat variables
+			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 2 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 30;
+			objectAttackDamageType = "Magic";
+			objectSpecialAttackDamage = 50;
+			objectSpecialAttackDamageType = "Magic";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 1;
+			objectMagicResistance = 0.95;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_wizard_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_wizard_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_wizard_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_wizard_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_wizard_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_wizard_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_wizard_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_wizard_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_wizard_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_wizard_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_wizard_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_wizard_front_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.right] = spr_wizard_right_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.up] = spr_wizard_back_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.left] = spr_wizard_left_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.down] = spr_wizard_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		
 		#endregion
 		#region Buildings
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
@@ -198,6 +428,8 @@ function initialize_object_data() {
 			
 			// Specific Variables
 			canTrainRubyUnits = false;
+			canTrainAbominations = false;
+			canTrainAutomatons = false;
 			break;
 		#endregion
 	}

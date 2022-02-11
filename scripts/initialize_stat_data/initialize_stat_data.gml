@@ -257,9 +257,9 @@ function _city_hall() constructor {
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 2, false, noone, "City Hall", "Worker", "canBuildThicket", noone, 1, 30, 200, 300, 
 				100, 0);
-	drilling = new _upgrade_options("Drilling", "Allows Workers to mine Rubies", eUpgradeTree.universal,
-				eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.a, false, 2, false, noone, 
-				"City Hall", "Worker", "canMineRuby", noone, 1, 45, 0, 0, 800, 0);
+	drilling = new _upgrade_options("Drilling", "Allows Workers to mine Rubies", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.a, 
+				false, 2, false, noone, "City Hall", "Worker", "canMineRuby", noone, 1, 45, 0, 0, 800, 0);
 	refinement = new _upgrade_options("Refinement", "Upgrades to the third Age, unlocking additional upgrades.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 2, false, noone, "City Hall", "Player", "age", "Age Three", 1, 150, 300, 500, 
@@ -308,13 +308,17 @@ function _city_hall() constructor {
 function _temple() constructor {
 	statUpdated = false;
 	specialAbilities = new _upgrade_options("Special Abilities", "Unlocks Ruby Unit Special Abilities and allows them to be used in combat.", 
-				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 1, true, noone, "Temple", obj_unit, "objectCanUseSpecialAbility", noone, 1, 60, 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 2, true, noone, "Temple", "Ruby", "objectCanUseSpecialAbility", noone, 1, 60, 
+				100, 0, 200, 0);
+	combatSpecialtyAbility = new _upgrade_options("Combat Specialty Ability", "Unlocks the Combat Special Ability for the Ruby Unit chosen in your Combat Specialty skill at game start.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 2, true, noone, "Temple", "Ruby", "objectCanUseCombatSpecializationAbility", noone, 1, 60, 
 				100, 0, 200, 0);
 	rubyUnits = new _upgrade_options("Ruby Units", "Allows Ruby Units to be built.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Temple", obj_building, "canTrainRubyUnits", noone, 1, 60, 100, 
-				100, 200, 0);
+				100, 200, 50);
 	ordained = new _upgrade_options("Ordained", "Acolyte healing is increased.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 2, false, noone, "Temple", "Acolyte", "outCombatHealValue and inCombatHealValue", 
@@ -325,16 +329,36 @@ function _temple() constructor {
 				150, 0);
 	enlightened = new _upgrade_options("Enlightened", "Increases the damage of all Ruby Units.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Temple", "Abomination and Automaton and Acolyte and Wizard and Warlock and Subverter", 
+				false, 2, false, noone, "Temple", "Abomination and Automaton and Acolyte and Wizard and Warlock and Subverter.", 
 				"objectAttackDamage", noone, 8, 90, 50, 100, 150, 200);
-	hideArmor = new _upgrade_options("Hide Armor", "Increases the slash armor of Wizards and Warlocks", 
+	hideArmor = new _upgrade_options("Hide Armor", "Increases the slash armor of Wizards and Warlocks.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 2, false, noone, "Temple", "Wizard and Warlock", "objectSlashResistance", noone, 
 				-0.1, 60, 200, 0, 100, 0);
-	cover = new _upgrade_options("Cover", "Increases the pierce armor of Subverters and Acolytes", 
+	cover = new _upgrade_options("Cover", "Increases the pierce armor of Subverters and Acolytes.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.b, 
 				false, 2, false, noone, "Temple", "Subverter and Acolyte", "objectPierceResistance", noone, 
 				-0.1, 60, 50, 200, 100, 0);
+	abominations = new _upgrade_options("Abominations", "Allows Abominations to be built.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Temple", obj_building, "canTrainAbominations", noone, 1, 
+				60, 100, 0, 200, 100);
+	fireLinked = new _upgrade_options("Fire Linked", "Unlockes the Fire Link ability for Wiards, allowing three Wizards to link with each other. The group of Linked Wizards lose the ability to fight normally, but the player gains the ability to choose a location within a large range for all Fire Linked Wizards to attack. The Linked Wizards launch a volley of fireballs at the target location, dealing Magic damage to all enemies within that location. Long shared cooldown for all Linked Wizards.", 
+				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 2, false, noone, "Temple", "Wizard", "wizardsCanLink", noone, 1, 90, 50, 
+				0, 50, 100);
+	vitalityLinked = new _upgrade_options("Vitality Linked", "Unlocks the Vitality Link ability for Acolytes, allowing three Acolytes to link with each other. The group of Linked Acolytes lose the ability to fight and heal normally, but the player gains the ability to choose a location within a large range for all Vitality Linked Acolytes to heal. The Linked Acolytes infuse the area with healing magic, healing all friendly units within that location. Long shared cooldown for all Linked Acolytes.", 
+				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Temple", "Acolyte", "acolytesCanLink", noone, 1, 90, 50, 
+				0, 50, 100);
+	automatons = new _upgrade_options("Automatons", "Allows Automatons to be built.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Temple", obj_building, "canTrainAutomatons", noone, 1, 
+				60, 100, 0, 200, 100);
+	shocktrooper = new _upgrade_options("Shocktrooper", "Unlocks the Shocktrooper ability for Automaton, allowing the player to teleport all Automatons not currently in combat to a location within a wide range of any friendly unit that is in combat. This ability has a long cooldown.", 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Temple", "Automaton", "automatonCanShocktrooper", noone, 1, 90, 
+				100, 0, 100, 200);
 	
 }
 
