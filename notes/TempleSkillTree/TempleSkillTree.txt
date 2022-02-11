@@ -4,10 +4,11 @@ GAME START
 
 
 TIER 3 UPGRADES
-- SPECIAL 1 -	Special Abilities: Unlocks the Special Ability for the ruby unit chosen in your Combat
-		Specialty skill.
 
 TIER 2 UPGRADES
+- SPECIAL 1a -	Special Abilities: Unlocks Special Abilities for all Ruby units.
+- SPECIAL 1b -	Combat Special Abilities: Unlocks the Combat Special Ability for the ruby unit chosen 
+				in your Combat Specialty skill at game start.
 - SPECIAL 2a -	Ruby Units: Allows ruby units to be built.
 - INNOVATION 1a Ordained: Acolyte healing is increased.
 - INNOVATION 1b Swift Footed: Subverters gain additional movement speed.
@@ -21,11 +22,11 @@ MAGICAL UPGRADES
 		can choose a target location on the map for all linked Wizards to attack. The
 		linked Wizards launch fireballs at the target location, dealing damage to all
 		enemies within that location.
-- INNOVATION 2b Shrine of Vitality: Unlocks the Link ability for Acolytes, allowing one to link 
+- INNOVATION 2b Vitality Linked: Unlocks the Link ability for Acolytes, allowing one to link 
 		with two others. The group of linked Acolytes lose the ability to heal normally, 
 		but the player can choose a target location on the map for all linked Acolytes to 
-		heal. The linked Acolytes launch fireballs at the target location, healing all allies
-		within that location. 
+		heal. The linked Acolytes infuse the location with healing magic, healing all friendly
+		units within that location.
 TECHNOLOGY UPGRADES
 - SPECIAL 2b -	Automatons: Allows Automatons to be built.
 - INNOVATION 2 -Shocktroopers: Unlocks the Shocktroopers ability for Automatons, allowing the player to

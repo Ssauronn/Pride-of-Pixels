@@ -11,10 +11,10 @@ TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 - SPECIAL 1a -	Unlocks the Berserker's Standard Ability, Enrage.
 - SPECIAL 1b -	Unlocks the Rogue's Standard Ability, Invisibility.
 - SPECIAL 1c -	Unlocks the Soldier's Standard Ability, Rally.
-- SPECIAL 2 -	Unlocks the Special Ability for the basic unit chosen in your Combat
-		Specialty skill.
 
 TIER 2 UPGRADES
+- SPECIAL 2 -	Unlocks the Combat Special Ability for the basic unit chosen in your Combat
+		Specialty skill at game start.
 - OFFENSIVE 2a -Rogues are able to find the weakpoint in armor with their Ambush ability
 		and now ignore half of the target's armor when attacking with Ambush.
 - OFFENSIVE 2b -Further increases the range of Rangers.

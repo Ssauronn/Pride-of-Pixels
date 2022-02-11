@@ -40,7 +40,7 @@ if !obj_gui.startMenu.active {
 					if break_ {
 						break;
 					}
-					if currentSprite == workerSprite[i][j] {
+					if currentSprite == unitSprite[i][j] {
 						current_action_ = i;
 						current_direction_facing_ = j;
 						break_ = true;
@@ -50,7 +50,7 @@ if !obj_gui.startMenu.active {
 		}
 		if (current_action_ != -1) && (current_direction_facing_ != -1) {
 			if current_direction_facing_ != currentDirection {
-				currentSprite = workerSprite[current_action_][currentDirection];
+				currentSprite = unitSprite[current_action_][currentDirection];
 			}
 		}
 	}
@@ -65,19 +65,19 @@ if !obj_gui.startMenu.active {
 		/// Apply a wait time to different animations, so that the animation lines up with the action taken on the other object.
 		// If the object's current action is simply to idle or move, just set the sprite normally.
 		if (currentAction == unitAction.idle) || (currentAction == unitAction.move) {
-			currentSprite = workerSprite[currentAction][currentDirection];
+			currentSprite = unitSprite[currentAction][currentDirection];
 		}
 		// However, if the object's current action is to mine, chop, farm, or attack, check to see if its currently idling.
-		else if (currentSprite == workerSprite[unitAction.idle][currentDirection]) || (currentSprite == workerSprite[unitAction.move][currentDirection]) {
+		else if (currentSprite == unitSprite[unitAction.idle][currentDirection]) || (currentSprite == unitSprite[unitAction.move][currentDirection]) {
 			if (currentAction == unitAction.mine) || (currentAction == unitAction.chop) || (currentAction == unitAction.farm) || (currentAction == unitAction.attack) {
 				// If the object is still commanded to mine, chop, farm, or attack, and the idle time is over, start the action animation.
 				if spriteWaitTimer <= 0 {
-					currentSprite = workerSprite[currentAction][currentDirection];
+					currentSprite = unitSprite[currentAction][currentDirection];
 				}
 			}
 			// Redundant to prevent errors.
 			else {
-				currentSprite = workerSprite[currentAction][currentDirection];
+				currentSprite = unitSprite[currentAction][currentDirection];
 			}
 		}
 		// Else if the object's action is to mine, chop, farm, or attack, and it is not currently idling, and obviously the animation
@@ -85,7 +85,7 @@ if !obj_gui.startMenu.active {
 		// action, just sprite) to idling and wait until its time to act again - that's set to 3 frames before the action is set to
 		// activate, because I want the animation to happen slightly before the action itself occurs, to more accurately line up the
 		// middle of the animation with the action itself.
-		else if currentSprite == workerSprite[currentAction][currentDirection] {
+		else if currentSprite == unitSprite[currentAction][currentDirection] {
 			if (currentAction != unitAction.idle) && (currentAction != unitAction.move) {
 				switch currentAction {
 					case unitAction.mine:
@@ -109,7 +109,7 @@ if !obj_gui.startMenu.active {
 						break;
 				}
 			}
-			currentSprite = workerSprite[unitAction.idle][currentDirection]
+			currentSprite = unitSprite[unitAction.idle][currentDirection]
 		}
 	}
 	sprite_index = currentSprite;
