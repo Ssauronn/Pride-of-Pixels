@@ -64,6 +64,9 @@ UNLOCKS TIER 1 UPGRADES
 	  respawned unit would exceed the player's Population cap.
 		- All units are granted additional health. Units
 		  respawned with Soul Subjugator lose this effect.
+			Special Available Upgrade: Soulwell: All ruby units 
+			are granted additional health on spawn. Ruby units 
+			respawned with Soul Subjugator lose this effect.
 	- Ritual Grounds: Requires a Warlock within range to activate.
 	  Continuously spawns Demons that are Soulbound to the nearest
 	  Warlock. If that Warlock dies, the Demons will follow suite
@@ -72,6 +75,9 @@ UNLOCKS TIER 1 UPGRADES
 	  Demons do not take up Population. A maximum of 20 Demons
 	  summoned by Ritual Grounds can be active at any point.
 		- All Demons are empowered, and gain additional damage.
+			Special Available Upgrade: Mass Enslavement: Warlocks 
+			now summon 3 Demons at once. The Warlock will not summon 
+			more Demons until all 3 are dead.
 	- Unholy Ziggurat: Requires units to be sacrificed at the
 	  Unholy Ziggurat to charge up. Can reach 3 different charge
 	  levels at 5, 10, and 20 sacrifices. Unholy Ziggurat can be
@@ -81,11 +87,12 @@ UNLOCKS TIER 1 UPGRADES
 	  level increases the effects of the power up. Unholy Ziggurat
 	  cannot power up other units or locations within the time frame
 	  of the currently active power up.
-		- Any unit empowered by Unholy Ziggurat may be sacrificed
-		  to immediately recharge Unholy Ziggurat to the charge
-		  level it was just at. Units not currently empowered by
-		  Unholy Ziggurat at the time they're sacrificed will be
-		  considered normal sacrifices.
+		- Grants additional movement speed to all units of the same 
+		  type that was last sacrificed at Unholy Ziggurat.
+			Special Available Upgrade: Any unit currently empowered 
+			by Unholy Ziggurat can be sacrificed at an Unholy Ziggurat 
+			to immediately recharge the Unholy Ziggurat to the charge 
+			level it was previously at, minus one charge level.
  - Abominations can be sacrificed at a Temple for body parts, and then
    those body parts can be used to custom build Abominations with their
    own stats. Each body part provides a different boost to stats.
@@ -157,22 +164,33 @@ UNLOCKS TIER 1 UPGRADES
    building options.
  - Choose between:
 	- Rail Gun: A large turret building capable of single shot
-	  damage dealing massive damage to all units in a line.
+	  damage dealing massive damage to all enemy units in a line.
 	  Long recharge time between each shot. The damage is reduced
 	  for each unit hit beyond the first. The Rail Gun has a
 	  large range but requires active sight on an enemy and must
 	  be facing the direction of the enemy to attack.
+			Special Available Upgrade: Handheld Rail Gun: Rangers 
+			are given Handheld Rail Guns. Their shots now penetrate 
+			targets and deal damage to all enemies in a line, but 
+			they now attack slower.
 	- Stasis Field: A building with a massive range. The player can
 	  choose a location within the building's range to target, and
-	  freeze all units and buildings in time. Lasts for 15 seconds.
-	  Units and buildings caught inside the stasis field cannot
-	  move or attack for the duration.
+	  freeze all enemy units and buildings in time. Lasts for 15 
+	  seconds. Units and buildings caught inside the stasis field 
+	  cannot move or attack for the duration.
+			Special Available Upgrade: Revealing Stasis: You gain 
+			sight on the location that the Stasis Field is effecting 
+			for its duration.
 	- Launch Site: A rocket launch facility capable of
 	  putting a salvo station into orbit. Once in orbit, an orbital
 	  bombardment can be called down on any area in the map for
 	  massive damage to everything in that area. Requires time
 	  between each bombardment for a new salvo station to be placed
-	  into orbit.
+	  into orbit. Requires active sight on the target location.
+			Special Available Upgrade: Drone Swarm: Choose any 
+			location on the map to deploy a swarm of drones to. The 
+			Drone Swarm spawns from a Launch Site, and move extremely 
+			fast, but have extremely low health. Long cooldown.
 - Acolytes now have greater control over their nano tech and deal slow
   damage to all enemies within range over time.
 
