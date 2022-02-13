@@ -7,7 +7,7 @@ TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 MAGICAL UPGRADES
 - INNOVATION 1 -Improves the effectiveness of Flasks.
 TECHNOLOGY UPGRADES
-- INNOVATION 1 -Reduces the effectiveness of basic unit Combat Specialty abilities.
+- INNOVATION 1 -Increases the effectiveness of basic unit special abilities.
 			- Support: Workers mine faster.
 			- Stealth: Reduces the cooldown of the teleport.
 			- Recklessness: Berserkers deal more damage with their nanotech

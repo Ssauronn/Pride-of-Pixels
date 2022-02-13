@@ -104,7 +104,7 @@ TECHNOLOGY
 THIRD TIER - CHOSEN AT GAME CREATION
 UNLOCKS TIER 3 UPGRADES
  Can build Automatons
- Combat Specialty
+ Combat Specialization
  - Choose between:
 	- Stealth:
 		- Rogues will teleport to the nearest space to their
