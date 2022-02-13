@@ -14,7 +14,7 @@ TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 
 TIER 2 UPGRADES
 - SPECIAL 2 -	Unlocks the Combat Special Ability for the basic unit chosen in your Combat
-		Specialty skill at game start.
+		Specialization skill at game start.
 - OFFENSIVE 2a -Rogues are able to find the weakpoint in armor with their Ambush ability
 		and now ignore half of the target's armor when attacking with Ambush.
 - OFFENSIVE 2b -Further increases the range of Rangers.
