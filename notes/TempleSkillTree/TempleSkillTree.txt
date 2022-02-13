@@ -8,7 +8,7 @@ TIER 3 UPGRADES
 TIER 2 UPGRADES
 - SPECIAL 1a -	Special Abilities: Unlocks Special Abilities for all Ruby units.
 - SPECIAL 1b -	Combat Special Abilities: Unlocks the Combat Special Ability for the ruby unit chosen 
-				in your Combat Specialty skill at game start.
+				in your Combat Specialization skill at game start.
 - SPECIAL 2a -	Ruby Units: Allows ruby units to be built.
 - INNOVATION 1a Ordained: Acolyte healing is increased.
 - INNOVATION 1b Swift Footed: Subverters gain additional movement speed.

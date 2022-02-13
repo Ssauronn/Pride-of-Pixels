@@ -10,7 +10,7 @@ function team_struct(team_) constructor {
 	age = 0;
 	specialization = noone;
 	flaskChosen = "";
-	combatSpecialtyChosen = "";
+	combatSpecializationChosen = "";
 	obeliskUpgradeOneChosen = "";
 	obeliskUpgradeTwoChosen = "";
 	specialBuildingChosen = "";
@@ -311,7 +311,7 @@ function _temple() constructor {
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 2, true, noone, "Temple", "Ruby", "objectCanUseSpecialAbility", noone, 1, 60, 
 				100, 0, 200, 0);
-	combatSpecialtyAbility = new _upgrade_options("Combat Specialty Ability", "Unlocks the Combat Special Ability for the Ruby Unit chosen in your Combat Specialty skill at game start.", 
+	combatSpecializationAbility = new _upgrade_options("Combat Specialization Ability", "Unlocks the Combat Specialization Ability for the Ruby Unit chosen in your Combat Specialization skill at game start.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
 				false, 2, true, noone, "Temple", "Ruby", "objectCanUseCombatSpecializationAbility", noone, 1, 60, 
 				100, 0, 200, 0);
@@ -367,6 +367,22 @@ function _temple() constructor {
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 3, false, noone, "Temple", "Warlock", "enslavementActive", noone, 1, 30, 
 				0, 0, 200, 300);
+	sanctified = new _upgrade_options("Sanctified", "Acolyte's healing is increased.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.c, 
+				false, 3, false, noone, "Temple", "Acolyte", "objectAttackDamage", noone, 10, 30, 
+				250, 0, 0, 300);
+	empowered = new _upgrade_options("Empowered", "Increases the damage and healing of all Ruby Units.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Temple", "Ruby", "objectAttackDamage", noone, 5, 60, 
+				50, 350, 250, 300);
+	powerPotions = new _upgrade_options("Power Potions", "Increases the damage of Wizards, Warlocks, and Demons summoned by Warlocks.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.three, eUpgradeSibling.a, 
+				false, 3, false, noone, "Temple", "Wizard and Warlock and Demon", "objectAttackDamage and objectSpecialAttackDamage", 
+				noone, "10 and 5", 45, 50, 200, 100, 175);
+	preparation = new _upgrade_options("Preparation", "Increases the effectiveness of all Subverter effects on buildings.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.three, eUpgradeSibling.b, 
+				false, 3, false, noone, "Temple", "Subverter", "objectSpecialAttackDisableDuration", 
+				noone, 15 * room_speed, 45, 0, 200, 100, 175);
 	
 }
 

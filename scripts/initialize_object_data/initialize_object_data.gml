@@ -340,6 +340,63 @@ function initialize_object_data() {
 			currentImageIndexSpeed = 8 / room_speed;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Subverter":
+			// Generic variables
+			maxHP = 50;
+			currentHP = maxHP;
+			movementSpeed = 1.5;
+			objectIsRubyUnit = true;
+			// Availability variables
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false;
+			preparationActive = false;
+			// Combat variables
+			objectAttackRange = 16 * 1;
+			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 1 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 10;
+			objectAttackDamageType = "Magic";
+			objectSpecialAttackDisableDuration = 60 * room_speed;
+			objectCombatSpecializationAttackDamage = 250;
+			objectCombatSpecializationAttackDamageType = "Magic";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 1;
+			objectMagicResistance = 0.95;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_subverter_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_subverter_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_subverter_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_subverter_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_subverter_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_subverter_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_subverter_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_subverter_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_subverter_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_subverter_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_subverter_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_subverter_front_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.right] = spr_subverter_right_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.up] = spr_subverter_back_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.left] = spr_subverter_left_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.down] = spr_subverter_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Abomination":
 			// Generic variables
 			maxHP = 100;
