@@ -359,6 +359,14 @@ function _temple() constructor {
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 2, false, noone, "Temple", "Automaton", "automatonCanShocktrooper", noone, 1, 90, 
 				100, 0, 100, 200);
+	fireball = new _upgrade_options("Singed Circuit", "Reduces the cooldown for the Wizard's Fireball special ability if it hits 2 or more targets with the area of effect, in addition to the primary target.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.a, 
+				false, 3, false, noone, "Temple", "Wizard", "singedCircuitActive", noone, 1, 30, 
+				0, 0, 200, 300);
+	enslavement = new _upgrade_options("Enslavement", "Warlock's summoned Demons are now permanent summons.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
+				false, 3, false, noone, "Temple", "Warlock", "enslavementActive", noone, 1, 30, 
+				0, 0, 200, 300);
 	
 }
 

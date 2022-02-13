@@ -141,7 +141,7 @@ function unit_move() {
 	if !justSpawned {
 		if instance_exists(objectTarget) {
 			if !path_exists(myPath) {
-				if distance_to_object(objectTarget) < objectRange {
+				if distance_to_object(objectTarget) < objectAttackRange {
 					// Change below to set target to closest location within a square
 					// checking each corner of x+/-8 and y+/-8.
 					var original_x_ = x;
@@ -1071,17 +1071,17 @@ function unit_move() {
 							if objectClassification == "Unit" {
 								// If the unitAction running this code is melee, mark it as such. Otherwise,
 								// set the ring to start the search at for ranged units, moving inwards,
-								// at the max distance allowed by their objectRange.
-								if objectRange <= 16 {
+								// at the max distance allowed by their objectAttackRange.
+								if objectAttackRange <= 16 {
 									melee_unit_ = true;
 									ranged_unit_starting_ring_ = -1;
 								}
 								else {
 									melee_unit_ = false;
-									ranged_unit_starting_ring_ = (floor(objectRange / 16) * 16) / 16;
+									ranged_unit_starting_ring_ = (floor(objectAttackRange / 16) * 16) / 16;
 									if (ds_exists(objectTargetList, ds_type_list)) && (instance_exists(objectTarget)) {
 										// If the ranged object is already in range of target, don't move! It can act already.
-										if point_distance(x, y, targetToMoveToX, targetToMoveToY) <= objectRange {
+										if point_distance(x, y, targetToMoveToX, targetToMoveToY) <= objectAttackRange {
 											changeVariablesWhenCloseToTarget = true;
 											notAtTargetLocation = false;
 											validLocationFound = true;
@@ -1699,7 +1699,7 @@ function unit_move() {
 									if objectTarget.currentAction == unitAction.move {
 										// If the distance to the target is less than its attack range, and the target its chasing
 										// is also moving, set a new target to move to equal to its own location once its within range.
-										var adjusted_object_range_ = objectRange;
+										var adjusted_object_range_ = objectAttackRange;
 										if (distance_to_object(objectTarget) <= adjusted_object_range_) && (path_get_number(myPath) < ((adjusted_object_range_ / 16) * 2)) {
 											notAtTargetLocation = true;
 											validLocationFound = false;
@@ -1792,7 +1792,7 @@ function unit_move() {
 										// If the object is not within range of the target, and the target its chasing is also moving,
 										// set the target to move to equal to the target's exact location. I don't do this every frame,
 										// only once every second or so, because this is deleting the path to take each time to make a new
-										// one, and if I ran this every frame, no object with a valid target further than its objectRange would
+										// one, and if I ran this every frame, no object with a valid target further than its objectAttackRange would
 										// ever move, because no path would ever exist.
 										else if (objectDetectTarget % (room_speed - 1) == 0) && ((distance_to_object(objectTarget) > adjusted_object_range_) || (path_get_number(myPath) >= ((adjusted_object_range_ / 16) * 2))) {
 											changeVariablesWhenCloseToTarget = true;

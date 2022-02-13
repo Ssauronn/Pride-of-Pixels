@@ -34,8 +34,8 @@ TECHNOLOGY UPGRADES
 		of a friendly unit that is in combat. This ability has a long cooldown.
 
 TIER 1 UPGRADES
-- INNOVATION 3a Fireballs: Wizards now cast fireballs, dealing full damage to their target and reduced
-		damage to any adjacent targets. Deals full damage to any adjacent enemy buildings.
+- INNOVATION 3a Singed Circuit: A Wizard's Fireball cooldown is reduced if it hits 2 or more targets
+		with the area of effect.
 - INNOVATION 3b Enslavement: Warlock pets are now permanent.
 - INNOVATION 3c Sanctified: Acolyte healing is further increased.
 - OFFENSIVE 2 -	Empowered: Further increases the damage of all Ruby units.

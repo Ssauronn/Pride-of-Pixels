@@ -79,7 +79,6 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 70;
 			currentHP = maxHP;
-			objectRange = 16;
 			movementSpeed = 1;
 			objectIsRubyUnit = false;
 			// Availability variables
@@ -100,6 +99,7 @@ function initialize_object_data() {
 			canBuildLaunchSite = false;
 			canMineRuby = false;
 			// Combat variables
+			objectAttackRange = 16;
 			objectCombatAggroRange = 8; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 1.5 * room_speed;
 			objectAttackSpeedTimer = 0;
@@ -165,7 +165,6 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			objectRange = 16 * 4;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
 			// Availability variables
@@ -173,15 +172,25 @@ function initialize_object_data() {
 			objectCanUseSpecialAbility = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
+			singedCircuitActive = false;
 			wizardsCanLink = false;
 			// Combat variables
+			objectAttackRange = 16 * 4;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 2 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 30;
+			objectAttackDamage = 25;
 			objectAttackDamageType = "Magic";
 			objectSpecialAttackDamage = 50;
+			objectSpecialAttackAreaOfEffectUnitDamage = 15;
+			objectSpecialAttackAreaOfEffectBuildingDamage = 50;
 			objectSpecialAttackDamageType = "Magic";
+			objectSpecialAttackCooldown = 10 * room_speed;
+			objectSpecialAttackTimer = 0;
+			objectSpecialAttackTimerSingedCircuitMultiplier = 0.5;
+			objectCombatSpecializationTarget = noone;
+			objectCombatSpecializationDuration = 5 * room_speed;
+			objectCombatSpecializationTimer = 0;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -217,11 +226,66 @@ function initialize_object_data() {
 			currentImageIndexSpeed = 8 / room_speed;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Warlock":
+			// Generic variables
+			maxHP = 100;
+			currentHP = maxHP;
+			movementSpeed = 1.5;
+			objectIsRubyUnit = true;
+			// Availability variables
+			objectAttackRange = 16 * 5;
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
+			objectHasCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false;
+			enslavementActive = false;
+			// Combat variables
+			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 2 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 10;
+			objectAttackDamageType = "Magic";
+			objectSpecialAttackCooldown = 10 * room_speed;
+			objectSpecialAttackTimer = 0;
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 1;
+			objectMagicResistance = 0.95;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_warlock_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_warlock_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_warlock_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_warlock_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_warlock_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_warlock_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_warlock_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_warlock_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_warlock_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_warlock_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_warlock_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_warlock_front_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.right] = spr_warlock_right_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.up] = spr_warlock_back_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.left] = spr_warlock_left_attack;
+			unitSprite[unitAction.specialAttack][unitDirection.down] = spr_warlock_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Acolyte":
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			objectRange = 16 * 4;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
 			// Availability variables
@@ -231,12 +295,15 @@ function initialize_object_data() {
 			objectCanUseCombatSpecializationAbility = false;
 			acolytesCanLink = false;
 			// Combat variables
+			objectAttackRange = 16 * 8;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
-			objectAttackSpeed = 2 * room_speed;
+				// For Acolytes, attack speed and damage are how fast and how much it heals allies.
+			objectAttackSpeed = 1 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 30;
+			objectAttackDamage = 15;
 			objectAttackDamageType = "Magic";
-			objectSpecialAttackDamage = 50;
+				// For Acolytes, special attack speed and damage are how fast and how much it heals itself.
+			objectSpecialAttackDamage = 10;
 			objectSpecialAttackDamageType = "Magic";
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
@@ -277,7 +344,6 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			objectRange = 16 * 4;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
 			// Availability variables
@@ -287,6 +353,7 @@ function initialize_object_data() {
 			objectCanUseCombatSpecializationAbility = false;
 			abominationsCanSacrifice = false;
 			// Combat variables
+			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 2 * room_speed;
 			objectAttackSpeedTimer = 0;
@@ -333,7 +400,6 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			objectRange = 16 * 4;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
 			// Availability variables
@@ -343,6 +409,7 @@ function initialize_object_data() {
 			objectCanUseCombatSpecializationAbility = false;
 			automatonsCanShocktrooper = false;
 			// Combat variables
+			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 2 * room_speed;
 			objectAttackSpeedTimer = 0;
@@ -394,11 +461,11 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			populationProvided = 25;
 			// The distance at which attacks can used, in pixels
-			objectRange = 16 * 5;
+			objectAttackRange = 16 * 8;
 			canAttack = true;
 			// Combat variables
 			// The distance at which the object will aggro to enemies, in 16x16 block units
-			objectCombatAggroRange = 5;
+			objectCombatAggroRange = 8;
 			objectAttackSpeed = 1 * room_speed;
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 12;

@@ -77,7 +77,7 @@ Ruby Units
     Medium attack, medium HP.
 -Warlock - REQUIRES RUBIES TO BUILD
 ----Can summon additional units during battle that persist for a short amount of time. After summoning will cast 
-    single target spells at a distance. Upon dying will deal small damage in an area around it.
+    single target spells at a distance.
     High attack, low HP.
     Summoned units: Low attack, low HP.
 -Subverter - REQUIRES RUBIES TO BUILD

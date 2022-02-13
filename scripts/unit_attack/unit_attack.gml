@@ -9,7 +9,7 @@ function unit_attack() {
 			if currentDirection > 3 {
 				currentDirection = 0;
 			}
-			if distance_to_object(objectTarget) < objectRange {
+			if distance_to_object(objectTarget) < objectAttackRange {
 				// Here I detect if the animation for the current action is active, and only then do
 				// I attempt to take that action.
 				var i;
