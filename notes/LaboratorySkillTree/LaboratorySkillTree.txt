@@ -5,9 +5,9 @@ GAME START
 
 TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 MAGICAL UPGRADES
-- INNOVATION 1 -Improves the effectiveness of Flasks.
+- INNOVATION 1 -Alchemy: Improves the effectiveness of Flasks.
 TECHNOLOGY UPGRADES
-- INNOVATION 1 -Increases the effectiveness of basic unit special abilities.
+- INNOVATION 1 -Skillful: Increases the effectiveness of basic unit special abilities.
 			- Support: Workers mine faster.
 			- Stealth: Reduces the cooldown of the teleport.
 			- Recklessness: Berserkers deal more damage with their nanotech
@@ -18,14 +18,15 @@ TECHNOLOGY UPGRADES
 			  friendly unit within range.
 
 TIER 2 UPGRADES
-- OFFENSIVE 1 -	Increases the damage that all buildings do.
-- DEFENSIVE 1 -	Increases the armor of all buildings.
+- OFFENSIVE 1 -	Full Metal Jacket: Increases the damage that all buildings do.
+- DEFENSIVE 1 -	Reinforcement: Increases the armor of all buildings.
 MAGICAL UPGRADES
-- INNOVATION 2 -Increases the area of effect by 1 square for the targeted area by linked
-		Wizards or Acolytes.
+- INNOVATION 2 -Improved Magicks: Increases the area of effect by 1 square for the targeted area by
+		linked Wizards or Acolytes.
 TECHNOLOGY UPGRADES
-- INNOVATION 2 -Reduces the cooldown of Shocktroopers. 
+- INNOVATION 2 -Chronic Empowerement: Increases the damage of all Automatons upon teleporting with 
+		the ability Shocktroopers.
 
 TIER 1 UPGRADES
-- OFFENSIVE 2 -	Increases all magic damage dealt by ruby units.
-- DEFENSIVE 2 -	Increases magic armor for all units.
+- OFFENSIVE 2 -	Arcane Weapon Research: Increases all magic damage dealt by ruby units.
+- DEFENSIVE 2 -	Arcane Armor Research: Increases magic armor for all units.
