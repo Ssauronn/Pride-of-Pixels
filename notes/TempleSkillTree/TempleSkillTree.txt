@@ -62,5 +62,5 @@ MAGICAL UPGRADES
 		charge level it was previously at, minus one charge level. No more than one unit
 		empowered by Unholy Ziggurat may be sacrificed per use.
 TECHNOLOGY UPGRADES
-- SPECIAL 4 -	Blessed Aura: Acolytes now increase the movement speed of all friendly units within range.
+- SPECIAL 3 -	Blessed Aura: Acolytes now increase the movement speed of all friendly units within range.
 - INNOVATION 4 -Rechargeable Batteries: Reduces the cooldown of your Shocktrooper ability.
