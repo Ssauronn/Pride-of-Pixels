@@ -10,6 +10,10 @@ function team_struct(team_) constructor {
 	age = 0;
 	specialization = noone;
 	flaskChosen = "";
+	flaskCooldownTimer = 120 * room_speed;
+	flaskCooldown = 0;
+	shocktrooperCooldownTimer = 120 * room_speed;
+	shocktrooperCooldown = 0;
 	combatSpecializationChosen = "";
 	obeliskUpgradeOneChosen = "";
 	obeliskUpgradeTwoChosen = "";
@@ -383,7 +387,46 @@ function _temple() constructor {
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 3, false, noone, "Temple", "Subverter", "objectSpecialAttackDisableDuration", 
 				noone, 15 * room_speed, 45, 0, 200, 100, 175);
-	
+	magicBarrier = new _upgrade_options("Magic Barrier", "Increases the magic armor of all Ruby units.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 3, false, noone, "Temple", "Ruby", "objectMagicResistance", noone, -0.1, 30, 
+				50, 0, 300, 350);
+	thickenedSkin = new _upgrade_options("Thickened Skin", "Increases the slash armor of all Ruby units.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 3, false, noone, "Temple", "Ruby", "objectSlashResistance", noone, -0.1, 45, 
+				50, 200, 300, 150);
+	slowingField = new _upgrade_options("Slowing Field", "Increases the pierce armor of all Ruby units.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.c, 
+				false, 3, false, noone, "Temple", "Ruby", "objectPierceResistance", noone, -0.1, 45, 
+				150, 150, 200, 150);
+	sacrifice = new _upgrade_options("Sacrifice", "Abominations can now be sacrificed at a Temple, which provides the player with the body parts the Abomination was created with. The player can then create Abominations with those body parts, thereby allowing the player to create Abominations with specific body parts.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.a, 
+				false, 3, false, noone, "Temple", "Abomination", "abominationsCanSacrifice", noone, 1, 90, 
+				150, 250, 400, 400);
+	frankensteins = new _upgrade_options("Frankensteins", "Abominations are now given bonuses depending on the parts they're created with. Each Werewolf part increases the movement speed of the Abomination. Each Robot part increases the damage of the Abomination. Each Ogre part increases the health of the Abomination.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.b, 
+				false, 3, false, noone, "Temple", "Abomination", "bodyPartsProvideStats", noone, 1, 90, 
+				300, 0, 500, 400);
+	soulwell = new _upgrade_options("Soulwell", "All Ruby units are granted addition health. Ruby units spawned with Soul Subjugator do not spawn with additional health.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
+				false, 3, false, noone, "Temple", "Soul Subjugator", "soulwellActive", noone, 1, 
+				120, 500, 0, 200, 600);
+	massEnslavement = new _upgrade_options("Mass Enslavement", "Warlocks now summon 3 Demons at once. The Warlock will not summon additional Demons until all 3 previous Demons are dead.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
+				false, 3, false, noone, "Temple", "Ritual Grounds", "massEnslavementActive", noone, 1, 
+				120, 500, 0, 200, 600);
+	cycling = new _upgrade_options("Cycling", "Any unit currently empowered by Unholy Ziggurat can be sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the charge level it was previously at, minus one charge level. No more than one unit empowered by Unholy Ziggurat may be sacrificed per use.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
+				false, 3, false, noone, "Temple", "Unholy Ziggurat", "cyclingActive", noone, 1, 
+				120, 500, 0, 200, 600);
+	blessedAura = new _upgrade_options("Blessed Aura", "Acolytes now increase the movement speed of themselves and all friendly units within range.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Temple", "Acolyte", "acolyteBlessedAuraActive", noone, 1, 
+				0, 400, 500, 400);
+	rechargeableBatteries = new _upgrade_options("Rechargeable Batteries", "Reduces the cooldown of your Shocktrooper ability.", 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.four, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Temple", "Player", "shocktrooperCooldownTimer", noone, 45 * room_speed, 
+				500, 100, 600, 400);
 }
 
 /*

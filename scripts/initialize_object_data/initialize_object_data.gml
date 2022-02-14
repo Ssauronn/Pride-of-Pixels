@@ -294,6 +294,7 @@ function initialize_object_data() {
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			acolytesCanLink = false;
+			acolyteBlessedAuraActive = false;
 			// Combat variables
 			objectAttackRange = 16 * 8;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -409,6 +410,7 @@ function initialize_object_data() {
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			abominationsCanSacrifice = false;
+			bodyPartsProvideStats = false;
 			// Combat variables
 			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -425,6 +427,10 @@ function initialize_object_data() {
 			objectPierceResistance = 1;
 			objectMagicResistance = 0.95;
 			// Sprite setting array
+			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED. In this case, I need to
+			// adjust the sprites so that the three body parts of the Abomination are synced
+			// and play animations in unison. I also need to add stat variables that are
+			// set by the body parts and add said stats to the Abomination.
 			unitSprite[unitAction.idle][unitDirection.right] = spr_wizard_right_idle;
 			unitSprite[unitAction.idle][unitDirection.up] = spr_wizard_back_idle;
 			unitSprite[unitAction.idle][unitDirection.left] = spr_wizard_left_idle;
@@ -546,7 +552,7 @@ function initialize_object_data() {
 			break;
 		case "Temple":
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-			// In this case, all the generic variables need to be added here, copied from City Hall,
+			// In this case, all the generic variables need to be added here, 
 			// in addition to the building specific variable
 			// Generic Variables
 			
@@ -554,6 +560,25 @@ function initialize_object_data() {
 			canTrainRubyUnits = false;
 			canTrainAbominations = false;
 			canTrainAutomatons = false;
+			break;
+		case "Soul Subjugator":
+			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+			// In this case, all the generic variables need to be added here, 
+			// in addition to the building specific variable
+			// Generic Variables
+			
+			// Specific Variables
+			soulwellActive = false;
+			break;
+		case "Ritual Grounds":
+			
+			// Specific Variables
+			massEnslavementActive = false;
+			break;
+		case "Unholy Ziggurat":
+			
+			// Specific Variables
+			cyclingActive = false;
 			break;
 		#endregion
 	}
