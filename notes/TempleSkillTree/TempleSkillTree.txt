@@ -7,7 +7,7 @@ TIER 3 UPGRADES
 
 TIER 2 UPGRADES
 - SPECIAL 1a -	Special Abilities: Unlocks Special Abilities for all Ruby units.
-- SPECIAL 1b -	Combat Special Abilities: Unlocks the Combat Special Ability for the ruby unit chosen 
+- SPECIAL 1b -	Ruby Combat Special Abilities: Unlocks the Combat Special Ability for the ruby unit chosen 
 				in your Combat Specialization skill at game start.
 - SPECIAL 2a -	Ruby Units: Allows ruby units to be built.
 - INNOVATION 1a Ordained: Acolyte healing is increased.
@@ -53,14 +53,26 @@ MAGICAL UPGRADES
 		Each Werewolf part increases the movement speed of Abominations. Each Robot part
 		increases the damage of Abominations. Each Ogre part increases the health of
 		Abominations.
-- SPECIAL 3c -	Soulwell: IF SOUL SUBJUGATOR CHOSEN: All ruby units are granted additional health. Ruby units
-		respawned with Soul Subjugator lose this effect.
+- SPECIAL 3c -	Soulwell: IF SOUL SUBJUGATOR CHOSEN: All ruby units are granted additional health on spawn. 
+		Ruby units respawned with Soul Subjugator lose this effect.
 - SPECIAL 3c -	Mass Enslavement: IF RITUAL GROUNDS CHOSEN: Warlocks now summon 3 Demons at once. The Warlock
 		will not summon more Demons until all 3 are dead.
 - SPECIAL 3c -	Cycling: IF UNHOLY ZIGGURAT CHOSEN: Any unit currently empowered by Unholy Ziggurat can be
 		sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the
-		charge level it was previously at, minus one charge level. No more than one unit
-		empowered by Unholy Ziggurat may be sacrificed per use.
+		charge level it was previously at, minus one charge level.
 TECHNOLOGY UPGRADES
+<<<<<<< HEAD
 - SPECIAL 3 -	Blessed Aura: Acolytes now increase the movement speed of all friendly units within range.
+=======
+- SPECIAL 4a -	Blessed Aura: Acolytes now increase the movement speed of all friendly units within range.
+- SPECIAL 4b -	Searing Field: Acolytes now have greater control over their nano tech and deal constant damage
+		to all enemies within a medium range.
+- SPECIAL 4c -	Handheld Rail Guns: IF RAIL GUN IS CHOSEN: Rangers are given Handheld Rail Guns. Their shots
+		now penetrate targets and deal damage to all enemies in a line, but they now attack slower.
+- SPECIAL 4c -	Revealing Stasis: IF STASIS FIELD IS CHOSEN: You gain sight on the location that the Stasis
+		Field is effecting for its duration.
+- SEPCIAL 4c -	Drone Swarm: IF LAUNCH SITE IS CHOSEN: Choose any location on the map to deploy a swarm of
+		drones to. The Drone Swarm spawns from a Launch Site, and move extremely fast, but have extremely 
+		low health. Long cooldown.
+>>>>>>> stats
 - INNOVATION 4 -Rechargeable Batteries: Reduces the cooldown of your Shocktrooper ability.

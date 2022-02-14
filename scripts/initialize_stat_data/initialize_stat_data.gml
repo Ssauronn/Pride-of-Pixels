@@ -315,7 +315,7 @@ function _temple() constructor {
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 2, true, noone, "Temple", "Ruby", "objectCanUseSpecialAbility", noone, 1, 60, 
 				100, 0, 200, 0);
-	combatSpecializationAbility = new _upgrade_options("Combat Specialization Ability", "Unlocks the Combat Specialization Ability for the Ruby Unit chosen in your Combat Specialization skill at game start.", 
+	rubyCombatSpecializationAbility = new _upgrade_options("Ruby Combat Specialization Ability", "Unlocks the Combat Specialization Ability for the Ruby Unit chosen in your Combat Specialization skill at game start.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
 				false, 2, true, noone, "Temple", "Ruby", "objectCanUseCombatSpecializationAbility", noone, 1, 60, 
 				100, 0, 200, 0);
@@ -428,6 +428,10 @@ function _temple() constructor {
 				false, 3, false, noone, "Temple", "Player", "shocktrooperCooldownTimer", noone, 45 * room_speed, 
 				500, 100, 600, 400);
 }
+function _laboratory() constructor {
+	
+}
+
 
 /*
 	- On spawn, the new unit or building needs to loop through the struct location in player[i] and apply 

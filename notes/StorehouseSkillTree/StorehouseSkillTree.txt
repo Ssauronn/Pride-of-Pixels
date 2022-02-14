@@ -4,21 +4,20 @@ GAME START
 
 
 TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
-- INNOVATION 1a	Increases the gathering speed of all base resources by Workers.
+- INNOVATION 1a-Trained Workers: Increases the gathering speed of all base resources by Workers.
 TECHNOLOGY UPGRADES
-- INNOVATION 1b	Workers no longer need to drop base resources off at a Storehouse. 
+- INNOVATION 1b-Drone Carriers: Workers no longer need to drop base resources off at a Storehouse. 
 		(Upgrade also available at Town Hall).
 
 TIER 2 UPGRADES
-- INNOVATION 2a	Further increases the gathering speed of all base resources by Workers.
-- SPECIAL 1 -	Allows Workers to mine Rubies.
+- INNOVATION 2-	Advanced Techniques: Further increases the gathering speed of all base resources by Workers.
+- SPECIAL 1 -	Reinforced Tools: Allows Workers to mine Rubies.
 		(Upgrade also available at Town Hall).
-			AVAILABLE ONLY AFTER THE ABOVE UPGRADE IS COMPLETED
-			- INNOVATION 2b	Increases the gathering speed of Rubies by Workers.
+- INNOVATION-3	Magic Training: Increases the gathering speed of Rubies by Workers.
 
 TIER 1 UPGRADES
-- INNOVATION 3a	Further increases the gathering speed of all base resources by Workers.
-- SPECIAL 2a -	Increases the movement speed of Workers while not in combat.
+- INNOVATION 4-	Advanced Training: Further increases the gathering speed of all base resources by Workers.
+- SPECIAL 2a -	Roller Skates: Increases the movement speed of Workers while not in combat.
 TECHNOLOGY UPGRADES
-- SPECIAL 2b -	Workers now immediately deposit all gathered Ruby into your resource pool
-		and no longer need to deposit Rubies into a Storehouse.
+- SPECIAL 2b -	Futuristic Training: Workers are extremely efficient at resource gathering, and gain a 
+		random amount of additional resources each time they gather from a resource node.
