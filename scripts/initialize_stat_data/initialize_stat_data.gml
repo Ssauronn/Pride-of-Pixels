@@ -12,6 +12,7 @@ function team_struct(team_) constructor {
 	flaskChosen = "";
 	flaskCooldownTimer = 120 * room_speed;
 	flaskCooldown = 0;
+	flaskUpgraded = false;
 	shocktrooperCooldownTimer = 120 * room_speed;
 	shocktrooperCooldown = 0;
 	combatSpecializationChosen = "";
@@ -425,10 +426,44 @@ function _temple() constructor {
 				0, 400, 500, 400);
 	rechargeableBatteries = new _upgrade_options("Rechargeable Batteries", "Reduces the cooldown of your Shocktrooper ability.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.four, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Temple", "Player", "shocktrooperCooldownTimer", noone, 45 * room_speed, 
+				false, 3, false, noone, "Temple", "Player", "shocktrooperCooldownTimer", noone, (45 * room_speed) * -1, 120, 
 				500, 100, 600, 400);
 }
 function _laboratory() constructor {
+	alchemy = new _upgrade_options("Alchemy", "Improves the effectiveness of Flasks.", 
+				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 1, false, noone, "Laboratory", "Player", "flaskUpgraded", noone, 1, 60, 
+				200, 200, 200, 0);
+	skillful = new _upgrade_options("Skillful", "Improves the effectiveness of basic unit special abilities.", 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 1, false, noone, "Laboratory", "Basic", "objectSpecialAbilityUpgraded", noone, 1, 60, 
+				200, 200, 200, 0);
+	fullMetalJacket = new _upgrade_options("Full Metal Jacket", "Increases the damage that all buildings deal.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Laboratory", "Building", "objectAttackDamage", noone, 5, 45, 
+				0, 350, 200, 0);
+	reinforcement = new _upgrade_options("Reinforcement", "Increases the magic armor of all buildings.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Laboratory", "Building", "objectMagicResistance", noone, -0.1, 60, 
+				0, 400, 200, 200);
+	improvedMagicks = new _upgrade_options("Improved Magicks", "Increases the area of effect by 1 square for the targeted area when dealing damage with Wizard's Fire Linked ability, or Acolyte's Vitality Linked ability.", 
+				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Laboratory", "Wizard and Acolyte", "aoeLinkedSquareSize", noone, 1, 120, 
+				200, 0, 200, 400);
+	chronicEmpowerment = new _upgrade_options("Chronic Empowerment", "Increases the damage of all Automatons upon teleporting with the ability Shocktrooper for a short amount of time.", 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Laboratory", "Shocktrooper", "chronicEmpowermentPossible", noone, 1, 120, 
+				200, 0, 200, 400);
+	arcaneWeaponResearch = new _upgrade_options("Arcane Weapon Research", "Increases all magic damage dealt by Ruby units.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Laboratory", "Ruby", "arcaneWeaponActive", noone, 1, 180, 
+				400, 500, 600, 600);
+	arcaneArmorResearch = new _upgrade_options("Arcane Armor Research", "Increases all Magic armor for Ruby units.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Laboratory", "Ruby", "arcaneArmorActive", noone, 1, 180, 
+				600, 500, 400, 600);
+}
+function _barracks() constructor {
 	
 }
 
