@@ -84,6 +84,7 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			canBuildFarm = false;
@@ -170,10 +171,16 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			singedCircuitActive = false;
 			wizardsCanLink = false;
+			aoeLinkedSquareSize = 2;
+			arcaneWeaponActive = false;
+			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false;
+			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 4;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -233,13 +240,18 @@ function initialize_object_data() {
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
 			// Availability variables
-			objectAttackRange = 16 * 5;
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			enslavementActive = false;
+			arcaneWeaponActive = false;
+			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false;
+			arcaneArmorBonus = -0.15;
 			// Combat variables
+			objectAttackRange = 16 * 5;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 2 * room_speed;
 			objectAttackSpeedTimer = 0;
@@ -291,10 +303,16 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			acolytesCanLink = false;
+			aoeLinkedSquareSize = 2;
 			acolyteBlessedAuraActive = false;
+			arcaneWeaponActive = false;
+			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false;
+			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 8;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -350,9 +368,14 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			preparationActive = false;
+			arcaneWeaponActive = false;
+			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false;
+			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -407,10 +430,15 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			abominationsCanSacrifice = false;
 			bodyPartsProvideStats = false;
+			arcaneWeaponActive = false;
+			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false;
+			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -468,9 +496,17 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			automatonsCanShocktrooper = false;
+			chronicEmpowermentPossible = false;
+			chronicEmpowermentActive = -1; // This is the timer variable. Whenever this is active, Automaton's damage output is multiplied by the below variable.
+			chronicEmpowermentBonus = 1.25; // This is a multiplier to be used with Automaton's damage output
+			arcaneWeaponActive = false;
+			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false;
+			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
