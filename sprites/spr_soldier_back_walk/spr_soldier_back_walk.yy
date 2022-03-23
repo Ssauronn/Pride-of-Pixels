@@ -71,7 +71,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_soldier_back_walk","path":"sprites/spr_soldier_back_walk/spr_soldier_back_walk.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_soldier_back_walk",
     "tags": [],
     "resourceType": "GMSequence",

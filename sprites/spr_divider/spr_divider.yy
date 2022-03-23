@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_divider","path":"sprites/spr_divider/spr_divider.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_divider",
     "tags": [],
     "resourceType": "GMSequence",

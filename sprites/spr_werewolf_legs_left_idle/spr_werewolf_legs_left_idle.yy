@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_werewolf_legs_left_idle","path":"sprites/spr_werewolf_legs_left_idle/spr_werewolf_legs_left_idle.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_werewolf_legs_left_idle",
     "tags": [],
     "resourceType": "GMSequence",

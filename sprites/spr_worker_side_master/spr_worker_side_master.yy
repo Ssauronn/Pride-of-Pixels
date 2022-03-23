@@ -143,7 +143,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_worker_side_master","path":"sprites/spr_worker_side_master/spr_worker_side_master.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_worker_side_master",
     "tags": [],
     "resourceType": "GMSequence",

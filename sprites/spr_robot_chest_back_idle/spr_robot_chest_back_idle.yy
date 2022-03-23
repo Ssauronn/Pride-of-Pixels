@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_robot_chest_back_idle","path":"sprites/spr_robot_chest_back_idle/spr_robot_chest_back_idle.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_robot_chest_back_idle",
     "tags": [],
     "resourceType": "GMSequence",

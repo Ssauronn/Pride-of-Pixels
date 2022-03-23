@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_upgrade_tree_icon","path":"sprites/spr_upgrade_tree_icon/spr_upgrade_tree_icon.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_upgrade_tree_icon",
     "tags": [],
     "resourceType": "GMSequence",

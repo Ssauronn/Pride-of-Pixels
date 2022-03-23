@@ -71,7 +71,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_acolyte_front_walk","path":"sprites/spr_acolyte_front_walk/spr_acolyte_front_walk.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_acolyte_front_walk",
     "tags": [],
     "resourceType": "GMSequence",

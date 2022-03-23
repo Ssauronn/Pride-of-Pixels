@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_automaton_right_idle","path":"sprites/spr_automaton_right_idle/spr_automaton_right_idle.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_automaton_right_idle",
     "tags": [],
     "resourceType": "GMSequence",

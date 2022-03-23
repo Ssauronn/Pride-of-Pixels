@@ -79,7 +79,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_ogre_legs_back_attack","path":"sprites/spr_ogre_legs_back_attack/spr_ogre_legs_back_attack.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_ogre_legs_back_attack",
     "tags": [],
     "resourceType": "GMSequence",

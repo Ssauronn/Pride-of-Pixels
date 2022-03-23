@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_start_menu_background","path":"sprites/spr_start_menu_background/spr_start_menu_background.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_start_menu_background",
     "tags": [],
     "resourceType": "GMSequence",

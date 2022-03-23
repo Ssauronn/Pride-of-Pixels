@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_start_menu_button_edge","path":"sprites/spr_start_menu_button_edge/spr_start_menu_button_edge.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_start_menu_button_edge",
     "tags": [],
     "resourceType": "GMSequence",

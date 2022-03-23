@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_warlock_left_idle","path":"sprites/spr_warlock_left_idle/spr_warlock_left_idle.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_warlock_left_idle",
     "tags": [],
     "resourceType": "GMSequence",
