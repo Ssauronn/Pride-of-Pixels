@@ -115,7 +115,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_ogre_legs_front_master","path":"sprites/spr_ogre_legs_front_master/spr_ogre_legs_front_master.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_ogre_legs_front_master",
     "tags": [],
     "resourceType": "GMSequence",

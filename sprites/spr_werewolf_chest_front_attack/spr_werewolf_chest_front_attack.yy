@@ -79,7 +79,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_werewolf_chest_front_attack","path":"sprites/spr_werewolf_chest_front_attack/spr_werewolf_chest_front_attack.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_werewolf_chest_front_attack",
     "tags": [],
     "resourceType": "GMSequence",

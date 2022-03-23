@@ -71,7 +71,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_berserker_right_walk","path":"sprites/spr_berserker_right_walk/spr_berserker_right_walk.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_berserker_right_walk",
     "tags": [],
     "resourceType": "GMSequence",

@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_square_button","path":"sprites/spr_square_button/spr_square_button.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_square_button",
     "tags": [],
     "resourceType": "GMSequence",

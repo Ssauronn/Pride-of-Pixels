@@ -103,7 +103,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_robot_chest_front_master","path":"sprites/spr_robot_chest_front_master/spr_robot_chest_front_master.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_robot_chest_front_master",
     "tags": [],
     "resourceType": "GMSequence",

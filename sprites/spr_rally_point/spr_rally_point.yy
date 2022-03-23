@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_rally_point","path":"sprites/spr_rally_point/spr_rally_point.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_rally_point",
     "tags": [],
     "resourceType": "GMSequence",

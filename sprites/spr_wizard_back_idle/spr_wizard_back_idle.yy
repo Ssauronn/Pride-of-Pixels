@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_wizard_back_idle","path":"sprites/spr_wizard_back_idle/spr_wizard_back_idle.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_wizard_back_idle",
     "tags": [],
     "resourceType": "GMSequence",

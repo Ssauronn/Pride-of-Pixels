@@ -75,7 +75,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_automaton_back_attack","path":"sprites/spr_automaton_back_attack/spr_automaton_back_attack.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_automaton_back_attack",
     "tags": [],
     "resourceType": "GMSequence",

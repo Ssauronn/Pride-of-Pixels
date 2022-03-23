@@ -83,7 +83,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_acolyte_left_attack","path":"sprites/spr_acolyte_left_attack/spr_acolyte_left_attack.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_acolyte_left_attack",
     "tags": [],
     "resourceType": "GMSequence",

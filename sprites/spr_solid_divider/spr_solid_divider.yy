@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_solid_divider","path":"sprites/spr_solid_divider/spr_solid_divider.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_solid_divider",
     "tags": [],
     "resourceType": "GMSequence",

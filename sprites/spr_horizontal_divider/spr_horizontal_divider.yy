@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_horizontal_divider","path":"sprites/spr_horizontal_divider/spr_horizontal_divider.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_horizontal_divider",
     "tags": [],
     "resourceType": "GMSequence",

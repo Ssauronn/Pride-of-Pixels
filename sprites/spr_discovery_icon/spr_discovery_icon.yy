@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_discovery_icon","path":"sprites/spr_discovery_icon/spr_discovery_icon.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_discovery_icon",
     "tags": [],
     "resourceType": "GMSequence",

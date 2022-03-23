@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_berserker_right_idle","path":"sprites/spr_berserker_right_idle/spr_berserker_right_idle.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_berserker_right_idle",
     "tags": [],
     "resourceType": "GMSequence",

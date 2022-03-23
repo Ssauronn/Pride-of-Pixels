@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_gold_icon","path":"sprites/spr_gold_icon/spr_gold_icon.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_gold_icon",
     "tags": [],
     "resourceType": "GMSequence",

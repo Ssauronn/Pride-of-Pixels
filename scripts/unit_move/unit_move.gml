@@ -1604,13 +1604,6 @@ function unit_move() {
 									// path target. Otherwise, keep searching.
 									else if mp_grid_path(movementGrid, myPath, x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY, true) {
 										path_found_ = true;
-										// If the target is within line of sight, then that's a valid path
-										if line_of_sight_exists_to_target(specificLocationToBeCheckedX, specificLocationToBeCheckedY, objectTarget.x + 8, objectTarget.y + 8) {
-											if path_exists(myPath) {
-												path_delete(myPath);
-												myPath = noone;
-											}
-										}
 									}
 									if path_found_ {
 										still_need_to_search_ = false;

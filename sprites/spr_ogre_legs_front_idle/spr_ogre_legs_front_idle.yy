@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_ogre_legs_front_idle","path":"sprites/spr_ogre_legs_front_idle/spr_ogre_legs_front_idle.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_ogre_legs_front_idle",
     "tags": [],
     "resourceType": "GMSequence",

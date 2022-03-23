@@ -75,7 +75,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_ranger_back_attack","path":"sprites/spr_ranger_back_attack/spr_ranger_back_attack.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_ranger_back_attack",
     "tags": [],
     "resourceType": "GMSequence",

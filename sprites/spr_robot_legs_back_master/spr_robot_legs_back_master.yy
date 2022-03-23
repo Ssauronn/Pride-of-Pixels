@@ -103,7 +103,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_robot_legs_back_master","path":"sprites/spr_robot_legs_back_master/spr_robot_legs_back_master.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_robot_legs_back_master",
     "tags": [],
     "resourceType": "GMSequence",

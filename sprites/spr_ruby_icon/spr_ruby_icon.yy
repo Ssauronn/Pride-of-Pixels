@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_ruby_icon","path":"sprites/spr_ruby_icon/spr_ruby_icon.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_ruby_icon",
     "tags": [],
     "resourceType": "GMSequence",

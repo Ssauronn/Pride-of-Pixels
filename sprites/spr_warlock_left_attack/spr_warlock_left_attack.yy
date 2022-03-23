@@ -79,7 +79,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_warlock_left_attack","path":"sprites/spr_warlock_left_attack/spr_warlock_left_attack.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_warlock_left_attack",
     "tags": [],
     "resourceType": "GMSequence",

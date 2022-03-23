@@ -71,7 +71,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_rogue_back_walk","path":"sprites/spr_rogue_back_walk/spr_rogue_back_walk.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_rogue_back_walk",
     "tags": [],
     "resourceType": "GMSequence",
