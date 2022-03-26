@@ -464,7 +464,18 @@ function _laboratory() constructor {
 				600, 500, 400, 600);
 }
 function _barracks() constructor {
-	
+	enrage = new _upgrade_options("Enrage", "Unlocks the Berserker's Standard Ability, Enrage.", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 1, false, noone, "Barracks", "Berserker", "objectCanUseSpecialAbility", noone, 
+				1, 45, 150, 0, 0, 0);
+	invisibility = new _upgrade_options("Invisibility", "Unlocks the Rogue's Standard Ability, Invisibility.", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 1, false, noone, "Barracks", "Rogue", "objectCanUseSpecialAbility", noone, 1, 45, 
+				0, 0, 150, 0);
+	rally = new _upgrade_options("Rally", "Unlocks the Soldier's Standard Ability, Rally.", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.c, 
+				false, 1, false, noone, "Barracks", "Soldier", "objectCanUseSpecialAbility", noone, 1, 45, 
+				0, 150, 0, 0);
 }
 
 
