@@ -476,6 +476,23 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.c, 
 				false, 1, false, noone, "Barracks", "Soldier", "objectCanUseSpecialAbility", noone, 1, 45, 
 				0, 150, 0, 0);
+	scopes = new _upgrade_options("Scopes", "Upgrades the range of Rangers.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 1, false, noone, "Barracks", "Ranger", "objectAttackRange", noone, (2 * 16), 45, 
+				0, 200, 50, 0);
+	angerManagement = new _upgrade_options("Anger Management", "Increases the damage bonus of Berserker's Enrage ability.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 1, false, noone, "Barracks", "Berserker", "berserkerEnrageDamageBonus", noone, 3, 45, 
+				200, 0, 50, 0);
+	backstab = new _upgrade_options("Backstab", "Upgrade the damage dealt by Rogue's Ambush ability.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.c, 
+				false, 1, false, noone, "Barracks", "Rogue", "objectSpecialAttackDamage", noone, 25, 45, 
+				0, 0, 250, 0);
+	resolute = new _upgrade_options("Resolute", "Upgrades the health of Soldiers and Knights.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 1, false, noone, "Barracks", "Soldier and Knight", "maxHP", noone, "75 and 200", 45, 
+				200, 50, 200, 0);
+	
 }
 
 
