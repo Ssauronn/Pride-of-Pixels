@@ -13,8 +13,6 @@ TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 - DEFENSIVE 1 -	Resolute: Upgrades the HP of Soldiers and Knights.
 
 TIER 2 UPGRADES
-- SPECIAL 2 -	Normal Combat Special Abilities: Unlocks the Combat Special Ability for the 
-		basic unit chosen in your Combat Specialization skill at game start.
 - OFFENSIVE 2a -Piercing Strike: Rogues are able to find the weakpoint in armor with their 
 		Ambush ability and now ignore half of the target's armor when attacking with Ambush.
 - OFFENSIVE 2b -Steadied Weapons: Further increases the range of Rangers.
@@ -22,9 +20,12 @@ TIER 2 UPGRADES
 		Soldiers.
 - DEFENSIVE 2a -Steel Armor: Upgrades the magic armor of Knights.
 - DEFENSIVE 2b -Hardened Leather: Slightly upgrades the slash and pierce armor of Berserkers.
+TECHNOLOGY UPGRADES
+- SPECIAL 2a -	Combat Special Abilities: Unlocks the Combat Special Abilities for the basic
+		unit chosen in your Combat Specialization skill at game start.
 
 TIER 1 UPGRADES
-- SPECIAL 3 -	Flaming Arrows: Ranger's arrows are now coated with magical fire, dealing small 
+- SPECIAL 2b -	Flaming Arrows: Ranger's arrows are now coated with magical fire, dealing small 
 		additional magical damage with each shot.
 - OFFENSIVE 3 -	Sharpened Weapons: Increases the damage of all basic units.
 - DEFENSIVE 3a -Chain Mail: Increases the slash armor of all basic units.
