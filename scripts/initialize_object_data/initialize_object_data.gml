@@ -162,6 +162,19 @@ function initialize_object_data() {
 			currentImageIndexSpeed = 8 / room_speed;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Berserker":
+			enrageDamageBonus = 3;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Rogue":
+			ambushBonusDamage = 50;
+			piercingStrikeActive = false;
+			// Armor is a decimal value from 0 to 1, used to multiply against damage. The lower the value,
+			// the higher the armor. So penetration temporarily adds to the armor, to increase the damage
+			// taken by the target (when using the Ambush ability in this case).
+			piercingStrikePenetration = 0.25;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Wizard":
 			// Generic variables
 			maxHP = 100;
@@ -309,6 +322,7 @@ function initialize_object_data() {
 			acolytesCanLink = false;
 			aoeLinkedSquareSize = 2;
 			acolyteBlessedAuraActive = false;
+			acolyteSearingFieldActive = false;
 			arcaneWeaponActive = false;
 			arcaneWeaponBonus = 1.15;
 			arcaneArmorActive = false;
