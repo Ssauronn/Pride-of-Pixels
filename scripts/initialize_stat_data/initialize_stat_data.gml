@@ -19,6 +19,8 @@ function team_struct(team_) constructor {
 	obeliskUpgradeOneChosen = "";
 	obeliskUpgradeTwoChosen = "";
 	specialBuildingChosen = "";
+	stasisRevealsTargets = false;
+	droneSwarmUnlocked = false;
 	
 	// This function is called in count_down_timers(), which itself is called and relevant code ran in each step
 	// event of buildings and units (obj_building and obj_unit). So this function is built with the variables already
@@ -312,18 +314,18 @@ function _city_hall() constructor {
 }
 function _temple() constructor {
 	statUpdated = false;
+	rubyUnits = new _upgrade_options("Ruby Units", "Allows Ruby Units to be built.", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Temple", obj_building, "canTrainRubyUnits", noone, 1, 60, 100, 
+				100, 200, 50);
 	specialAbilities = new _upgrade_options("Special Abilities", "Unlocks Ruby Unit Special Abilities and allows them to be used in combat.", 
-				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.a, 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, true, noone, "Temple", "Ruby", "objectCanUseSpecialAbility", noone, 1, 60, 
 				100, 0, 200, 0);
 	rubyCombatSpecializationAbility = new _upgrade_options("Ruby Combat Specialization Ability", "Unlocks the Combat Specialization Ability for the Ruby Unit chosen in your Combat Specialization skill at game start.", 
-				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.c, 
 				false, 2, true, noone, "Temple", "Ruby", "objectCanUseCombatSpecializationAbility", noone, 1, 60, 
 				100, 0, 200, 0);
-	rubyUnits = new _upgrade_options("Ruby Units", "Allows Ruby Units to be built.", 
-				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
-				false, 2, false, noone, "Temple", obj_building, "canTrainRubyUnits", noone, 1, 60, 100, 
-				100, 200, 50);
 	ordained = new _upgrade_options("Ordained", "Acolyte healing is increased.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 2, false, noone, "Temple", "Acolyte", "outCombatHealValue and inCombatHealValue", 
@@ -421,9 +423,29 @@ function _temple() constructor {
 				false, 3, false, noone, "Temple", "Unholy Ziggurat", "cyclingActive", noone, 1, 
 				120, 500, 0, 200, 600);
 	blessedAura = new _upgrade_options("Blessed Aura", "Acolytes now increase the movement speed of themselves and all friendly units within range.", 
-				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.noone, 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.a, 
 				false, 3, false, noone, "Temple", "Acolyte", "acolyteBlessedAuraActive", noone, 1, 
 				0, 400, 500, 400);
+	searingField = new _upgrade_options("Searing Field", "Acolytes now have greater control over their nano tech and deal constant damage to all enemies within a medium range.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.b, 
+				false, 3, false, noone, "Temple", "Acolyte", "acolyteSearingFieldActive", noone, 1, 
+				200, 200, 600, 500);
+	// If the Rail Gun is chosen as the Technology tree's final building unlock:
+	handheldRailGun = new _upgrade_options("Handheld Rail Guns", "Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets and deal damage to enemies behind their target. However, their attack speed is reduced.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
+				false, 3, false, noone, "Temple", "Ranger", "rangerHandheldRailGunActive and objectAttackSpeed", noone, "1 and 90", 
+				/*The value "90" in the previous argument is the amount of frames that the objectAttackSpeed is increased by*/
+				200, 400, 600, 400);
+	// If the Stasis Field is chosen as the Technology tree's final building unlock:
+	revealingStasis = new _upgrade_options("Revealing Stasis", "You reveal any invisible units on the location that your Stasis Field is effecting for its duration.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
+				false, 3, false, noone, "Temple", "Player", "stasisRevealsTargets", noone, 1, 
+				250, 250, 250, 250);
+	// If the Launch Site is chosen as the Technology tree's final building unlock:
+	droneSwarm = new _upgrade_options("Drone Swarm", "Choose any location on the map to deploy a swarm of Drones to. Drones spawn at your Launch Site, move extremely fast, and deal high damage, but have extremely low health. This ability is on a long cooldown.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
+				false, 3, false, noone, "Temple", "Player", "droneSwarmUnlocked", noone, 1, 
+				400, 300, 900, 500);
 	rechargeableBatteries = new _upgrade_options("Rechargeable Batteries", "Reduces the cooldown of your Shocktrooper ability.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.four, eUpgradeSibling.noone, 
 				false, 3, false, noone, "Temple", "Player", "shocktrooperCooldownTimer", noone, (45 * room_speed) * -1, 120, 
@@ -476,6 +498,7 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.c, 
 				false, 1, false, noone, "Barracks", "Soldier", "objectCanUseSpecialAbility", noone, 1, 45, 
 				0, 150, 0, 0);
+<<<<<<< HEAD
 	scopes = new _upgrade_options("Scopes", "Upgrades the range of Rangers.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 1, false, noone, "Barracks", "Ranger", "objectAttackRange", noone, (2 * 16), 45, 
@@ -492,6 +515,35 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 1, false, noone, "Barracks", "Soldier and Knight", "maxHP", noone, "75 and 200", 45, 
 				200, 50, 200, 0);
+=======
+	scope = new _upgrade_options("Scope", "Increases the range of Rangers.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 1, false, noone, "Barracks", "Ranger", "objectAttackRange", noone, 1, 45, 
+				0, 200, 0, 0);
+	angerManagement = new _upgrade_options("Anger Management", "Increases the attack damage bonus of Berserker's Enrage ability.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 1, false, noone, "Barracks", "Berserker", "enrageDamageBonus", noone, 3, 60, 
+				200, 0, 0, 0);
+	backstab = new _upgrade_options("Backstab", "Increases the damage of Rogue's Ambush ability.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.c, 
+				false, 1, false, noone, "Barracks", "Rogue", "ambushBonusDamage", noone, 25, 60, 
+				0, 0, 200, 0);
+	resolute = new _upgrade_options("Resolute", "Increases the health of Soldiers and Knights.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 1, false, noone, "Barracks", "Soldier and Knight", "maxHP", noone, "75 and 140", 90, 
+				250, 250, 250, 0);
+	// This needs to affect only the single basic unit that was chosen at the beginning of the game by Technology's 
+	// Combat Specialization skill tree option
+	combatSpecialAbilities = new _upgrade_options("Combat Special Abilities", "Unlocks the Combat Special Abilities for the basic unit chosen in your Combat Specialization skill at game start.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 2, false, noone, "Barracks", "Rogue and Berserker and Knight", "objectCanUseCombatSpecializationAbility", 
+				noone, 1, 50, 0, 100, 0);
+	piercingStrike = new _upgrade_options("Piercing Strike", "Rogues are able to find the weak point in their target's armor when using their Ambush ability. Rogues now ignore a quarter of their target's armor when dealing damage with Ambush.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 2, false, noone, "Barracks", "Rogue", "piercingStrikeActive", noone, 1, 
+				100, 100, 50, 0);
+	
+>>>>>>> origin/stats
 	
 }
 

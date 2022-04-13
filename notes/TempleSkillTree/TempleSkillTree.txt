@@ -6,10 +6,8 @@ GAME START
 TIER 3 UPGRADES
 
 TIER 2 UPGRADES
-- SPECIAL 1a -	Special Abilities: Unlocks Special Abilities for all Ruby units.
-- SPECIAL 1b -	Ruby Combat Special Abilities: Unlocks the Combat Special Ability for the ruby unit chosen 
-				in your Combat Specialization skill at game start.
-- SPECIAL 2a -	Ruby Units: Allows ruby units to be built.
+- SPECIAL 1 -	Ruby Units: Allows ruby units to be built.
+- SPECIAL 2a -	Special Abilities: Unlocks Special Abilities for all Ruby units.
 - INNOVATION 1a Ordained: Acolyte healing is increased.
 - INNOVATION 1b Swift Footed: Subverters gain additional movement speed.
 - OFFENSIVE 1 -	Enlightened: Increases the damage of all Ruby units.
@@ -29,6 +27,8 @@ MAGICAL UPGRADES
 		units within that location.
 TECHNOLOGY UPGRADES
 - SPECIAL 2b -	Automatons: Allows Automatons to be built.
+- SPECIAL 2c -	Ruby Combat Special Abilities: Unlocks the Combat Special Ability for the ruby unit chosen 
+				in your Combat Specialization skill at game start.
 - INNOVATION 2 -Shocktroopers: Unlocks the Shocktroopers ability for Automatons, allowing the player to
 		teleport all Automatons not currently in combat to a location within range
 		of a friendly unit that is in combat. This ability has a long cooldown.
@@ -61,9 +61,6 @@ MAGICAL UPGRADES
 		sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the
 		charge level it was previously at, minus one charge level.
 TECHNOLOGY UPGRADES
-<<<<<<< HEAD
-- SPECIAL 3 -	Blessed Aura: Acolytes now increase the movement speed of all friendly units within range.
-=======
 - SPECIAL 4a -	Blessed Aura: Acolytes now increase the movement speed of all friendly units within range.
 - SPECIAL 4b -	Searing Field: Acolytes now have greater control over their nano tech and deal constant damage
 		to all enemies within a medium range.
@@ -74,5 +71,4 @@ TECHNOLOGY UPGRADES
 - SEPCIAL 4c -	Drone Swarm: IF LAUNCH SITE IS CHOSEN: Choose any location on the map to deploy a swarm of
 		drones to. The Drone Swarm spawns from a Launch Site, and move extremely fast, but have extremely 
 		low health. Long cooldown.
->>>>>>> stats
 - INNOVATION 4 -Rechargeable Batteries: Reduces the cooldown of your Shocktrooper ability.
