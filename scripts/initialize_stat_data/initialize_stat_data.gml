@@ -557,6 +557,13 @@ function _barracks() constructor {
 				false, 3, false, noone, "Barracks", "Basic", "objectMagicResistance", noone, -0.10, 120, 
 				200, 600, 800, 0);
 }
+function _storehouse() constructor {
+	trainedWorkers = new _upgrade_options("Trained Workers", "Increases the gathering speed of all base resources by Workers.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 1, false, noone, "Storehouse", "Worker", "objectFoodGatherDamage and objectWoodChopDamage and objectGoldMineDamage", 
+				noone, 2, 60, 100, 200, 200, 0);
+	
+}
 
 
 /*
