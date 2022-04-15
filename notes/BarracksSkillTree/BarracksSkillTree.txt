@@ -15,7 +15,7 @@ TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 TIER 2 UPGRADES
 - OFFENSIVE 2a -Piercing Strike: Rogues are able to find the weakpoint in armor with their 
 		Ambush ability and now ignore half of the target's armor when attacking with Ambush.
-- OFFENSIVE 2b -Steadied Weapons: Further increases the range of Rangers.
+- OFFENSIVE 2b -Stabilized Weapons: Further increases the range of Rangers.
 - OFFENSIVE 2c -Morale Boost: Increases the damage bonus for Soldiers when surrounded by other friendly
 		Soldiers.
 - DEFENSIVE 2a -Steel Armor: Upgrades the magic armor of Knights.
@@ -26,7 +26,7 @@ TECHNOLOGY UPGRADES
 
 TIER 1 UPGRADES
 - SPECIAL 2b -	Flaming Arrows: Ranger's arrows are now coated with magical fire, dealing small 
-		additional magical damage with each shot.
+		additional damage with each shot.
 - OFFENSIVE 3 -	Sharpened Weapons: Increases the damage of all basic units.
-- DEFENSIVE 3a -Chain Mail: Increases the slash armor of all basic units.
-- DEFENSIVE 3b -Reinforced Armor: Increases the pierce armor of all basic units.
+- DEFENSIVE 3a -Chain Mail: Increases the slash and pierce armor of all basic units.
+- DEFENSIVE 3b -Blessed Armor: Increases the magic armor of all basic units.

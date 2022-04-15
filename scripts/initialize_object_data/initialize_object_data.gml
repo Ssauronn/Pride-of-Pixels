@@ -162,18 +162,14 @@ function initialize_object_data() {
 			currentImageIndexSpeed = 8 / room_speed;
 			break;
 			
-		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-		case "Berserker":
-			berserkerEnrageDamageBonus = 4;
-			break;
-		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-		case "Rogue":
-			objectSpecialAttackDamage = 100;
-			break;
 		
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Berserker":
 			enrageDamageBonus = 3;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Soldier":
+			courageDamageBonus = 2;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Rogue":
