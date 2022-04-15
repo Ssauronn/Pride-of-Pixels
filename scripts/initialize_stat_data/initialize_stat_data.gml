@@ -424,27 +424,27 @@ function _temple() constructor {
 				120, 500, 0, 200, 600);
 	blessedAura = new _upgrade_options("Blessed Aura", "Acolytes now increase the movement speed of themselves and all friendly units within range.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.a, 
-				false, 3, false, noone, "Temple", "Acolyte", "acolyteBlessedAuraActive", noone, 1, 
+				false, 3, false, noone, "Temple", "Acolyte", "acolyteBlessedAuraActive", noone, 1, 105, 
 				0, 400, 500, 400);
 	searingField = new _upgrade_options("Searing Field", "Acolytes now have greater control over their nano tech and deal constant damage to all enemies within a medium range.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.b, 
-				false, 3, false, noone, "Temple", "Acolyte", "acolyteSearingFieldActive", noone, 1, 
+				false, 3, false, noone, "Temple", "Acolyte", "acolyteSearingFieldActive", noone, 1, 120, 
 				200, 200, 600, 500);
 	// If the Rail Gun is chosen as the Technology tree's final building unlock:
 	handheldRailGun = new _upgrade_options("Handheld Rail Guns", "Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets and deal damage to enemies behind their target. However, their attack speed is reduced.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
 				false, 3, false, noone, "Temple", "Ranger", "rangerHandheldRailGunActive and objectAttackSpeed", noone, "1 and 90", 
 				/*The value "90" in the previous argument is the amount of frames that the objectAttackSpeed is increased by*/
-				200, 400, 600, 400);
+				120, 200, 400, 600, 400);
 	// If the Stasis Field is chosen as the Technology tree's final building unlock:
 	revealingStasis = new _upgrade_options("Revealing Stasis", "You reveal any invisible units on the location that your Stasis Field is effecting for its duration.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
-				false, 3, false, noone, "Temple", "Player", "stasisRevealsTargets", noone, 1, 
+				false, 3, false, noone, "Temple", "Player", "stasisRevealsTargets", noone, 1, 120, 
 				250, 250, 250, 250);
 	// If the Launch Site is chosen as the Technology tree's final building unlock:
 	droneSwarm = new _upgrade_options("Drone Swarm", "Choose any location on the map to deploy a swarm of Drones to. Drones spawn at your Launch Site, move extremely fast, and deal high damage, but have extremely low health. This ability is on a long cooldown.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
-				false, 3, false, noone, "Temple", "Player", "droneSwarmUnlocked", noone, 1, 
+				false, 3, false, noone, "Temple", "Player", "droneSwarmUnlocked", noone, 1, 120, 
 				400, 300, 900, 500);
 	rechargeableBatteries = new _upgrade_options("Rechargeable Batteries", "Reduces the cooldown of your Shocktrooper ability.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.four, eUpgradeSibling.noone, 
@@ -519,12 +519,49 @@ function _barracks() constructor {
 	combatSpecialAbilities = new _upgrade_options("Combat Special Abilities", "Unlocks the Combat Special Abilities for the basic unit chosen in your Combat Specialization skill at game start.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Barracks", "Rogue and Berserker and Knight", "objectCanUseCombatSpecializationAbility", 
-				noone, 1, 50, 0, 100, 0);
+				noone, 1, 150, 50, 100, 0);
 	piercingStrike = new _upgrade_options("Piercing Strike", "Rogues are able to find the weak point in their target's armor when using their Ambush ability. Rogues now ignore a quarter of their target's armor when dealing damage with Ambush.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Barracks", "Rogue", "piercingStrikeActive", noone, 1, 
 				100, 100, 50, 0);
-	
+	stabilizedWeapons = new _upgrade_options("Stabilized Weapons", "Further increases the range of Rangers.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Barracks", "Ranger", "objectAttackRange", noone, 1, 105, 
+				0, 300, 100, 0);
+	moraleBoost = new _upgrade_options("Morale Boost", "Increases the damage bonus for Soldiers when surrounded by other friendly Soldiers.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.c, 
+				false, 2, false, noone, "Barracks", "Soldier", "courageDamageBonus", noone, 2, 105, 
+				200, 50, 300, 0);
+	steelArmor = new _upgrade_options("Steel Armor", "Increases the magic armor of Knights.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 2, false, noone, "Barracks", "Knight", "objectMagicResistance", noone, -0.10, 120, 
+				100, 300, 300, 0);
+	hardenedLeather = new _upgrade_options("Hardened Leather", "Increases the slash armor of Berserkers.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Barracks", "Berserker", "objectSlashResistance", noone, -0.10, 105, 
+				300, 100, 200, 0);
+	flamingArrows = new _upgrade_options("Flaming Arrows", "Rangers now ignite their shots with magic, dealing a small amount of additional damage.", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 3, false, noone, "Barracks", "Ranger", "objectAttackDamage", noone, 3, 105, 
+				200, 500, 400, 0);
+	sharpenedWeapons = new _upgrade_options("Sharpened Weapons", "Increases the damage of all basic units.", 
+				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.three, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Barracks", "Basic", "objectAttackDamage", noone, 2, 120, 
+				400, 400, 800, 0);
+	chainMail = new _upgrade_options("Chain Mail", "Increases the slash and pierce armor of all basic units.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.three, eUpgradeSibling.a, 
+				false, 3, false, noone, "Barracks", "Basic", "objectSlashResistance and objectPierceResistance", 
+				noone, "-0.05 and -0.15", 120, 300, 500, 800, 0);
+	blessedArmor = new _upgrade_options("Blessed Armor", "Increases the magic armor of all basic units.", 
+				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.three, eUpgradeSibling.b, 
+				false, 3, false, noone, "Barracks", "Basic", "objectMagicResistance", noone, -0.10, 120, 
+				200, 600, 800, 0);
+}
+function _storehouse() constructor {
+	trainedWorkers = new _upgrade_options("Trained Workers", "Increases the gathering speed of all base resources by Workers.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 1, false, noone, "Storehouse", "Worker", "objectFoodGatherDamage and objectWoodChopDamage and objectGoldMineDamage", 
+				noone, 2, 60, 100, 200, 200, 0);
 	
 }
 
