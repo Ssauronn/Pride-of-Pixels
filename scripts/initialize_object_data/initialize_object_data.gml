@@ -87,6 +87,10 @@ function initialize_object_data() {
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
+			movementSpeedBonus = 1;
+			movementSpeedBonusAvailable = false;
+			movementSpeedBonusActive = false;
+			randomBasicResourceGenerationActive = false;
 			canBuildFarm = false;
 			canBuildThicket = false;
 			canBuildMine = false;

@@ -237,20 +237,21 @@ function _city_hall() constructor {
 				player[i].age struct value, set below.*/, "age", "Age One", 1, 30, 250, 150, 200, 0);
 	foundations = new _upgrade_options("Foundations", "Increases the pierce and slash armor of all controlled buildings.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 1,  true, noone, "City Hall", obj_building, "objectSlashResistance and objectPierceResistance", 
+				false, 1,  false, noone, "City Hall", obj_building, "objectSlashResistance and objectPierceResistance", 
 				noone, "-0.15 and -0.1" /*resistance is a decimal multiplier between 0 to 1, 0 being full damage
 				resisted and 1 being full damage taken*/, 45, 0, 200, 150, 0);
 	parapets = new _upgrade_options("Parapets", "Increases the damage of all buildings with offensive capabilities.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 1, true, noone, "City Hall", obj_building, "objectAttackDamage", noone, 5, 30, 0, 
+				false, 1, false, noone, "City Hall", obj_building, "objectAttackDamage", noone, 5, 30, 0, 
 				50, 200, 0);
 	farming = new _upgrade_options("Farming", "Unlocks the Farm structure and allows it to be built by Workers.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a,
-				false, 1, true, noone, "City Hall", "Worker", "canBuildFarm", noone, 1, 60, 200, 200, 0, 
+				false, 1, false, noone, "City Hall", "Worker", "canBuildFarm", noone, 1, 60, 200, 200, 0, 
 				0);
+	// Drones is also available on the Storehouse building
 	drones = new _upgrade_options("Drones", "Workers no longer need to drop Food, Wood, or Gold off at Storehouses.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.b, 
-				false, 1, true, noone, "City Hall", "Worker", "canUseDrones", noone, 1, 30, 50, 50, 250, 
+				false, 1, false, noone, "City Hall", "Worker", "canUseDrones", noone, 1, 30, 50, 50, 250, 
 				0);
 	experimentation = new _upgrade_options("Experimentation", "Upgrades to the second Age, unlocking additional upgrades.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.noone, 
@@ -264,6 +265,7 @@ function _city_hall() constructor {
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 2, false, noone, "City Hall", "Worker", "canBuildThicket", noone, 1, 30, 200, 300, 
 				100, 0);
+	// Drilling is also available on the Storehouse building
 	drilling = new _upgrade_options("Drilling", "Allows Workers to mine Rubies", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.a, 
 				false, 2, false, noone, "City Hall", "Worker", "canMineRuby", noone, 1, 45, 0, 0, 800, 0);
@@ -558,11 +560,39 @@ function _barracks() constructor {
 				200, 600, 800, 0);
 }
 function _storehouse() constructor {
-	trainedWorkers = new _upgrade_options("Trained Workers", "Increases the gathering speed of all base resources by Workers.", 
+	trainedWorkers = new _upgrade_options("Trained Workers", "Increases the gathering speed of all basic resources by Workers.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 1, false, noone, "Storehouse", "Worker", "objectFoodGatherDamage and objectWoodChopDamage and objectGoldMineDamage", 
-				noone, 2, 60, 100, 200, 200, 0);
-	
+				noone, 1, 60, 100, 200, 200, 0);
+	// Drones is also available on the City Hall building
+	drones = new _upgrade_options("Drones", "Workers no longer need to drop Food, Wood, or Gold off at Storehouses.", 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 1, false, noone, "Storehouse", "Worker", "canUseDrones", noone, 1, 30, 50, 50, 250, 
+				0);
+	advancedTooling = new _upgrade_options("Advanced Tooling", "Further increases the gathering speed of all basic resources by Workers.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Storehouse", "Worker", "objectFoodGatherDamage and objectWoodChopDamage and objectGoldMineDamage", 
+				noone, 1, 120, 200, 400, 400, 0);
+	// Drilling is also available on the City Hall building
+	drilling = new _upgrade_options("Drilling", "Allows Workers to mine Rubies", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Storehouse", "Worker", "canMineRuby", noone, 1, 45, 0, 0, 800, 0);
+	magicTraining = new _upgrade_options("Magic Training", "Increases the gathering speed of Rubies by Workers.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Storehouse", "Worker", "objectRubyMineDamage", noone, 2, 90, 
+				100, 200, 200, 150);
+	speedyHands = new _upgrade_options("Speedy Hands", "Further increases the gathering speed of all basic resources by Workers.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.four, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Storehouse", "Worker", "objectFoodGatherDamage and objectWoodChopDamage and objectGoldMineDamage", 
+				noone, 2, 180, 400, 800, 800, 0);
+	rollerSkates = new _upgrade_options("Roller Skates", "Increases the movement speed of Workers while not in combat.", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 3, false, noone, "Storehouse", "Worker", "movementSpeedBonusAvailable", noone, 1, 
+				600, 0, 400, 0);
+	futuristicTooling = new _upgrade_options("Futuristic Tooling", "When gathering basic resources, Workers have a random chance to obtain additional resources on collection.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 3, false, noone, "Storehouse", "Worker", "randomBasicResourceGenerationActive", noone, 1, 
+				600, 600, 600, 400);
 }
 
 
