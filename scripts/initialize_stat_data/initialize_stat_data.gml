@@ -594,6 +594,9 @@ function _storehouse() constructor {
 				false, 3, false, noone, "Storehouse", "Worker", "randomBasicResourceGenerationActive", noone, 1, 
 				600, 600, 600, 400);
 }
+function _obelisk() constructor {
+	
+}
 
 
 /*
