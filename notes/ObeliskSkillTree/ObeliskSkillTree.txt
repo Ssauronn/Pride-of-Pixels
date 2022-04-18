@@ -7,32 +7,35 @@ TIER 3 UPGRADES
 
 
 TIER 2 UPGRADES
-- INNOVATION 1	Increases the sight range of Obelisks.
-- SPECIAL 1 -	Obelisks now provide an armor bonus for all units and buildings within range.
+- INNOVATION 1 -Telescopes: Increases the sight range of Obelisks.
+- SPECIAL 1 -	Hardening Mist: Obelisks now provide an armor bonus for all units and 
+		buildings within range.
 MAGICAL UPGRADES
 - CHOOSE TWO OF THE FOLLOWING
-	- SPECIAL 2a -	Provides True Sight, revealing all Rogues and Subverters within range.
-		- INNOVATION 2a	You retain True Sight on Rogues and Subverters revealed by your
-		  Obelisks for a short time after they leave the Obelisk's range.
-		- SPECIAL 3a -	All enemy units are slowed while in range of the Obelisk.
-	- SPECIAL 2b -	Will summon a Demon when an enemy comes within range. Medium cooldown.
-		- INNOVATION 2b	Demons summoned by the Obelisk have increased speed and attack
+	- SPECIAL 2a -	True Sight: Provides True Sight, revealing all Rogues and Subverters 
+			within range.
+		- INNOVATION 2a-Lingering Gaze: You retain True Sight on Rogues and Subverters 
+		  revealed by your Obelisks for a short time after they leave the Obelisk's range.
+		- SPECIAL 3a -	Freezing Gaze: All enemy units are slowed while in range of the Obelisk.
+	- SPECIAL 2b -	Demon Sentry: Will summon a Demon when an enemy comes within range. 
+			Medium cooldown.
+		- INNOVATION 2b-Awoken: Demons summoned by the Obelisk have increased speed and attack
 		  for a short time after being summoned.
-		- SPECIAL 3b -	The Obelisk will summon a small number of Demons if it is
-		  destroyed.
-	- SPECIAL 2c -	An Obelisk can link to one unit. Once linked, if that unit would have
+		- SPECIAL 3b -	Trojan Horse: The Obelisk will summon a small number of Demons if it is
+		  destroyed by an enemy.
+	- SPECIAL 2c -	Soul Link: An Obelisk can link to one unit. Once linked, if that unit would have
 	  been killed, the unit is instead saved from death, set to 1 HP,
 	  teleported to the Obelisk, and the Obelisk is then destroyed. An Obelisk
-	  cannot be linked to a unit if it is not at full health.
-		- INNOVATION 2c	The Obelisk is no longer destroyed when the linked unit would
-		  have been killed and is instead set to 1 HP.
-		- SPECIAL 3c -	Buildings within range of the Obelisk slowly heal over time.
+	  cannot be linked to a unit if the Obelisk is not at full health.
+		- INNOVATION 2c-Lifeline: Units Soul Linked to Obelisks heal rapidly when not in combat.
+		- SPECIAL 3c -	Gaia's Growth: Buildings within range of the Obelisk slowly heal over time.
 TECHNOLOGY UPGRADES
  - CHOOSE TWO OF THE FOLLOWING
-	- SPECIAL 2a -	Provides true sight, revealing all Rogues and Subverters within range.
-		- INNOVATION 2a	You retain True Sight on Rogues and Subverters revealed by your
-		  Obelisks for a short time after they leave the Obelisk's range.
-		- SPECIAL 3a -	All enemy units are slowed while in range of the Obelisk.
+	- SPECIAL 2a -	True Sight: Provides True Sight, revealing all Rogues and Subverters 
+			within range.
+		- INNOVATION 2a-Lingering Gaze: You retain True Sight on Rogues and Subverters 
+		  revealed by your Obelisks for a short time after they leave the Obelisk's range.
+		- SPECIAL 3a -	Freezing Gaze: All enemy units are slowed while in range of the Obelisk.
 	- SPECIAL 2b -	Allows units to teleport between Obelisks.
 		- INNOVATION 2b	Units gain a temporary speed boost after teleporting using the
 		  Obelisk.
