@@ -81,6 +81,7 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			movementSpeed = 1;
 			objectIsRubyUnit = false;
+			objectSightRange = 5 * 16;
 			// Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
@@ -191,6 +192,7 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
+			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
@@ -262,6 +264,7 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
+			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
@@ -323,6 +326,7 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
+			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
@@ -389,6 +393,7 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
+			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
@@ -451,6 +456,7 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
+			objectSightRange = 8 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
@@ -517,6 +523,7 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			movementSpeed = 1.5;
 			objectIsRubyUnit = true;
+			objectSightRange = 6 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
@@ -583,6 +590,7 @@ function initialize_object_data() {
 			maxHP = 1500;
 			currentHP = maxHP;
 			populationProvided = 25;
+			objectSightRange = 10 * 16;
 			// The distance at which attacks can used, in pixels
 			objectAttackRange = 16 * 8;
 			canAttack = true;
@@ -621,6 +629,20 @@ function initialize_object_data() {
 			canTrainAbominations = false;
 			canTrainAutomatons = false;
 			break;
+		case "Obelisk":
+			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+			// In this case, all the generic variables need to be added here, 
+			// in addition to the building specific variable
+			// Generic Variables
+			objectSightRange = 10 * 16;
+			
+			// Specific Variables
+			hardeningMistActive = false;
+			hardeningMistRange = 4 * 16;
+			hardeningMistSlashArmorBonus = -0.1;
+			hardeningMistPierceArmorBonus = -0.1;
+			hardeningMistMagicArmorBonus = -0.1;
+			trueSightActive = false;
 		case "Soul Subjugator":
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 			// In this case, all the generic variables need to be added here, 

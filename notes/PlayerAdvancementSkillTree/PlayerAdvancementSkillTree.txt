@@ -123,7 +123,7 @@ UNLOCKS TIER 3 UPGRADES
 		  increased to a large amount over a short amount of 
 		  time. The Automaton is unable to move or attack while
 		  channeling this ability.
-	- Protectorates:
+	- Protectorate:
 		- Knights will taunt one unit not attacking it or
 		  another Knight during combat. This taunt ability
 		  is on a long cooldown and forces that unit to attack
