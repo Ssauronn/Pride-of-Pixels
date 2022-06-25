@@ -654,6 +654,8 @@ function initialize_object_data() {
 			soulLinkActive = false;
 			lifelineActive = false;
 			gaiasGrowthActive = false;
+			waygatesChosen = false;
+			waygatesActive = false;
 		case "Soul Subjugator":
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 			// In this case, all the generic variables need to be added here, 

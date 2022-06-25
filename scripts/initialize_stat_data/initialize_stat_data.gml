@@ -683,7 +683,39 @@ function _obelisk() constructor {
 				100, 300, 0, 0, "Obelisk", "soulLinkChosen", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
-	
+	lifeline = new _upgrade_options("Lifeline", "Units Soul Linked to Obelisks heal rapidly while not in combat.", 
+				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.c, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "lifelineActive", noone, 1, 
+				400, 0, 0, 100, "Obelisk", "soulLinkActive", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	gaiasGrowth = new _upgrade_options("Gaia's Growth", "Buildings within range of the Obelisk slowly heal over time.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "gaiasGrowthActive", noone, 1, 
+				0, 400, 100, 100, "Obelisk", "soulLinkActive", 1);
+	// If Waygates is chosen as one of the two upgrades for ObeliskSpecialization, listed above
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	waygates = new _upgrade_options("Waygates", "Allows units to teleport between Obelisks.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.b, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "waygatesActive", noone, 1, 
+				0, 300, 200, 0, "Obelisk", "waygatesChosen", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	energizingField = new _upgrade_options("Energizing Field", "Units gain a temporary movement speed boost after teleporting between Obelisks.", 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "energizingFieldActive", noone, 1, 
+				200, 0, 300, 100, "Obelisk", "waygatesActive", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	battleVigor = new _upgrade_options("Battle Vigor", "Units are healed to full when teleporting between Obelisks if there are enemies either: in range of the Obelisk the units enter, or in range of the Obelisk the units exit.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.b, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "battleVigorActive", noone, 1, 
+				500, 0, 0, 100, "Obelisk", "waygatesActive", 1);
+	// If Lasers is chosen as one of the two upgrades for ObeliskSpecialization, listed above
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	lasers = new _upgrade_options("Lasers", );
 }
 
 
