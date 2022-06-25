@@ -39,8 +39,8 @@ TECHNOLOGY UPGRADES
 	- SPECIAL 3b -	Waygates: Allows units to teleport between Obelisks.
 		- INNOVATION 2b-Energizing Field: Units gain a temporary speed boost after teleporting 
 		  using the Obelisk.
-		- SPECIAL 4b -	Obelisks fully heal units that teleport through them at the cost of their own
-		  HP. This effect stops functioning once the Obelisks involved in the teleport are at 1 HP.
+		- SPECIAL 4b -	Battle Vigor: Units are healed to full when teleporting between Obelisks
+		  if there are enemies in range of the Obelisk they enter or the Obelisk they exit.
 	- SPECIAL 3c -	Lasers: Fires beams of lasers at single targets, dealing high damage over time.
 		- INNOVATION 2c-Plasma Beam: Laser beam is upgraded to plasma beam, dealing even more 
 		  damage.
