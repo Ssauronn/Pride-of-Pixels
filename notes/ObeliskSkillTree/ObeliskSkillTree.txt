@@ -19,10 +19,10 @@ MAGICAL UPGRADES
 		- SPECIAL 4a -	Freezing Gaze: All enemy units are slowed while in range of the Obelisk.
 	- SPECIAL 3b -	Demon Sentry: Will summon a Demon when an enemy comes within range. 
 			Medium cooldown.
-		- INNOVATION 2b-Awoken: Demons summoned by the Obelisk have increased speed and attack
-		  for a short time after being summoned.
-		- SPECIAL 4b -	Trojan Horse: The Obelisk will summon a small number of Demons if it is
-		  destroyed by an enemy.
+		- INNOVATION 2b-Awoken: More Demons will be summoned when enemies are in range. The Demons
+		    will die after a short while. Short cooldown.
+		- SPECIAL 4b -	Trojan Horse: The Obelisk will summon a pair of Warlocks under your control
+		    if it is destroyed by an enemy.
 	- SPECIAL 3c -	Soul Link: An Obelisk can link to one unit. Once linked, if that unit would have
 	  been killed, the unit is instead saved from death, set to 1 HP,
 	  teleported to the Obelisk, and the Obelisk is then destroyed. An Obelisk
