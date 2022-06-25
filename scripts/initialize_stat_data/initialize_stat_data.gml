@@ -233,6 +233,7 @@ function _upgrade_options() constructor {
 	upgradeSecondaryRequirementVariable = argument[21];
 	// anything or noone - The value of the secondary variable that the current upgrade in question is
 	// reliant on. Will be set to noone if none exists.
+	upgradeSecondaryRequirementValue = argument[22];
 }
 
 // ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
@@ -382,7 +383,7 @@ function _temple() constructor {
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.a, 
 				false, 3, false, noone, "Temple", "Wizard", "singedCircuitActive", noone, 1, 30, 
 				0, 0, 200, 300, noone, noone, noone);
-	enslavement = new _upgrade_options("Enslavement", "Warlock's summoned Demons are now permanent summons.", 
+	enslavement = new _upgrade_options("Enslavement", "Demons summoned by Warlocks are now permanent. Demons will die if they wander too far from the Warlock that summoned them.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 3, false, noone, "Temple", "Warlock", "enslavementActive", noone, 1, 30, 
 				0, 0, 200, 300, noone, noone, noone);
@@ -636,16 +637,58 @@ function _obelisk() constructor {
 				false, 2, false, noone, "Obelisk", "Player", "", "Obelisk Specialization", "", 
 				200, 200, 200, 0, noone, noone, noone);
 	// If True Sight is chosen as one of two upgrades for obeliskSpecialization, listed above
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
 	trueSight = new _upgrade_options("True Sight", "Provides True Sight, revealing all Rogues and Subverters within range.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.a, 
 				false, 2, false, noone, "Obelisk", "Obelisk", "trueSightActive", noone, 1, 
-				100, 400, 400, 0, noone, noone, noone);
-	// If True Sight is chosen as one of two upgrades for obeliskSpecialization, and if it has been acquired
+				100, 400, 400, 0, "Obelisk", "trueSightChosen", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	lingeringGaze = new _upgrade_options("Lingering Gaze", "You retain True Sight on Rogues and Subverters revealed by your Obelisks for a short time after they leave the Obelisk's range.", 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.a, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "lingeringGazeActive", noone, 1, 
+				200, 0, 500, 100, "Obelisk", "trueSightActive", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	freezingGaze = new _upgrade_options("Freezing Gaze", "All enemy units are slowed while in range of the Obelisk.", 
+				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.a, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "freezingGazeActive", noone, 1, 
+				0, 400, 200, 100, "Obelisk", "trueSightActive", 1);
+	// If Demon Sentry is chosen as one ofthe two upgrades for obeliskSpecialization, listed above
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	demonSentry = new _upgrade_options("Demon Sentry", "Demons will be summoned while enemies are in range of the Obelisk. The Demons will die after a short while. Short internal cooldown.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.b, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "demonSentryActive", noone, 1, 
+				400, 0, 300, 0, "Obelisk", "demonSentryChosen", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	awoken = new _upgrade_options("Awoken", "The Obelisk now summons more Demons while enemies are in range.", 
+				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "awokenActive", noone, 1, 
+				400, 0, 500, 100, "Obelisk", "demonSentryActive", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	trojanHorse = new _upgrade_options("Trojan Horse", "The Obelisk will summon a pair of Warlocks under your control if destroyed by an enemy.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.b, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "trojanHorseActive", noone, 1, 
+				300, 200, 300, 100, "Obelisk", "demonSentryActive", 1);
+	// If Soul Link is chosen as one of the two upgrades for ObeliskSpecialization, listed above
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	soulLink = new _upgrade_options("Soul Link", "An Obelisk can now link to one unit. Once Linked, if that unit would have been killed, the unit is instead: saved from death, it's HP is set to 1, teleported to the Obelisk, and the Obelisk is then destroyed. An Obelisk cannot be Linked to a unit if the Obelisk is not at full HP.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "soulLinkActive", noone, 1, 
+				100, 300, 0, 0, "Obelisk", "soulLinkChosen", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
 	
 }
 
 
 /*
+	ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 	- On spawn, the new unit or building needs to loop through the struct location in player[i] and apply 
 	all currently active upgrades to it's stats.
 	- On upgrade COMPLETION, need to loop through all objects the stat upgrade applies to and apply that 

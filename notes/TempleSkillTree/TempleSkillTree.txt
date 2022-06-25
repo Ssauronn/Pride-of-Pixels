@@ -36,7 +36,8 @@ TECHNOLOGY UPGRADES
 TIER 1 UPGRADES
 - INNOVATION 3a Singed Circuit: A Wizard's Fireball cooldown is reduced if it hits 2 or more targets
 		with the area of effect.
-- INNOVATION 3b Enslavement: Warlock pets are now permanent.
+- INNOVATION 3b Enslavement: Demons summoned by Warlocks are now permanent. Demons will die if they
+		wander too far from the Warlock that summoned them.
 - INNOVATION 3c Sanctified: Acolyte healing is further increased.
 - OFFENSIVE 2 -	Empowered: Further increases the damage of all Ruby units.
 - OFFENSIVE 3a -Power Potions: Increases the damage of Warlocks and Wizards.

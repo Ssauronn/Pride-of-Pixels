@@ -642,7 +642,18 @@ function initialize_object_data() {
 			hardeningMistSlashArmorBonus = -0.1;
 			hardeningMistPierceArmorBonus = -0.1;
 			hardeningMistMagicArmorBonus = -0.1;
+			trueSightChosen = false;
 			trueSightActive = false;
+			lingeringGazeActive = false;
+			freezingGazeActive = false;
+			demonSentryChosen = false;
+			demonSentryActive = false;
+			awokenActive = false;
+			trojanHorseActive = false;
+			soulLinkChosen = false;
+			soulLinkActive = false;
+			lifelineActive = false;
+			gaiasGrowthActive = false;
 		case "Soul Subjugator":
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 			// In this case, all the generic variables need to be added here, 
