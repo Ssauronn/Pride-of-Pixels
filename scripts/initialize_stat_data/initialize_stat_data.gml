@@ -715,7 +715,23 @@ function _obelisk() constructor {
 	// If Lasers is chosen as one of the two upgrades for ObeliskSpecialization, listed above
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
-	lasers = new _upgrade_options("Lasers", );
+	lasers = new _upgrade_options("Lasers", "Fires beams of lasers at single targets, dealing high damage over time.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "lasersActive", noone, 1, 
+				0, 200, 200, 0, "Obelisk", "lasersChosen", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	highIntensityBeam = new _upgrade_options("High Intensity Beam", "The Obelisk now ignore's the armor of it's targets.", 
+				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.c, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "highIntensityBeamActive", noone, 1, 
+				0, 200, 300, 100, "Obelisk", "lasersActive", 1);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	plasmaBeam = new _upgrade_options("Plasma Beam", "Lasers are upgraded to Plasma Beam, dealing even more damage.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "plasmaBeamActive", noone, 1, 
+				0, 400, 100, 100, "Obelisk", "lasersActive", 1);
+	
 }
 
 

@@ -637,6 +637,8 @@ function initialize_object_data() {
 			objectSightRange = 10 * 16;
 			
 			// Specific Variables
+			telescopesActive = false;
+			telescopesRangeIncreaseValue = 2 * 16; // How much further Obelisks can see when Telescopes are active
 			hardeningMistActive = false;
 			hardeningMistRange = 4 * 16;
 			hardeningMistSlashArmorBonus = -0.1;
@@ -645,7 +647,9 @@ function initialize_object_data() {
 			trueSightChosen = false;
 			trueSightActive = false;
 			lingeringGazeActive = false;
+			lingeringGazeDuration = 3 * room_speed; // How long units will be revealed after exiting the Obelisk's range in seconds
 			freezingGazeActive = false;
+			freezingGazeSlowValue = 0.75; // Multiplier for ow much enemy unit movement speed is slowed by when in range of the Obelisk; currently at a 25% slow
 			demonSentryChosen = false;
 			demonSentryActive = false;
 			awokenActive = false;
@@ -653,9 +657,21 @@ function initialize_object_data() {
 			soulLinkChosen = false;
 			soulLinkActive = false;
 			lifelineActive = false;
-			gaiasGrowthActive = false;
+			lifelineHealValue = 13 / room_speed; // how much the Soul Linked unit heals per second while out of combat
+			gaiasGrowthActive = false; // When active, the radius is equal to the Obelisk's sight range
+			gaiasGrowthHealValue = 3 / room_speed; // how much surrounding buildings are healed by per second
 			waygatesChosen = false;
 			waygatesActive = false;
+			energizingFieldActive = false;
+			energizingFieldSpeedBoostValue = 1.2; // 20% extra speed
+			energizingFieldSpeedBoostDuration = 10 * room_speed; // how long the speed boost lasts in seconds
+			battleVigorActive = false;
+			lasersChosen = false;
+			lasersActive = false;
+			lasersDamage = 7 / room_speed;
+			highIntensityBeamActive = false;
+			plasmaBeamActive = false;
+			plasmaBeamDamageBoost = 5 / room_speed;
 		case "Soul Subjugator":
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 			// In this case, all the generic variables need to be added here, 
