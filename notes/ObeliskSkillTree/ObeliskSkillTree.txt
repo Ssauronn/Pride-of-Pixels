@@ -42,16 +42,16 @@ TECHNOLOGY UPGRADES
 		- SPECIAL 4b -	Battle Vigor: Units are healed to full when teleporting between Obelisks
 		  if there are enemies in range of the Obelisk they enter or the Obelisk they exit.
 	- SPECIAL 3c -	Lasers: Fires beams of lasers at single targets, dealing high damage over time.
-		- INNOVATION 2c-Plasma Beam: Laser beam is upgraded to plasma beam, dealing even more 
+		- INNOVATION 2c-High Intensity Beam: The Obelisk now ignores the target's magic armor.
+		- SPECIAL 4c -	Plasma Beam: Laser beam is upgraded to plasma beam, dealing even more 
 		  damage.
-		- SPECIAL 4c -	High Intensity Beam: The Obelisk now ignores the target's magic armor.
 
 TIER 1 UPGRADES
-- INNOVATION 2d-Telescopic Lense: Increases the effect range of Obelisks.
+- INNOVATION 2d-Telescopic Lense: Further increases the sight range of Obelisks.
 - SPECIAL 5 -	Mystical Strength: Obelisks now provide an attack bonus for all units and 
   buildings within range.
 - SPECIAL 6 -	Mystical Connection: You may now choose one sight target for each Obelisk. 
   The sight target must be be another Obelisk. A narrow line of Vision is constantly 
   provided between the original Obelisk and its sight target. Enemies can see your sight lines.
-- DEFENSIVE 1 -	Obsidian Layering: Increases the armor of the Obelisk.
+- DEFENSIVE 1 - Hardened Obsidian: Increases the armor of the Obelisk.
 
