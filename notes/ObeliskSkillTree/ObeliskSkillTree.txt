@@ -47,7 +47,7 @@ TECHNOLOGY UPGRADES
 		  damage.
 
 TIER 1 UPGRADES
-- INNOVATION 2d-Telescopic Lense: Further increases the sight range of Obelisks.
+- INNOVATION 3-Telescopic Lense: Further increases the sight range of Obelisks.
 - SPECIAL 5 -	Mystical Strength: Obelisks now provide an attack bonus for all units and 
   buildings within range.
 - SPECIAL 6 -	Mystical Connection: You may now choose one sight target for each Obelisk. 

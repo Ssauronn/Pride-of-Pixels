@@ -657,9 +657,9 @@ function initialize_object_data() {
 			soulLinkChosen = false;
 			soulLinkActive = false;
 			lifelineActive = false;
-			lifelineHealValue = 13 / room_speed; // how much the Soul Linked unit heals per second while out of combat
+			lifelineHealValue = 13; // how much the Soul Linked unit heals per second while out of combat
 			gaiasGrowthActive = false; // When active, the radius is equal to the Obelisk's sight range
-			gaiasGrowthHealValue = 3 / room_speed; // how much surrounding buildings are healed by per second
+			gaiasGrowthHealValue = 3; // how much surrounding buildings are healed by per second
 			waygatesChosen = false;
 			waygatesActive = false;
 			energizingFieldActive = false;
@@ -668,10 +668,17 @@ function initialize_object_data() {
 			battleVigorActive = false;
 			lasersChosen = false;
 			lasersActive = false;
-			lasersDamage = 7 / room_speed;
+			lasersDamage = 7;
 			highIntensityBeamActive = false;
 			plasmaBeamActive = false;
-			plasmaBeamDamageBoost = 5 / room_speed;
+			plasmaBeamDamageBoost = 5;
+			telescopicLenseActive = false;
+			telescopicLenseSightRangeIncrease = 2 * 16;
+			mysticalStrengthActive = false;
+			mysticalStrengthDamageBonus = 3;
+			mysticalConnectionActive = false;
+			hardenedObsidianActive = false;
+			hardenedObsidianArmorBonus = -0.1;
 		case "Soul Subjugator":
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 			// In this case, all the generic variables need to be added here, 
@@ -690,6 +697,63 @@ function initialize_object_data() {
 			
 			// Specific Variables
 			cyclingActive = false;
+			break;
+		case "Outpost":
+			
+			// Specific Variables
+			bonfireActive = false;
+			bonfireSightRangeIncrease = 3 * 16;
+			towerActive = false;
+			towerAttackRangeIncrease = 2 * 16;
+			towerAttackDamageIncrease = 2;
+			towerSprite = noone;
+			serratedArrowheadsActive = false;
+			serratedArrowheadsDamageIncrease = 2;
+			ironPlatingActive = false;
+			ironPlatingArmorBonus = -0.1;
+			fittedStoneActive = false;
+			fittedStoneMaxHPBonus = 100;
+			basicGarrisonActive = false;
+			basicGarrisonUnitGarrisoned = false;
+			basicGarrisonUnitTypeGarrisoned = "";
+			basicGarrisonHealValue = 5;
+			basicGarrisonArmorValue = -0.1;
+			magicSpireActive = false;
+			magicSpireMagicDamageBonus = 4;
+			magicSpireSprite = noone;
+			oilPotsAttackDamageIncrease = 2;
+			brickAndMortarArmorBonus = -0.1;
+			magicShieldingMaxHPBonus = 100;
+			enhancedGarrisonActive = false;
+			enhancedGarrisonUnitGarrisoned = false;
+			enhancedGarrisonUnitTypeGarrisoned = "";
+			enhancedGarrisonDoubleAttackActive = false;
+			enhancedGarrisonBoulderLaunchActive = false;
+			enhancedGarrisonBoulderDamage = 40;
+			enhancedGarrisonFireballActive = false;
+			enhancedGarrisonFireballDamage = 35;
+			enhancedGarrisonFireballRadius = 1 * 16;
+			enhancedGarrisonFireballAttackSpeedBoost = 0.5 * room_speed; // This is a debuff because an addition of a positive number reduces the attack speed.
+			break;
+		case "Wall":
+			
+			// Specific Variables
+			stoneWallsActive = false;
+			stoneWallsArmorBonus = -0.07; // Armor bonus here should only apply to basic damage types, to make magic damage powerful vs otherwise super tanky walls.
+			stoneWallsMaxHPBonus = 50;
+			stoneWallsSprite = noone;
+			reinforcedWallsActive = false;
+			reinforcedWallsArmorBonus = -0.13;// Armor bonus here should only apply to basic damage types, to make magic damage powerful vs otherwise super tanky walls.
+			reinforcedWallsMaxHPBonus = 150;
+			reinforcedWallsSprite = noone;
+			ironWallsActive = false;
+			ironWallsArmorBonus = -0.15;// Armor bonus here should only apply to basic damage types, to make magic damage powerful vs otherwise super tanky walls.
+			ironWallsMaxHPBonus = 200;
+			ironWallsSprite = noone;
+			magicWallsActive = false;
+			magicWallsArmorBonus = -0.25;// Armor bonus here should only apply to basic damage types, to make magic damage powerful vs otherwise super tanky walls.
+			magicWallsMaxHPBonus = 300;
+			magicWallsSprite = noone;
 			break;
 		#endregion
 	}
