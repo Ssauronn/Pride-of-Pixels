@@ -2,6 +2,12 @@ function team_struct(team_) constructor {
 	// ADJUST AS MORE BUILDINGS ARE ADDED
 	cityHall = new _city_hall();
 	temple = new _temple();
+	laboratory = new _laboratory();
+	barracks = new _barracks();
+	storehouse = new _storehouse();
+	obelisk = new _obelisk();
+	outpost = new _outpost();
+	wall = new _wall();
 	team = team_;
 	food = 0;
 	wood = 0;
@@ -531,26 +537,26 @@ function _barracks() constructor {
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	rogueCombatSpecialAbilities = new _upgrade_options("Rogue Combat Special Abilities", "Unlocks the Combat Special Abilities for the Rogue.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
-				false, 2, false, noone, "Barracks", "Rogue", "objectCanUseCombatSpecializationAbility", 
-				noone, 1, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
+				false, 2, false, noone, "Barracks", "Rogue", "objectCanUseCombatSpecializationAbility",
+				noone, 1, 60, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
 				"combatSpecializationChosen", "Stealth");
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	berserkerCombatSpecialAbilities = new _upgrade_options("Berserker Combat Special Abilities", "Unlocks the Combat Special Abilities for the Berserker.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Barracks", "Berserker", "objectCanUseCombatSpecializationAbility", 
-				noone, 1, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
+				noone, 1, 60, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
 				"combatSpecializationChosen", "Recklessness");
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	knightCombatSpecialAbilities = new _upgrade_options("Knight Combat Special Abilities", "Unlocks the Combat Special Abilities for the Knight.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Barracks", "Knight", "objectCanUseCombatSpecializationAbility", 
-				noone, 1, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
+				noone, 1, 60, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
 				"combatSpecializationChosen", "Protectorate");
 	piercingStrike = new _upgrade_options("Piercing Strike", "Rogues are able to find the weak point in their target's armor when using their Ambush ability. Rogues now ignore a quarter of their target's armor when dealing damage with Ambush.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.a, 
-				false, 2, false, noone, "Barracks", "Rogue", "piercingStrikeActive", noone, 1, 
+				false, 2, false, noone, "Barracks", "Rogue", "piercingStrikeActive", noone, 1, 90, 
 				100, 100, 50, 0, noone, noone, noone);
 	stabilizedWeapons = new _upgrade_options("Stabilized Weapons", "Further increases the range of Rangers.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.b, 
@@ -613,219 +619,219 @@ function _storehouse() constructor {
 				noone, 2, 180, 400, 800, 800, 0, noone, noone, noone);
 	rollerSkates = new _upgrade_options("Roller Skates", "Increases the movement speed of Workers while not in combat.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
-				false, 3, false, noone, "Storehouse", "Worker", "movementSpeedBonusAvailable", noone, 1, 
+				false, 3, false, noone, "Storehouse", "Worker", "movementSpeedBonusAvailable", noone, 1, 45, 
 				600, 0, 400, 0, noone, noone, noone);
 	futuristicTooling = new _upgrade_options("Futuristic Tooling", "When gathering basic resources, Workers have a random chance to obtain additional resources on collection.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
-				false, 3, false, noone, "Storehouse", "Worker", "randomBasicResourceGenerationActive", noone, 1, 
+				false, 3, false, noone, "Storehouse", "Worker", "randomBasicResourceGenerationActive", noone, 1, 120, 
 				600, 600, 600, 400, noone, noone, noone);
 }
 function _obelisk() constructor {
 	telescopes = new _upgrade_options("Telescopes", "Increases the sight range of Obelisks.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "objectSightRange", noone, 3 * 16, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "objectSightRange", noone, 3 * 16, 45, 
 				200, 200, 200, 0, noone, noone, noone);
 	hardeningMist = new _upgrade_options("Hardening Mist", "Obelisks now provide an armor bonus for all units and buildings within range.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "hardeningMistActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "hardeningMistActive", noone, 1, 75, 
 				200, 400, 300, 0, noone, noone, noone);
 	// This opens a menu to choose two specializations for the Obelisk building out of three options.
 	// It affects multiple variables, so I include it here really as just a placeholder to make the menu
 	// appear when the talent is clicked.
 	obeliskSpecialization = new _upgrade_options("Obelisk Specialization", "Choose two of the following upgrade tree paths.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Obelisk", "Player", "", "Obelisk Specialization", "", 
+				false, 2, false, noone, "Obelisk", "Player", "", "Obelisk Specialization", "", 15,
 				200, 200, 200, 0, noone, noone, noone);
 	// If True Sight is chosen as one of two upgrades for obeliskSpecialization, listed above
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	trueSight = new _upgrade_options("True Sight", "Provides True Sight, revealing all Rogues and Subverters within range.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.a, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "trueSightActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "trueSightActive", noone, 1, 75, 
 				100, 400, 400, 0, "Obelisk", "trueSightChosen", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	lingeringGaze = new _upgrade_options("Lingering Gaze", "You retain True Sight on Rogues and Subverters revealed by your Obelisks for a short time after they leave the Obelisk's range.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.a, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "lingeringGazeActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "lingeringGazeActive", noone, 1, 90, 
 				200, 0, 500, 100, "Obelisk", "trueSightActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	freezingGaze = new _upgrade_options("Freezing Gaze", "All enemy units are slowed while in range of the Obelisk.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.a, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "freezingGazeActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "freezingGazeActive", noone, 1, 90, 
 				0, 400, 200, 100, "Obelisk", "trueSightActive", 1);
 	// If Demon Sentry is chosen as one ofthe two upgrades for obeliskSpecialization, listed above
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	demonSentry = new _upgrade_options("Demon Sentry", "Demons will be summoned while enemies are in range of the Obelisk. The Demons will die after a short while. Short internal cooldown.", 
 				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.b, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "demonSentryActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "demonSentryActive", noone, 1, 90, 
 				400, 0, 300, 0, "Obelisk", "demonSentryChosen", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	awoken = new _upgrade_options("Awoken", "The Obelisk now summons more Demons while enemies are in range.", 
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.b, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "awokenActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "awokenActive", noone, 1, 120, 
 				400, 0, 500, 100, "Obelisk", "demonSentryActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	trojanHorse = new _upgrade_options("Trojan Horse", "The Obelisk will summon a pair of Warlocks under your control if destroyed by an enemy.", 
 				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.b, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "trojanHorseActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "trojanHorseActive", noone, 1, 60, 
 				300, 200, 300, 100, "Obelisk", "demonSentryActive", 1);
 	// If Soul Link is chosen as one of the two upgrades for ObeliskSpecialization, listed above
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	soulLink = new _upgrade_options("Soul Link", "An Obelisk can now link to one unit. Once Linked, if that unit would have been killed, the unit is instead: saved from death, it's HP is set to 1, teleported to the Obelisk, and the Obelisk is then destroyed. An Obelisk cannot be Linked to a unit if the Obelisk is not at full HP.", 
 				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "soulLinkActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "soulLinkActive", noone, 1, 45, 
 				100, 300, 0, 0, "Obelisk", "soulLinkChosen", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	lifeline = new _upgrade_options("Lifeline", "Units Soul Linked to Obelisks heal rapidly while not in combat.", 
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.c, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "lifelineActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "lifelineActive", noone, 1, 75, 
 				400, 0, 0, 100, "Obelisk", "soulLinkActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	gaiasGrowth = new _upgrade_options("Gaia's Growth", "Buildings within range of the Obelisk slowly heal over time.", 
 				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "gaiasGrowthActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "gaiasGrowthActive", noone, 1, 45, 
 				0, 400, 100, 100, "Obelisk", "soulLinkActive", 1);
 	// If Waygates is chosen as one of the two upgrades for ObeliskSpecialization, listed above
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	waygates = new _upgrade_options("Waygates", "Allows units to teleport between Obelisks.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.b, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "waygatesActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "waygatesActive", noone, 1, 120, 
 				0, 300, 200, 0, "Obelisk", "waygatesChosen", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	energizingField = new _upgrade_options("Energizing Field", "Units gain a temporary movement speed boost after teleporting between Obelisks.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.b, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "energizingFieldActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "energizingFieldActive", noone, 1, 45, 
 				200, 0, 300, 100, "Obelisk", "waygatesActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	battleVigor = new _upgrade_options("Battle Vigor", "Units are healed to full when teleporting between Obelisks if there are enemies either: in range of the Obelisk the units enter, or in range of the Obelisk the units exit.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.b, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "battleVigorActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "battleVigorActive", noone, 1, 45, 
 				500, 0, 0, 100, "Obelisk", "waygatesActive", 1);
 	// If Lasers is chosen as one of the two upgrades for ObeliskSpecialization, listed above
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	lasers = new _upgrade_options("Lasers", "Fires beams of lasers at single targets, dealing high damage over time.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "lasersActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "lasersActive", noone, 1, 60, 
 				0, 200, 200, 0, "Obelisk", "lasersChosen", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	highIntensityBeam = new _upgrade_options("High Intensity Beam", "The Obelisk now ignore's the armor of it's targets.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.c, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "highIntensityBeamActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "highIntensityBeamActive", noone, 1, 75, 
 				0, 200, 300, 100, "Obelisk", "lasersActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	plasmaBeam = new _upgrade_options("Plasma Beam", "Lasers are upgraded to Plasma Beam, dealing even more damage.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
-				false, 2, false, noone, "Obelisk", "Obelisk", "plasmaBeamActive", noone, 1, 
+				false, 2, false, noone, "Obelisk", "Obelisk", "plasmaBeamActive", noone, 1, 90, 
 				0, 400, 100, 100, "Obelisk", "lasersActive", 1);
 	telescopicLense = new _upgrade_options("Telescopic Lense", "Further increases the sight range of Obelisks.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Obelisk", "Obelisk", "telescopicLenseActive", noone, 1, 
+				false, 3, false, noone, "Obelisk", "Obelisk", "telescopicLenseActive", noone, 1, 60, 
 				0, 300, 500, 0, noone, noone, noone);
 	mysticalStrength = new _upgrade_options("Mystical Strength", "Obelisks now provide an attack bonus for all units and buildings within range.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.five, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Obelisk", "Obelisk", "mysticalStrengthActive", noone, 1, 
+				false, 3, false, noone, "Obelisk", "Obelisk", "mysticalStrengthActive", noone, 1, 90, 
 				400, 0, 300, 100, noone, noone, noone);
 	mysticalConnection = new _upgrade_options("Mystical Connection", "You may now choose one sight target for each Obelisk. The sight target must be another Obelisk. A narrow line of vision is constantly provided between the original Obelisk and it's sight target. Enemies can see your sight lines.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.six, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Obelisk", "Obelisk", "mysticalConnectionActive", noone, 1, 
+				false, 3, false, noone, "Obelisk", "Obelisk", "mysticalConnectionActive", noone, 1, 90, 
 				100, 100, 100, 400, noone, noone, noone);
 	hardenedObsidian = new _upgrade_options("Hardened Obsidian", "Increases all armor of Obelisks.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Obelisk", "Obelisk", "hardenedObsidianActive", noone, 1, 
+				false, 3, false, noone, "Obelisk", "Obelisk", "hardenedObsidianActive", noone, 1, 90, 
 				100, 500, 300, 100, noone, noone, noone);
 }
 function _outpost() constructor {
 	bonfire = new _upgrade_options("Bonfire", "Increases Outpost sight range.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
-				false, 1, false, noone, "Outpost", "Obelisk", "bonfireActive", noone, 1, 
+				false, 1, false, noone, "Outpost", "Obelisk", "bonfireActive", noone, 1, 45, 
 				0, 200, 100, 0, noone, noone, noone);
 	tower = new _upgrade_options("Bonfire", "Upgrades Outpost to a Tower, with further attack range and more damage.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Outpost", "Obelisk", "towerActive", noone, 1, 
+				false, 2, false, noone, "Outpost", "Obelisk", "towerActive", noone, 1, 60, 
 				200, 200, 200, 0, noone, noone, noone);
 	serratedArrowheads = new _upgrade_options("Serrated Arrowheads", "Increases the damage of the Tower.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Outpost", "Outpost", "serratedArrowheadsActive", noone, 1, 
+				false, 2, false, noone, "Outpost", "Outpost", "serratedArrowheadsActive", noone, 1, 45, 
 				0, 300, 100, 0, noone, noone, noone);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	ironPlating = new _upgrade_options("Iron Plating", "Increases all Tower armor.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.a, 
-				false, 2, false, noone, "Outpost", "Outpost", "ironPlatingActive", noone, 1, 
+				false, 2, false, noone, "Outpost", "Outpost", "ironPlatingActive", noone, 1, 45, 
 				200, 300, 100, 0, "Outpost", "towerActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	fittedStone = new _upgrade_options("Fitted Stone", "Upgrades Tower HP.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.b, 
-				false, 2, false, noone, "Outpost", "Outpost", "fittedStone", noone, 1, 
+				false, 2, false, noone, "Outpost", "Outpost", "fittedStone", noone, 1, 60, 
 				400, 100, 100, 0, "Outpost", "towerActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	basicGarrison = new _upgrade_options("Basic Garrison", "Allows the player to Garrison one Basic unit. The Tower gains bonuses depending on the type of unit Garrisoned. Garrisoned units will spawn back if the Tower is destroyed.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.b, 
-				false, 2, false, noone, "Outpost", "Outpost", "basicGarrisonActive", noone, 1, 
+				false, 2, false, noone, "Outpost", "Outpost", "basicGarrisonActive", noone, 1, 30, 
 				400, 100, 100, 0, "Outpost", "towerActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	oilPots = new _upgrade_options("Oil Pots", "Increases the damage of the Tower.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Outpost", "Outpost", "oilPotsActive", noone, 1, 
+				false, 3, false, noone, "Outpost", "Outpost", "oilPotsActive", noone, 1, 60, 
 				0, 100, 400, 100, "Outpost", "towerActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	magicSpire = new _upgrade_options("Magic Spire", "Upgrades the Tower to a Magic Spire, with additional magic damage applied to each attack.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Outpost", "Outpost", "magicSpireActive", noone, 1, 
+				false, 3, false, noone, "Outpost", "Outpost", "magicSpireActive", noone, 1, 60, 
 				400, 400, 400, 200, "Outpost", "towerActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	brickAndMortar = new _upgrade_options("Brick and Mortar", "Increases all Tower armor.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.a, 
-				false, 3, false, noone, "Outpost", "Outpost", "brickAndMortarActive", noone, 1, 
+				false, 3, false, noone, "Outpost", "Outpost", "brickAndMortarActive", noone, 1, 60, 
 				300, 400, 200, 100, "Outpost", "magicSpireActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	magicShielding = new _upgrade_options("Magic Shielding", "Upgrades Magic Spire's HP.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.b, 
-				false, 3, false, noone, "Outpost", "Outpost", "magicShieldingActive", noone, 1, 
+				false, 3, false, noone, "Outpost", "Outpost", "magicShieldingActive", noone, 1, 75, 
 				0, 500, 200, 200, "Outpost", "magicSpireActive", 1);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
 	enhancedGarrison = new _upgrade_options("Enhanced Garrison", "Allows the player to Garrison one Ruby unit, in addition to the Garrisoned Basic unit. The Magic Spire gains additional bonuses depending on the type of Ruby unit Garrisoned. Garrisoned units will spawn back if the Magic Spire is destroyed.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.c, 
-				false, 3, false, noone, "Outpost", "Outpost", "enhancedGarrisonActive", noone, 1, 
+				false, 3, false, noone, "Outpost", "Outpost", "enhancedGarrisonActive", noone, 1, 45, 
 				600, 300, 300, 200, "Outpost", "magicSpireActive", 1);
 }
 function _wall() constructor {
 	stoneWalls = new _upgrade_options("Stone Walls", "Upgrades Walls to Stone Walls, with more HP and armor.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 0, false, noone, "Wall", "Wall", "stoneWallsActive", noone, 1, 
+				false, 0, false, noone, "Wall", "Wall", "stoneWallsActive", noone, 1, 30, 
 				0, 200, 100, 0, noone, noone, noone);
 	reinforcedWalls = new _upgrade_options("Reinforced Walls", "Upgrades Stone Walls to Reinforced Walls, with more HP and armor.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 1, false, noone, "Wall", "Wall", "reinforcedWallsActive", noone, 1, 
+				false, 1, false, noone, "Wall", "Wall", "reinforcedWallsActive", noone, 1, 45, 
 				0, 300, 200, 0, noone, noone, noone);
 	ironWalls = new _upgrade_options("Iron Walls", "Upgrades Reinforced Walls to Iron Walls, with more HP and armor.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Wall", "Wall", "ironWallsActive", noone, 1, 
+				false, 2, false, noone, "Wall", "Wall", "ironWallsActive", noone, 1, 60, 
 				0, 400, 300, 100, noone, noone, noone);
 	magicWalls = new _upgrade_options("Magic Walls", "Upgrades Iron Walls to Magic Walls, with more HP and armor.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.four, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Wall", "Wall", "magicWallsActive", noone, 1, 
+				false, 3, false, noone, "Wall", "Wall", "magicWallsActive", noone, 1, 75, 
 				0, 500, 400, 200, noone, noone, noone);
 }
 
