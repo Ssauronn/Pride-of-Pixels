@@ -81,7 +81,7 @@ function initialize_object_data() {
 			currentHP = maxHP;
 			movementSpeed = 1;
 			objectIsRubyUnit = false;
-			objectSightRange = 5 * 16;
+			objectSightRange = 6 * 16;
 			// Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
@@ -106,7 +106,7 @@ function initialize_object_data() {
 			canMineRuby = false;
 			// Combat variables
 			objectAttackRange = 16;
-			objectCombatAggroRange = 8; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectCombatAggroRange = 3; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 1.5 * room_speed;
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 12;
@@ -170,11 +170,107 @@ function initialize_object_data() {
 		
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Berserker":
+			// Generic variables
+			maxHP = 90;
+			currentHP = maxHP;
+			movementSpeed = 1;
+			objectIsRubyUnit = false;
+			objectSightRange = 7 * 16;
+			// Availability variables
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false;
 			enrageDamageBonus = 3;
+			// Combat variables
+			objectAttackRange = 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 1 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 17;
+			objectAttackDamageType = "Slash";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 1.1;
+			objectPierceResistance = 1.1;
+			objectMagicResistance = 1.1;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_berserker_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_berserker_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_berserker_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_berserker_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_berserker_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_berserker_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_berserker_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_berserker_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_berserker_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_berserker_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_berserker_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_berserker_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Soldier":
+			// Generic variables
+			maxHP = 125;
+			currentHP = maxHP;
+			movementSpeed = 1;
+			objectIsRubyUnit = false;
+			objectSightRange = 6 * 16;
+			// Availability variables
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
+			objectHasCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false;
 			courageDamageBonus = 2;
+			// Combat variables
+			objectAttackRange = 16;
+			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 2 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 27;
+			objectAttackDamageType = "Slash";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 0.75;
+			objectPierceResistance = 0.85;
+			objectMagicResistance = 1.2;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_soldier_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_soldier_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_soldier_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_soldier_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_soldier_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_soldier_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_soldier_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_soldier_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_soldier_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_soldier_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_soldier_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_soldier_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Rogue":
