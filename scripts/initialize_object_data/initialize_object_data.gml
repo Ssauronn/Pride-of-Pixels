@@ -457,9 +457,10 @@ function initialize_object_data() {
 			wizardIsLinked = false;
 			aoeLinkedSquareSize = 2;
 			arcaneWeaponActive = false;
+			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
+			// this variable should be multiplied once against the final damage value of every unit before the damage
+			// is applied.
 			arcaneWeaponBonus = 1.15;
-			arcaneArmorActive = false;
-			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 3 * 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -521,15 +522,16 @@ function initialize_object_data() {
 			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
-			objectCanUseSpecialAbility = false;
+			objectCanUseSpecialAbility = true;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			enslavementActive = false;
 			arcaneWeaponActive = false;
+			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
+			// this variable should be multiplied once against the final damage value of every unit before the damage
+			// is applied.
 			arcaneWeaponBonus = 1.15;
-			arcaneArmorActive = false;
-			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 3 * 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -588,7 +590,71 @@ function initialize_object_data() {
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Demon":
-			
+			// Generic variables
+			maxHP = 27;
+			currentHP = maxHP;
+			movementSpeed = 2;
+			objectIsRubyUnit = true;
+			objectSightRange = 5 * 16;
+			// Availability variables
+			objectHasSpecialAbility = false;
+			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
+			objectHasCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false;
+			enslavementActive = false;
+			arcaneWeaponActive = false;
+			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
+			// this variable should be multiplied once against the final damage value of every unit before the damage
+			// is applied.
+			arcaneWeaponBonus = 1.15;
+			// Combat variables
+			objectAttackRange = 1 * 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0.5 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 4;
+			objectAttackDamageType = "Pierce";
+			// The time limit is determined by the Warlock and it's upgrades, but the timer itself is managed by the Demon that
+			// is summoned. This greatly simplifies the way summons are handled.
+			summonedDemonsTimeLimitTimer = -1;
+			// If this is ever noone, the Demon will die shortly after. A Demon will always be 
+			summonedDemonsSummonedByWarlockID = noone;
+			// The range at which Demons will run back to their master's sides no matter what their current action was. Set by
+			// the Warlock's parent variable by the same name.
+			summonedDemonsMaxTetherRange = -1;
+			// Demons will immediately die if they exceed this distance from their master, no matter their current action. Set by
+			// the Warlock's parent variable by the same name.
+			summonedDemonsMaxDeathRange = -1;
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 1.25;
+			objectMagicResistance = 0.75;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_demon_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_demon_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_demon_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_demon_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_demon_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_demon_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_demon_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_demon_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_demon_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_demon_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_demon_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_demon_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Acolyte":
@@ -609,9 +675,10 @@ function initialize_object_data() {
 			acolyteBlessedAuraActive = false;
 			acolyteSearingFieldActive = false;
 			arcaneWeaponActive = false;
+			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
+			// this variable should be multiplied once against the final damage value of every unit before the damage
+			// is applied.
 			arcaneWeaponBonus = 1.15;
-			arcaneArmorActive = false;
-			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 8;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -673,9 +740,10 @@ function initialize_object_data() {
 			objectCanUseCombatSpecializationAbility = false;
 			preparationActive = false;
 			arcaneWeaponActive = false;
+			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
+			// this variable should be multiplied once against the final damage value of every unit before the damage
+			// is applied.
 			arcaneWeaponBonus = 1.15;
-			arcaneArmorActive = false;
-			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -737,9 +805,10 @@ function initialize_object_data() {
 			abominationsCanSacrifice = false;
 			bodyPartsProvideStats = false;
 			arcaneWeaponActive = false;
+			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
+			// this variable should be multiplied once against the final damage value of every unit before the damage
+			// is applied.
 			arcaneWeaponBonus = 1.15;
-			arcaneArmorActive = false;
-			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -806,9 +875,10 @@ function initialize_object_data() {
 			chronicEmpowermentActive = -1; // This is the timer variable. Whenever this is active, Automaton's damage output is multiplied by the below variable.
 			chronicEmpowermentBonus = 1.25; // This is a multiplier to be used with Automaton's damage output
 			arcaneWeaponActive = false;
+			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
+			// this variable should be multiplied once against the final damage value of every unit before the damage
+			// is applied.
 			arcaneWeaponBonus = 1.15;
-			arcaneArmorActive = false;
-			arcaneArmorBonus = -0.15;
 			// Combat variables
 			objectAttackRange = 16 * 1;
 			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object

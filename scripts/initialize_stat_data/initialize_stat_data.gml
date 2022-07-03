@@ -391,7 +391,7 @@ function _temple() constructor {
 				0, 0, 200, 300, noone, noone, noone);
 	enslavement = new _upgrade_options("Enslavement", "Demons summoned by Warlocks are now permanent. Demons will die if they wander too far from the Warlock that summoned them.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
-				false, 3, false, noone, "Temple", "Warlock", "enslavementActive", noone, 1, 30, 
+				false, 3, false, noone, "Temple", "Warlock and Demon", "enslavementActive", noone, 1, 30, 
 				0, 0, 200, 300, noone, noone, noone);
 	sanctified = new _upgrade_options("Sanctified", "Acolyte's healing is increased.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.c, 
@@ -501,7 +501,7 @@ function _laboratory() constructor {
 				400, 500, 600, 600, noone, noone, noone);
 	arcaneArmorResearch = new _upgrade_options("Arcane Armor Research", "Increases all Magic armor for Ruby units.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Laboratory", "Ruby", "arcaneArmorActive", noone, 1, 180, 
+				false, 3, false, noone, "Laboratory", "Ruby", "objectMagicResistance", noone, -0.15, 180, 
 				600, 500, 400, 600, noone, noone, noone);
 }
 function _barracks() constructor {
