@@ -925,17 +925,17 @@ if !obj_gui.startMenu.active {
 					var x_adjustment_, y_adjustment_;
 					x_adjustment_ = 0;
 					y_adjustment_ = 0;
-					if mp_grid_get_cell(movementGrid, floor((x + movementSpeed + 1) / 16), floor(y / 16)) != -1 {
-						x_adjustment_ += (movementSpeed + 1);
+					if mp_grid_get_cell(movementGrid, floor((x + currentMovementSpeed + 1) / 16), floor(y / 16)) != -1 {
+						x_adjustment_ += (currentMovementSpeed + 1);
 					}
-					else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y - movementSpeed - 1) / 16)) != -1 {
-						y_adjustment_ -= (movementSpeed + 1);
+					else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y - currentMovementSpeed - 1) / 16)) != -1 {
+						y_adjustment_ -= (currentMovementSpeed + 1);
 					}
-					else if mp_grid_get_cell(movementGrid, floor((x - movementSpeed - 1) / 16), floor(y / 16)) != -1 {
-						x_adjustment_ -= (movementSpeed + 1);
+					else if mp_grid_get_cell(movementGrid, floor((x - currentMovementSpeed - 1) / 16), floor(y / 16)) != -1 {
+						x_adjustment_ -= (currentMovementSpeed + 1);
 					}
-					else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + movementSpeed + 1) / 16)) != -1 {
-						y_adjustment_ += (movementSpeed + 1);
+					else if mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + currentMovementSpeed + 1) / 16)) != -1 {
+						y_adjustment_ += (currentMovementSpeed + 1);
 					}
 					x += x_adjustment_;
 					y += y_adjustment_;

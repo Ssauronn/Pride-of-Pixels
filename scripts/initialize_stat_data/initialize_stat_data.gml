@@ -30,6 +30,16 @@ function team_struct(team_) constructor {
 	stasisRevealsTargets = false;
 	droneSwarmUnlocked = false;
 	
+	abominationOgreHeadPartsStored = 0;
+	abominationOgreChestPartsStored = 0;
+	abominationOgreLegsPartsStored = 0;
+	abominationRobotHeadPartsStored = 0;
+	abominationRobotChestPartsStored = 0;
+	abominationRobotLegsPartsStored = 0;
+	abominationWerewolfHeadPartsStored = 0;
+	abominationWerewolfChestPartsStored = 0;
+	abominationWerewolfLegsPartsStored = 0;
+	
 	// This function is called in count_down_timers(), which itself is called and relevant code ran in each step
 	// event of buildings and units (obj_building and obj_unit). So this function is built with the variables already
 	// existing in those objects in mind. KEEP IN MIND, this is only activated once on a random unit or building. So I
@@ -347,11 +357,11 @@ function _temple() constructor {
 				100, 0, 200, 0, noone, noone, noone);
 	ordained = new _upgrade_options("Ordained", "Acolyte healing is increased.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
-				false, 2, false, noone, "Temple", "Acolyte", "outCombatHealValue and inCombatHealValue", 
+				false, 2, false, noone, "Temple", "Acolyte", "outOfCombatHealValue and inCombatHealValue", 
 				noone, "20 and 2", 45, 150, 0, 150, 0, noone, noone, noone);
 	swiftFooted = new _upgrade_options("Swift Footed", "Subverters gain additional movement speed.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.b, 
-				false, 2, false, noone, "Temple", "Subverter", "movementSpeed", noone, 1, 45, 150, 0, 
+				false, 2, false, noone, "Temple", "Subverter", "baseMovementSpeed", noone, 1, 45, 150, 0, 
 				150, 0, noone, noone, noone);
 	enlightened = new _upgrade_options("Enlightened", "Increases the damage of all Ruby Units.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.noone, 

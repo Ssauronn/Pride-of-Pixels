@@ -23,6 +23,30 @@ enum unitDirection {
 	down,
 	length
 }
+// Abomination enums, used exclusively for setting Abomination body parts and reading that data
+enum abominationHead { 
+	ogre,
+	werewolf,
+	robot
+}
+enum abominationChest { 
+	ogre,
+	werewolf,
+	robot
+}
+enum abominationLegs { 
+	ogre,
+	werewolf,
+	robot
+}
+enum abominationBodyPartStats {
+	baseHP = 30,
+	baseMovementSpeed = 1 * (1 / 3),
+	baseAttackDamage = 8,
+	ogreHP = 55,
+	werewolfMovementSpeed = 2 * (1 / 3),
+	robotAttackDamage = 13
+}
 
 // ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 // In this case, I need to have a function that loops through all possible stats and all applicable
@@ -79,7 +103,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 70;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
@@ -173,7 +198,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 90;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 7 * 16;
 			// Availability variables
@@ -225,7 +251,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 125;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
@@ -276,7 +303,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 250;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 0.5;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
@@ -331,7 +359,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 9 * 16;
 			// Availability variables
@@ -384,7 +413,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1.5;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
@@ -441,7 +471,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 80;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
@@ -517,7 +548,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 80;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
@@ -593,7 +625,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 27;
 			currentHP = maxHP;
-			movementSpeed = 2;
+			baseMovementSpeed = 2;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 5 * 16;
 			// Availability variables
@@ -615,11 +648,16 @@ function initialize_object_data() {
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 4;
 			objectAttackDamageType = "Pierce";
+			// This is the time limit to determine how long the Demon should last before dying automatically if permanent pets 
+			// aren't unlocked.
 			// The time limit is determined by the Warlock and it's upgrades, but the timer itself is managed by the Demon that
 			// is summoned. This greatly simplifies the way summons are handled.
 			summonedDemonsTimeLimitTimer = -1;
-			// If this is ever noone, the Demon will die shortly after. A Demon will always be 
+			// If this is ever noone, the Demon will die shortly after. A Demon will always be attached to a Warlock.
 			summonedDemonsSummonedByWarlockID = noone;
+			// This countdown sits at 4 seconds. If the Warlock the Demon is attached to dies, this begins a countdown, and the
+			// Demon dies at the end of the countdown.
+			summonedDemonsDeathTimer = 4 * room_speed;
 			// The range at which Demons will run back to their master's sides no matter what their current action was. Set by
 			// the Warlock's parent variable by the same name.
 			summonedDemonsMaxTetherRange = -1;
@@ -661,35 +699,39 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
-			objectHasSpecialAbility = true;
+			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			acolytesCanLink = false;
+			acolyteIsLinked = false;
 			aoeLinkedSquareSize = 2;
 			acolyteBlessedAuraActive = false;
+			acolyteBlessedAuraRadius = 4 * 16;
+			acolyteBlessedAuraMovementSpeedBonus = 0.25;
 			acolyteSearingFieldActive = false;
+			acolyteSearingFieldRadius = 2 * 16;
+			acolyteSearingFieldAoEDamage = 6;
+			acolyteSearingFieldCooldown = 1 * room_speed;
+			acolyteSearingFieldCooldownTimer = -1;
 			arcaneWeaponActive = false;
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
-			// this variable should be multiplied once against the final damage value of every unit before the damage
-			// is applied.
+			// this variable should be multiplied once against the final heal for Acolytes after all other adjustments
+			// have been made.
 			arcaneWeaponBonus = 1.15;
 			// Combat variables
-			objectAttackRange = 16 * 8;
-			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
-				// For Acolytes, attack speed and damage are how fast and how much it heals allies.
-			objectAttackSpeed = 1 * room_speed;
+			objectAttackRange = 4 * 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 3 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 15;
-			objectAttackDamageType = "Magic";
-				// For Acolytes, special attack speed and damage are how fast and how much it heals itself.
-			objectSpecialAttackDamage = 10;
-			objectSpecialAttackDamageType = "Magic";
+			outOfCombatHealValue = 20;
+			inCombatHealValue = 4;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -729,12 +771,13 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 50;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
-			objectCanUseSpecialAbility = false;
+			objectCanUseSpecialAbility = true;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
@@ -744,22 +787,20 @@ function initialize_object_data() {
 			// this variable should be multiplied once against the final damage value of every unit before the damage
 			// is applied.
 			arcaneWeaponBonus = 1.15;
-			// Combat variables
-			objectAttackRange = 16 * 1;
-			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
-			objectAttackSpeed = 1 * room_speed;
-			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 10;
-			objectAttackDamageType = "Magic";
-			objectSpecialAttackDisableDuration = 60 * room_speed;
-			objectCombatSpecializationAttackDamage = 250;
+			// Combat variables - Subverters can't attack normally, they entirely rely on deception.
+			objectAttackRange = 1 * 16; // The range at which the Subverter can sabotage a building.
+			objectSpecialAttackDisableDuration = 30 * room_speed;
+			objectCombatSpecializationAttackDamage = 500;
 			objectCombatSpecializationAttackDamageType = "Magic";
+			objectCombatSpecializationAttackAoERadius = 2 * 16;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
-			objectSlashResistance = 1.25;
-			objectPierceResistance = 1;
-			objectMagicResistance = 0.95;
+			// Because Subverters are designed to rely on deception, they take massive damage from any
+			// attack if they're ever found.
+			objectSlashResistance = 2;
+			objectPierceResistance = 2;
+			objectMagicResistance = 2;
 			// Sprite setting array
 			unitSprite[unitAction.idle][unitDirection.right] = spr_subverter_right_idle;
 			unitSprite[unitAction.idle][unitDirection.up] = spr_subverter_back_idle;
@@ -769,10 +810,6 @@ function initialize_object_data() {
 			unitSprite[unitAction.move][unitDirection.up] = spr_subverter_back_walk;
 			unitSprite[unitAction.move][unitDirection.left] = spr_subverter_left_walk;
 			unitSprite[unitAction.move][unitDirection.down] = spr_subverter_front_walk;
-			unitSprite[unitAction.attack][unitDirection.right] = spr_subverter_right_attack;
-			unitSprite[unitAction.attack][unitDirection.up] = spr_subverter_back_attack;
-			unitSprite[unitAction.attack][unitDirection.left] = spr_subverter_left_attack;
-			unitSprite[unitAction.attack][unitDirection.down] = spr_subverter_front_attack;
 			unitSprite[unitAction.specialAttack][unitDirection.right] = spr_subverter_right_attack;
 			unitSprite[unitAction.specialAttack][unitDirection.up] = spr_subverter_back_attack;
 			unitSprite[unitAction.specialAttack][unitDirection.left] = spr_subverter_left_attack;
@@ -791,13 +828,14 @@ function initialize_object_data() {
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Abomination":
 			// Generic variables
-			maxHP = 100;
+			maxHP = 120;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			baseMovementSpeed = 1.5;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
-			objectSightRange = 8 * 16;
+			objectSightRange = 6 * 16;
 			// Availability variables
-			objectHasSpecialAbility = true;
+			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
@@ -810,8 +848,8 @@ function initialize_object_data() {
 			// is applied.
 			arcaneWeaponBonus = 1.15;
 			// Combat variables
-			objectAttackRange = 16 * 1;
-			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackRange = 1 * 16;
+			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 2 * room_speed;
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 30;
@@ -821,34 +859,150 @@ function initialize_object_data() {
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
-			objectSlashResistance = 1.25;
-			objectPierceResistance = 1;
-			objectMagicResistance = 0.95;
+			objectSlashResistance = 0.95;
+			objectPierceResistance = 1.15;
+			objectMagicResistance = 0.85;
+			// Body Part Variables. Each body part provides a different sprite for the object.
+			headBodyPart = abominationHead.robot;
+			chestBodyPart = abominationChest.ogre;
+			legsBodyPart = abominationLegs.werewolf;
 			// Sprite setting array
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED. In this case, I need to
 			// adjust the sprites so that the three body parts of the Abomination are synced
 			// and play animations in unison. I also need to add stat variables that are
 			// set by the body parts and add said stats to the Abomination.
-			unitSprite[unitAction.idle][unitDirection.right] = spr_wizard_right_idle;
-			unitSprite[unitAction.idle][unitDirection.up] = spr_wizard_back_idle;
-			unitSprite[unitAction.idle][unitDirection.left] = spr_wizard_left_idle;
-			unitSprite[unitAction.idle][unitDirection.down] = spr_wizard_front_idle;
-			unitSprite[unitAction.move][unitDirection.right] = spr_wizard_right_walk;
-			unitSprite[unitAction.move][unitDirection.up] = spr_wizard_back_walk;
-			unitSprite[unitAction.move][unitDirection.left] = spr_wizard_left_walk;
-			unitSprite[unitAction.move][unitDirection.down] = spr_wizard_front_walk;
-			unitSprite[unitAction.attack][unitDirection.right] = spr_wizard_right_attack;
-			unitSprite[unitAction.attack][unitDirection.up] = spr_wizard_back_attack;
-			unitSprite[unitAction.attack][unitDirection.left] = spr_wizard_left_attack;
-			unitSprite[unitAction.attack][unitDirection.down] = spr_wizard_front_attack;
-			unitSprite[unitAction.specialAttack][unitDirection.right] = spr_wizard_right_attack;
-			unitSprite[unitAction.specialAttack][unitDirection.up] = spr_wizard_back_attack;
-			unitSprite[unitAction.specialAttack][unitDirection.left] = spr_wizard_left_attack;
-			unitSprite[unitAction.specialAttack][unitDirection.down] = spr_wizard_front_attack;
+			#region Head
+			// Ogre Head
+			unitSprite[abominationHead.ogre][unitAction.idle][unitDirection.right] = spr_ogre_head_right_idle;
+			unitSprite[abominationHead.ogre][unitAction.idle][unitDirection.up] = spr_ogre_head_back_idle;
+			unitSprite[abominationHead.ogre][unitAction.idle][unitDirection.left] = spr_ogre_head_left_idle;
+			unitSprite[abominationHead.ogre][unitAction.idle][unitDirection.down] = spr_ogre_head_front_idle;
+			unitSprite[abominationHead.ogre][unitAction.move][unitDirection.right] = spr_ogre_head_right_walk;
+			unitSprite[abominationHead.ogre][unitAction.move][unitDirection.up] = spr_ogre_head_back_walk;
+			unitSprite[abominationHead.ogre][unitAction.move][unitDirection.left] = spr_ogre_head_left_walk;
+			unitSprite[abominationHead.ogre][unitAction.move][unitDirection.down] = spr_ogre_head_front_walk;
+			unitSprite[abominationHead.ogre][unitAction.attack][unitDirection.right] = spr_ogre_head_right_attack;
+			unitSprite[abominationHead.ogre][unitAction.attack][unitDirection.up] = spr_ogre_head_back_attack;
+			unitSprite[abominationHead.ogre][unitAction.attack][unitDirection.left] = spr_ogre_head_left_attack;
+			unitSprite[abominationHead.ogre][unitAction.attack][unitDirection.down] = spr_ogre_head_front_attack;
+			// Robot Head
+			unitSprite[abominationHead.robot][unitAction.idle][unitDirection.right] = spr_robot_head_right_idle;
+			unitSprite[abominationHead.robot][unitAction.idle][unitDirection.up] = spr_robot_head_back_idle;
+			unitSprite[abominationHead.robot][unitAction.idle][unitDirection.left] = spr_robot_head_left_idle;
+			unitSprite[abominationHead.robot][unitAction.idle][unitDirection.down] = spr_robot_head_front_idle;
+			unitSprite[abominationHead.robot][unitAction.move][unitDirection.right] = spr_robot_head_right_walk;
+			unitSprite[abominationHead.robot][unitAction.move][unitDirection.up] = spr_robot_head_back_walk;
+			unitSprite[abominationHead.robot][unitAction.move][unitDirection.left] = spr_robot_head_left_walk;
+			unitSprite[abominationHead.robot][unitAction.move][unitDirection.down] = spr_robot_head_front_walk;
+			unitSprite[abominationHead.robot][unitAction.attack][unitDirection.right] = spr_robot_head_right_attack;
+			unitSprite[abominationHead.robot][unitAction.attack][unitDirection.up] = spr_robot_head_back_attack;
+			unitSprite[abominationHead.robot][unitAction.attack][unitDirection.left] = spr_robot_head_left_attack;
+			unitSprite[abominationHead.robot][unitAction.attack][unitDirection.down] = spr_robot_head_front_attack;
+			// Werewolf Head
+			unitSprite[abominationHead.werewolf][unitAction.idle][unitDirection.right] = spr_werewolf_head_right_idle;
+			unitSprite[abominationHead.werewolf][unitAction.idle][unitDirection.up] = spr_werewolf_head_back_idle;
+			unitSprite[abominationHead.werewolf][unitAction.idle][unitDirection.left] = spr_werewolf_head_left_idle;
+			unitSprite[abominationHead.werewolf][unitAction.idle][unitDirection.down] = spr_werewolf_head_front_idle;
+			unitSprite[abominationHead.werewolf][unitAction.move][unitDirection.right] = spr_werewolf_head_right_walk;
+			unitSprite[abominationHead.werewolf][unitAction.move][unitDirection.up] = spr_werewolf_head_back_walk;
+			unitSprite[abominationHead.werewolf][unitAction.move][unitDirection.left] = spr_werewolf_head_left_walk;
+			unitSprite[abominationHead.werewolf][unitAction.move][unitDirection.down] = spr_werewolf_head_front_walk;
+			unitSprite[abominationHead.werewolf][unitAction.attack][unitDirection.right] = spr_werewolf_head_right_attack;
+			unitSprite[abominationHead.werewolf][unitAction.attack][unitDirection.up] = spr_werewolf_head_back_attack;
+			unitSprite[abominationHead.werewolf][unitAction.attack][unitDirection.left] = spr_werewolf_head_left_attack;
+			unitSprite[abominationHead.werewolf][unitAction.attack][unitDirection.down] = spr_werewolf_head_front_attack;
+			#endregion
+			#region Chest
+			// Ogre Chest
+			unitSprite[abominationChest.ogre][unitAction.idle][unitDirection.right] = spr_ogre_chest_right_idle;
+			unitSprite[abominationChest.ogre][unitAction.idle][unitDirection.up] = spr_ogre_chest_back_idle;
+			unitSprite[abominationChest.ogre][unitAction.idle][unitDirection.left] = spr_ogre_chest_left_idle;
+			unitSprite[abominationChest.ogre][unitAction.idle][unitDirection.down] = spr_ogre_chest_front_idle;
+			unitSprite[abominationChest.ogre][unitAction.move][unitDirection.right] = spr_ogre_chest_right_walk;
+			unitSprite[abominationChest.ogre][unitAction.move][unitDirection.up] = spr_ogre_chest_back_walk;
+			unitSprite[abominationChest.ogre][unitAction.move][unitDirection.left] = spr_ogre_chest_left_walk;
+			unitSprite[abominationChest.ogre][unitAction.move][unitDirection.down] = spr_ogre_chest_front_walk;
+			unitSprite[abominationChest.ogre][unitAction.attack][unitDirection.right] = spr_ogre_chest_right_attack;
+			unitSprite[abominationChest.ogre][unitAction.attack][unitDirection.up] = spr_ogre_chest_back_attack;
+			unitSprite[abominationChest.ogre][unitAction.attack][unitDirection.left] = spr_ogre_chest_left_attack;
+			unitSprite[abominationChest.ogre][unitAction.attack][unitDirection.down] = spr_ogre_chest_front_attack;
+			// Robot Chest
+			unitSprite[abominationChest.robot][unitAction.idle][unitDirection.right] = spr_robot_chest_right_idle;
+			unitSprite[abominationChest.robot][unitAction.idle][unitDirection.up] = spr_robot_chest_back_idle;
+			unitSprite[abominationChest.robot][unitAction.idle][unitDirection.left] = spr_robot_chest_left_idle;
+			unitSprite[abominationChest.robot][unitAction.idle][unitDirection.down] = spr_robot_chest_front_idle;
+			unitSprite[abominationChest.robot][unitAction.move][unitDirection.right] = spr_robot_chest_right_walk;
+			unitSprite[abominationChest.robot][unitAction.move][unitDirection.up] = spr_robot_chest_back_walk;
+			unitSprite[abominationChest.robot][unitAction.move][unitDirection.left] = spr_robot_chest_left_walk;
+			unitSprite[abominationChest.robot][unitAction.move][unitDirection.down] = spr_robot_chest_front_walk;
+			unitSprite[abominationChest.robot][unitAction.attack][unitDirection.right] = spr_robot_chest_right_attack;
+			unitSprite[abominationChest.robot][unitAction.attack][unitDirection.up] = spr_robot_chest_back_attack;
+			unitSprite[abominationChest.robot][unitAction.attack][unitDirection.left] = spr_robot_chest_left_attack;
+			unitSprite[abominationChest.robot][unitAction.attack][unitDirection.down] = spr_robot_chest_front_attack;
+			// Werewolf Chest
+			unitSprite[abominationChest.werewolf][unitAction.idle][unitDirection.right] = spr_werewolf_chest_right_idle;
+			unitSprite[abominationChest.werewolf][unitAction.idle][unitDirection.up] = spr_werewolf_chest_back_idle;
+			unitSprite[abominationChest.werewolf][unitAction.idle][unitDirection.left] = spr_werewolf_chest_left_idle;
+			unitSprite[abominationChest.werewolf][unitAction.idle][unitDirection.down] = spr_werewolf_chest_front_idle;
+			unitSprite[abominationChest.werewolf][unitAction.move][unitDirection.right] = spr_werewolf_chest_right_walk;
+			unitSprite[abominationChest.werewolf][unitAction.move][unitDirection.up] = spr_werewolf_chest_back_walk;
+			unitSprite[abominationChest.werewolf][unitAction.move][unitDirection.left] = spr_werewolf_chest_left_walk;
+			unitSprite[abominationChest.werewolf][unitAction.move][unitDirection.down] = spr_werewolf_chest_front_walk;
+			unitSprite[abominationChest.werewolf][unitAction.attack][unitDirection.right] = spr_werewolf_chest_right_attack;
+			unitSprite[abominationChest.werewolf][unitAction.attack][unitDirection.up] = spr_werewolf_chest_back_attack;
+			unitSprite[abominationChest.werewolf][unitAction.attack][unitDirection.left] = spr_werewolf_chest_left_attack;
+			unitSprite[abominationChest.werewolf][unitAction.attack][unitDirection.down] = spr_werewolf_chest_front_attack;
+			#endregion
+			#region Legs
+			// Ogre Legs
+			unitSprite[abominationLegs.ogre][unitAction.idle][unitDirection.right] = spr_ogre_legs_right_idle;
+			unitSprite[abominationLegs.ogre][unitAction.idle][unitDirection.up] = spr_ogre_legs_back_idle;
+			unitSprite[abominationLegs.ogre][unitAction.idle][unitDirection.left] = spr_ogre_legs_left_idle;
+			unitSprite[abominationLegs.ogre][unitAction.idle][unitDirection.down] = spr_ogre_legs_front_idle;
+			unitSprite[abominationLegs.ogre][unitAction.move][unitDirection.right] = spr_ogre_legs_right_walk;
+			unitSprite[abominationLegs.ogre][unitAction.move][unitDirection.up] = spr_ogre_legs_back_walk;
+			unitSprite[abominationLegs.ogre][unitAction.move][unitDirection.left] = spr_ogre_legs_left_walk;
+			unitSprite[abominationLegs.ogre][unitAction.move][unitDirection.down] = spr_ogre_legs_front_walk;
+			unitSprite[abominationLegs.ogre][unitAction.attack][unitDirection.right] = spr_ogre_legs_right_attack;
+			unitSprite[abominationLegs.ogre][unitAction.attack][unitDirection.up] = spr_ogre_legs_back_attack;
+			unitSprite[abominationLegs.ogre][unitAction.attack][unitDirection.left] = spr_ogre_legs_left_attack;
+			unitSprite[abominationLegs.ogre][unitAction.attack][unitDirection.down] = spr_ogre_legs_front_attack;
+			// Robot Legs
+			unitSprite[abominationLegs.robot][unitAction.idle][unitDirection.right] = spr_robot_legs_right_idle;
+			unitSprite[abominationLegs.robot][unitAction.idle][unitDirection.up] = spr_robot_legs_back_idle;
+			unitSprite[abominationLegs.robot][unitAction.idle][unitDirection.left] = spr_robot_legs_left_idle;
+			unitSprite[abominationLegs.robot][unitAction.idle][unitDirection.down] = spr_robot_legs_front_idle;
+			unitSprite[abominationLegs.robot][unitAction.move][unitDirection.right] = spr_robot_legs_right_walk;
+			unitSprite[abominationLegs.robot][unitAction.move][unitDirection.up] = spr_robot_legs_back_walk;
+			unitSprite[abominationLegs.robot][unitAction.move][unitDirection.left] = spr_robot_legs_left_walk;
+			unitSprite[abominationLegs.robot][unitAction.move][unitDirection.down] = spr_robot_legs_front_walk;
+			unitSprite[abominationLegs.robot][unitAction.attack][unitDirection.right] = spr_robot_legs_right_attack;
+			unitSprite[abominationLegs.robot][unitAction.attack][unitDirection.up] = spr_robot_legs_back_attack;
+			unitSprite[abominationLegs.robot][unitAction.attack][unitDirection.left] = spr_robot_legs_left_attack;
+			unitSprite[abominationLegs.robot][unitAction.attack][unitDirection.down] = spr_robot_legs_front_attack;
+			// Werewolf Legs
+			unitSprite[abominationLegs.werewolf][unitAction.idle][unitDirection.right] = spr_werewolf_legs_right_idle;
+			unitSprite[abominationLegs.werewolf][unitAction.idle][unitDirection.up] = spr_werewolf_legs_back_idle;
+			unitSprite[abominationLegs.werewolf][unitAction.idle][unitDirection.left] = spr_werewolf_legs_left_idle;
+			unitSprite[abominationLegs.werewolf][unitAction.idle][unitDirection.down] = spr_werewolf_legs_front_idle;
+			unitSprite[abominationLegs.werewolf][unitAction.move][unitDirection.right] = spr_werewolf_legs_right_walk;
+			unitSprite[abominationLegs.werewolf][unitAction.move][unitDirection.up] = spr_werewolf_legs_back_walk;
+			unitSprite[abominationLegs.werewolf][unitAction.move][unitDirection.left] = spr_werewolf_legs_left_walk;
+			unitSprite[abominationLegs.werewolf][unitAction.move][unitDirection.down] = spr_werewolf_legs_front_walk;
+			unitSprite[abominationLegs.werewolf][unitAction.attack][unitDirection.right] = spr_werewolf_legs_right_attack;
+			unitSprite[abominationLegs.werewolf][unitAction.attack][unitDirection.up] = spr_werewolf_legs_back_attack;
+			unitSprite[abominationLegs.werewolf][unitAction.attack][unitDirection.left] = spr_werewolf_legs_left_attack;
+			unitSprite[abominationLegs.werewolf][unitAction.attack][unitDirection.down] = spr_werewolf_legs_front_attack;
+			#endregion
 			// Actual Sprite Value
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
-			currentSprite = unitSprite[currentAction][currentDirection];
+			// Abomination is unique in the sense that 3 sprites, not just 1, are drawn every frame to match body parts
+			// with what is currently equipped. The setup above takes effort but the payoff here is clean and simple to manage.
+			currentSprite = noone;
+			currentHeadSprite = unitSprite[headBodyPart][currentAction][currentDirection];
+			currentChestSprite = unitSprite[chestBodyPart][currentAction][currentDirection];
+			currentLegsSprite = unitSprite[legsBodyPart][currentAction][currentDirection];
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -861,7 +1015,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			baseMovementSpeed = 1.5;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 6 * 16;
 			// Availability variables
