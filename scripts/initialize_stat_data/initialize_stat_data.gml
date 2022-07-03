@@ -310,7 +310,7 @@ function _city_hall() constructor {
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 3, false, noone, "City Hall", "Worker", "canBuildSoulSubjugator", noone, 1, 90, 200, 
 				200, 200, 200, noone, noone, noone);
-	ritualGround = new _upgrade_options("Ritual Grounds", "Unlocks the Ritual Grounds structure and allows it to be built by Workers.", 
+	ritualGrounds = new _upgrade_options("Ritual Grounds", "Unlocks the Ritual Grounds structure and allows it to be built by Workers.", 
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
 				false, 3, false, noone, "City Hall", "Worker", "canBuildRitualGrounds", noone, 1, 90, 200, 
 				200, 200, 200, noone, noone, noone);
@@ -355,8 +355,8 @@ function _temple() constructor {
 				150, 0, noone, noone, noone);
 	enlightened = new _upgrade_options("Enlightened", "Increases the damage of all Ruby Units.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Temple", "Abomination and Automaton and Acolyte and Wizard and Warlock and Subverter.", 
-				"objectAttackDamage", noone, 8, 90, 50, 100, 150, 200, noone, noone, noone);
+				false, 2, false, noone, "Temple", "Ruby", "objectAttackDamage", noone, 8, 90, 
+				50, 100, 150, 200, noone, noone, noone);
 	hideArmor = new _upgrade_options("Hide Armor", "Increases the slash armor of Wizards and Warlocks.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 2, false, noone, "Temple", "Wizard and Warlock", "objectSlashResistance", noone, 
@@ -391,7 +391,7 @@ function _temple() constructor {
 				0, 0, 200, 300, noone, noone, noone);
 	enslavement = new _upgrade_options("Enslavement", "Demons summoned by Warlocks are now permanent. Demons will die if they wander too far from the Warlock that summoned them.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.b, 
-				false, 3, false, noone, "Temple", "Warlock", "enslavementActive", noone, 1, 30, 
+				false, 3, false, noone, "Temple", "Warlock and Demon", "enslavementActive", noone, 1, 30, 
 				0, 0, 200, 300, noone, noone, noone);
 	sanctified = new _upgrade_options("Sanctified", "Acolyte's healing is increased.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.c, 
@@ -452,7 +452,7 @@ function _temple() constructor {
 	// If the Rail Gun is chosen as the Technology tree's final building unlock:
 	handheldRailGun = new _upgrade_options("Handheld Rail Guns", "Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets and deal damage to enemies behind their target. However, their attack speed is reduced.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
-				false, 3, false, noone, "Temple", "Ranger", "rangerHandheldRailGunActive and objectAttackSpeed", noone, "1 and 90", 
+				false, 3, false, noone, "Temple", "Ranger", "handheldRailGunActive and objectAttackSpeed", noone, "1 and 90", 
 				/*The value "90" in the previous argument is the amount of frames that the objectAttackSpeed is increased by*/
 				120, 200, 400, 600, 400, "Player", "specialBuildingChosen", "Rail Gun");
 	// If the Stasis Field is chosen as the Technology tree's final building unlock:
@@ -501,7 +501,7 @@ function _laboratory() constructor {
 				400, 500, 600, 600, noone, noone, noone);
 	arcaneArmorResearch = new _upgrade_options("Arcane Armor Research", "Increases all Magic armor for Ruby units.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Laboratory", "Ruby", "arcaneArmorActive", noone, 1, 180, 
+				false, 3, false, noone, "Laboratory", "Ruby", "objectMagicResistance", noone, -0.15, 180, 
 				600, 500, 400, 600, noone, noone, noone);
 }
 function _barracks() constructor {
