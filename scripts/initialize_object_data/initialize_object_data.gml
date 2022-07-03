@@ -79,7 +79,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 70;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
@@ -173,7 +174,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 90;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 7 * 16;
 			// Availability variables
@@ -225,7 +227,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 125;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
@@ -276,7 +279,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 250;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 0.5;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
@@ -331,7 +335,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 9 * 16;
 			// Availability variables
@@ -384,7 +389,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1.5;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
@@ -441,7 +447,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 80;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
@@ -517,7 +524,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 80;
 			currentHP = maxHP;
-			movementSpeed = 1;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
@@ -593,7 +601,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 27;
 			currentHP = maxHP;
-			movementSpeed = 2;
+			baseMovementSpeed = 2;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 5 * 16;
 			// Availability variables
@@ -615,11 +624,16 @@ function initialize_object_data() {
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 4;
 			objectAttackDamageType = "Pierce";
+			// This is the time limit to determine how long the Demon should last before dying automatically if permanent pets 
+			// aren't unlocked.
 			// The time limit is determined by the Warlock and it's upgrades, but the timer itself is managed by the Demon that
 			// is summoned. This greatly simplifies the way summons are handled.
 			summonedDemonsTimeLimitTimer = -1;
-			// If this is ever noone, the Demon will die shortly after. A Demon will always be 
+			// If this is ever noone, the Demon will die shortly after. A Demon will always be attached to a Warlock.
 			summonedDemonsSummonedByWarlockID = noone;
+			// This countdown sits at 4 seconds. If the Warlock the Demon is attached to dies, this begins a countdown, and the
+			// Demon dies at the end of the countdown.
+			summonedDemonsDeathTimer = 4 * room_speed;
 			// The range at which Demons will run back to their master's sides no matter what their current action was. Set by
 			// the Warlock's parent variable by the same name.
 			summonedDemonsMaxTetherRange = -1;
@@ -661,35 +675,39 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
-			objectHasSpecialAbility = true;
+			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			acolytesCanLink = false;
+			acolyteIsLinked = false;
 			aoeLinkedSquareSize = 2;
 			acolyteBlessedAuraActive = false;
+			acolyteBlessedAuraRadius = 4 * 16;
+			acolyteBlessedAuraMovementSpeedBonus = 0.25;
 			acolyteSearingFieldActive = false;
+			acolyteSearingFieldRadius = 2 * 16;
+			acolyteSearingFieldAoEDamage = 6;
+			acolyteSearingFieldCooldown = 1 * room_speed;
+			acolyteSearingFieldCooldownTimer = -1;
 			arcaneWeaponActive = false;
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
-			// this variable should be multiplied once against the final damage value of every unit before the damage
-			// is applied.
+			// this variable should be multiplied once against the final heal for Acolytes after all other adjustments
+			// have been made.
 			arcaneWeaponBonus = 1.15;
 			// Combat variables
-			objectAttackRange = 16 * 8;
-			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
-				// For Acolytes, attack speed and damage are how fast and how much it heals allies.
-			objectAttackSpeed = 1 * room_speed;
+			objectAttackRange = 4 * 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 3 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 15;
-			objectAttackDamageType = "Magic";
-				// For Acolytes, special attack speed and damage are how fast and how much it heals itself.
-			objectSpecialAttackDamage = 10;
-			objectSpecialAttackDamageType = "Magic";
+			outOfCombatHealValue = 20;
+			inCombatHealValue = 4;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -729,7 +747,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 50;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			baseMovementSpeed = 1;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
@@ -745,8 +764,8 @@ function initialize_object_data() {
 			// is applied.
 			arcaneWeaponBonus = 1.15;
 			// Combat variables
-			objectAttackRange = 16 * 1;
-			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackRange = 1 * 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 1 * room_speed;
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 10;
@@ -793,7 +812,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			baseMovementSpeed = 1.5;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 8 * 16;
 			// Availability variables
@@ -861,7 +881,8 @@ function initialize_object_data() {
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			baseMovementSpeed = 1.5;
+			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 6 * 16;
 			// Availability variables

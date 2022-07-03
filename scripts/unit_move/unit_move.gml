@@ -435,7 +435,7 @@ function unit_move() {
 				var orig_x_, orig_y_;
 				orig_x_ = x;
 				orig_y_ = y;
-				mp_potential_step(targetToMoveToX, targetToMoveToY, movementSpeed, false);
+				mp_potential_step(targetToMoveToX, targetToMoveToY, currentMovementSpeed, false);
 				if (mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor((y + 15) / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + 15) / 16)) == -1) {
 					x = orig_x_;
 					y = orig_y_;
@@ -934,7 +934,7 @@ function unit_move() {
 				else if path_exists(movementLeaderOrFollowing.myPath) {
 					validPathFound = true;
 				}
-				else if (movementLeaderOrFollowing.currentAction == unitAction.move) && (point_distance(movementLeaderOrFollowing.x, movementLeaderOrFollowing.y, movementLeaderOrFollowing.targetToMoveToX, movementLeaderOrFollowing.targetToMoveToY) > movementSpeed) {
+				else if (movementLeaderOrFollowing.currentAction == unitAction.move) && (point_distance(movementLeaderOrFollowing.x, movementLeaderOrFollowing.y, movementLeaderOrFollowing.targetToMoveToX, movementLeaderOrFollowing.targetToMoveToY) > currentMovementSpeed) {
 					validPathFound = true;
 				}
 				else if (movementLeaderOrFollowing.currentAction != unitAction.move) && path_exists(myPath) {
@@ -1036,7 +1036,7 @@ function unit_move() {
 					}
 				}
 			}
-			if ((!instance_exists(objectTarget)) && (point_distance(x, y, targetToMoveToX, targetToMoveToY) >= (movementSpeed * 2))) || ((instance_exists(objectTarget)) && ((point_distance(x, y, targetToMoveToX, targetToMoveToY)) >= (movementSpeed * 2))) || (!original_location_is_valid_) {
+			if ((!instance_exists(objectTarget)) && (point_distance(x, y, targetToMoveToX, targetToMoveToY) >= (currentMovementSpeed * 2))) || ((instance_exists(objectTarget)) && ((point_distance(x, y, targetToMoveToX, targetToMoveToY)) >= (currentMovementSpeed * 2))) || (!original_location_is_valid_) {
 				// Continue the search for a valid location if no valid location currently exists
 				if !validLocationFound {
 					// Redundant check to see if the unit is following a leader object, and if it is but the
@@ -1873,32 +1873,32 @@ function unit_move() {
 									// a friendly unit.
 									if path_exists(myPath) {
 										if path_get_number(myPath) > 1 {
-											if sign(lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8))) == sign(x_clip_vector_add_) {
+											if sign(lengthdir_x(currentMovementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8))) == sign(x_clip_vector_add_) {
 												x_clip_vector_add_ = 0;
 												x_needs_to_be_removed_ = true;
 											}
-											if sign(lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8))) == sign(y_clip_vector_add_) {
+											if sign(lengthdir_y(currentMovementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8))) == sign(y_clip_vector_add_) {
 												y_clip_vector_add_ = 0;
 												y_needs_to_be_removed_ = true;
 											}
 										}
-										else if point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) > movementSpeed * 2 {
-											if sign(lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)))) == sign(x_clip_vector_add_) {
+										else if point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) > currentMovementSpeed * 2 {
+											if sign(lengthdir_x(currentMovementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)))) == sign(x_clip_vector_add_) {
 												x_clip_vector_add_ = 0;
 												x_needs_to_be_removed_ = true;
 											}
-											if sign(lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)))) == sign(y_clip_vector_add_) {
+											if sign(lengthdir_y(currentMovementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)))) == sign(y_clip_vector_add_) {
 												y_clip_vector_add_ = 0;
 												y_needs_to_be_removed_ = true;
 											}
 										}
 									}
-									else if point_distance(x, y, targetToMoveToX, targetToMoveToY) >= movementSpeed * 2 {
-										if sign(lengthdir_x(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY))) == sign(x_clip_vector_add_) {
+									else if point_distance(x, y, targetToMoveToX, targetToMoveToY) >= currentMovementSpeed * 2 {
+										if sign(lengthdir_x(currentMovementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY))) == sign(x_clip_vector_add_) {
 											x_clip_vector_add_ = 0;
 											x_needs_to_be_removed_ = true;
 										}
-										if sign(lengthdir_y(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY))) == sign(y_clip_vector_add_) {
+										if sign(lengthdir_y(currentMovementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY))) == sign(y_clip_vector_add_) {
 											y_clip_vector_add_ = 0;
 											y_needs_to_be_removed_ = true;
 										}
@@ -1929,14 +1929,14 @@ function unit_move() {
 						if (ds_list_size(clipped_objects_) - y_number_of_removed_clipped_objects_) > 1 {
 							y_clip_vector_ = y_clip_vector_ / (ds_list_size(clipped_objects_) - 1 - y_number_of_removed_clipped_objects_);
 						}
-						// Set x and y vectors equal to a percentage of movementSpeed, where that percentage is determine by how
+						// Set x and y vectors equal to a percentage of currentMovementSpeed, where that percentage is determine by how
 						// close the unit is currently to the center of all colliding objects. That percentage can only max out at
 						// 1/4 of max speed, to prevent movement from being stopped while its supposed to be moving.
 						if x_clip_vector_ != 0 {
-							x_clip_vector_ = (movementSpeed * (x_clip_vector_ / ((abs(x_clip_vector_ div 16) + 1) * 16))) / 4;
+							x_clip_vector_ = (currentMovementSpeed * (x_clip_vector_ / ((abs(x_clip_vector_ div 16) + 1) * 16))) / 4;
 						}
 						if y_clip_vector_ != 0 {
-							y_clip_vector_ = (movementSpeed * (y_clip_vector_ / ((abs(y_clip_vector_ div 16) + 1) * 16))) / 4;
+							y_clip_vector_ = (currentMovementSpeed * (y_clip_vector_ / ((abs(y_clip_vector_ div 16) + 1) * 16))) / 4;
 						}
 					}
 					ds_list_destroy(clipped_objects_);
@@ -1951,10 +1951,10 @@ function unit_move() {
 					
 					// If a valid location exists, no need to search for one, just move.
 					if !path_exists(myPath) {
-						if point_distance(x, y, targetToMoveToX, targetToMoveToY) >= movementSpeed * 2 {
+						if point_distance(x, y, targetToMoveToX, targetToMoveToY) >= currentMovementSpeed * 2 {
 							var x_vector_, y_vector_;
-							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
-							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
+							x_vector_ = lengthdir_x(currentMovementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
+							y_vector_ = lengthdir_y(currentMovementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
 							currentDirection = (point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
@@ -1982,8 +1982,8 @@ function unit_move() {
 						// If the path has more than 1 point to move along, move it
 						if path_get_number(myPath) > 1 {
 							var x_vector_, y_vector_;
-							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
-							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
+							x_vector_ = lengthdir_x(currentMovementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
+							y_vector_ = lengthdir_y(currentMovementSpeed, point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8));
 							currentDirection = (point_direction(x, y, path_get_point_x(myPath, 0) - 8, path_get_point_y(myPath, 0) - 8) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
@@ -2045,10 +2045,10 @@ function unit_move() {
 							}
 						}
 						// Otherwise if the path only has 1 point on it, move it
-						else if point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) > movementSpeed * 2 {
+						else if point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) > currentMovementSpeed * 2 {
 							var x_vector_, y_vector_;
-							x_vector_ = lengthdir_x(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
-							y_vector_ = lengthdir_y(movementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
+							x_vector_ = lengthdir_x(currentMovementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
+							y_vector_ = lengthdir_y(currentMovementSpeed, point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)));
 							currentDirection = (point_direction(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) + 45) div 90;
 							if currentDirection > 3 {
 								currentDirection -= 4;
@@ -2121,7 +2121,7 @@ function unit_move() {
 							y = floor(targetToMoveToY / 16) * 16;
 						}
 						// Clear each point on the path as the unit passes that point
-						if ((path_get_number(myPath) > 1) && (point_distance((x + 8), (y + 8), path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= (sprite_width / 2))) || ((path_get_number(myPath) == 1) && (point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= movementSpeed)) {
+						if ((path_get_number(myPath) > 1) && (point_distance((x + 8), (y + 8), path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= (sprite_width / 2))) || ((path_get_number(myPath) == 1) && (point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= currentMovementSpeed)) {
 							path_delete_point(myPath, 0);
 						}
 						// If the unit is within a narrow angle of the next pathway, but no line of sight exists to it's path point,
