@@ -30,6 +30,16 @@ function team_struct(team_) constructor {
 	stasisRevealsTargets = false;
 	droneSwarmUnlocked = false;
 	
+	abominationOgreHeadPartsStored = 0;
+	abominationOgreChestPartsStored = 0;
+	abominationOgreLegsPartsStored = 0;
+	abominationRobotHeadPartsStored = 0;
+	abominationRobotChestPartsStored = 0;
+	abominationRobotLegsPartsStored = 0;
+	abominationWerewolfHeadPartsStored = 0;
+	abominationWerewolfChestPartsStored = 0;
+	abominationWerewolfLegsPartsStored = 0;
+	
 	// This function is called in count_down_timers(), which itself is called and relevant code ran in each step
 	// event of buildings and units (obj_building and obj_unit). So this function is built with the variables already
 	// existing in those objects in mind. KEEP IN MIND, this is only activated once on a random unit or building. So I
