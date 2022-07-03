@@ -272,39 +272,197 @@ function initialize_object_data() {
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
 			break;
-		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-		case "Rogue":
-			ambushBonusDamage = 50;
-			piercingStrikeActive = false;
-			// Armor is a decimal value from 0 to 1, used to multiply against damage. The lower the value,
-			// the higher the armor. So penetration temporarily adds to the armor, to increase the damage
-			// taken by the target (when using the Ambush ability in this case).
-			piercingStrikePenetration = 0.25;
+		case "Knight":
+			// Generic variables
+			maxHP = 250;
+			currentHP = maxHP;
+			movementSpeed = 1;
+			objectIsRubyUnit = false;
+			objectSightRange = 6 * 16;
+			// Availability variables
+			objectHasSpecialAbility = false;
+			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false;
+			tauntCooldown = 25 * room_speed;
+			tauntCooldownTimer = -1;
+			tauntDurationCooldown = 5 * room_speed;
+			tauntDurationCooldownTimer = 5 * room_speed;
+			tauntTarget = noone;
+			// Combat variables
+			objectAttackRange = 16;
+			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 2.5 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 18;
+			objectAttackDamageType = "Slash";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 0.65;
+			objectPierceResistance = 0.65;
+			objectMagicResistance = 0.85;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_knight_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_knight_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_knight_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_knight_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_knight_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_knight_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_knight_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_knight_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_knight_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_knight_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_knight_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_knight_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
 			break;
-		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-		case "Wizard":
+		case "Ranger":
 			// Generic variables
 			maxHP = 100;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
-			objectIsRubyUnit = true;
-			objectSightRange = 7 * 16;
+			movementSpeed = 1;
+			objectIsRubyUnit = false;
+			objectSightRange = 9 * 16;
+			// Availability variables
+			objectHasSpecialAbility = false;
+			objectCanUseSpecialAbility = false;
+			objectSpecialAbilityUpgraded = false;
+			objectHasCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false;
+			handheldRailGunActive = false;
+			handheldRailGunDamageBonus = 8;
+			// Combat variables
+			objectAttackRange = 5 * 16;
+			objectCombatAggroRange = 7; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 1.5 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 13;
+			objectAttackDamageType = "Pierce";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 0.9;
+			objectPierceResistance = 0.9;
+			objectMagicResistance = 1.1;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_ranger_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_ranger_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_ranger_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_ranger_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_ranger_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_ranger_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_ranger_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_ranger_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_ranger_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_ranger_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_ranger_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_ranger_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Rogue":
+			// Generic variables
+			maxHP = 100;
+			currentHP = maxHP;
+			movementSpeed = 1;
+			objectIsRubyUnit = false;
+			objectSightRange = 6 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
+			ambushDamageBonus = 50;
+			piercingStrikeActive = false;
+			// Armor is a decimal value from 0 to 1, used to multiply against damage. The lower the value,
+			// the higher the armor. So penetration temporarily adds to the armor multiplier, to increase
+			// the damage taken by the target (when using the Ambush ability in this case).
+			piercingStrikePenetration = 0.25;
+			// Combat variables
+			objectAttackRange = 1 * 16;
+			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 1 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 12;
+			objectAttackDamageType = "Pierce";
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			objectSlashResistance = 0.90;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.00;
+			// Sprite setting array
+			unitSprite[unitAction.idle][unitDirection.right] = spr_rogue_right_idle;
+			unitSprite[unitAction.idle][unitDirection.up] = spr_rogue_back_idle;
+			unitSprite[unitAction.idle][unitDirection.left] = spr_rogue_left_idle;
+			unitSprite[unitAction.idle][unitDirection.down] = spr_rogue_front_idle;
+			unitSprite[unitAction.move][unitDirection.right] = spr_rogue_right_walk;
+			unitSprite[unitAction.move][unitDirection.up] = spr_rogue_back_walk;
+			unitSprite[unitAction.move][unitDirection.left] = spr_rogue_left_walk;
+			unitSprite[unitAction.move][unitDirection.down] = spr_rogue_front_walk;
+			unitSprite[unitAction.attack][unitDirection.right] = spr_rogue_right_attack;
+			unitSprite[unitAction.attack][unitDirection.up] = spr_rogue_back_attack;
+			unitSprite[unitAction.attack][unitDirection.left] = spr_rogue_left_attack;
+			unitSprite[unitAction.attack][unitDirection.down] = spr_rogue_front_attack;
+			// Actual Sprite Value
+			currentAction = unitAction.idle;
+			currentDirection = unitDirection.right;
+			currentSprite = unitSprite[currentAction][currentDirection];
+			spriteWaitTimer = 0;
+			movementLeaderOrFollowing = noone;
+			mask_index = spr_16_16;
+			// Index speed
+			currentImageIndex = 0;
+			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Wizard":
+			// Generic variables
+			maxHP = 80;
+			currentHP = maxHP;
+			movementSpeed = 1;
+			objectIsRubyUnit = true;
+			objectSightRange = 7 * 16;
+			// Availability variables
+			// Special Ability in this case is Wizard's Fireball ability, which is always unlocked by default.
+			objectHasSpecialAbility = true;
+			objectCanUseSpecialAbility = true;
+			objectSpecialAbilityUpgraded = false;
+			objectHasCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false;
 			singedCircuitActive = false;
+			singedCircuitSpecialAttackCooldownReduction = 3 * room_speed;
 			wizardsCanLink = false;
+			wizardIsLinked = false;
 			aoeLinkedSquareSize = 2;
 			arcaneWeaponActive = false;
 			arcaneWeaponBonus = 1.15;
 			arcaneArmorActive = false;
 			arcaneArmorBonus = -0.15;
 			// Combat variables
-			objectAttackRange = 16 * 4;
-			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackRange = 3 * 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 2 * room_speed;
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 25;
@@ -356,9 +514,9 @@ function initialize_object_data() {
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Warlock":
 			// Generic variables
-			maxHP = 100;
+			maxHP = 80;
 			currentHP = maxHP;
-			movementSpeed = 1.5;
+			movementSpeed = 1;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
 			// Availability variables
@@ -373,14 +531,27 @@ function initialize_object_data() {
 			arcaneArmorActive = false;
 			arcaneArmorBonus = -0.15;
 			// Combat variables
-			objectAttackRange = 16 * 5;
-			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackRange = 3 * 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 2 * room_speed;
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 10;
 			objectAttackDamageType = "Magic";
 			objectSpecialAttackCooldown = 10 * room_speed;
 			objectSpecialAttackTimer = 0;
+			// Demons summoned by and bound to the Warlock by the Ritual Grounds structure will bind to the Warlock on their end
+			// but will not be registered as soulbound to the Warlock on the Warlock's end. This is so that the Warlock can still
+			// summon its regular amount of Demons when those specific Demons die without needing to wait for 20+ Demons to die
+			// before casting its summon again.
+			summonedDemonsLimit = 1;
+			// The time limit is determined by the Warlock and it's upgrades, but the timer itself is managed by the Demon that
+			// is summoned. This greatly simplifies the way summons are handled.
+			summonedDemonsTimeLimit = 8 * room_speed;
+			summonedDemonsList = noone;
+			// The range at which Demons will run back to their master's sides no matter what their current action was.
+			summonedDemonsMaxTetherRange = 12 * 16;
+			// Demons will immediately die if they exceed this distance from their master, no matter their current action.
+			summonedDemonsMaxDeathRange = 14 * 16;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -414,6 +585,10 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			break;
+		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		case "Demon":
+			
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Acolyte":
