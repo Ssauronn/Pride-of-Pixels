@@ -40,7 +40,10 @@ if !obj_gui.startMenu.active {
 					if break_ {
 						break;
 					}
-					if currentSprite == unitSprite[i][j] {
+					// If the correct action and direction are found, either for normal units, or
+					// for Abomination units just using the head sprite as verification, record that
+					// action and direction.
+					if ((objectType != "Abomination") && (currentSprite == unitSprite[i][j])) || ((objectType == "Abomination") && (currentHeadSprite == unitSprite[headBodyPart][i][j])) {
 						current_action_ = i;
 						current_direction_facing_ = j;
 						break_ = true;
@@ -50,7 +53,14 @@ if !obj_gui.startMenu.active {
 		}
 		if (current_action_ != -1) && (current_direction_facing_ != -1) {
 			if current_direction_facing_ != currentDirection {
-				currentSprite = unitSprite[current_action_][currentDirection];
+				if objectType != "Abomination" {
+					currentSprite = unitSprite[current_action_][currentDirection];
+				}
+				else {
+					currentHeadSprite = unitSprite[headBodyPart][current_action_][currentDirection];
+					currentChestSprite = unitSprite[chestBodyPart][current_action_][currentDirection];
+					currentLegsSprite = unitSprite[legsBodyPart][current_action_][currentDirection];
+				}
 			}
 		}
 	}
@@ -65,19 +75,41 @@ if !obj_gui.startMenu.active {
 		/// Apply a wait time to different animations, so that the animation lines up with the action taken on the other object.
 		// If the object's current action is simply to idle or move, just set the sprite normally.
 		if (currentAction == unitAction.idle) || (currentAction == unitAction.move) {
-			currentSprite = unitSprite[currentAction][currentDirection];
+			if objectType != "Abomination" {
+				currentSprite = unitSprite[currentAction][currentDirection];
+			}
+			else {
+				currentHeadSprite = unitSprite[headBodyPart][currentAction][currentDirection];
+				currentChestSprite = unitSprite[chestBodyPart][currentAction][currentDirection];
+				currentLegsSprite = unitSprite[legsBodyPart][currentAction][currentDirection];
+			}
 		}
 		// However, if the object's current action is to mine, chop, farm, or attack, check to see if its currently idling.
-		else if (currentSprite == unitSprite[unitAction.idle][currentDirection]) || (currentSprite == unitSprite[unitAction.move][currentDirection]) {
+		// Just to reiterate, I check for either regular sprites, or the head sprite of Abominations
+		else if ((currentSprite == unitSprite[unitAction.idle][currentDirection]) || (currentSprite == unitSprite[unitAction.move][currentDirection])) || ((currentHeadSprite == unitSprite[headBodyPart][unitAction.idle][currentDirection]) || (currentHeadSprite == unitSprite[headBodyPart][unitAction.move][currentDirection])) {
 			if (currentAction == unitAction.mine) || (currentAction == unitAction.chop) || (currentAction == unitAction.farm) || (currentAction == unitAction.attack) {
 				// If the object is still commanded to mine, chop, farm, or attack, and the idle time is over, start the action animation.
 				if spriteWaitTimer <= 0 {
-					currentSprite = unitSprite[currentAction][currentDirection];
+					if objectType != "Abomination" {
+						currentSprite = unitSprite[currentAction][currentDirection];
+					}
+					else {
+						currentHeadSprite = unitSprite[headBodyPart][currentAction][currentDirection];
+						currentBodySprite = unitSprite[bodyBodyPart][currentAction][currentDirection];
+						currentLegsSprite = unitSprite[legsBodyPart][currentAction][currentDirection];
+					}
 				}
 			}
 			// Redundant to prevent errors.
 			else {
-				currentSprite = unitSprite[currentAction][currentDirection];
+				if objectType != "Abomination" {
+					currentSprite = unitSprite[currentAction][currentDirection];
+				}
+				else {
+					currentHeadSprite = unitSprite[headBodyPart][currentAction][currentDirection];
+					currentBodySprite = unitSprite[bodyBodyPart][currentAction][currentDirection];
+					currentLegsSprite = unitSprite[legsBodyPart][currentAction][currentDirection];
+				}
 			}
 		}
 		// Else if the object's action is to mine, chop, farm, or attack, and it is not currently idling, and obviously the animation
@@ -85,6 +117,8 @@ if !obj_gui.startMenu.active {
 		// action, just sprite) to idling and wait until its time to act again - that's set to 3 frames before the action is set to
 		// activate, because I want the animation to happen slightly before the action itself occurs, to more accurately line up the
 		// middle of the animation with the action itself.
+		// Don't have to worry about checking if the unit is an Abomination here or not because
+		// only Workers can chop/farm/mine.
 		else if currentSprite == unitSprite[currentAction][currentDirection] {
 			if (currentAction != unitAction.idle) && (currentAction != unitAction.move) {
 				switch currentAction {
@@ -109,10 +143,17 @@ if !obj_gui.startMenu.active {
 						break;
 				}
 			}
+			// Don't have to worry about checking if the unit is an Abomination here or not because
+			// only Workers can chop/farm/mine.
 			currentSprite = unitSprite[unitAction.idle][currentDirection]
 		}
 	}
-	sprite_index = currentSprite;
+	if objectType != "Abomination" {	
+		sprite_index = currentSprite;
+	}
+	else {
+		sprite_index = currentHeadSprite;
+	}
 	image_index = currentImageIndex;
 
 

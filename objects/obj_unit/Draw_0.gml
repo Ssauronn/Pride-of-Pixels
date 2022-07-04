@@ -4,7 +4,14 @@ if objectOnScreen {
 		draw_sprite_ext(spr_selected, 0, x, y, 1, 1, 0, c_white, 0.75);
 	}
 	// Draw self
-	draw_sprite(currentSprite, currentImageIndex, x, y);
+	if currentSprite != noone {
+		draw_sprite(currentSprite, currentImageIndex, x, y);
+	}
+	else {
+		draw_sprite(currentHeadSprite, currentImageIndex, x, y);
+		draw_sprite(currentChestSprite, currentImageIndex, x, y);
+		draw_sprite(currentLegsSprite, currentImageIndex, x, y);
+	}
 }
 
 if path_exists(myPath) {
