@@ -19,6 +19,12 @@ objectCurrentCommand = "Idle";
 objectDetectTarget = irandom_range(0, room_speed);
 objectDetectedList = noone;
 
+// Wizard Redirect Variables. This is to ensure redirects are properly applied upon
+// damage calculation.
+beingTargetedByWizardRedirect = false;
+wizardApplyingRedirect = noone;
+damageBeingRedirectedTo = noone;
+
 
 // Pathfinding
 objectNeedsToMove = false;

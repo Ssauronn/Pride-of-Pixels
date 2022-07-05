@@ -20,6 +20,7 @@ function team_struct(team_) constructor {
 	flaskCooldownTimer = 120 * room_speed;
 	flaskCooldown = 0;
 	flaskUpgraded = false;
+	shocktrooperAvailable = false;
 	shocktrooperCooldownTimer = 120 * room_speed;
 	shocktrooperCooldown = 0;
 	combatSpecializationChosen = "";
@@ -351,10 +352,32 @@ function _temple() constructor {
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, true, noone, "Temple", "Ruby", "objectCanUseSpecialAbility", noone, 1, 60, 
 				100, 0, 200, 0, noone, noone, noone);
-	rubyCombatSpecializationAbility = new _upgrade_options("Ruby Combat Specialization Ability", "Unlocks the Combat Specialization Ability for the Ruby Unit chosen in your Combat Specialization skill at game start.", 
-				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.c, 
-				false, 2, true, noone, "Temple", "Ruby", "objectCanUseCombatSpecializationAbility", noone, 1, 60, 
-				100, 0, 200, 0, noone, noone, noone);
+	abominations = new _upgrade_options("Abominations", "Allows Abominations to be built.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Temple", obj_building, "canTrainAbominations", noone, 1, 
+				60, 100, 0, 200, 100, noone, noone, noone);
+	automatons = new _upgrade_options("Automatons", "Allows Automatons to be built.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Temple", obj_building, "canTrainAutomatons", noone, 1, 
+				60, 100, 0, 200, 100, noone, noone, noone);
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	subverterCombatSpecialAbilities = new _upgrade_options("Subverter Combat Special Abilities", "Unlocks the Combat Special Abilities for the Subverter.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Temple", "Subverter", "objectCanUseCombatSpecializationAbility", 
+				noone, 1, 60, 150, 50, 100, 100, "Player", "combatSpecializationChosen", "Stealth");
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	automatonCombatSpecialAbilities = new _upgrade_options("Automaton Combat Special Abilities", "Unlocks the Combat Special Abilities for the Automaton.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Temple", "Automaton", "objectCanUseCombatSpecializationAbility", 
+				noone, 1, 60, 150, 50, 100, 100, "Player", "combatSpecializationChosen", "Recklessness");
+	// The next option will only appear if the variable given (second to last argument) located in the object
+	// or struct (third to last argument) is equal to the value expected (last argument).
+	wizardCombatSpecialAbilities = new _upgrade_options("Wizard Combat Specialization Abilities", "Unlocks the Combat Special Abilities for the Wizard.", 
+				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.noone, 
+				false, 2, false, noone, "Temple", "Wizard", "objectCanUseCombatSpecializationAbility", 
+				noone, 1, 60, 150, 50, 100, 100, "Player", "combatSpecializationChosen", "Protectorate");
 	ordained = new _upgrade_options("Ordained", "Acolyte healing is increased.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.a, 
 				false, 2, false, noone, "Temple", "Acolyte", "outOfCombatHealValue and inCombatHealValue", 
@@ -375,10 +398,6 @@ function _temple() constructor {
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.one, eUpgradeSibling.b, 
 				false, 2, false, noone, "Temple", "Subverter and Acolyte", "objectPierceResistance", noone, 
 				-0.1, 60, 50, 200, 100, 0, noone, noone, noone);
-	abominations = new _upgrade_options("Abominations", "Allows Abominations to be built.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.b, 
-				false, 2, false, noone, "Temple", obj_building, "canTrainAbominations", noone, 1, 
-				60, 100, 0, 200, 100, noone, noone, noone);
 	fireLinked = new _upgrade_options("Fire Linked", "Unlockes the Fire Link ability for Wiards, allowing three Wizards to link with each other. The group of Linked Wizards lose the ability to fight normally, but the player gains the ability to choose a location within a large range for all Fire Linked Wizards to attack. The Linked Wizards launch a volley of fireballs at the target location, dealing Magic damage to all enemies within that location. Long shared cooldown for all Linked Wizards.", 
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Temple", "Wizard", "wizardsCanLink", noone, 1, 90, 50, 
@@ -387,13 +406,9 @@ function _temple() constructor {
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.b, 
 				false, 2, false, noone, "Temple", "Acolyte", "acolytesCanLink", noone, 1, 90, 50, 
 				0, 50, 100, noone, noone, noone);
-	automatons = new _upgrade_options("Automatons", "Allows Automatons to be built.", 
-				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.b, 
-				false, 2, false, noone, "Temple", obj_building, "canTrainAutomatons", noone, 1, 
-				60, 100, 0, 200, 100, noone, noone, noone);
 	shocktrooper = new _upgrade_options("Shocktrooper", "Unlocks the Shocktrooper ability for Automaton, allowing the player to teleport all Automatons not currently in combat to a location within a wide range of any friendly unit that is in combat. This ability has a long cooldown.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Temple", "Automaton", "automatonCanShocktrooper", noone, 1, 90, 
+				false, 2, false, noone, "Temple", "Player", "shocktrooperAvailable", noone, 1, 90, 
 				100, 0, 100, 200, noone, noone, noone);
 	fireball = new _upgrade_options("Singed Circuit", "Reduces the cooldown for the Wizard's Fireball special ability if it hits 2 or more targets with the area of effect, in addition to the primary target.", 
 				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.a, 
@@ -432,23 +447,23 @@ function _temple() constructor {
 				false, 3, false, noone, "Temple", "Ruby", "objectPierceResistance", noone, -0.1, 45, 
 				150, 150, 200, 150, noone, noone, noone);
 	sacrifice = new _upgrade_options("Sacrifice", "Abominations can now be sacrificed at a Temple, which provides the player with the body parts the Abomination was created with. The player can then create Abominations with those body parts, thereby allowing the player to create Abominations with specific body parts.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.a, 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.a, 
 				false, 3, false, noone, "Temple", "Abomination", "abominationsCanSacrifice", noone, 1, 90, 
 				150, 250, 400, 400, noone, noone, noone);
 	frankensteins = new _upgrade_options("Frankensteins", "Abominations are now given bonuses depending on the parts they're created with. Each Werewolf part increases the movement speed of the Abomination. Each Robot part increases the damage of the Abomination. Each Ogre part increases the health of the Abomination.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.b, 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.b, 
 				false, 3, false, noone, "Temple", "Abomination", "bodyPartsProvideStats", noone, 1, 90, 
 				300, 0, 500, 400, noone, noone, noone);
 	soulwell = new _upgrade_options("Soulwell", "All Ruby units are granted addition health. Ruby units spawned with Soul Subjugator do not spawn with additional health.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
 				false, 3, false, noone, "Temple", "Soul Subjugator", "soulwellActive", noone, 1, 
 				120, 500, 0, 200, 600, noone, noone, noone);
 	massEnslavement = new _upgrade_options("Mass Enslavement", "Warlocks now summon 3 Demons at once. The Warlock will not summon additional Demons until all 3 previous Demons are dead.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
 				false, 3, false, noone, "Temple", "Ritual Grounds", "massEnslavementActive", noone, 1, 
 				120, 500, 0, 200, 600, noone, noone, noone);
 	cycling = new _upgrade_options("Cycling", "Any unit currently empowered by Unholy Ziggurat can be sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the charge level it was previously at, minus one charge level. No more than one unit empowered by Unholy Ziggurat may be sacrificed per use.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.c, 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
 				false, 3, false, noone, "Temple", "Unholy Ziggurat", "cyclingActive", noone, 1, 
 				120, 500, 0, 200, 600, noone, noone, noone);
 	blessedAura = new _upgrade_options("Blessed Aura", "Acolytes now increase the movement speed of themselves and all friendly units within range.", 
@@ -505,7 +520,7 @@ function _laboratory() constructor {
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 2, false, noone, "Laboratory", "Shocktrooper", "chronicEmpowermentPossible", noone, 1, 120, 
 				200, 0, 200, 400, noone, noone, noone);
-	arcaneWeaponResearch = new _upgrade_options("Arcane Weapon Research", "Increases all magic damage dealt by Ruby units.", 
+	arcaneWeaponResearch = new _upgrade_options("Arcane Weapon Research", "Increases all magic damage and healing dealt by all Ruby units.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 3, false, noone, "Laboratory", "Ruby", "arcaneWeaponActive", noone, 1, 180, 
 				400, 500, 600, 600, noone, noone, noone);
