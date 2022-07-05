@@ -1,4 +1,4 @@
-///@function							initialize_object_data();
+	///@function							initialize_object_data();
 ///@description							Assign unit/building specific variables to each object
 
 // State machine - this is initialized only once at the beginning of the game, as this declaration is
@@ -478,12 +478,27 @@ function initialize_object_data() {
 			// Availability variables
 			// Special Ability in this case is Wizard's Fireball ability, which is always unlocked by default.
 			objectHasSpecialAbility = true;
-			objectCanUseSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
-			objectHasCombatSpecializationAbility = false;
+			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
+			// Singed Circuit is an unlocked passive that reduces the cooldown of the Wizard's special
+			// ability if it hits enough targets with a cast of that special ability.
 			singedCircuitActive = false;
 			singedCircuitSpecialAttackCooldownReduction = 3 * room_speed;
+			// The Wizard's combat specialization ability is to redirect damage received by a chosen
+			// target to a nearby Knight in combat. If there are no Knights nearby, the damage is instead
+			// redirected to the Wizard.
+			objectCombatSpecializationAbilityActive = false;
+			objectCombatSpecializationTimer = 20 * room_speed;
+			objectCombatSpecializationCooldown = -1;
+			objectCombatSpecializationRange = 6 * 16;
+			objectCombatSpecializationKnightInRange = false;
+			objectCombatSpecializationRedirectKnightTarget = noone;
+			objectCombatSpecializationRedirectProtectTarget = noone;
+			objectCombatSpecializationRedirectProtectMultiplier = 0.7;
+			objectCombatSpecializationDurationTimer = 5 * room_speed;
+			objectCombatSpecializationDurationCooldown = -1;
 			wizardsCanLink = false;
 			wizardIsLinked = false;
 			aoeLinkedSquareSize = 2;
@@ -506,9 +521,6 @@ function initialize_object_data() {
 			objectSpecialAttackCooldown = 10 * room_speed;
 			objectSpecialAttackTimer = 0;
 			objectSpecialAttackTimerSingedCircuitMultiplier = 0.5;
-			objectCombatSpecializationTarget = noone;
-			objectCombatSpecializationDuration = 5 * room_speed;
-			objectCombatSpecializationTimer = 0;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -554,7 +566,7 @@ function initialize_object_data() {
 			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
-			objectCanUseSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
@@ -777,7 +789,7 @@ function initialize_object_data() {
 			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
-			objectCanUseSpecialAbility = true;
+			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
@@ -854,8 +866,6 @@ function initialize_object_data() {
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 30;
 			objectAttackDamageType = "Magic";
-			objectSpecialAttackDamage = 50;
-			objectSpecialAttackDamageType = "Magic";
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -1013,21 +1023,22 @@ function initialize_object_data() {
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Automaton":
 			// Generic variables
-			maxHP = 100;
+			maxHP = 130;
 			currentHP = maxHP;
-			baseMovementSpeed = 1.5;
+			baseMovementSpeed = 1;
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
-			objectSightRange = 6 * 16;
+			objectSightRange = 7 * 16;
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
-			automatonsCanShocktrooper = false;
 			chronicEmpowermentPossible = false;
-			chronicEmpowermentActive = -1; // This is the timer variable. Whenever this is active, Automaton's damage output is multiplied by the below variable.
+			chronicEmpowermentActive = false;
+			chronicEmpowermentTimer = 10 * room_speed;
+			chronicEmpowermentCooldown = 0;
 			chronicEmpowermentBonus = 1.25; // This is a multiplier to be used with Automaton's damage output
 			arcaneWeaponActive = false;
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
@@ -1035,14 +1046,19 @@ function initialize_object_data() {
 			// is applied.
 			arcaneWeaponBonus = 1.15;
 			// Combat variables
-			objectAttackRange = 16 * 1;
-			objectCombatAggroRange = 10; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
-			objectAttackSpeed = 2 * room_speed;
+			objectAttackRange = 1 * 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 1.5 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 30;
+			objectAttackDamage = 29;
 			objectAttackDamageType = "Magic";
-			objectSpecialAttackDamage = 50;
-			objectSpecialAttackDamageType = "Magic";
+			objectCombatSpecializationActive = false;
+			objectCombatSpecializationTimer = 5 * room_speed;
+			objectCombatSpecializationCooldown = -1;
+			objectCombatSpecializationRange = 4 * 16;
+			objectCombatSpecializationAttackDamage = objectAttackDamage; // This damage is applied once per second.
+			objectCombatSpecializationAttackTimer = 1 * room_speed;
+			objectCombatSpecializationAttackCooldown = -1;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.

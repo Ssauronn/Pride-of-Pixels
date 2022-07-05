@@ -29,6 +29,8 @@ TECHNOLOGY UPGRADES
 - SPECIAL 2b -	Automatons: Allows Automatons to be built.
 - SPECIAL 2c -	Ruby Combat Special Abilities: Unlocks the Combat Special Ability for the ruby unit chosen 
 				in your Combat Specialization skill at game start.
+- SPECIAL 3 -	Combat Special Abilities: Unlocks the Combat Special Abilities for the ruby
+		unit chosen in your Combat Specialization skill at game start.
 - INNOVATION 2 -Shocktroopers: Unlocks the Shocktroopers ability for Automatons, allowing the player to
 		teleport all Automatons not currently in combat to a location within range
 		of a friendly unit that is in combat. This ability has a long cooldown.
@@ -46,19 +48,19 @@ TIER 1 UPGRADES
 - DEFENSIVE 2b -Thickened Skin: Increases the slash armor of all ruby units.
 - DEFENSIVE 2c -Slowing Field: Increases the pierce armor of all ruby units.
 MAGICAL UPGRADES
-- SPECIAL 3a -	Sacrifice: Abominations can now be sacrificed at a Temple, which provides the player with the
+- SPECIAL 4a -	Sacrifice: Abominations can now be sacrificed at a Temple, which provides the player with the
 		body parts the Abomination was created with. The player can then create Abominations
 		with those body parts, thereby allowing the player to design what kind of
 		Abomination they would like.
-- SPECIAL 3b -	Frankensteins: Abominations are now given bonuses depending on the parts they're created with.
+- SPECIAL 4b -	Frankensteins: Abominations are now given bonuses depending on the parts they're created with.
 		Each Werewolf part increases the movement speed of Abominations. Each Robot part
 		increases the damage of Abominations. Each Ogre part increases the health of
 		Abominations.
-- SPECIAL 3c -	Soulwell: IF SOUL SUBJUGATOR CHOSEN: All ruby units are granted additional health on spawn. 
+- SPECIAL 4c -	Soulwell: IF SOUL SUBJUGATOR CHOSEN: All ruby units are granted additional health on spawn. 
 		Ruby units respawned with Soul Subjugator lose this effect.
-- SPECIAL 3c -	Mass Enslavement: IF RITUAL GROUNDS CHOSEN: Warlocks now summon 3 Demons at once. The Warlock
+- SPECIAL 4c -	Mass Enslavement: IF RITUAL GROUNDS CHOSEN: Warlocks now summon 3 Demons at once. The Warlock
 		will not summon more Demons until all 3 are dead.
-- SPECIAL 3c -	Cycling: IF UNHOLY ZIGGURAT CHOSEN: Any unit currently empowered by Unholy Ziggurat can be
+- SPECIAL 4c -	Cycling: IF UNHOLY ZIGGURAT CHOSEN: Any unit currently empowered by Unholy Ziggurat can be
 		sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the
 		charge level it was previously at, minus one charge level.
 TECHNOLOGY UPGRADES
