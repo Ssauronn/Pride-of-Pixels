@@ -157,7 +157,7 @@ with obj_building {
 	if objectSelected {
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		if objectType == "City Hall" {
-			player[1].cityHall.draw_all_buttons();
+			draw_all_buttons();
 		}
 	}
 }

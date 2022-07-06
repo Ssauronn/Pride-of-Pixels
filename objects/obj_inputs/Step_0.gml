@@ -426,7 +426,7 @@ if (room_get_name(room) == "WarRoom") && (!obj_gui.startMenu.active) {
 						}
 					}
 					with obj_building {
-						if point_in_rectangle(x, y, left_line_location_ - 2 - 48, top_line_location_ - 2, right_line_location_, bottom_line_location_ + 64) {
+						if rectangle_in_rectangle(x, y + 16, x + sprite_width, y - sprite_height + 16, left_line_location_ + 2, top_line_location_ + 2, right_line_location_ - 2, bottom_line_location_ - 2) {
 							if !objectSelected {
 								resource_selected_ = true;
 								objectSelected = true;

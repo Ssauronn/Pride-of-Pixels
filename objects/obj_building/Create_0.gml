@@ -9,7 +9,7 @@ initialized = false;
 
 // Object classification and type, used for selection and targeting purposes
 objectClassification = "Building";
-objectType = "City Hall"
+objectType = ""
 objectSelected = false;
 objectOnScreen = false;
 objectTarget = noone;
@@ -22,6 +22,10 @@ objectVisibleTeam = objectRealTeam;
 // Timer to detect nearby enemy targets
 objectDetectTarget = irandom_range(0, room_speed);
 objectDetectedList = noone;
+
+// Sprite Info
+currentImageIndexSpeed = 8 / room_speed;
+currentImageIndex = 0;
 
 spawnUnit = 60;
 

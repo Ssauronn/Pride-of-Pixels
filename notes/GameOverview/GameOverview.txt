@@ -106,16 +106,15 @@ Types of Buildings
 ----Can be populated with one unit. The unit is destroyed in the process but the Tower now gains effects from
     that unit. Melee units grant the tower extra defense. Ranged units grant the tower extra attack. Magic units
     grant the tower a special ability. Certain upgrade trees can allow the garrison of more units, or additional
-    effects granted from all different types of units.
+    effects granted from all different types of units. Can be upgraded to Magic Spire.
+-Magic Spire
+----Enhanced Tower effects.
 -Obelisk
 ----Provides bonuses to all nearby friendly structures. Upgrade paths can allow for additional uses like the
     ability to teleport units between Obelisks, true sight within radius to see Rogues and Subverters, and
     healing for damaged units.
 -Wall
-----Stops all units from moving over it. Can be upgraded to Magic Wall.
--Magic Wall
-----Stops only enemies units from moving over it. Can only be obtained by upgrading a Wall.
-    Bonus production when not near other buildings.
+----Stops all units from moving over it. Can be upgraded multiple times.
 -Farm
 ----Can be used by Workers. Provides endless food at a reduced rate when compared to gathering.
     Bonus production when not near other buildings.
@@ -125,9 +124,6 @@ Types of Buildings
 -Mine
 ----Can be used by Workers. Provides endless gold at a reduced rate when compared to gathering.
     Bonus production when not near other buildings.
--Ruby Pit
-----Can be used by Workers. Only placeable on top of Powerful Auras. Provides endless Rubies at
-    a reduced rate when compared to gathering.
 
 
 Upgrades Possible
