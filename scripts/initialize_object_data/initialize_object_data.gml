@@ -184,6 +184,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -239,6 +242,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -292,6 +298,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -348,6 +357,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -401,6 +413,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -459,6 +474,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -548,6 +566,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -625,6 +646,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -658,7 +682,7 @@ function initialize_object_data() {
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 0.5 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 4;
+			objectAttackDamage = 8;
 			objectAttackDamageType = "Pierce";
 			// This is the time limit to determine how long the Demon should last before dying automatically if permanent pets 
 			// aren't unlocked.
@@ -699,6 +723,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -771,6 +798,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -830,6 +860,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -1050,15 +1083,16 @@ function initialize_object_data() {
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 1.5 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 29;
+			objectAttackDamage = 20;
 			objectAttackDamageType = "Magic";
 			objectCombatSpecializationActive = false;
 			objectCombatSpecializationTimer = 5 * room_speed;
 			objectCombatSpecializationCooldown = -1;
 			objectCombatSpecializationRange = 4 * 16;
-			objectCombatSpecializationAttackDamage = objectAttackDamage; // This damage is applied once per second.
+			objectCombatSpecializationAttackDamage = objectAttackDamage / 2; // This damage is applied once per second.
 			objectCombatSpecializationAttackTimer = 1 * room_speed;
 			objectCombatSpecializationAttackCooldown = -1;
+			objectCombatSpecializationEnemiesWithinRangeThreshold = 3;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -1086,6 +1120,9 @@ function initialize_object_data() {
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
+			currentHeadSprite = noone;
+			currentChestSprite = noone;
+			currentLegsSprite = noone;
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
@@ -1099,35 +1136,72 @@ function initialize_object_data() {
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "City Hall":
 			// Generic variables
-			maxHP = 1500;
+			maxHP = 2500;
 			currentHP = maxHP;
 			populationProvided = 25;
-			objectSightRange = 10 * 16;
-			// The distance at which attacks can used, in pixels
-			objectAttackRange = 16 * 8;
-			canAttack = true;
+			objectSightRange = 13 * 16;
+			maxAmountOfThisBuildingAllowed = 6;
 			// Combat variables
 			// The distance at which the object will aggro to enemies, in 16x16 block units
-			objectCombatAggroRange = 8;
+			// The distance at which attacks can used, in pixels
+			canAttack = true;
+			objectAttackRange = 8 * 16;
+			objectCombatAggroRange = 8; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 1 * room_speed;
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 12;
 			objectAttackDamageType = "Pierce";
-			objectSlashResistance = 0.9;
-			objectPierceResistance = 1;
-			objectMagicResistance = 1;
+			objectSlashResistance = 1;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.25;
 			// Rally Point
 			rallyPointX = x + 32;
 			rallyPointY = y + 32;
-			sprite_index = spr_building_xlarge;
-			var floor_x_ = floor(x / 16) * 16;
-			var floor_y_ = floor(y / 16) * 16;
+			// Sprites
+			currentSprite = spr_building_xlarge;
+			sprite_index = currentSprite;
 			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
 			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
 			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
 			
+			break;
+		case "House":
+			// Generic variables
+			maxHP = 500;
+			currentHP = maxHP;
+			populationProvided = 5;
+			objectSightRange = 4 * 16;
+			maxAmountOfThisBuildingAllowed = 10;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = 0 * 16;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 1;
+			objectMagicResistance = 1.5;
+			// Rally Point
+			rallyPointX = x;
+			rallyPointY = y + 16;
+			// Sprites
+			currentSprite = spr_building_small;
+			sprite_index = currentSprite;
+			mask_index = spr_16_16;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
+			
+			// Specific Variables
 			
 			break;
 		case "Temple":
@@ -1135,6 +1209,32 @@ function initialize_object_data() {
 			// In this case, all the generic variables need to be added here, 
 			// in addition to the building specific variable
 			// Generic Variables
+			maxHP = 2500;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 9 * 16;
+			maxAmountOfThisBuildingAllowed = 10;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = 0 * 16;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 1;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.25;
+			// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			// Sprites
+			baseTemple = spr_building_large;
+			sprite_index = baseTemple;
+			mask_index = spr_48_48;
+			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
 			canTrainRubyUnits = false;
@@ -1146,7 +1246,35 @@ function initialize_object_data() {
 			// In this case, all the generic variables need to be added here, 
 			// in addition to the building specific variable
 			// Generic Variables
-			objectSightRange = 10 * 16;
+			maxHP = 500;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 15 * 16;
+			maxAmountOfThisBuildingAllowed = 20;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = true;
+			objectAttackRange = 8 * 16;
+			objectCombatAggroRange = 8; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 1 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 7;
+			objectAttackDamageType = "Magic";
+			objectSlashResistance = 1;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.25;
+			// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			// Sprites
+			currentSprite = spr_obelisk_building;
+			sprite_index = currentSprite;
+			mask_index = spr_32_16;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
 			telescopesActive = false;
@@ -1196,21 +1324,141 @@ function initialize_object_data() {
 			// In this case, all the generic variables need to be added here, 
 			// in addition to the building specific variable
 			// Generic Variables
+			// Generic variables
+			maxHP = 800;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 7 * 16;
+			maxAmountOfThisBuildingAllowed = 1;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = 0 * 16;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 1;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.25;
+			// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			// Sprites
+			currentSprite = spr_soul_subjugator_building;
+			sprite_index = currentSprite;
+			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
 			soulwellActive = false;
 			break;
 		case "Ritual Grounds":
+			// Generic variables
+			maxHP = 800;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 7 * 16;
+			maxAmountOfThisBuildingAllowed = 1;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = 0 * 16;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 1;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.25;
+			// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			// Sprites
+			currentSprite = spr_building_xlarge;
+			sprite_index = currentSprite;
+			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
 			massEnslavementActive = false;
 			break;
 		case "Unholy Ziggurat":
+			// Generic variables
+			maxHP = 800;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 7 * 16;
+			maxAmountOfThisBuildingAllowed = 1;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = 0 * 16;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 1;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.25;
+			// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			// Sprites
+			currentSprite = spr_building_xlarge;
+			sprite_index = currentSprite;
+			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
 			cyclingActive = false;
 			break;
 		case "Outpost":
+			// Generic variables
+			maxHP = 400;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 9 * 16;
+			maxAmountOfThisBuildingAllowed = 12;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = true;
+			objectAttackRange = 7 * 16;
+			objectCombatAggroRange = 7; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 1 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 12;
+			objectAttackDamageType = "Pierce";
+			objectSlashResistance = 1;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.25;
+			// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			// Sprites
+			currentSprite = spr_building_xlarge;
+			sprite_index = currentSprite;
+			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
 			bonfireActive = false;
@@ -1248,6 +1496,36 @@ function initialize_object_data() {
 			enhancedGarrisonFireballAttackSpeedBoost = 0.5 * room_speed; // This is a debuff because an addition of a positive number reduces the attack speed.
 			break;
 		case "Wall":
+			// Generic variables
+			maxHP = 400;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 2 * 16;
+			maxAmountOfThisBuildingAllowed = 10000;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = 0 * 16;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 0.9;
+			objectPierceResistance = 0.9;
+			objectMagicResistance = 0.9;
+			// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			// Sprites
+			currentSprite = spr_building_small;
+			sprite_index = currentSprite;
+			mask_index = spr_16_16;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
 			stoneWallsActive = false;

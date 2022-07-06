@@ -23,6 +23,14 @@ else {
 }
 
 if !obj_gui.startMenu.active {
+	// Move the building animation forward
+	currentImageIndex += currentImageIndexSpeed;
+	if currentImageIndex > (sprite_get_number(sprite_index) - 1) {
+		currentImageIndex = 0;
+	}
+	sprite_index = currentSprite;
+	image_index = currentImageIndex;
+	
 	// If the mouse is on the map and not on the toolbar, then allow clicks
 	if ((device_mouse_y_to_gui(0) <= obj_gui.toolbarTopY) || ((device_mouse_x_to_gui(0) <= obj_gui.toolbarLeftX) || (device_mouse_x_to_gui(0) >= obj_gui.toolbarRightX))) {
 		if mouse_check_button_pressed(mb_right) && (objectSelected) {

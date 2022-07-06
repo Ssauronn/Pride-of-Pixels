@@ -86,7 +86,7 @@ if !obj_gui.startMenu.active {
 		}
 		// However, if the object's current action is to mine, chop, farm, or attack, check to see if its currently idling.
 		// Just to reiterate, I check for either regular sprites, or the head sprite of Abominations
-		else if ((currentSprite == unitSprite[unitAction.idle][currentDirection]) || (currentSprite == unitSprite[unitAction.move][currentDirection])) || ((currentHeadSprite == unitSprite[headBodyPart][unitAction.idle][currentDirection]) || (currentHeadSprite == unitSprite[headBodyPart][unitAction.move][currentDirection])) {
+		else if ((currentSprite == unitSprite[unitAction.idle][currentDirection]) || (currentSprite == unitSprite[unitAction.move][currentDirection])) || ((objectType == "Abomination") && ((currentHeadSprite == unitSprite[headBodyPart][unitAction.idle][currentDirection]) || (currentHeadSprite == unitSprite[headBodyPart][unitAction.move][currentDirection]))) {
 			if (currentAction == unitAction.mine) || (currentAction == unitAction.chop) || (currentAction == unitAction.farm) || (currentAction == unitAction.attack) {
 				// If the object is still commanded to mine, chop, farm, or attack, and the idle time is over, start the action animation.
 				if spriteWaitTimer <= 0 {

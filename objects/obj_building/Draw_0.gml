@@ -1,8 +1,8 @@
 // Draw sprite indicating selection
 if objectOnScreen {
 	if objectSelected {
-		switch sprite_width {
-			case 16:
+		switch mask_index {
+			case spr_16_16:
 				draw_sprite_ext(spr_selected, 0, x, y, 1, 1, 0, c_white, 0.75);
 				break;
 			case 32:
@@ -17,8 +17,10 @@ if objectOnScreen {
 		}
 		draw_sprite(spr_rally_point, 1, floor(rallyPointX / 16) * 16, floor(rallyPointY / 16) * 16);
 	}
-	// Draw self
-	draw_self();
+	if !obj_gui.startMenu.active {
+		// Draw self
+		draw_sprite(currentSprite, currentImageIndex, x, y)
+	}
 }
 
 
