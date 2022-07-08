@@ -1,7 +1,7 @@
 ///@function					detect_closest_enemy_object();
 ///@param	{string}			optional - objectType
-///@description					Detects all nearby objects within a given range. Can take optional
-///								arguments to determine if specific types of enemies are nearby.
+///@description					Detects the closest enemy object out of any potential enemy
+///								objects around.
 
 function detect_closest_enemy_object() {
 	/*
@@ -35,7 +35,8 @@ function detect_closest_enemy_object() {
 			// at location matches the specified target type, then determine if its the closest target,
 			// and if so, attack that target.
 			if instance_exists(instance_at_location_) {
-				if instance_at_location_.objectClassification != "Resource" {
+				// As long as the nearby object isn't a resource or resource building, continue working.
+				if (instance_at_location_.objectClassification != "Resource") && (instance_at_location_.objectType != "Farm") && (instance_at_location_.objectType != "Thicket") && (instance_at_location_.objectType != "Mine") {
 					// Specifically check to see if the visible team, AND real team is not equal to the
 					// same team as the object calling this script. This prevents any automatic check from
 					// registering friendly spies who are commanded to look like enemy units, or registering
