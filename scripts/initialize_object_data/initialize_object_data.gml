@@ -55,6 +55,10 @@ enum abominationBodyPartStats {
 // obj_stat_manager.
 function apply_all_upgrades_at_spawn() {
 	/*
+	IMPORTANT: As I go through each upgrade and check to see if it's available, the checks need to be
+	dynamic so that I can add upgrades or remove upgrades without causing issues or being required to
+	change this section too. That means auto checking for every possible combination of stats that
+	correspond to objects to handle everything automatically.
 		// keep in mind, all this code is called in initialize_object_data(), which itself is ran in
 		// the object step event (obj_unit or obj_building). So the code below is built using
 		// variables already set in initialize_object_data().
@@ -1544,6 +1548,15 @@ function initialize_object_data() {
 			magicWallsArmorBonus = -0.25;// Armor bonus here should only apply to basic damage types, to make magic damage powerful vs otherwise super tanky walls.
 			magicWallsMaxHPBonus = 300;
 			magicWallsSprite = noone;
+			break;
+		case "Farm":
+			
+			break;
+		case "Thicket":
+			
+			break;
+		case "Mine":
+			
 			break;
 		#endregion
 	}
