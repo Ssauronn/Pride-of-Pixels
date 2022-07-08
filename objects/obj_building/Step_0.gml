@@ -6,6 +6,7 @@ if --spawnUnit <= 0 {
 if !initialized {
 	initialized = true;
 	initialize_object_data();
+	add_self_to_storehouse_city_hall_list();
 }
 // Depth setting
 depth = y;

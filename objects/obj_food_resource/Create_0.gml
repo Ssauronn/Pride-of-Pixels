@@ -25,4 +25,7 @@ objectOnScreen = false;
 currentHP = 75;
 maxHP = 75;
 
+// Object weight, used to determine how much a single worker can carry
+foodWeight = 2;
+
 

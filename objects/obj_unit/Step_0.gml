@@ -173,7 +173,7 @@ if !obj_gui.startMenu.active {
 		// Firstly, if the object was automatically instructed to move, check for what object is at its target location and if the
 		// found object is not an object its commanded to attack or mine, change the object it should be attacking or mining
 		// to something valid.
-		if keyboard_check(vk_control) {
+		if (keyboard_check(vk_control)) && (objectSelected) {
 			forceAttack = true;
 		}
 		if objectNeedsToMove {
@@ -195,7 +195,9 @@ if !obj_gui.startMenu.active {
 						}
 					}
 					else if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Ruby Mine") || (objectCurrentCommand == "Farm") {
-						if temp_instance_to_reference_.objectClassification == "Resource" {
+						// Allow Workers to move if their target location is either a resource
+						// or a Storehouse
+						if (temp_instance_to_reference_.objectClassification == "Resource") || (temp_instance_to_reference_.objectType == "Storehouse") {
 							object_at_location_ = temp_instance_to_reference_;
 							target_found_ = true;
 						}
@@ -237,7 +239,7 @@ if !obj_gui.startMenu.active {
 			if instance_exists(object_at_location_) {
 				// If the object_at_location_ is not a resource to mine, and not a building that 
 				// can be mined like a Farm, Thicket, or Mine
-				if ((object_at_location_.objectClassification != "Resource") || ((object_at_location_.objectClassification == "Building") && (object_at_location_.objectType != "Farm") && (object_at_location_.objectType != "Thicket") && (object_at_location_.objectType != "Mine"))) && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
+				if ((object_at_location_.objectClassification != "Resource") || ((object_at_location_.objectClassification == "Building") && (object_at_location_.objectType != "Storehouse") && (object_at_location_.objectTarget != "City Hall") && (object_at_location_.objectType != "Farm") && (object_at_location_.objectType != "Thicket") && (object_at_location_.objectType != "Mine"))) && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
 					if objectCurrentCommand == "Chop" {
 						if !instance_exists(object_at_location_) || ((object_at_location_.object_index != obj_tree_resource) && (object_at_location_.objectType != "Thicket")) {
 							temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_tree_resource);

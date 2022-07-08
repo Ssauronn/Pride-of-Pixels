@@ -25,4 +25,7 @@ objectOnScreen = false;
 currentHP = 200;
 maxHP = 200;
 
+// Object weight, used to determine how much a single worker can carry
+woodWeight = 4;
+
 

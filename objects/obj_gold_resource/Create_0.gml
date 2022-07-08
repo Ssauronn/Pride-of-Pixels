@@ -25,4 +25,7 @@ objectOnScreen = false;
 currentHP = 2000;
 maxHP = 2000;
 
+// Object weight, used to determine how much a single worker can carry
+goldWeight = 5;
+
 

@@ -10,10 +10,12 @@ TECHNOLOGY UPGRADES
 		(Upgrade also available at Town Hall).
 
 TIER 2 UPGRADES
-- INNOVATION 2-	Advanced Tooling: Further increases the gathering speed of all base resources by Workers.
+- INNOVATION 2a-Advanced Tooling: Further increases the gathering speed of all base resources by Workers.
 - SPECIAL 1 -	Drilling: Allows Workers to mine Rubies.
 		(Upgrade also available at Town Hall).
 - INNOVATION-3	Magic Training: Increases the gathering speed of Rubies by Workers.
+MAGIC UPGRADES
+- INNOVATION 2b-Bottomless Bag: Increases the amount of Food, Wood, and Gold that Workers can carry.
 
 TIER 1 UPGRADES
 - INNOVATION 4-	Speedy Hands: Further increases the gathering speed of all base resources by Workers.

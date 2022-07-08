@@ -19,4 +19,7 @@ currentHP = 1000;
 maxHP = 1000;
 regenerationPerSecond = (maxHP / room_speed) / 60; // Takes 1 minute precisely to regenerate its full HP
 
+// Object weight, used to determine how much a single worker can carry
+rubyWeight = 8;
+
 

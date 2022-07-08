@@ -19,6 +19,7 @@ function team_struct(team_) constructor {
 	population = 0;
 	age = 0;
 	specialization = noone;
+	listOfStorehousesAndCityHalls = noone;
 	flaskChosen = "";
 	flaskCooldownTimer = 120 * room_speed;
 	flaskCooldown = 0;
@@ -578,9 +579,13 @@ function _storehouse() constructor {
 				false, 1, false, noone, "Storehouse", "Worker", "canUseDrones", noone, 1, 30, 50, 50, 250, 
 				0, noone, noone, noone);
 	advancedTooling = new _upgrade_options("Advanced Tooling", "Further increases the gathering speed of all basic resources by Workers.", 
-				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
+				eUpgradeTree.universal, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Storehouse", "Worker", "objectFoodGatherDamage and objectWoodChopDamage and objectGoldMineDamage", 
 				noone, 1, 120, 200, 400, 400, 0, noone, noone, noone);
+	bottomlessBag = new _upgrade_options("Bottomless Bag", "Increases the amount of Food, Wood, and Gold that Workers can carry.", 
+				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.b, 
+				false, 2, false, noone, "Storehouse", "Worker", "maxResourceWeightCanCarry", noone, 20, 120, 
+				0, 400, 600, 0, noone, noone, noone);
 	// Drilling is also available on the City Hall building
 	drilling = new _upgrade_options("Drilling", "Allows Workers to mine Rubies", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 

@@ -48,6 +48,11 @@ function kill_self() {
 		}
 	}
 	
+	// Remove self from the list of Storehouses and City Halls for that specific player if the object
+	// being destroyed here is a Storehouse or City Hall.
+	remove_self_from_storehouse_city_hall_list();
+	
+	
 	// Destroy self finally
 	instance_destroy(self);
 }

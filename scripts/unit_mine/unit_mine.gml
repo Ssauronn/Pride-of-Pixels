@@ -26,32 +26,66 @@ function unit_mine() {
 				}
 				if correct_animation_active_ {
 					switch objectTarget.objectType {
-						case "Wood":
-							if objectWoodChopSpeedTimer <= 0 {
-								objectWoodChopSpeedTimer = objectWoodChopSpeed;
-								objectTarget.currentHP -= objectWoodChopDamage;
-								player[objectRealTeam].wood += objectWoodChopDamage;
-							}
-							break;
 						case "Food":
 							if objectFoodGatherSpeedTimer <= 0 {
 								objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
-								objectTarget.currentHP -= objectFoodGatherDamage;
-								player[objectRealTeam].food += objectFoodGatherDamage;
+								// Add the lesser of either the max amount of resources that can be collected right now,
+								// or the max amount of resources that can be collected without forcing currentResourceWeightCarry
+								// above maxResourceWeightCarry.
+								var food_weight_ = obj_food_resource.foodWeight;
+								var max_amount_of_food_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / food_weight_)
+								objectTarget.currentHP -= min(objectFoodGatherDamage, max_amount_of_food_obtainable_);
+								currentFoodCarry += min(objectFoodGatherDamage, max_amount_of_food_obtainable_);
+								currentResourceWeightCarry += min((objectFoodGatherDamage * food_weight_), (max_amount_of_food_obtainable_ * food_weight_));
+								// Check to see if the Worker is maxed out by weight, and if so, move to deposit resources
+								// into a Storehouse.
+								if max_amount_of_food_obtainable_ < objectFoodGatherDamage {
+									objectNeedsToMove = true;
+									ds_list_sort_distance(player[objectRealTeam].listOfStorehousesAndCityHalls);
+									objectTarget = ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0);
+									targetToMoveToX = objectTarget.x;
+									targetToMoveToY = objectTarget.y;
+								}
+							}
+							break;
+						case "Wood":
+							if objectWoodChopSpeedTimer <= 0 {
+								// Add the lesser of either the max amount of resources that can be collected right now,
+								// or the max amount of resources that can be collected without forcing currentResourceWeightCarry
+								// above maxResourceWeightCarry.
+								objectWoodChopSpeedTimer = objectWoodChopSpeed;
+								var wood_weight_ = obj_tree_resource.woodWeight;
+								var max_amount_of_wood_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / wood_weight_)
+								objectTarget.currentHP -= min(objectWoodChopDamage, max_amount_of_wood_obtainable_);
+								currentWoodCarry += min(objectWoodChopDamage, max_amount_of_wood_obtainable_);
+								currentResourceWeightCarry += min((objectWoodChopDamage * wood_weight_), (max_amount_of_wood_obtainable_ * wood_weight_));
+								
 							}
 							break;
 						case "Gold":
 							if objectGoldMineSpeedTimer <= 0 {
+								// Add the lesser of either the max amount of resources that can be collected right now,
+								// or the max amount of resources that can be collected without forcing currentResourceWeightCarry
+								// above maxResourceWeightCarry.
 								objectGoldMineSpeedTimer = objectGoldMineSpeed;
-								objectTarget.currentHP -= objectGoldMineDamage;
-								player[objectRealTeam].gold += objectGoldMineDamage;
+								var gold_weight_ = obj_gold_resource.goldWeight;
+								var max_amount_of_gold_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / gold_weight_)
+								objectTarget.currentHP -= min(objectGoldMineDamage, max_amount_of_gold_obtainable_);
+								currentGoldCarry += min(objectGoldMineDamage, max_amount_of_gold_obtainable_);
+								currentResourceWeightCarry += min((objectGoldMineDamage * gold_weight_), (max_amount_of_wood_obtainable_ * gold_weight_));
 							}
 							break;
 						case "Ruby":
 							if objectRubyMineSpeedTimer <= 0 {
+								// Add the lesser of either the max amount of resources that can be collected right now,
+								// or the max amount of resources that can be collected without forcing currentResourceWeightCarry
+								// above maxResourceWeightCarry.
 								objectRubyMineSpeedTimer = objectRubyMineSpeed;
-								objectTarget.currentHP -= objectRubyMineDamage;
-								player[objectRealTeam].rubies += objectRubyMineDamage;
+								var ruby_weight_ = obj_ruby_resource.rubyWeight;
+								var max_amount_of_ruby_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / ruby_weight_)
+								objectTarget.currentHP -= min(objectRubyMineDamage, max_amount_of_ruby_obtainable_);
+								currentRubyCarry += min(objectRubyMineDamage, max_amount_of_ruby_obtainable_);
+								currentResourceWeightCarry += min((objectRubyMineDamage * ruby_weight_), (max_amount_of_ruby_obtainable_ * ruby_weight_));
 							}
 							break;
 						case "Farm":
@@ -73,6 +107,10 @@ function unit_mine() {
 							}
 							break;
 					}
+					// Now that resource collecting has happened, if the Worker is carrying its max
+					// amount of resources, send the worker to a Storehouse or City Hall to deposit
+					// the resources, and then back to it's original resource.
+					
 				}
 			}
 			else {

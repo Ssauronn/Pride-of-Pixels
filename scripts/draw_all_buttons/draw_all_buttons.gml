@@ -1,5 +1,5 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+///@function					draw_all_buttons();
+///@description					This script is used to draw the GUI buttons
 function draw_all_buttons() {
 	var first_row_y_value_ = obj_gui.toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * obj_gui.toolbarUpgradeHorizontalDividerYScale) + (obj_gui.toolbarButtonSpacing * 2);
 	var second_row_y_value_ = obj_gui.toolbarTopY + (sprite_get_height(spr_horizontal_solid_divider) * obj_gui.toolbarUpgradeHorizontalDividerYScale) + (obj_gui.toolbarButtonSpacing * 3) + (obj_gui.toolbarButtonWidth * 1);
