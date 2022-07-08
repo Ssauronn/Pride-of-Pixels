@@ -441,10 +441,12 @@ if !obj_gui.startMenu.active {
 					}
 				}
 				// Reset objectTarget so that it can be properly set in the movement script.
-				objectTarget = noone;
-				objectTargetType = noone;
-				objectTargetTeam = noone;
-				forceAttack = false;
+				if !forceAttack {
+					objectTarget = noone;
+					objectTargetType = noone;
+					objectTargetTeam = noone;
+					forceAttack = false;
+				}
 			
 				// Find all other valid targets within range, and add them to the objectTargetList.
 				var square_iteration_, square_iteration_random_start_number_, square_true_iteration_, square_size_increase_count_, square_size_increase_count_max_, base_square_edge_size_, search_increment_size_, temp_check_x_, temp_check_y_, target_x_, target_y_;
@@ -586,7 +588,7 @@ if !obj_gui.startMenu.active {
 				// If the object at target location is a valid target, then mine/attack it if the
 				// object selected is an object that can mine it. An object's actual "team" 
 				// (objectRealTeam) will only be set to "Neutral" if it is a resource.
-				if object_at_location_.objectRealTeam == player[0].team {
+				if (object_at_location_.objectRealTeam == player[0].team) && (!forceAttack) {
 					// Out of all selected objects, if the currently referenced object in the selected
 					// object list belongs to the player, is a unitAction, and is a worker, then set the
 					// object that was clicked on as the target.

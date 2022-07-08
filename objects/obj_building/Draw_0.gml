@@ -19,6 +19,12 @@ if objectOnScreen {
 	}
 	if !obj_gui.startMenu.active {
 		// Draw self
+		if objectType == "Obelisk" {
+			var teet_ = 1;
+		}
+		if objectType == "City Hall" {
+			var teet_ = 1;
+		}
 		draw_sprite(currentSprite, currentImageIndex, x, y)
 	}
 }
