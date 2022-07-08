@@ -8,6 +8,9 @@ function team_struct(team_) constructor {
 	obelisk = new _obelisk();
 	outpost = new _outpost();
 	wall = new _wall();
+	//farm = new _farm();
+	//thicket = new _thicket();
+	//mine = new _mine();
 	team = team_;
 	food = 0;
 	wood = 0;

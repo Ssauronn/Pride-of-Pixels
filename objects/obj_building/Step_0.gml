@@ -34,6 +34,9 @@ if !obj_gui.startMenu.active {
 	// If the mouse is on the map and not on the toolbar, then allow clicks
 	if ((device_mouse_y_to_gui(0) <= obj_gui.toolbarTopY) || ((device_mouse_x_to_gui(0) <= obj_gui.toolbarLeftX) || (device_mouse_x_to_gui(0) >= obj_gui.toolbarRightX))) {
 		if mouse_check_button_pressed(mb_right) && (objectSelected) {
+			if keyboard_check(vk_control) {
+				forceAttack = true;
+			}
 			var object_at_location_ = instance_place((floor(mouse_x / 16) * 16), (floor(mouse_y / 16) * 16), all);
 			if instance_exists(object_at_location_) {
 				var object_mid_x_ = (floor(object_at_location_.x / 16) * 16) + 8;
@@ -43,19 +46,12 @@ if !obj_gui.startMenu.active {
 					// Set rally point.
 					set_rally(object_mid_x_, object_mid_y_);
 				}
-				// If the object clicked on is not a resource, is not on the building's team, and the building
-				// is a type of building that can attack, attack the object. Otherwise, again, just set the
-				// rally point as normal.
-				else if object_at_location_.objectVisibleTeam != objectRealTeam {
-					// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-					if (objectType == "City Hall") || (objectType == "Tower") || (objectType == "Outpost") {
-						if distance_to_object(object_at_location_) <= objectCombatAggroRange {
-							objectTarget = object_at_location_.id;
-						}
-						else {
-							// Set rally point.
-							set_rally(object_mid_x_, object_mid_y_);
-						}
+				// If the object clicked on is not a resource, is not on the building's team, and the object
+				// is a building, attack. In addition, if the Force Attack button is being held, attack the
+				// object regardless of team. Otherwise, just set it as a rally point.
+				else if (object_at_location_.objectVisibleTeam != objectRealTeam) || (forceAttack) {
+					if (canAttack) && (distance_to_object(object_at_location_) <= objectAttackRange) {
+						objectTarget = object_at_location_.id;
 					}
 					else {
 						// Set rally point.
@@ -78,6 +74,7 @@ if !obj_gui.startMenu.active {
 	if objectDetectTarget <= 0 {
 		objectDetectTarget = room_speed;
 		if !instance_exists(objectTarget) {
+			forceAttack = false;
 			detect_nearby_enemy_objects();
 			if ds_exists(objectDetectedList, ds_type_list) {
 				var instance_nearby_ = ds_list_find_value(objectDetectedList, 0);
@@ -102,10 +99,12 @@ if !obj_gui.startMenu.active {
 			}
 			else {
 				objectTarget = noone;
+				forceAttack = false;
 			}
 		}
 		else {
 			objectTarget = noone;
+			forceAttack = false;
 		}
 	}
 

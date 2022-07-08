@@ -1351,7 +1351,7 @@ function initialize_object_data() {
 			rallyPointX = x + 32;
 			rallyPointY = y + 32;
 			// Sprites
-			currentSprite = spr_soul_subjugator_building;
+			currentSprite = spr_building_xlarge;
 			sprite_index = currentSprite;
 			mask_index = spr_64_64;
 			//var floor_x_ = floor(x / 16) * 16;

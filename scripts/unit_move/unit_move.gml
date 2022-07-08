@@ -5,6 +5,7 @@
 function target_next_object() {
 	if ds_exists(objectTargetList, ds_type_list) {
 		if ds_list_size(objectTargetList) >= 1 {
+			forceAttack = false;
 			ds_list_delete(objectTargetList, 0);
 			if !is_undefined(ds_list_find_value(objectTargetList, 0)) {
 				while (ds_exists(objectTargetList, ds_type_list)) && ((is_undefined(ds_list_find_value(objectTargetList, 0))) || (!instance_exists(ds_list_find_value(objectTargetList, 0)))) {
@@ -21,6 +22,7 @@ function target_next_object() {
 						baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 						groupDirectionToMoveInAdjusted = 0;
 						objectTarget = noone;
+						forceAttack = false;
 						if ds_exists(objectTargetList, ds_type_list) {
 							ds_list_destroy(objectTargetList);
 							objectTargetList = noone;
@@ -58,6 +60,7 @@ function target_next_object() {
 				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 				groupDirectionToMoveInAdjusted = 0;
 				objectTarget = noone;
+				forceAttack = false;
 				if ds_exists(objectTargetList, ds_type_list) {
 					ds_list_destroy(objectTargetList);
 					objectTargetList = noone;
@@ -68,6 +71,7 @@ function target_next_object() {
 			objectCurrentCommand = "Move";
 			objectTargetList = noone;
 			objectTarget = noone;
+			forceAttack = false;
 			targetToMoveToX = originalTargetToMoveToX;
 			targetToMoveToY = originalTargetToMoveToY;
 			squareIteration = 0;
@@ -76,6 +80,7 @@ function target_next_object() {
 			baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 			groupDirectionToMoveInAdjusted = 0;
 			objectTarget = noone;
+			forceAttack = false;
 			if ds_exists(objectTargetList, ds_type_list) {
 				ds_list_destroy(objectTargetList);
 				objectTargetList = noone;
@@ -97,6 +102,7 @@ function target_next_object() {
 		baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 		groupDirectionToMoveInAdjusted = 0;
 		objectTarget = noone;
+		forceAttack = false;
 		if ds_exists(objectTargetList, ds_type_list) {
 			ds_list_destroy(objectTargetList);
 			objectTargetList = noone;
@@ -1119,6 +1125,7 @@ function unit_move() {
 											closestPointsToObjectsHaveBeenSet = false;
 											movementLeaderOrFollowing = noone;
 											objectTarget = noone;
+											forceAttack = false;
 											if path_exists(myPath) {
 												path_delete(myPath);
 												myPath = -1;
@@ -2261,6 +2268,7 @@ function unit_move() {
 				if objectCurrentCommand == "Move" {
 					// Specifically if the unitAction's only command was to move, then remove any targeting that's going on.
 					objectTarget = noone;
+					forceAttack = false;
 					if ds_exists(objectTargetList, ds_type_list) {
 						ds_list_destroy(objectTargetList);
 						objectTargetList = noone;
@@ -2372,6 +2380,7 @@ function unit_move() {
 			objectCurrentCommand = "Idle";
 			currentAction = unitAction.idle;
 			objectTarget = noone;
+			forceAttack = false;
 			objectTargetType = noone;
 			objectTargetTeam = noone;
 		}
