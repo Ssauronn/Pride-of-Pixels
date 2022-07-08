@@ -25,6 +25,9 @@ beingTargetedByWizardRedirect = false;
 wizardApplyingRedirect = noone;
 damageBeingRedirectedTo = noone;
 
+// Variable used to attack friendly targets if the player or AI commands it
+forceAttack = false;
+
 
 // Pathfinding
 objectNeedsToMove = false;

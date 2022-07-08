@@ -5,6 +5,7 @@
 function target_next_object() {
 	if ds_exists(objectTargetList, ds_type_list) {
 		if ds_list_size(objectTargetList) >= 1 {
+			forceAttack = false;
 			ds_list_delete(objectTargetList, 0);
 			if !is_undefined(ds_list_find_value(objectTargetList, 0)) {
 				while (ds_exists(objectTargetList, ds_type_list)) && ((is_undefined(ds_list_find_value(objectTargetList, 0))) || (!instance_exists(ds_list_find_value(objectTargetList, 0)))) {
@@ -21,6 +22,7 @@ function target_next_object() {
 						baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 						groupDirectionToMoveInAdjusted = 0;
 						objectTarget = noone;
+						forceAttack = false;
 						if ds_exists(objectTargetList, ds_type_list) {
 							ds_list_destroy(objectTargetList);
 							objectTargetList = noone;
@@ -58,6 +60,7 @@ function target_next_object() {
 				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 				groupDirectionToMoveInAdjusted = 0;
 				objectTarget = noone;
+				forceAttack = false;
 				if ds_exists(objectTargetList, ds_type_list) {
 					ds_list_destroy(objectTargetList);
 					objectTargetList = noone;
@@ -68,6 +71,7 @@ function target_next_object() {
 			objectCurrentCommand = "Move";
 			objectTargetList = noone;
 			objectTarget = noone;
+			forceAttack = false;
 			targetToMoveToX = originalTargetToMoveToX;
 			targetToMoveToY = originalTargetToMoveToY;
 			squareIteration = 0;
@@ -76,6 +80,7 @@ function target_next_object() {
 			baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 			groupDirectionToMoveInAdjusted = 0;
 			objectTarget = noone;
+			forceAttack = false;
 			if ds_exists(objectTargetList, ds_type_list) {
 				ds_list_destroy(objectTargetList);
 				objectTargetList = noone;
@@ -97,6 +102,7 @@ function target_next_object() {
 		baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 		groupDirectionToMoveInAdjusted = 0;
 		objectTarget = noone;
+		forceAttack = false;
 		if ds_exists(objectTargetList, ds_type_list) {
 			ds_list_destroy(objectTargetList);
 			objectTargetList = noone;
@@ -496,6 +502,7 @@ function unit_move() {
 			// validPathFound and validLocationFound set to false until the leader finds a path, at which point it should set
 			// validPathFound to true and keep validLocationFound to false until a valid path to the appended location can be
 			// found. validPathFound is subsequently set in the else statement after the below if statement.
+			
 			// Finally, start searching for a preliminary valid location to move to.
 			if !validPathFound && (movementLeaderOrFollowing == "Leader") {
 				// If I haven't started a search yet, and if I haven't yet determined original click location isn't valid and started
@@ -1118,6 +1125,7 @@ function unit_move() {
 											closestPointsToObjectsHaveBeenSet = false;
 											movementLeaderOrFollowing = noone;
 											objectTarget = noone;
+											forceAttack = false;
 											if path_exists(myPath) {
 												path_delete(myPath);
 												myPath = -1;
@@ -1214,10 +1222,6 @@ function unit_move() {
 								// Set the size of the minimum pattern.
 								var horizontal_edge_size_, vertical_edge_size_;
 								// If the search area is surrounding a 1x1 grid area
-								// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-								// Currently I'm just checking for "objectTarget.objectClassification == "Building"
-								// I need to change that to check specifically for different building type sizes once
-								// I have a set idea of each building type and size.
 								if (objectTarget.objectClassification == "Unit") || (objectTarget.objectType == "Food") || (objectTarget.objectType == "Wood") {
 									horizontal_edge_size_ = 1;
 									vertical_edge_size_ = 1;
@@ -1232,6 +1236,10 @@ function unit_move() {
 									horizontal_edge_size_ = 3;
 									vertical_edge_size_ = 2;
 								}
+								// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+								// Currently I'm just checking for "objectTarget.objectClassification == "Building"
+								// I need to change that to check specifically for different building type sizes once
+								// I have a set idea of each building type and size.
 								else if (objectTarget.objectClassification == "Building") {
 									horizontal_edge_size_ = 4;
 									vertical_edge_size_ = 4;
@@ -1688,6 +1696,9 @@ function unit_move() {
 						if instance_exists(objectTarget) && ds_exists(unitGridLocation, ds_type_grid) {
 						    var target_ = ds_grid_value_y(unitGridLocation, 0, 0, ds_grid_width(unitGridLocation) - 1, ds_grid_height(unitGridLocation) - 1, objectTarget.id);
 							if target_ != -1 {
+								// I only check for a unit, because units can potentially move. This chunk of code below is to
+								// check to see if the target object is moving, and if it is, I attempt to force the unit to find
+								// a spot that would meet the target unit on its current path.
 								if objectTarget.objectClassification == "Unit" {
 									if objectTarget.currentAction == unitAction.move {
 										// If the distance to the target is less than its attack range, and the target its chasing
@@ -1839,8 +1850,8 @@ function unit_move() {
 					var clipped_objects_ = ds_list_create();
 					/*
 					check distance between each colliding object and store those into a vector
-						vector is determined by direction to colliding objects
-						strength of vector grows as the object is closer
+						- vector is determined by direction to colliding objects
+						- strength of vector grows as the object is closer
 					take averaged power and direction of each vector and move the object in those directions
 					*/
 					var w, clipped_instance_to_reference_, clipped_instance_distance_, clipped_instance_direction_, x_clip_vector_, y_clip_vector_, x_clip_vector_add_, y_clip_vector_add_, x_needs_to_be_removed_, y_needs_to_be_removed_, x_number_of_removed_clipped_objects_, y_number_of_removed_clipped_objects_;
@@ -1939,6 +1950,7 @@ function unit_move() {
 							y_clip_vector_ = (currentMovementSpeed * (y_clip_vector_ / ((abs(y_clip_vector_ div 16) + 1) * 16))) / 4;
 						}
 					}
+					// Destroy the clipped_objects_ list after I'm finished with it to avoid memory leaks.
 					ds_list_destroy(clipped_objects_);
 					
 					// Set the unit's next point to move to equal to the closest point
@@ -2256,6 +2268,7 @@ function unit_move() {
 				if objectCurrentCommand == "Move" {
 					// Specifically if the unitAction's only command was to move, then remove any targeting that's going on.
 					objectTarget = noone;
+					forceAttack = false;
 					if ds_exists(objectTargetList, ds_type_list) {
 						ds_list_destroy(objectTargetList);
 						objectTargetList = noone;
@@ -2367,6 +2380,7 @@ function unit_move() {
 			objectCurrentCommand = "Idle";
 			currentAction = unitAction.idle;
 			objectTarget = noone;
+			forceAttack = false;
 			objectTargetType = noone;
 			objectTargetTeam = noone;
 		}

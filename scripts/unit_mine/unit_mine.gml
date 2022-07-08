@@ -4,9 +4,10 @@
 function unit_mine() {
 	// Check to see if the unitAction should currently be mining - if not, then set to a different state.
 	if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
-		// Check to see if a target to mine exists and the target is a valid target, or if a target
-		// to attack exists and is valid - otherwise, active variables to search for a new target.
-		if (instance_exists(objectTarget)) && (objectTarget.objectClassification == "Resource") {
+		// Check to see if a target to collect from exists and the target is a valid target, or if
+		// a target to attack exists and is valid - otherwise, active variables to search for a new
+		// target.
+		if (instance_exists(objectTarget)) && ((objectTarget.objectClassification == "Resource") || ((objectTarget.objectClassification == "Building") && ((objectTarget.objectType == "Farm") || (objectTarget.objectType == "Thicket") || (objectTarget.objectType == "Mine")))) {
 			currentDirection = (point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) div 90;
 			if currentDirection > 3 {
 				currentDirection -= 4;
@@ -51,6 +52,24 @@ function unit_mine() {
 								objectRubyMineSpeedTimer = objectRubyMineSpeed;
 								objectTarget.currentHP -= objectRubyMineDamage;
 								player[objectRealTeam].rubies += objectRubyMineDamage;
+							}
+							break;
+						case "Farm":
+							if objectFoodGatherSpeedTimer <= 0 {
+								objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+								player[objectRealTeam].food += objectFoodGatherDamage * (0.8);
+							}
+							break;
+						case "Thicket":
+							if objectWoodChopSpeedTimer <= 0 {
+								objectWoodChopSpeedTimer = objectWoodChopSpeed;
+								player[objectRealTeam].wood += objectWoodChopDamage * (0.8);
+							}
+							break;
+						case "Mine":
+							if objectGoldMineSpeedTimer <= 0 {
+								objectGoldMineSpeedTimer = objectGoldMineSpeed;
+								player[objectRealTeam].gold += objectGoldMineDamage * (0.8);
 							}
 							break;
 					}

@@ -127,7 +127,7 @@ if !obj_gui.startMenu.active {
 							if objectTarget.objectType == "Ruby" {
 								spriteWaitTimer = objectRubyMineSpeedTimer - (3 * (1 / currentImageIndexSpeed));
 							}
-							else if objectTarget.objectType == "Gold" {
+							else if (objectTarget.objectType == "Gold") || (objectTarget.objectType == "Mine") {
 								spriteWaitTimer = objectGoldMineSpeedTimer - (3 * (1 / currentImageIndexSpeed));
 							}
 						}
@@ -161,17 +161,21 @@ if !obj_gui.startMenu.active {
 	// If any exist, set those as the target.
 	if objectCurrentCommand == "Attack" {
 		if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
+			forceAttack = false;
 			check_for_new_target();
 		}
 	}
-
-
+	
+	
 	var target_list_ = noone;
 	// If the mouse is on the map and not on the toolbar, then allow clicks. Or if the unit is being autonomously commanded to move, move it.
 	if (mouse_check_button_pressed(mb_right) && (objectSelected) && ((device_mouse_y_to_gui(0) <= obj_gui.toolbarTopY) || ((device_mouse_x_to_gui(0) <= obj_gui.toolbarLeftX) || (device_mouse_x_to_gui(0) >= obj_gui.toolbarRightX)))) || objectNeedsToMove {
 		// Firstly, if the object was automatically instructed to move, check for what object is at its target location and if the
 		// found object is not an object its commanded to attack or mine, change the object it should be attacking or mining
 		// to something valid.
+		if keyboard_check(vk_control) {
+			forceAttack = true;
+		}
 		if objectNeedsToMove {
 			// Get the ID of every single object currently at the click location, and depending on what the object
 			// was commanded to do previously, determine which object currently at the click location should be the
@@ -231,9 +235,11 @@ if !obj_gui.startMenu.active {
 			// user input being overridden.
 			var temp_object_at_location_ = noone;
 			if instance_exists(object_at_location_) {
-				if (object_at_location_.objectClassification != "Resource") && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
+				// If the object_at_location_ is not a resource to mine, and not a building that 
+				// can be mined like a Farm, Thicket, or Mine
+				if ((object_at_location_.objectClassification != "Resource") || ((object_at_location_.objectClassification == "Building") && (object_at_location_.objectType != "Farm") && (object_at_location_.objectType != "Thicket") && (object_at_location_.objectType != "Mine"))) && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
 					if objectCurrentCommand == "Chop" {
-						if !instance_exists(object_at_location_) || object_at_location_.object_index != obj_tree_resource {
+						if !instance_exists(object_at_location_) || ((object_at_location_.object_index != obj_tree_resource) && (object_at_location_.objectType != "Thicket")) {
 							temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_tree_resource);
 							if instance_exists(temp_object_at_location_) {
 								if point_distance(x, y, temp_object_at_location_.x, temp_object_at_location_.y) <= (10 * 16) {
@@ -246,7 +252,7 @@ if !obj_gui.startMenu.active {
 						}
 					}
 					else if objectCurrentCommand == "Farm" {
-						if !instance_exists(object_at_location_) || object_at_location_.object_index != obj_food_resource {
+						if !instance_exists(object_at_location_) || ((object_at_location_.object_index != obj_food_resource) && (object_at_location_.objectType != "Farm")) {
 							temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_food_resource);
 							if instance_exists(temp_object_at_location_) {
 								if point_distance(x, y, temp_object_at_location_.x, temp_object_at_location_.y) <= (10 * 16) {
@@ -259,7 +265,7 @@ if !obj_gui.startMenu.active {
 						}
 					}
 					else if objectCurrentCommand == "Mine" {
-						if !instance_exists(object_at_location_) || object_at_location_.object_index != obj_gold_resource {
+						if !instance_exists(object_at_location_) || ((object_at_location_.object_index != obj_gold_resource) && (object_at_location_.objectType != "Mine")) {
 							temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_gold_resource);
 							if instance_exists(temp_object_at_location_) {
 								if point_distance(x, y, temp_object_at_location_.x, temp_object_at_location_.y) <= (10 * 16) {
@@ -435,9 +441,12 @@ if !obj_gui.startMenu.active {
 					}
 				}
 				// Reset objectTarget so that it can be properly set in the movement script.
-				objectTarget = noone;
-				objectTargetType = noone;
-				objectTargetTeam = noone;
+				if !forceAttack {
+					objectTarget = noone;
+					objectTargetType = noone;
+					objectTargetTeam = noone;
+					forceAttack = false;
+				}
 			
 				// Find all other valid targets within range, and add them to the objectTargetList.
 				var square_iteration_, square_iteration_random_start_number_, square_true_iteration_, square_size_increase_count_, square_size_increase_count_max_, base_square_edge_size_, search_increment_size_, temp_check_x_, temp_check_y_, target_x_, target_y_;
@@ -579,7 +588,7 @@ if !obj_gui.startMenu.active {
 				// If the object at target location is a valid target, then mine/attack it if the
 				// object selected is an object that can mine it. An object's actual "team" 
 				// (objectRealTeam) will only be set to "Neutral" if it is a resource.
-				if object_at_location_.objectRealTeam == player[0].team {
+				if (object_at_location_.objectRealTeam == player[0].team) && (!forceAttack) {
 					// Out of all selected objects, if the currently referenced object in the selected
 					// object list belongs to the player, is a unitAction, and is a worker, then set the
 					// object that was clicked on as the target.
@@ -655,10 +664,10 @@ if !obj_gui.startMenu.active {
 						}
 					}
 				}
-				// Else if the object at target location is an enemy, attack it if the object selected
-				// is an object that can attack it.
-				else if object_at_location_.objectRealTeam != objectRealTeam {
-					if (objectClassification == "Unit") || (objectClassification == "Building") {
+				// Else if the object at target location is an enemy, or forceAttack is active, attack it 
+				// if the object selected is an object that can attack it.
+				else if (object_at_location_.objectRealTeam != objectRealTeam) || (forceAttack) {
+					if (objectClassification == "Unit") || ((objectClassification == "Building") && (canAttack)) {
 						objectCurrentCommand = "Attack";
 						if ds_exists(objectTargetList, ds_type_list) {
 							ds_list_destroy(objectTargetList);
@@ -679,7 +688,7 @@ if !obj_gui.startMenu.active {
 				}
 				// Else if the object at target location is a friendly unitAction, nothing should be done and
 				// just reset object_at_location_ so that the object can move normally.
-				else if object_at_location_.objectRealTeam == player[1].team {
+				else if object_at_location_.objectRealTeam == objectRealTeam {
 					// Sometimes, during movement of targets, a friendly target will pass over an enemy target
 					// at the exact location of object_at_location_. When this happens, if the object running
 					// this code is currently in combat, I don't want to remove it from combat due to this error,
@@ -695,6 +704,7 @@ if !obj_gui.startMenu.active {
 						objectTarget = noone;
 						objectTargetType = noone;
 						objectTargetTeam = noone;
+						forceAttack = false;
 					}
 				}
 			
@@ -721,6 +731,7 @@ if !obj_gui.startMenu.active {
 								objectTargetList = noone;
 								if !instance_exists(objectTarget) {
 									objectTarget = noone;
+									forceAttack = false;
 								}
 							}
 						}
@@ -731,6 +742,7 @@ if !obj_gui.startMenu.active {
 				if objectCurrentCommand == "Attack" {
 					if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
 						check_for_new_target();
+						forceAttack = false;
 					}
 				}
 				// Finally, after setting each object's ds_lists (if necessary), reset all
@@ -953,6 +965,7 @@ if !obj_gui.startMenu.active {
 					objectTarget = noone;
 					objectTargetType = noone;
 					objectTargetTeam = noone;
+					forceAttack = false;
 					if ds_exists(objectTargetList, ds_type_list) {
 						ds_list_destroy(objectTargetList);
 						objectTargetList = noone;
@@ -1001,6 +1014,7 @@ if !obj_gui.startMenu.active {
 		else if ds_list_size(objectTargetList) > 1 {
 			while (ds_list_size(objectTargetList) > 1) && (!instance_exists(ds_list_find_value(objectTargetList, 0))) {
 				ds_list_delete(objectTargetList, 0);
+				forceAttack = false;
 			}
 			if instance_exists(ds_list_find_value(objectTargetList, 0)) {
 				objectTarget = ds_list_find_value(objectTargetList, 0);
@@ -1013,6 +1027,7 @@ if !obj_gui.startMenu.active {
 				objectTarget = noone;
 				objectTargetType = noone;
 				objectTargetTeam = noone;
+				forceAttack = false;
 			}
 		}
 		if ds_exists(objectTargetList, ds_type_list) {
@@ -1022,6 +1037,7 @@ if !obj_gui.startMenu.active {
 				objectTarget = noone;
 				objectTargetType = noone;
 				objectTargetTeam = noone;
+				forceAttack = false;
 			}
 		}
 	}
@@ -1030,9 +1046,10 @@ if !obj_gui.startMenu.active {
 	if objectDetectTarget <= 0 {
 		objectDetectTarget = room_speed;
 		if objectCurrentCommand != "Move" {
-			// If the object doesn't have a target yet, or if its just collecting resources, continue on to check for
-			// any potential threats.
-			if (!instance_exists(objectTarget)) || (objectTarget.objectClassification == "Resource") {
+			// If the object doesn't have a target yet, or if its just collecting resources either from
+			// a natural resource or from a structure that provides resources (a Farm, Thicket, or
+			// Mine), continue searching for nearby enemies.
+			if (!instance_exists(objectTarget)) || (objectTarget.objectClassification == "Resource") || ((objectTarget.objectClassification == "Building") && ((objectType == "Farm") || (objectType == "Thicket") || (objectType == "Mine"))) {
 				detect_nearby_enemy_objects();
 				if ds_exists(objectDetectedList, ds_type_list) {
 					var i;
@@ -1062,6 +1079,20 @@ if !obj_gui.startMenu.active {
 									}
 								}
 							}
+							else {
+								if objectCurrentCommand != "Attack" {
+									objectCurrentCommand = "Attack";
+									objectTarget = instance_nearby_;
+									objectNeedsToMove = true;
+									targetToMoveToX = instance_nearby_.x;
+									targetToMoveToY = instance_nearby_.y;
+									currentAction = unitAction.attack;
+									currentDirection = point_direction(x, y, targetToMoveToX, targetToMoveToY) div 90;
+									ds_list_destroy(objectDetectedList);
+									objectDetectedList = noone;
+									break;
+								}
+							}
 						}
 					}
 				}
@@ -1080,7 +1111,7 @@ if !obj_gui.startMenu.active {
 	// Switch the state machine's active state
 	switch currentAction {
 		case unitAction.idle:
-		
+			
 			break;
 		case unitAction.move:
 			unit_move();

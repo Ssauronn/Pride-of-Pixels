@@ -1319,6 +1319,7 @@ function initialize_object_data() {
 			mysticalConnectionActive = false;
 			hardenedObsidianActive = false;
 			hardenedObsidianArmorBonus = -0.1;
+			break;
 		case "Soul Subjugator":
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 			// In this case, all the generic variables need to be added here, 
@@ -1347,7 +1348,7 @@ function initialize_object_data() {
 			rallyPointX = x + 32;
 			rallyPointY = y + 32;
 			// Sprites
-			currentSprite = spr_soul_subjugator_building;
+			currentSprite = spr_building_xlarge;
 			sprite_index = currentSprite;
 			mask_index = spr_64_64;
 			//var floor_x_ = floor(x / 16) * 16;
@@ -1544,6 +1545,15 @@ function initialize_object_data() {
 			magicWallsArmorBonus = -0.25;// Armor bonus here should only apply to basic damage types, to make magic damage powerful vs otherwise super tanky walls.
 			magicWallsMaxHPBonus = 300;
 			magicWallsSprite = noone;
+			break;
+		case "Farm":
+			
+			break;
+		case "Thicket":
+			
+			break;
+		case "Mine":
+			
 			break;
 		#endregion
 	}
