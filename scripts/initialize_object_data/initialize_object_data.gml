@@ -1546,6 +1546,15 @@ function initialize_object_data() {
 			magicWallsMaxHPBonus = 300;
 			magicWallsSprite = noone;
 			break;
+		case "Farm":
+			
+			break;
+		case "Thicket":
+			
+			break;
+		case "Mine":
+			
+			break;
 		#endregion
 	}
 }
