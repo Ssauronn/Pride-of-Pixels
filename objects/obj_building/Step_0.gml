@@ -115,4 +115,3 @@ if !obj_gui.startMenu.active {
 	}
 }
 
-

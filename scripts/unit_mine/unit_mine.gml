@@ -42,7 +42,7 @@ function unit_mine() {
 								if max_amount_of_food_obtainable_ < objectFoodGatherDamage {
 									objectNeedsToMove = true;
 									ds_list_sort_distance(player[objectRealTeam].listOfStorehousesAndCityHalls);
-									objectTarget = ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0);
+									objectTarget = real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0));
 									targetToMoveToX = objectTarget.x;
 									targetToMoveToY = objectTarget.y;
 								}
