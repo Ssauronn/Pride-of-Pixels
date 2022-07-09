@@ -275,7 +275,7 @@
     {"id":{"name":"spr_acolyte_left_idle","path":"sprites/spr_acolyte_left_idle/spr_acolyte_left_idle.yy",},"order":2,},
     {"id":{"name":"spr_warlock_side_master","path":"sprites/spr_warlock_side_master/spr_warlock_side_master.yy",},"order":1,},
     {"id":{"name":"spr_48_16","path":"sprites/spr_48_16/spr_48_16.yy",},"order":0,},
-    {"id":{"name":"manage_storehouse_city_hall_list","path":"scripts/manage_storehouse_city_hall_list/manage_storehouse_city_hall_list.yy",},"order":14,},
+    {"id":{"name":"manage_storehouse_city_hall_list","path":"scripts/manage_storehouse_city_hall_list/manage_storehouse_city_hall_list.yy",},"order":2,},
     {"id":{"name":"spr_48_32","path":"sprites/spr_48_32/spr_48_32.yy",},"order":1,},
     {"id":{"name":"spr_rogue_front_idle","path":"sprites/spr_rogue_front_idle/spr_rogue_front_idle.yy",},"order":0,},
     {"id":{"name":"spr_worker_right_chop","path":"sprites/spr_worker_right_chop/spr_worker_right_chop.yy",},"order":1,},

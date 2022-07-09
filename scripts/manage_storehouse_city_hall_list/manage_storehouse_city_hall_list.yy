@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Internal_Code_Exclusive",
-    "path": "folders/Scripts/Internal_Code_Exclusive.yy",
+    "name": "Building_Specific",
+    "path": "folders/Scripts/Building_Specific.yy",
   },
   "resourceVersion": "1.0",
   "name": "manage_storehouse_city_hall_list",
