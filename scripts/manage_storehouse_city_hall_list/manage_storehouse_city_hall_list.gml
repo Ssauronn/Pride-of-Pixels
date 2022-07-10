@@ -5,14 +5,14 @@ function add_self_to_storehouse_city_hall_list(){
 	if (objectType == "City Hall") || (objectType == "Storehouse") {
 		// If the list already exists, add self
 		if ds_exists(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_type_list) {
-			if ds_list_find_index(player[objectRealTeam].listOfStorehousesAndCityHalls, self.id) == -1 {
-				ds_list_add(player[objectRealTeam].listOfStorehousesAndCityHalls, self.id);
+			if ds_list_find_index(player[objectRealTeam].listOfStorehousesAndCityHalls, real(self.id)) == -1 {
+				ds_list_add(player[objectRealTeam].listOfStorehousesAndCityHalls, real(self.id));
 			}
 		}
 		// Otherwise, create the list, then add self.
 		else {
 			player[objectRealTeam].listOfStorehousesAndCityHalls = ds_list_create();
-			ds_list_add(player[objectRealTeam].listOfStorehousesAndCityHalls, self.id);
+			ds_list_add(player[objectRealTeam].listOfStorehousesAndCityHalls, real(self.id));
 		}
 	}
 }
@@ -26,7 +26,7 @@ function remove_self_from_storehouse_city_hall_list(){
 	// always exist.
 	if ds_exists(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_type_list) {
 		if (!ds_list_empty(player[objectRealTeam].listOfStorehousesAndCityHalls)) && (ds_list_size(player[objectRealTeam].listOfStorehousesAndCityHalls) > 1) {
-			ds_list_delete(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_list_find_index(player[objectRealTeam].listOfStorehousesAndCityHalls, self.id));
+			ds_list_delete(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_list_find_index(player[objectRealTeam].listOfStorehousesAndCityHalls, real(self.id)));
 		}
 		else {
 			ds_list_destroy(player[objectRealTeam].listOfStorehousesAndCityHalls);
