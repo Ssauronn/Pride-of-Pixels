@@ -1,10 +1,12 @@
 ///@function					detect_nearby_enemy_objects();
+///@param	{real}	x_			The x value of the location to check
+///@param	{real}	y_			The y value of the location to check
 ///@param	{string}			optional - the objectType looking for.
 ///@description					Detects all nearby hostile objects within a given range. Can take
 ///								optional arguments to determine if specific types of enemies are
 ///								nearby. Return a ds_list of all found objects.
 
-function detect_nearby_enemy_objects() {
+function detect_nearby_enemy_objects(x_, y_) {
 	/*
 	Loop through the entirety of the area surrounding the object calling this script,
 	using the objects aggro range as the parameters of the search. If an argument is
@@ -25,8 +27,8 @@ function detect_nearby_enemy_objects() {
 	// Now search.
 	var j, k, closest_object_, target_specified_;
 	closest_object_ = noone;
-	if argument_count > 0 {
-		target_specified_ = argument[0];
+	if argument_count > 2 {
+		target_specified_ = argument[2];
 	}
 	else {
 		target_specified_ = false;
@@ -41,8 +43,8 @@ function detect_nearby_enemy_objects() {
 	for (j = 0; j < (objectCombatAggroRange * 2) + 1 + (y_offset_ / 16); j++) {
 		// The horizontal searches
 		for (k = 0 - (x_offset_ / 16); k < (objectCombatAggroRange * 2) + 1; k++) {
-			var temp_x_search_area_ = (floor(x / 16) * 16) - (objectCombatAggroRange * 16) + (k * 16);
-			var temp_y_search_area_ = (floor(y / 16) * 16) - (objectCombatAggroRange * 16) + (j * 16);
+			var temp_x_search_area_ = (floor(x_ / 16) * 16) - (objectCombatAggroRange * 16) + (k * 16);
+			var temp_y_search_area_ = (floor(y_ / 16) * 16) - (objectCombatAggroRange * 16) + (j * 16);
 			var instance_at_location_ = instance_place(temp_x_search_area_, temp_y_search_area_, all);
 			// If an object is at the check location, is not a resource, is not on the same team as the
 			// object running this function, and either no specific target was specified, or the object

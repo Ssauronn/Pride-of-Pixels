@@ -108,6 +108,9 @@ function initialize_object_data() {
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
+			returnToResourceX = noone;
+			returnToResourceY = noone;
+			returnToResourceID = noone;
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;

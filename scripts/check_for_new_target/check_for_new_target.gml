@@ -1,9 +1,11 @@
-///@function				check_for_new_target();
+///@function				check_for_new_target(x_, y_);
+///@param	{real}	x_		x_
+///@param	{real}	y_		y_
 ///@description				Checks for a new set of targets within range using detect_nearby_enemy_objects() script.
 ///							Called usually after the current list of targets has expired but the object is still in
 ///							combat, meaning there are potentially other, not-yet-found valid targets within range.
-function check_for_new_target() {
-	if detect_nearby_enemy_objects() {
+function check_for_new_target(x_, y_) {
+	if detect_nearby_enemy_objects(x_, y_) {
 		if ds_exists(objectDetectedList, ds_type_list) {
 			// If the ds_list for current targets doesn't exist, checked above, but current targets exist
 			// within range, checked in detect_nearby_enemy_objects() script and verified above, then 

@@ -162,7 +162,7 @@ if !obj_gui.startMenu.active {
 	if objectCurrentCommand == "Attack" {
 		if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
 			forceAttack = false;
-			check_for_new_target();
+			check_for_new_target(x, y);
 		}
 	}
 	
@@ -743,7 +743,7 @@ if !obj_gui.startMenu.active {
 				// After cleansing the list, go back and look for any new targets, one last time.
 				if objectCurrentCommand == "Attack" {
 					if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
-						check_for_new_target();
+						check_for_new_target(x, y);
 						forceAttack = false;
 					}
 				}
@@ -1052,7 +1052,7 @@ if !obj_gui.startMenu.active {
 			// a natural resource or from a structure that provides resources (a Farm, Thicket, or
 			// Mine), continue searching for nearby enemies.
 			if (!instance_exists(objectTarget)) || (objectTarget.objectClassification == "Resource") || ((objectTarget.objectClassification == "Building") && ((objectType == "Farm") || (objectType == "Thicket") || (objectType == "Mine"))) {
-				detect_nearby_enemy_objects();
+				detect_nearby_enemy_objects(x, y);
 				if ds_exists(objectDetectedList, ds_type_list) {
 					var i;
 					for (i = 0; i < ds_list_size(objectDetectedList); i++) {
