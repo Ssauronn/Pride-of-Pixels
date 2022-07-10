@@ -108,6 +108,9 @@ function initialize_object_data() {
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
 			// Availability variables
+			returnToResourceX = noone;
+			returnToResourceY = noone;
+			returnToResourceID = noone;
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
@@ -142,19 +145,25 @@ function initialize_object_data() {
 			objectSlashResistance = 0.9;
 			objectPierceResistance = 1;
 			objectMagicResistance = 1;
-			// Mining variables (exclusive to obj_worker)
-			objectWoodChopSpeed = room_speed; // Wood
+			// Resource gathering variables (exclusive to obj_worker)
+			maxResourceWeightCanCarry = 40;
+			currentResourceWeightCarry = 0;
+			objectWoodChopSpeed = 2.5 * room_speed; // Wood
 			objectWoodChopSpeedTimer = 0; // Wood
-			objectWoodChopDamage = 20; // Wood
-			objectFoodGatherSpeed = room_speed; // Food
+			objectWoodChopDamage = 3; // Wood
+			currentWoodCarry = 0;
+			objectFoodGatherSpeed = 2 * room_speed; // Food
 			objectFoodGatherSpeedTimer = 0; // Food
 			objectFoodGatherDamage = 5; // Food
-			objectGoldMineSpeed = room_speed; // Gold
+			currentFoodCarry = 0;
+			objectGoldMineSpeed = 3 * room_speed; // Gold
 			objectGoldMineSpeedTimer = 0; // Gold
-			objectGoldMineDamage = 4; // Gold
-			objectRubyMineSpeed = room_speed; // Ruby
+			objectGoldMineDamage = 3; // Gold
+			currentGoldCarry = 0;
+			objectRubyMineSpeed = 5 * room_speed; // Ruby
 			objectRubyMineSpeedTimer = 0; // Ruby
 			objectRubyMineDamage = 2; // Ruby
+			currentRubyCarry = 0;
 			// Sprite setting array
 			unitSprite[unitAction.idle][unitDirection.right] = spr_worker_right_idle;
 			unitSprite[unitAction.idle][unitDirection.up] = spr_worker_back_idle;

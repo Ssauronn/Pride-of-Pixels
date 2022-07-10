@@ -5,6 +5,7 @@
   },
   "solid": true,
   "visible": true,
+  "managed": true,
   "spriteMaskId": {
     "name": "spr_16_16",
     "path": "sprites/spr_16_16/spr_16_16.yy",

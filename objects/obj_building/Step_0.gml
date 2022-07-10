@@ -6,6 +6,7 @@ if --spawnUnit <= 0 {
 if !initialized {
 	initialized = true;
 	initialize_object_data();
+	add_self_to_storehouse_city_hall_list();
 }
 // Depth setting
 depth = y;
@@ -75,7 +76,7 @@ if !obj_gui.startMenu.active {
 		objectDetectTarget = room_speed;
 		if !instance_exists(objectTarget) {
 			forceAttack = false;
-			detect_nearby_enemy_objects();
+			detect_nearby_enemy_objects(x, y);
 			if ds_exists(objectDetectedList, ds_type_list) {
 				var instance_nearby_ = ds_list_find_value(objectDetectedList, 0);
 				objectTarget = instance_nearby_.id;
@@ -113,5 +114,4 @@ if !obj_gui.startMenu.active {
 		kill_self();
 	}
 }
-
 

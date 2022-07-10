@@ -2,12 +2,18 @@
 ///@description						Allows workers to collect resources and deposit into
 ///									respective players' total resource count.
 function unit_mine() {
+	if instance_exists(objectTarget) {
+		var object_type_ = objectTarget.objectType;
+	}
+	else {
+		var object_type_ = noone;
+	}
 	// Check to see if the unitAction should currently be mining - if not, then set to a different state.
 	if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
 		// Check to see if a target to collect from exists and the target is a valid target, or if
 		// a target to attack exists and is valid - otherwise, active variables to search for a new
 		// target.
-		if (instance_exists(objectTarget)) && ((objectTarget.objectClassification == "Resource") || ((objectTarget.objectClassification == "Building") && ((objectTarget.objectType == "Farm") || (objectTarget.objectType == "Thicket") || (objectTarget.objectType == "Mine")))) {
+		if (instance_exists(objectTarget)) && ((objectTarget.objectClassification == "Resource") || ((objectTarget.objectClassification == "Building") && ((object_type_ == "Farm") || (object_type_ == "Thicket") || (object_type_ == "Mine")))) {
 			currentDirection = (point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) div 90;
 			if currentDirection > 3 {
 				currentDirection -= 4;
@@ -25,33 +31,58 @@ function unit_mine() {
 					}
 				}
 				if correct_animation_active_ {
-					switch objectTarget.objectType {
-						case "Wood":
-							if objectWoodChopSpeedTimer <= 0 {
-								objectWoodChopSpeedTimer = objectWoodChopSpeed;
-								objectTarget.currentHP -= objectWoodChopDamage;
-								player[objectRealTeam].wood += objectWoodChopDamage;
-							}
-							break;
+					switch object_type_ {
 						case "Food":
 							if objectFoodGatherSpeedTimer <= 0 {
 								objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
-								objectTarget.currentHP -= objectFoodGatherDamage;
-								player[objectRealTeam].food += objectFoodGatherDamage;
+								// Add the lesser of either the max amount of resources that can be collected right now,
+								// or the max amount of resources that can be collected without forcing currentResourceWeightCarry
+								// above maxResourceWeightCarry.
+								var food_weight_ = obj_food_resource.foodWeight;
+								var max_amount_of_food_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / food_weight_)
+								objectTarget.currentHP -= min(objectFoodGatherDamage, max_amount_of_food_obtainable_);
+								currentFoodCarry += min(objectFoodGatherDamage, max_amount_of_food_obtainable_);
+								currentResourceWeightCarry += min((objectFoodGatherDamage * food_weight_), (max_amount_of_food_obtainable_ * food_weight_));
+							}
+							break;
+						case "Wood":
+							if objectWoodChopSpeedTimer <= 0 {
+								// Add the lesser of either the max amount of resources that can be collected right now,
+								// or the max amount of resources that can be collected without forcing currentResourceWeightCarry
+								// above maxResourceWeightCarry.
+								objectWoodChopSpeedTimer = objectWoodChopSpeed;
+								var wood_weight_ = obj_tree_resource.woodWeight;
+								var max_amount_of_wood_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / wood_weight_)
+								objectTarget.currentHP -= min(objectWoodChopDamage, max_amount_of_wood_obtainable_);
+								currentWoodCarry += min(objectWoodChopDamage, max_amount_of_wood_obtainable_);
+								currentResourceWeightCarry += min((objectWoodChopDamage * wood_weight_), (max_amount_of_wood_obtainable_ * wood_weight_));
+								
 							}
 							break;
 						case "Gold":
 							if objectGoldMineSpeedTimer <= 0 {
+								// Add the lesser of either the max amount of resources that can be collected right now,
+								// or the max amount of resources that can be collected without forcing currentResourceWeightCarry
+								// above maxResourceWeightCarry.
 								objectGoldMineSpeedTimer = objectGoldMineSpeed;
-								objectTarget.currentHP -= objectGoldMineDamage;
-								player[objectRealTeam].gold += objectGoldMineDamage;
+								var gold_weight_ = obj_gold_resource.goldWeight;
+								var max_amount_of_gold_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / gold_weight_)
+								objectTarget.currentHP -= min(objectGoldMineDamage, max_amount_of_gold_obtainable_);
+								currentGoldCarry += min(objectGoldMineDamage, max_amount_of_gold_obtainable_);
+								currentResourceWeightCarry += min((objectGoldMineDamage * gold_weight_), (max_amount_of_wood_obtainable_ * gold_weight_));
 							}
 							break;
 						case "Ruby":
 							if objectRubyMineSpeedTimer <= 0 {
+								// Add the lesser of either the max amount of resources that can be collected right now,
+								// or the max amount of resources that can be collected without forcing currentResourceWeightCarry
+								// above maxResourceWeightCarry.
 								objectRubyMineSpeedTimer = objectRubyMineSpeed;
-								objectTarget.currentHP -= objectRubyMineDamage;
-								player[objectRealTeam].rubies += objectRubyMineDamage;
+								var ruby_weight_ = obj_ruby_resource.rubyWeight;
+								var max_amount_of_ruby_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / ruby_weight_)
+								objectTarget.currentHP -= min(objectRubyMineDamage, max_amount_of_ruby_obtainable_);
+								currentRubyCarry += min(objectRubyMineDamage, max_amount_of_ruby_obtainable_);
+								currentResourceWeightCarry += min((objectRubyMineDamage * ruby_weight_), (max_amount_of_ruby_obtainable_ * ruby_weight_));
 							}
 							break;
 						case "Farm":
@@ -97,6 +128,26 @@ function unit_mine() {
 			// Just send to attack script, and the attack script can handle the rest.
 			currentAction = unitAction.attack;
 		}
+		else if (instance_exists(objectTarget)) && ((object_type_ == "City Hall") || (object_type_ == "Storehouse")) && (currentResourceWeightCarry > 0) {
+			player[objectRealTeam].food += currentFoodCarry;
+			player[objectRealTeam].wood += currentWoodCarry;
+			player[objectRealTeam].gold += currentGoldCarry;
+			player[objectRealTeam].rubies += currentRubyCarry;
+			currentFoodCarry = 0;
+			currentWoodCarry = 0;
+			currentGoldCarry = 0;
+			currentRubyCarry = 0;
+			currentResourceWeightCarry = 0;
+			objectTarget = returnToResourceID;
+			targetToMoveToX = returnToResourceX;
+			targetToMoveToY = returnToResourceY;
+			set_return_resource_variables_noone();
+			objectNeedsToMove = true;
+			currentAction = unitAction.move;
+			// Run this script to determine if it should be making its own path, or following the path
+			// of another.
+			determine_leader_or_follower();
+		}
 		else {
 			target_next_object();
 			currentAction = unitAction.move;
@@ -112,6 +163,30 @@ function unit_mine() {
 		}
 		else if objectCurrentCommand == "Attack" {
 			currentAction = unitAction.attack;
+		}
+	}
+	// Check to see if the Worker is maxed out by weight, and if so, move to deposit resources
+	// into a Storehouse.
+	if (object_type_ == "Food" && ((objectFoodGatherDamage * obj_food_resource.foodWeight) > (maxResourceWeightCanCarry - currentResourceWeightCarry))) {
+		// Set a variable up to set the current resource target as the 
+		// target to move to after the Worker deposits the resources
+		// held. If the Worker ends up executing any action or commanded
+		// to execute any action other than returning the resources, this
+		// needs to be wiped.
+		set_return_resource_variables(objectTarget.x, objectTarget.y, real(objectTarget.id));
+		objectNeedsToMove = true;
+		ds_list_sort_distance(player[objectRealTeam].listOfStorehousesAndCityHalls);
+		objectTarget = real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0));
+		targetToMoveToX = objectTarget.x;
+		targetToMoveToY = objectTarget.y;
+		currentAction = unitAction.move;
+		// Run this script to determine if it should be making its own path, or following the path
+		// of another.
+		determine_leader_or_follower();
+		// Make sure the target list is destroyed, so no checking for the target occurs in the first place.
+		if ds_exists(objectTargetList, ds_type_list) {
+			ds_list_destroy(objectTargetList);
+			objectTargetList = noone;
 		}
 	}
 }

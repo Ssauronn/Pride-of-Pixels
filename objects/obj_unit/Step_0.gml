@@ -162,7 +162,7 @@ if !obj_gui.startMenu.active {
 	if objectCurrentCommand == "Attack" {
 		if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
 			forceAttack = false;
-			check_for_new_target();
+			check_for_new_target(x, y);
 		}
 	}
 	
@@ -173,7 +173,7 @@ if !obj_gui.startMenu.active {
 		// Firstly, if the object was automatically instructed to move, check for what object is at its target location and if the
 		// found object is not an object its commanded to attack or mine, change the object it should be attacking or mining
 		// to something valid.
-		if keyboard_check(vk_control) {
+		if (keyboard_check(vk_control)) && (objectSelected) {
 			forceAttack = true;
 		}
 		if objectNeedsToMove {
@@ -195,7 +195,9 @@ if !obj_gui.startMenu.active {
 						}
 					}
 					else if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Ruby Mine") || (objectCurrentCommand == "Farm") {
-						if temp_instance_to_reference_.objectClassification == "Resource" {
+						// Allow Workers to move if their target location is either a resource
+						// or a Storehouse
+						if (temp_instance_to_reference_.objectClassification == "Resource") || (temp_instance_to_reference_.objectType == "Storehouse") {
 							object_at_location_ = temp_instance_to_reference_;
 							target_found_ = true;
 						}
@@ -237,7 +239,7 @@ if !obj_gui.startMenu.active {
 			if instance_exists(object_at_location_) {
 				// If the object_at_location_ is not a resource to mine, and not a building that 
 				// can be mined like a Farm, Thicket, or Mine
-				if ((object_at_location_.objectClassification != "Resource") || ((object_at_location_.objectClassification == "Building") && (object_at_location_.objectType != "Farm") && (object_at_location_.objectType != "Thicket") && (object_at_location_.objectType != "Mine"))) && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
+				if ((object_at_location_.objectClassification != "Resource") || ((object_at_location_.objectClassification == "Building") && (object_at_location_.objectType != "Storehouse") && (object_at_location_.objectTarget != "City Hall") && (object_at_location_.objectType != "Farm") && (object_at_location_.objectType != "Thicket") && (object_at_location_.objectType != "Mine"))) && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
 					if objectCurrentCommand == "Chop" {
 						if !instance_exists(object_at_location_) || ((object_at_location_.object_index != obj_tree_resource) && (object_at_location_.objectType != "Thicket")) {
 							temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_tree_resource);
@@ -741,7 +743,7 @@ if !obj_gui.startMenu.active {
 				// After cleansing the list, go back and look for any new targets, one last time.
 				if objectCurrentCommand == "Attack" {
 					if (!ds_exists(objectTargetList, ds_type_list)) && (!instance_exists(objectTarget)) {
-						check_for_new_target();
+						check_for_new_target(x, y);
 						forceAttack = false;
 					}
 				}
@@ -1050,7 +1052,7 @@ if !obj_gui.startMenu.active {
 			// a natural resource or from a structure that provides resources (a Farm, Thicket, or
 			// Mine), continue searching for nearby enemies.
 			if (!instance_exists(objectTarget)) || (objectTarget.objectClassification == "Resource") || ((objectTarget.objectClassification == "Building") && ((objectType == "Farm") || (objectType == "Thicket") || (objectType == "Mine"))) {
-				detect_nearby_enemy_objects();
+				detect_nearby_enemy_objects(x, y);
 				if ds_exists(objectDetectedList, ds_type_list) {
 					var i;
 					for (i = 0; i < ds_list_size(objectDetectedList); i++) {
