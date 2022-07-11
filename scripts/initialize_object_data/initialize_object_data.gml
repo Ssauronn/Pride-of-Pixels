@@ -111,6 +111,7 @@ function initialize_object_data() {
 			returnToResourceX = noone;
 			returnToResourceY = noone;
 			returnToResourceID = noone;
+			returnToResourceType = noone;
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;

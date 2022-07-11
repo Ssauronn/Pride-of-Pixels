@@ -5,6 +5,28 @@ if !initialized {
 // Depth setting
 depth = -y//(y / 1000);
 
+// Stop certain conditions from being met if the unit isn't a Worker currently working on returning
+// gathered materials to a dropoff point or making its way back from the dropoff point.
+if returnToResourceID != noone {
+	if (objectType == "Worker") && (instance_exists(objectTarget)) {
+		// If the target exists, but it's not a resource or a dropoff point
+		if (objectTarget.objectClassification != "Resource") && ((objectTarget.objectClassification == "Building") && ((objectTarget.objectType != "Farm") && (objectTarget.objectType != "Thicket") && (objectTarget.objectType != "Mine") && (objectTarget.objectType != "City Hall") && (objectTarget.objectType != "Storehouse"))) {
+			set_return_resource_variables_noone();
+		}
+		// If the Worker's current command is not to collect a material
+		if (objectCurrentCommand != "Farm") && (objectCurrentCommand != "Chop") && (objectCurrentCommand != "Mine") && (objectCurrentCommand != "Ruby Mine") {
+			set_return_resource_variables_noone();
+		}
+		// If the Worker's current state is not Idle, Move, or collecting a material
+		if (currentAction != unitAction.idle) && (currentAction != unitAction.move) && (currentAction != unitAction.farm) && (currentAction != unitAction.chop) && (currentAction != unitAction.mine) {
+			set_return_resource_variables_noone();
+		}
+	}
+	else if (objectType == "Worker") && (!instance_exists(objectTarget)) {
+		check_for_new_target(returnToResourceX, returnToResourceY, returnToResourceType);
+	}
+}
+
 // Stop certain sections of code if not on screen
 var top_y_ = y - sprite_get_height(sprite_index) + 16;
 var bottom_y_ = y + 16;
@@ -586,7 +608,7 @@ if !obj_gui.startMenu.active {
 						}
 					}
 				}
-				ds_list_sort_distance(target_list_);
+				ds_list_sort_distance(x, y, target_list_);
 				// If the object at target location is a valid target, then mine/attack it if the
 				// object selected is an object that can mine it. An object's actual "team" 
 				// (objectRealTeam) will only be set to "Neutral" if it is a resource.
@@ -633,7 +655,12 @@ if !obj_gui.startMenu.active {
 								ds_list_add(objectTargetList, object_at_location_);
 							}
 							if !mouse_check_button_pressed(mb_right) || (mouse_check_button_pressed(mb_right) && !objectSelected) {
-								ds_list_sort_distance(objectTargetList);
+								if returnToResourceID == noone {
+									ds_list_sort_distance(x, y, objectTargetList);
+								}
+								else {
+									ds_list_sort_distance(returnToResourceX, returnToResourceY, objectTargetList);
+								}
 							}
 						}
 						else if (object_at_location_.object_index == obj_unit) || (object_at_location_.object_index == obj_building) {
@@ -657,7 +684,7 @@ if !obj_gui.startMenu.active {
 								ds_list_add(objectTargetList, object_at_location_);
 							}
 							if !mouse_check_button_pressed(mb_right) || (mouse_check_button_pressed(mb_right) && !objectSelected) {
-								ds_list_sort_distance(objectTargetList);
+								ds_list_sort_distance(x, y, objectTargetList);
 							}
 						}
 						else {
@@ -684,7 +711,7 @@ if !obj_gui.startMenu.active {
 							ds_list_add(objectTargetList, object_at_location_);
 						}
 						if !mouse_check_button_pressed(mb_right) || (mouse_check_button_pressed(mb_right) && !objectSelected) {
-							ds_list_sort_distance(objectTargetList);
+							ds_list_sort_distance(x, y, objectTargetList);
 						}
 					}
 				}

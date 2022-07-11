@@ -10,7 +10,8 @@ function set_return_resource_variables(x_, y_, instance_id_) {
 	if objectClassification == "Unit" && objectType == "Worker" {
 		returnToResourceX = x_;
 		returnToResourceY = y_;
-		returnToResourceID = instance_id_;
+		returnToResourceID = real(instance_id_);
+		returnToResourceType = instance_id_.objectType;
 	}
 }
 
@@ -22,6 +23,7 @@ function set_return_resource_variables_noone() {
 	returnToResourceX = noone;
 	returnToResourceY = noone;
 	returnToResourceID = noone;
+	returnToResourceType = noone;
 }
 
 

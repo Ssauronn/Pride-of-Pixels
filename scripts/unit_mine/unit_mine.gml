@@ -31,6 +31,7 @@ function unit_mine() {
 					}
 				}
 				if correct_animation_active_ {
+					set_return_resource_variables_noone();
 					switch object_type_ {
 						case "Food":
 							if objectFoodGatherSpeedTimer <= 0 {
@@ -98,7 +99,7 @@ function unit_mine() {
 							}
 							break;
 						case "Mine":
-							if objectGoldMineSpeedTimer <= 0 {
+						if objectGoldMineSpeedTimer <= 0 {
 								objectGoldMineSpeedTimer = objectGoldMineSpeed;
 								player[objectRealTeam].gold += objectGoldMineDamage * (0.8);
 							}
@@ -139,9 +140,9 @@ function unit_mine() {
 			currentRubyCarry = 0;
 			currentResourceWeightCarry = 0;
 			objectTarget = returnToResourceID;
+			objectTargetType = returnToResourceType;
 			targetToMoveToX = returnToResourceX;
 			targetToMoveToY = returnToResourceY;
-			set_return_resource_variables_noone();
 			objectNeedsToMove = true;
 			currentAction = unitAction.move;
 			// Run this script to determine if it should be making its own path, or following the path
@@ -167,7 +168,23 @@ function unit_mine() {
 	}
 	// Check to see if the Worker is maxed out by weight, and if so, move to deposit resources
 	// into a Storehouse.
-	if (object_type_ == "Food" && ((objectFoodGatherDamage * obj_food_resource.foodWeight) > (maxResourceWeightCanCarry - currentResourceWeightCarry))) {
+	var remaining_weight_available_ = maxResourceWeightCanCarry - currentResourceWeightCarry;
+	var resource_gather_weight_ = noone;
+	switch object_type_ {
+		case "Food":
+			resource_gather_weight_ = objectFoodGatherDamage * obj_food_resource.foodWeight;
+			break;
+		case "Wood":
+			resource_gather_weight_ = objectWoodChopDamage * obj_tree_resource.woodWeight;
+			break;
+		case "Gold":
+			resource_gather_weight_ = objectGoldMineDamage * obj_gold_resource.goldWeight;
+			break;
+		case "Ruby":
+			resource_gather_weight_ = objectRubyMineDamage * obj_ruby_resource.rubyWeight;
+			break;
+	}
+	if (resource_gather_weight_ > remaining_weight_available_) && (resource_gather_weight_ != noone) {
 		// Set a variable up to set the current resource target as the 
 		// target to move to after the Worker deposits the resources
 		// held. If the Worker ends up executing any action or commanded
@@ -175,7 +192,7 @@ function unit_mine() {
 		// needs to be wiped.
 		set_return_resource_variables(objectTarget.x, objectTarget.y, real(objectTarget.id));
 		objectNeedsToMove = true;
-		ds_list_sort_distance(player[objectRealTeam].listOfStorehousesAndCityHalls);
+		ds_list_sort_distance(x, y, player[objectRealTeam].listOfStorehousesAndCityHalls);
 		objectTarget = real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0));
 		targetToMoveToX = objectTarget.x;
 		targetToMoveToY = objectTarget.y;
