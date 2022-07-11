@@ -51,7 +51,7 @@ function target_next_object() {
 				}
 			}
 			else {
-				objectCurrentCommand = "Move";
+			objectCurrentCommand = "Move";
 				targetToMoveToX = originalTargetToMoveToX;
 				targetToMoveToY = originalTargetToMoveToY;
 				squareIteration = 0;
@@ -89,7 +89,7 @@ function target_next_object() {
 	}
 	else {
 		if objectCurrentCommand == "Attack" {
-			check_for_new_target(x, y);
+		check_for_new_target(x, y);
 		}
 	}
 	if !ds_exists(objectTargetList, ds_type_list) {
@@ -288,6 +288,24 @@ function unit_move() {
 			// be there, or there are no previous objects registered, period, then reset
 			// the variables and exit script.
 			if (!ds_did_not_exist_) || ((originally_self_is_found_ == noone) && (original_location_is_valid_)) {
+				if objectType == "Worker" {
+					if objectCurrentCommand == "Move" {
+						if ds_exists(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_type_list) {
+							ds_list_sort_distance(x, y, player[objectRealTeam].listOfStorehousesAndCityHalls);
+							if distance_to_object(real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0))) < 16 {
+								player[objectRealTeam].food += currentFoodCarry;
+								player[objectRealTeam].wood += currentWoodCarry;
+								player[objectRealTeam].gold += currentGoldCarry;
+								player[objectRealTeam].rubies += currentRubyCarry;
+								currentFoodCarry = 0;
+								currentWoodCarry = 0;
+								currentGoldCarry = 0;
+								currentRubyCarry = 0;
+								currentResourceWeightCarry = 0;
+							}
+						}
+					}
+				}
 				changeVariablesWhenCloseToTarget = true;
 				notAtTargetLocation = false;
 				validLocationFound = true;
@@ -320,7 +338,7 @@ function unit_move() {
 				movementLeaderOrFollowing = noone;
 				if path_exists(myPath) {
 					path_delete(myPath);
-					myPath = -1;
+				myPath = -1;
 				}
 				if objectCurrentCommand == "Move" {
 					objectCurrentCommand = "Idle";
@@ -1089,6 +1107,24 @@ function unit_move() {
 									if (ds_exists(objectTargetList, ds_type_list)) && (instance_exists(objectTarget)) {
 										// If the ranged object is already in range of target, don't move! It can act already.
 										if point_distance(x, y, targetToMoveToX, targetToMoveToY) <= objectAttackRange {
+											if objectType == "Worker" {
+												if objectCurrentCommand == "Move" {
+													if ds_exists(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_type_list) {
+														ds_list_sort_distance(x, y, player[objectRealTeam].listOfStorehousesAndCityHalls);
+														if distance_to_object(real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0))) < 16 {
+															player[objectRealTeam].food += currentFoodCarry;
+															player[objectRealTeam].wood += currentWoodCarry;
+															player[objectRealTeam].gold += currentGoldCarry;
+															player[objectRealTeam].rubies += currentRubyCarry;
+															currentFoodCarry = 0;
+															currentWoodCarry = 0;
+															currentGoldCarry = 0;
+															currentRubyCarry = 0;
+															currentResourceWeightCarry = 0;
+														}
+													}
+												}
+											}
 											changeVariablesWhenCloseToTarget = true;
 											notAtTargetLocation = false;
 											validLocationFound = true;
@@ -1181,7 +1217,7 @@ function unit_move() {
 												currentAction = unitAction.idle;
 											}
 											else if objectCurrentCommand == "Attack" {
-												currentAction = unitAction.attack;
+											currentAction = unitAction.attack;
 											}
 											else if objectCurrentCommand == "Mine" {
 												currentAction = unitAction.mine;
@@ -2183,6 +2219,24 @@ function unit_move() {
 			// speed during two frames, just teleport the object to that location and reset ALL
 			// variables.
 			else {
+				if objectType == "Worker" {
+					if objectCurrentCommand == "Move" {
+						if ds_exists(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_type_list) {
+							ds_list_sort_distance(x, y, player[objectRealTeam].listOfStorehousesAndCityHalls);
+							if distance_to_object(real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0))) < 16 {
+								player[objectRealTeam].food += currentFoodCarry;
+								player[objectRealTeam].wood += currentWoodCarry;
+								player[objectRealTeam].gold += currentGoldCarry;
+								player[objectRealTeam].rubies += currentRubyCarry;
+								currentFoodCarry = 0;
+								currentWoodCarry = 0;
+								currentGoldCarry = 0;
+								currentRubyCarry = 0;
+								currentResourceWeightCarry = 0;
+							}
+						}
+					}
+				}
 				changeVariablesWhenCloseToTarget = true;
 				notAtTargetLocation = false;
 				validLocationFound = true;
@@ -2298,7 +2352,7 @@ function unit_move() {
 		}
 	}
 	// Else if its at target location, then exit script.
-	else {
+else {
 		if ds_exists(unitGridLocation, ds_type_grid) {
 			var i, self_is_found_;
 			self_is_found_ = noone;
@@ -2335,6 +2389,24 @@ function unit_move() {
 			ds_grid_set(unitGridLocation, 0, 0, self.id);
 			ds_grid_set(unitGridLocation, 1, 0, targetToMoveToX);
 			ds_grid_set(unitGridLocation, 2, 0, targetToMoveToY);
+		}
+		if objectType == "Worker" {
+			if objectCurrentCommand == "Move" {
+				if ds_exists(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_type_list) {
+					ds_list_sort_distance(x, y, player[objectRealTeam].listOfStorehousesAndCityHalls);
+					if distance_to_object(real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0))) < 16 {
+						player[objectRealTeam].food += currentFoodCarry;
+						player[objectRealTeam].wood += currentWoodCarry;
+						player[objectRealTeam].gold += currentGoldCarry;
+						player[objectRealTeam].rubies += currentRubyCarry;
+						currentFoodCarry = 0;
+						currentWoodCarry = 0;
+						currentGoldCarry = 0;
+						currentRubyCarry = 0;
+						currentResourceWeightCarry = 0;
+					}
+				}
+			}
 		}
 		changeVariablesWhenCloseToTarget = true;
 		notAtTargetLocation = false;

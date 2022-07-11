@@ -58,7 +58,7 @@ function determine_leader_or_follower() {
 	// Check between all potential leaders, if they exist, and determine which is closest to move with.
 	// Otherwise, set self as leader.
 	if ds_exists(leader_objects_list_, ds_type_list) {
-		ds_list_sort_distance(leader_objects_list_);
+		ds_list_sort_distance(x, y, leader_objects_list_);
 		movementLeaderOrFollowing = ds_list_find_value(leader_objects_list_, 0);
 		validPathFound = true;
 		ds_list_destroy(leader_objects_list_);

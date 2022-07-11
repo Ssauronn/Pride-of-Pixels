@@ -1,4 +1,4 @@
-///@function					detect_nearby_enemy_objects();
+///@function					detect_nearby_enemy_objects(x, y, objectType);
 ///@param	{real}	x_			The x value of the location to check
 ///@param	{real}	y_			The y value of the location to check
 ///@param	{string}			optional - the objectType looking for.
@@ -51,13 +51,20 @@ function detect_nearby_enemy_objects(x_, y_) {
 			// at location matches the specified target type, then add that object's ID to the list.
 			if instance_exists(instance_at_location_) {
 				// As long as the nearby object isn't a resource or resource building, continue working.
-				if (instance_at_location_.objectClassification != "Resource") && (instance_at_location_.objectType != "Farm") && (instance_at_location_.objectType != "Thicket") && (instance_at_location_.objectType != "Mine") {
+				// I don't check for resource buildings because they shouldn't automatically be destroyed
+				// by armies, because they're usable by all teams.
+				// Or, if the nearby object is a resource or resource building, and the specified type
+				// of object to look for is a resource or resource building, then continue working.
+				if ((instance_at_location_.objectClassification != "Resource") && (instance_at_location_.objectType != "Farm") && (instance_at_location_.objectType != "Thicket") && (instance_at_location_.objectType != "Mine")) || (((target_specified_ == "Food") && (instance_at_location_.objectType == "Food")) || ((target_specified_ == "Wood") && (instance_at_location_.objectType == "Wood")) || ((target_specified_ == "Gold") && (instance_at_location_.objectType == "Gold")) || ((target_specified_ == "Ruby") && (instance_at_location_.objectType == "Ruby")) || ((target_specified_ == "Farm") && (instance_at_location_.objectType == "Farm")) || ((target_specified_ == "Thicket") && (instance_at_location_.objectType == "Thicket")) || ((target_specified_ == "Mine") && (instance_at_location_.objectType == "Mine"))) {
 					// Specifically check to see if the visible team, AND real team is not equal to the
 					// same team as the object calling this script. This prevents any automatic check from
 					// registering friendly spies who are commanded to look like enemy units, or registering
 					// enemy spies who are commanded to look like friendly units. 
-					if ((instance_at_location_.objectVisibleTeam != objectRealTeam && instance_at_location_.objectRealTeam != objectRealTeam)) {
-						if (!target_specified_) || (instance_at_location_.objectType == target_specified_) {
+					// Also, check to see if the unit calling this script is a Worker, in which case if
+					// its command is to collect resources, then any nearby resources or resource buildings
+					// should be found as well.
+					if ((instance_at_location_.objectVisibleTeam != objectRealTeam) && (instance_at_location_.objectRealTeam != objectRealTeam)) || ((objectType == "Worker") && ((objectCurrentCommand == "Gather") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Mine")) && ((instance_at_location_.objectType == "Farm") || (instance_at_location_.objectType == "Thicket") || (instance_at_location_.objectType == "Mine"))) {
+						if (target_specified_ == false) || (instance_at_location_.objectType == target_specified_) {
 							if !ds_exists(objectDetectedList, ds_type_list) {
 								objectDetectedList = ds_list_create();
 							}
@@ -72,7 +79,7 @@ function detect_nearby_enemy_objects(x_, y_) {
 	// careful.
 	if ds_exists(objectDetectedList, ds_type_list) {
 		if ds_list_size(objectDetectedList) > 1 {
-			ds_list_sort_distance(objectDetectedList);
+			ds_list_sort_distance(x, y, objectDetectedList);
 		}
 	}
 	return true;
