@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_werewolf_head_front_walk",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,21 +27,15 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"3a9f3025-f046-43c6-bc89-9ffac4bc9253","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"3a9f3025-f046-43c6-bc89-9ffac4bc9253","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"LayerId":{"name":"d66bc915-fcdf-423b-a834-4c0fa8ad9015","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_werewolf_head_front_walk","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","name":"3a9f3025-f046-43c6-bc89-9ffac4bc9253","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"dfd8ebd7-e186-475e-9954-84a0d6bdd1ae","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"dfd8ebd7-e186-475e-9954-84a0d6bdd1ae","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"LayerId":{"name":"d66bc915-fcdf-423b-a834-4c0fa8ad9015","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_werewolf_head_front_walk","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","name":"dfd8ebd7-e186-475e-9954-84a0d6bdd1ae","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"47f5038b-0ec7-43da-8577-a15eb804f29f","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"47f5038b-0ec7-43da-8577-a15eb804f29f","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"LayerId":{"name":"d66bc915-fcdf-423b-a834-4c0fa8ad9015","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_werewolf_head_front_walk","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","name":"47f5038b-0ec7-43da-8577-a15eb804f29f","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"8d9b5836-36ff-4553-8894-4772f7dc96d5","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"8d9b5836-36ff-4553-8894-4772f7dc96d5","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"LayerId":{"name":"d66bc915-fcdf-423b-a834-4c0fa8ad9015","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_werewolf_head_front_walk","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","name":"8d9b5836-36ff-4553-8894-4772f7dc96d5","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"3a9f3025-f046-43c6-bc89-9ffac4bc9253",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"dfd8ebd7-e186-475e-9954-84a0d6bdd1ae",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"47f5038b-0ec7-43da-8577-a15eb804f29f",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"8d9b5836-36ff-4553-8894-4772f7dc96d5",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_werewolf_head_front_walk","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_werewolf_head_front_walk",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 10.0,
@@ -49,12 +46,12 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"b128aa2a-31b8-4fdb-a42f-0c43a3d81749","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"3a9f3025-f046-43c6-bc89-9ffac4bc9253","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"f2074994-5666-42b3-b605-f6b606b36d06","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"dfd8ebd7-e186-475e-9954-84a0d6bdd1ae","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"98f954a3-3e59-456e-98a4-e646248291ff","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"47f5038b-0ec7-43da-8577-a15eb804f29f","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"d5dac27a-45b7-4d96-ac16-fdb781a0d159","Key":3.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"8d9b5836-36ff-4553-8894-4772f7dc96d5","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -70,22 +67,13 @@
     "yorigin": 8,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_werewolf_head_front_walk","path":"sprites/spr_werewolf_head_front_walk/spr_werewolf_head_front_walk.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_werewolf_head_front_walk",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"d66bc915-fcdf-423b-a834-4c0fa8ad9015","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"d66bc915-fcdf-423b-a834-4c0fa8ad9015","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Walk",
     "path": "folders/Units/Sprites/Werewolf/Head/Walk.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_werewolf_head_front_walk",
-  "tags": [],
-  "resourceType": "GMSprite",
 }

@@ -2352,7 +2352,7 @@ function unit_move() {
 		}
 	}
 	// Else if its at target location, then exit script.
-else {
+	else {
 		if ds_exists(unitGridLocation, ds_type_grid) {
 			var i, self_is_found_;
 			self_is_found_ = noone;

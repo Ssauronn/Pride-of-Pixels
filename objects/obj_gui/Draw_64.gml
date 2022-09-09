@@ -132,7 +132,7 @@ if room_get_name(room) == "WarRoom" {
 
 
 	// Debugging - draw the mouse coordinates to screen
-	draw_text(0, 0, string(floor(mouse_x / 16) * 16) + ", " + string(floor(mouse_y / 16) * 16));
+	draw_text_ext_transformed(0, 0, string(floor(mouse_x / 16) * 16) + ", " + string(floor(mouse_y / 16) * 16), 1, 500, 3, 3, 0);
 }
 
 

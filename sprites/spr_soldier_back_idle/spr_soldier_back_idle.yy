@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_soldier_back_idle",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,15 +27,13 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"729141e5-8d07-4c17-abe3-25e5ecf22b47","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"729141e5-8d07-4c17-abe3-25e5ecf22b47","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"LayerId":{"name":"5cd6199f-7d97-455c-b61c-81fc2e11191a","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_soldier_back_idle","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"resourceVersion":"1.0","name":"729141e5-8d07-4c17-abe3-25e5ecf22b47","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"32329212-48e3-414c-ae3b-2b21bd6eb781","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"32329212-48e3-414c-ae3b-2b21bd6eb781","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"LayerId":{"name":"5cd6199f-7d97-455c-b61c-81fc2e11191a","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_soldier_back_idle","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"resourceVersion":"1.0","name":"32329212-48e3-414c-ae3b-2b21bd6eb781","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"729141e5-8d07-4c17-abe3-25e5ecf22b47",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"32329212-48e3-414c-ae3b-2b21bd6eb781",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_soldier_back_idle","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_soldier_back_idle",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 10.0,
@@ -43,10 +44,10 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"310f88df-f423-40ad-95d4-1bee517082f0","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"729141e5-8d07-4c17-abe3-25e5ecf22b47","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"9462c73c-a824-496f-ab26-68e9db970767","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"32329212-48e3-414c-ae3b-2b21bd6eb781","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -62,22 +63,13 @@
     "yorigin": 8,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_soldier_back_idle","path":"sprites/spr_soldier_back_idle/spr_soldier_back_idle.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_soldier_back_idle",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"5cd6199f-7d97-455c-b61c-81fc2e11191a","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"5cd6199f-7d97-455c-b61c-81fc2e11191a","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Idle",
     "path": "folders/Units/Sprites/Soldier/Idle.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_soldier_back_idle",
-  "tags": [],
-  "resourceType": "GMSprite",
 }

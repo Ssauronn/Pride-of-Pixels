@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_berserker_right_attack",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,27 +27,17 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"43e5b8df-0274-4cec-8b0f-ea2174c0e3ac","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"43e5b8df-0274-4cec-8b0f-ea2174c0e3ac","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":{"name":"d5cfb99c-a27b-493c-8a77-6ff65d066bf3","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_right_attack","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"43e5b8df-0274-4cec-8b0f-ea2174c0e3ac","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"58a3a990-e43f-4e0c-a701-3fe80d2e19c7","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"58a3a990-e43f-4e0c-a701-3fe80d2e19c7","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":{"name":"d5cfb99c-a27b-493c-8a77-6ff65d066bf3","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_right_attack","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"58a3a990-e43f-4e0c-a701-3fe80d2e19c7","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"51cba016-1190-4156-bfe0-8ab334e4958a","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"51cba016-1190-4156-bfe0-8ab334e4958a","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":{"name":"d5cfb99c-a27b-493c-8a77-6ff65d066bf3","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_right_attack","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"51cba016-1190-4156-bfe0-8ab334e4958a","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"e5116df8-f76e-4479-87c8-f5bc9f69927d","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"e5116df8-f76e-4479-87c8-f5bc9f69927d","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":{"name":"d5cfb99c-a27b-493c-8a77-6ff65d066bf3","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_right_attack","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"e5116df8-f76e-4479-87c8-f5bc9f69927d","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"fd415dc7-63c3-4583-a69c-8e357e9ea26f","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"fd415dc7-63c3-4583-a69c-8e357e9ea26f","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":{"name":"d5cfb99c-a27b-493c-8a77-6ff65d066bf3","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_right_attack","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"fd415dc7-63c3-4583-a69c-8e357e9ea26f","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"964a1e62-4e1b-4832-8893-22f7315d55a1","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"964a1e62-4e1b-4832-8893-22f7315d55a1","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"LayerId":{"name":"d5cfb99c-a27b-493c-8a77-6ff65d066bf3","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_right_attack","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","name":"964a1e62-4e1b-4832-8893-22f7315d55a1","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"43e5b8df-0274-4cec-8b0f-ea2174c0e3ac",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"58a3a990-e43f-4e0c-a701-3fe80d2e19c7",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"51cba016-1190-4156-bfe0-8ab334e4958a",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"e5116df8-f76e-4479-87c8-f5bc9f69927d",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"fd415dc7-63c3-4583-a69c-8e357e9ea26f",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"964a1e62-4e1b-4832-8893-22f7315d55a1",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_berserker_right_attack","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_berserker_right_attack",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 6.0,
@@ -55,14 +48,14 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"20945d6d-b09e-4681-8ce6-790bea57088c","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"43e5b8df-0274-4cec-8b0f-ea2174c0e3ac","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"2f572582-e827-4654-9591-f6c6f50ef6dd","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"58a3a990-e43f-4e0c-a701-3fe80d2e19c7","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"d605078e-0872-49ad-88e3-ba03fd323ea9","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"51cba016-1190-4156-bfe0-8ab334e4958a","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"77c55b09-4383-4ed2-a3e7-40bb2961a23f","Key":3.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"e5116df8-f76e-4479-87c8-f5bc9f69927d","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"be29f82f-9fea-4bca-bea1-68bf40a45da8","Key":4.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"fd415dc7-63c3-4583-a69c-8e357e9ea26f","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"9c46d9f9-2ddc-4afe-a278-b431fa139595","Key":5.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"964a1e62-4e1b-4832-8893-22f7315d55a1","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -78,22 +71,13 @@
     "yorigin": 9,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_berserker_right_attack","path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_berserker_right_attack",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"d5cfb99c-a27b-493c-8a77-6ff65d066bf3","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"d5cfb99c-a27b-493c-8a77-6ff65d066bf3","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Attack",
     "path": "folders/Units/Sprites/Berserker/Attack.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_berserker_right_attack",
-  "tags": [],
-  "resourceType": "GMSprite",
 }

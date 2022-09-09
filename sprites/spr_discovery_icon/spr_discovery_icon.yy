@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_discovery_icon",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,12 +27,12 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"5c89fa90-7728-4a23-8be3-7de01cfd7939","path":"sprites/spr_discovery_icon/spr_discovery_icon.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"5c89fa90-7728-4a23-8be3-7de01cfd7939","path":"sprites/spr_discovery_icon/spr_discovery_icon.yy",},"LayerId":{"name":"d53b9017-2725-4ac3-af09-ab3f6bcfaf6f","path":"sprites/spr_discovery_icon/spr_discovery_icon.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_discovery_icon","path":"sprites/spr_discovery_icon/spr_discovery_icon.yy",},"resourceVersion":"1.0","name":"5c89fa90-7728-4a23-8be3-7de01cfd7939","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"5c89fa90-7728-4a23-8be3-7de01cfd7939",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_discovery_icon","path":"sprites/spr_discovery_icon/spr_discovery_icon.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_discovery_icon",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 30.0,
@@ -40,9 +43,9 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"7671c636-4a04-4136-b83f-695ce5a2d578","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"5c89fa90-7728-4a23-8be3-7de01cfd7939","path":"sprites/spr_discovery_icon/spr_discovery_icon.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -58,22 +61,13 @@
     "yorigin": 0,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_discovery_icon","path":"sprites/spr_discovery_icon/spr_discovery_icon.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_discovery_icon",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"d53b9017-2725-4ac3-af09-ab3f6bcfaf6f","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"d53b9017-2725-4ac3-af09-ab3f6bcfaf6f","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "City Hall",
     "path": "folders/UI/Sprites/In-Match Menus/Toolbar/Upgrade Icons/City Hall.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_discovery_icon",
-  "tags": [],
-  "resourceType": "GMSprite",
 }

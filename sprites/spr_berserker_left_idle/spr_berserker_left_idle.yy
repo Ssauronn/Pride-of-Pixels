@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_berserker_left_idle",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,15 +27,13 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"4a7d028c-0e44-41fa-849e-f7ffa0b360bc","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"4a7d028c-0e44-41fa-849e-f7ffa0b360bc","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"LayerId":{"name":"44c5d272-97ed-4ef2-bd1e-185566a15855","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_left_idle","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"resourceVersion":"1.0","name":"4a7d028c-0e44-41fa-849e-f7ffa0b360bc","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"06c51bca-4571-4b0d-927d-0919ce7e935c","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"06c51bca-4571-4b0d-927d-0919ce7e935c","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"LayerId":{"name":"44c5d272-97ed-4ef2-bd1e-185566a15855","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_left_idle","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"resourceVersion":"1.0","name":"06c51bca-4571-4b0d-927d-0919ce7e935c","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"4a7d028c-0e44-41fa-849e-f7ffa0b360bc",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"06c51bca-4571-4b0d-927d-0919ce7e935c",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_berserker_left_idle","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_berserker_left_idle",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 6.0,
@@ -43,10 +44,10 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"5bc47510-fe00-486e-bb72-85f0414f1dd7","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"4a7d028c-0e44-41fa-849e-f7ffa0b360bc","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"c657dbe9-f317-4bf0-b945-866c9bc027ef","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"06c51bca-4571-4b0d-927d-0919ce7e935c","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -62,22 +63,13 @@
     "yorigin": 9,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_berserker_left_idle","path":"sprites/spr_berserker_left_idle/spr_berserker_left_idle.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_berserker_left_idle",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"44c5d272-97ed-4ef2-bd1e-185566a15855","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"44c5d272-97ed-4ef2-bd1e-185566a15855","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Idle",
     "path": "folders/Units/Sprites/Berserker/Idle.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_berserker_left_idle",
-  "tags": [],
-  "resourceType": "GMSprite",
 }

@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_robot_legs_front_attack",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,27 +27,17 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"cec5fe1e-0316-41fc-adaf-41e770cffbc2","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"cec5fe1e-0316-41fc-adaf-41e770cffbc2","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":{"name":"3e8da5fd-17c0-4820-84ef-60406636794a","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_robot_legs_front_attack","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"cec5fe1e-0316-41fc-adaf-41e770cffbc2","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"dc155bfa-a891-4a13-a2d8-c81be1009690","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"dc155bfa-a891-4a13-a2d8-c81be1009690","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":{"name":"3e8da5fd-17c0-4820-84ef-60406636794a","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_robot_legs_front_attack","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"dc155bfa-a891-4a13-a2d8-c81be1009690","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"1d3e2439-8999-44fb-ae4e-3e6f5ad69082","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"1d3e2439-8999-44fb-ae4e-3e6f5ad69082","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":{"name":"3e8da5fd-17c0-4820-84ef-60406636794a","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_robot_legs_front_attack","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"1d3e2439-8999-44fb-ae4e-3e6f5ad69082","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"b5a444c2-c649-45b3-94d8-04f03e2b341f","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"b5a444c2-c649-45b3-94d8-04f03e2b341f","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":{"name":"3e8da5fd-17c0-4820-84ef-60406636794a","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_robot_legs_front_attack","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"b5a444c2-c649-45b3-94d8-04f03e2b341f","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"ca0c9bca-01d1-42a4-a919-1bab24ff48a0","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"ca0c9bca-01d1-42a4-a919-1bab24ff48a0","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":{"name":"3e8da5fd-17c0-4820-84ef-60406636794a","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_robot_legs_front_attack","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"ca0c9bca-01d1-42a4-a919-1bab24ff48a0","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"62a1aae6-cc47-4fa1-a7fb-dce318415e5b","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"62a1aae6-cc47-4fa1-a7fb-dce318415e5b","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"LayerId":{"name":"3e8da5fd-17c0-4820-84ef-60406636794a","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_robot_legs_front_attack","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","name":"62a1aae6-cc47-4fa1-a7fb-dce318415e5b","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"cec5fe1e-0316-41fc-adaf-41e770cffbc2",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"dc155bfa-a891-4a13-a2d8-c81be1009690",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"1d3e2439-8999-44fb-ae4e-3e6f5ad69082",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"b5a444c2-c649-45b3-94d8-04f03e2b341f",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"ca0c9bca-01d1-42a4-a919-1bab24ff48a0",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"62a1aae6-cc47-4fa1-a7fb-dce318415e5b",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_robot_legs_front_attack","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_robot_legs_front_attack",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 10.0,
@@ -55,14 +48,14 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"bb413a14-5c8d-4bc3-9d22-763a701b5cf9","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"cec5fe1e-0316-41fc-adaf-41e770cffbc2","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"fd595313-21a6-4e31-976f-a2a41210f4ea","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"dc155bfa-a891-4a13-a2d8-c81be1009690","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"b59abe09-bf8e-45ae-96d4-c42472d41a8c","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"1d3e2439-8999-44fb-ae4e-3e6f5ad69082","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"15c3ce6a-018e-4b2f-ae94-b37c7373c0b6","Key":3.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"b5a444c2-c649-45b3-94d8-04f03e2b341f","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"eff1358d-913d-4723-b1ba-57a69f453c41","Key":4.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"ca0c9bca-01d1-42a4-a919-1bab24ff48a0","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"a28478c9-d3dd-4ec3-9f37-b943e2dd8ce4","Key":5.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"62a1aae6-cc47-4fa1-a7fb-dce318415e5b","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -78,22 +71,13 @@
     "yorigin": 8,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_robot_legs_front_attack","path":"sprites/spr_robot_legs_front_attack/spr_robot_legs_front_attack.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_robot_legs_front_attack",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"3e8da5fd-17c0-4820-84ef-60406636794a","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"3e8da5fd-17c0-4820-84ef-60406636794a","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Attack",
     "path": "folders/Units/Sprites/Robot/Legs/Attack.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_robot_legs_front_attack",
-  "tags": [],
-  "resourceType": "GMSprite",
 }
