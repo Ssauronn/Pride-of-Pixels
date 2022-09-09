@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_berserker_front_walk",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,21 +27,15 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"58de191d-7d41-4bb8-b958-6a1f6751a674","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"58de191d-7d41-4bb8-b958-6a1f6751a674","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"LayerId":{"name":"38d68809-16ad-4aed-974e-6ce8463fc97a","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_front_walk","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","name":"58de191d-7d41-4bb8-b958-6a1f6751a674","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"2381b53a-ef80-4f57-a45a-448830265a95","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"2381b53a-ef80-4f57-a45a-448830265a95","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"LayerId":{"name":"38d68809-16ad-4aed-974e-6ce8463fc97a","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_front_walk","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","name":"2381b53a-ef80-4f57-a45a-448830265a95","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"d228dc8d-54e7-4502-97eb-1460cd7ec43e","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"d228dc8d-54e7-4502-97eb-1460cd7ec43e","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"LayerId":{"name":"38d68809-16ad-4aed-974e-6ce8463fc97a","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_front_walk","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","name":"d228dc8d-54e7-4502-97eb-1460cd7ec43e","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"17d4ef9d-5024-432a-9c0f-1c64bbc42d36","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"17d4ef9d-5024-432a-9c0f-1c64bbc42d36","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"LayerId":{"name":"38d68809-16ad-4aed-974e-6ce8463fc97a","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_berserker_front_walk","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","name":"17d4ef9d-5024-432a-9c0f-1c64bbc42d36","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"58de191d-7d41-4bb8-b958-6a1f6751a674",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"2381b53a-ef80-4f57-a45a-448830265a95",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"d228dc8d-54e7-4502-97eb-1460cd7ec43e",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"17d4ef9d-5024-432a-9c0f-1c64bbc42d36",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_berserker_front_walk","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_berserker_front_walk",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 10.0,
@@ -49,12 +46,12 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"4ca910c6-a2c4-404d-8d3e-3cf519f0d79a","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"58de191d-7d41-4bb8-b958-6a1f6751a674","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"88be18d6-83f0-4eea-ab96-7b075d6976ce","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"2381b53a-ef80-4f57-a45a-448830265a95","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"66f13242-416a-48ec-8d25-a769c39facf2","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"d228dc8d-54e7-4502-97eb-1460cd7ec43e","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"c7765aa8-a3cb-4fa6-88b0-d007eb8fb538","Key":3.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"17d4ef9d-5024-432a-9c0f-1c64bbc42d36","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -70,22 +67,13 @@
     "yorigin": 8,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_berserker_front_walk","path":"sprites/spr_berserker_front_walk/spr_berserker_front_walk.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_berserker_front_walk",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"38d68809-16ad-4aed-974e-6ce8463fc97a","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"38d68809-16ad-4aed-974e-6ce8463fc97a","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Walk",
     "path": "folders/Units/Sprites/Berserker/Walk.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_berserker_front_walk",
-  "tags": [],
-  "resourceType": "GMSprite",
 }

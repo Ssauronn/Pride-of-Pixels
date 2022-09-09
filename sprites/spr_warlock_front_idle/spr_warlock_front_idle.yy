@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_warlock_front_idle",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,15 +27,13 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"e927174f-c2e0-401a-959e-67dcacefdcff","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"e927174f-c2e0-401a-959e-67dcacefdcff","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"LayerId":{"name":"42e32682-3405-4c3c-8f0f-c1a22e0e5017","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_warlock_front_idle","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"resourceVersion":"1.0","name":"e927174f-c2e0-401a-959e-67dcacefdcff","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"7fa1813e-0931-47a9-9843-b9775d605d15","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"7fa1813e-0931-47a9-9843-b9775d605d15","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"LayerId":{"name":"42e32682-3405-4c3c-8f0f-c1a22e0e5017","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_warlock_front_idle","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"resourceVersion":"1.0","name":"7fa1813e-0931-47a9-9843-b9775d605d15","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"e927174f-c2e0-401a-959e-67dcacefdcff",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"7fa1813e-0931-47a9-9843-b9775d605d15",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_warlock_front_idle","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_warlock_front_idle",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 10.0,
@@ -43,10 +44,10 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"6d19fc66-08af-483c-857c-c5fe852ae838","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"e927174f-c2e0-401a-959e-67dcacefdcff","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"09b430ba-9ef7-413f-b4e3-e60665d44774","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"7fa1813e-0931-47a9-9843-b9775d605d15","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -62,22 +63,13 @@
     "yorigin": 8,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_warlock_front_idle","path":"sprites/spr_warlock_front_idle/spr_warlock_front_idle.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_warlock_front_idle",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"42e32682-3405-4c3c-8f0f-c1a22e0e5017","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"42e32682-3405-4c3c-8f0f-c1a22e0e5017","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Idle",
     "path": "folders/Units/Sprites/Warlock/Idle.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_warlock_front_idle",
-  "tags": [],
-  "resourceType": "GMSprite",
 }
