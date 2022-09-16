@@ -1163,6 +1163,9 @@ if !obj_gui.startMenu.active {
 	if currentHP <= 0 {
 		kill_self();
 	}
+	
+	var yeet_ = objectTarget;
+	var yeet2_ = 1;
 }
 
 

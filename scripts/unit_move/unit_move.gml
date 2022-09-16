@@ -51,7 +51,7 @@ function target_next_object() {
 				}
 			}
 			else {
-			objectCurrentCommand = "Move";
+				objectCurrentCommand = "Move";
 				targetToMoveToX = originalTargetToMoveToX;
 				targetToMoveToY = originalTargetToMoveToY;
 				squareIteration = 0;
@@ -79,8 +79,6 @@ function target_next_object() {
 			squareSizeIncreaseCount = 0;
 			baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 			groupDirectionToMoveInAdjusted = 0;
-			objectTarget = noone;
-			forceAttack = false;
 			if ds_exists(objectTargetList, ds_type_list) {
 				ds_list_destroy(objectTargetList);
 				objectTargetList = noone;
@@ -89,7 +87,7 @@ function target_next_object() {
 	}
 	else {
 		if objectCurrentCommand == "Attack" {
-		check_for_new_target(x, y);
+			check_for_new_target(x, y);
 		}
 	}
 	if !ds_exists(objectTargetList, ds_type_list) {
@@ -202,6 +200,11 @@ function unit_move() {
 							targetToMoveToY = floor((y - 8) / 16) * 16;
 							break;
 					}
+					squareIteration = 0;
+					squareTrueIteration = 0;
+					squareSizeIncreaseCount = 0;
+					baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+					groupDirectionToMoveInAdjusted = 0;
 					changeVariablesWhenCloseToTarget = false;
 					notAtTargetLocation = true;
 					validLocationFound = false;
@@ -306,6 +309,11 @@ function unit_move() {
 						}
 					}
 				}
+				squareIteration = 0;
+				squareTrueIteration = 0;
+				squareSizeIncreaseCount = 0;
+				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+				groupDirectionToMoveInAdjusted = 0;
 				changeVariablesWhenCloseToTarget = true;
 				notAtTargetLocation = false;
 				validLocationFound = true;
@@ -980,6 +988,11 @@ function unit_move() {
 				targetToMoveToY = floor(closestSearchPointToObjectY / 16) * 16;
 				originalTargetToMoveToX = targetToMoveToX;
 				originalTargetToMoveToY = targetToMoveToY;
+				squareIteration = 0;
+				squareTrueIteration = 0;
+				squareSizeIncreaseCount = 0;
+				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+				groupDirectionToMoveInAdjusted = 0;
 				changeVariablesWhenCloseToTarget = true;
 				validPathFound = false;
 				validLocationFound = false;
@@ -1022,6 +1035,11 @@ function unit_move() {
 				validLocationFound = false;
 				// Only reset variables if this is the first time running this code.
 				cannot_move_without_better_coordinates_ = false;
+				squareIteration = 0;
+				squareTrueIteration = 0;
+				squareSizeIncreaseCount = 0;
+				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+				groupDirectionToMoveInAdjusted = 0;
 				right_n_ = 0;
 				top_n_ = 0;
 				left_n_ = 0;
@@ -1304,6 +1322,7 @@ function unit_move() {
 											tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
 											// Shift the temporary check upwards to the top edge
 											tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16);
+											var yeet_ = 1;
 										}
 										else {
 											squareIteration += square_horizontal_edge_sizes_ - squareIteration;
@@ -1319,6 +1338,7 @@ function unit_move() {
 											// of one side from the coordinates, since I've already iterated through
 											// a side.
 											tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16) + (squareIteration * 16) - ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16);
+											var yeet_ = 1;
 										}
 										else {
 											squareIteration += (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) - squareIteration;
@@ -1336,6 +1356,7 @@ function unit_move() {
 											tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
 											// Shift the temporary check downwards to the bottom edge
 											tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
+											var yeet_ = 1;
 										}
 										else {
 											squareIteration += ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) - squareIteration;
@@ -1350,6 +1371,7 @@ function unit_move() {
 											// Start at the bottom left corner and move up. Works in the same
 											// way the check in the else if statement above works with the x axis.
 											tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + (((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
+											var yeet_ = 1;
 										}
 										else {
 											squareIteration += ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) - squareIteration;
