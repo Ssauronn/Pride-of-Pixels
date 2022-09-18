@@ -216,21 +216,63 @@ function unit_mine() {
 		object_target_x_ = objectTarget.x;
 		object_target_y_ = objectTarget.y;
 		object_target_id_ = objectTarget.id;
-		ds_list_sort_distance(x, y, player[objectRealTeam].listOfStorehousesAndCityHalls);
-		drop_point_id_ = real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0));
-		set_return_resource_variables(object_target_x_, object_target_y_, object_target_id_, drop_point_id_);
-		objectNeedsToMove = true;
-		objectTarget = drop_point_id_;
-		targetToMoveToX = drop_point_id_.x;
-		targetToMoveToY = drop_point_id_.y;
-		currentAction = unitAction.move;
-		// Run this script to determine if it should be making its own path, or following the path
-		// of another.
-		determine_leader_or_follower();
-		// Make sure the target list is destroyed, so no checking for the target occurs in the first place.
-		if ds_exists(objectTargetList, ds_type_list) {
-			ds_list_destroy(objectTargetList);
-			objectTargetList = noone;
+		// First, go through the list of drop points, to make sure that a drop point still exists. If none do,
+		// the unit needs to stand still instead.
+		var j, drop_point_exists_;
+		drop_point_exists_ = true;
+		// If a list of storehouses and drop points exists, then use that list. Otherwise, exit straight to idle.
+		if ds_exists(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_type_list) {
+			for (j = 0; j < ds_list_size(player[objectRealTeam].listOfStorehousesAndCityHalls); j++) {
+				var temp_drop_point_id_ = ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, j);
+				// Begin cleaning the list out. If any don't exist in that list, destroy that line in the list.
+				// If the list runs out of lines, destroy the list, and exit straight to idle.
+				if !instance_exists(temp_drop_point_id_) {
+					if ds_list_size(player[objectRealTeam].listOfStorehousesAndCityHalls) > 1 {
+						ds_list_delete(player[objectRealTeam].listOfStorehousesAndCityHalls, j);
+					}
+					else {
+						ds_list_destroy(player[objectRealTeam].listOfStorehousesAndCityHalls);
+						player[objectRealTeam].listOfStorehousesAndCityHalls = noone;
+						drop_point_exists_ = false;
+					}
+				}
+			}
+		}
+		else {
+			drop_point_exists_ = false;
+		}
+		// If the list of drop points exists, then proceed as normally to movement towards the closest drop point.
+		if drop_point_exists_ {
+			ds_list_sort_distance(x, y, player[objectRealTeam].listOfStorehousesAndCityHalls);
+			drop_point_id_ = real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0));
+			set_return_resource_variables(object_target_x_, object_target_y_, object_target_id_, drop_point_id_);
+			objectNeedsToMove = true;
+			objectTarget = drop_point_id_;
+			targetToMoveToX = drop_point_id_.x;
+			targetToMoveToY = drop_point_id_.y;
+			currentAction = unitAction.move;
+			// Run this script to determine if it should be making its own path, or following the path
+			// of another.
+			determine_leader_or_follower();
+			// Make sure the target list is destroyed, so no checking for the target occurs in the first place.
+			if ds_exists(objectTargetList, ds_type_list) {
+				ds_list_destroy(objectTargetList);
+				objectTargetList = noone;
+			}
+		}
+		// Otherwise, if no drop point exists, then exit to idle.
+		else {
+			objectNeedsToMove = false;
+			objectTarget = noone;
+			targetToMoveToX = floor(x / 16) * 16;
+			targetToMoveToY = floor(y / 16) * 16;
+			currentAction = unitAction.idle;
+			objectCurrentCommand = "Idle";
+			// Make sure the target list is destroyed, so no checking for the target occurs in the first place.
+			if ds_exists(objectTargetList, ds_type_list) {
+				ds_list_destroy(objectTargetList);
+				objectTargetList = noone;
+			}
 		}
 	}
 }
