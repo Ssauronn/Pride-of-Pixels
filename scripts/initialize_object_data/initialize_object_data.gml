@@ -112,6 +112,7 @@ function initialize_object_data() {
 			returnToResourceY = noone;
 			returnToResourceID = noone;
 			returnToResourceType = noone;
+			returnToResourceDropPointID = noone;
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
