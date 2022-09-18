@@ -53,4 +53,7 @@ function check_for_new_target(x_, y_) {
 			ds_list_insert(objectTargetList, 0, closest_target_);
 		}
 	}
+	else {
+		return noone;
+	}
 }

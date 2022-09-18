@@ -11,8 +11,8 @@ function unit_mine() {
 	// Check to see if the unitAction should currently be mining - if not, then set to a different state.
 	if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
 		// Check to see if a target to collect from exists and the target is a valid target, or if
-		// a target to attack exists and is valid - otherwise, active variables to search for a new
-		// target.
+		// a target to attack exists and is valid, or if the object is nearby a drop point
+		// - otherwise, activate variables to search for a new target.
 		if (instance_exists(objectTarget)) && ((objectTarget.objectClassification == "Resource") || ((objectTarget.objectClassification == "Building") && ((object_type_ == "Farm") || (object_type_ == "Thicket") || (object_type_ == "Mine")))) {
 			currentDirection = (point_direction(x, y, objectTarget.x, objectTarget.y,) + 45) div 90;
 			if currentDirection > 3 {
@@ -129,7 +129,9 @@ function unit_mine() {
 			// Just send to attack script, and the attack script can handle the rest.
 			currentAction = unitAction.attack;
 		}
-		else if (instance_exists(objectTarget)) && ((object_type_ == "City Hall") || (object_type_ == "Storehouse")) && (currentResourceWeightCarry > 0) {
+		// Else if the object's target is a drop point, or if the object has no target
+		// but is adjacent to a drop point, drop the resources off and then continue onwards.
+		else if (((instance_exists(objectTarget)) && ((object_type_ == "City Hall") || (object_type_ == "Storehouse"))) || (instance_exists(returnToResourceDropPointID) && (distance_to_object(returnToResourceDropPointID) <= 32))) && (currentResourceWeightCarry > 0) {
 			player[objectRealTeam].food += currentFoodCarry;
 			player[objectRealTeam].wood += currentWoodCarry;
 			player[objectRealTeam].gold += currentGoldCarry;
@@ -139,6 +141,26 @@ function unit_mine() {
 			currentGoldCarry = 0;
 			currentRubyCarry = 0;
 			currentResourceWeightCarry = 0;
+			if !instance_exists(returnToResourceID) {
+				// If the resource to return to no longer exists, find a new one. I specifically only
+				// search for a new resource, and not a new resource building, because if the building
+				// was destroyed, then it was either unwanted or in combat recently, and either way,
+				// the Worker will look more intelligent if it moves somewhere else automatically.
+				switch(objectCurrentCommand) {
+					case "Mine":
+						returnToResourceID = instance_nearest(returnToResourceX, returnToResourceY, obj_gold_resource);
+						break;
+					case "Farm":
+						returnToResourceID = instance_nearest(returnToResourceX, returnToResourceY, obj_food_resource);
+						break;
+					case "Ruby Mine":
+						returnToResourceID = instance_nearest(returnToResourceX, returnToResourceY, obj_ruby_resource);
+						break;
+					case "Chop":
+						returnToResourceID = instance_nearest(returnToResourceX, returnToResourceY, obj_tree_resource);
+						break;
+				}
+			}
 			objectTarget = returnToResourceID;
 			objectTargetType = returnToResourceType;
 			targetToMoveToX = returnToResourceX;
@@ -190,12 +212,17 @@ function unit_mine() {
 		// held. If the Worker ends up executing any action or commanded
 		// to execute any action other than returning the resources, this
 		// needs to be wiped.
-		set_return_resource_variables(objectTarget.x, objectTarget.y, real(objectTarget.id));
-		objectNeedsToMove = true;
+		var object_target_x_, object_target_y_, object_target_id_, drop_point_id_;
+		object_target_x_ = objectTarget.x;
+		object_target_y_ = objectTarget.y;
+		object_target_id_ = objectTarget.id;
 		ds_list_sort_distance(x, y, player[objectRealTeam].listOfStorehousesAndCityHalls);
-		objectTarget = real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0));
-		targetToMoveToX = objectTarget.x;
-		targetToMoveToY = objectTarget.y;
+		drop_point_id_ = real(ds_list_find_value(player[objectRealTeam].listOfStorehousesAndCityHalls, 0));
+		set_return_resource_variables(object_target_x_, object_target_y_, object_target_id_, drop_point_id_);
+		objectNeedsToMove = true;
+		objectTarget = drop_point_id_;
+		targetToMoveToX = drop_point_id_.x;
+		targetToMoveToY = drop_point_id_.y;
 		currentAction = unitAction.move;
 		// Run this script to determine if it should be making its own path, or following the path
 		// of another.

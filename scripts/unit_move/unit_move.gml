@@ -1263,6 +1263,14 @@ function unit_move() {
 									ranged_unit_direction_moving_in_ = groupDirectionToMoveIn + groupDirectionToMoveInAdjusted;
 								}
 							}
+							// If the object's target doesn't exist but alternative targets do exist,
+							// find a new target.
+							if (ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
+								target_next_object();
+							}
+							if !instance_exists(objectTarget) {
+								var yeet_ = 1;
+							}
 							// As long as the object doesn't have a specific target to focus, perform normal
 							// pathfinding.
 							if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
@@ -1273,6 +1281,14 @@ function unit_move() {
 							// Else if the object has a specific target to focus, set adjuster variables
 							// and use those variables in the search afterwards.
 							else {
+								// If the object's target doesn't exist but alternative targets do exist,
+								// find a new target.
+								if (ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
+									target_next_object();
+								}
+								if !instance_exists(objectTarget) {
+									var yeet_ = 1;
+								}
 								// Set the size of the minimum pattern.
 								var horizontal_edge_size_, vertical_edge_size_;
 								// If the search area is surrounding a 1x1 grid area
@@ -1338,7 +1354,6 @@ function unit_move() {
 											// of one side from the coordinates, since I've already iterated through
 											// a side.
 											tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16) + (squareIteration * 16) - ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16);
-											var yeet_ = 1;
 										}
 										else {
 											squareIteration += (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) - squareIteration;
@@ -1356,7 +1371,6 @@ function unit_move() {
 											tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
 											// Shift the temporary check downwards to the bottom edge
 											tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
-											var yeet_ = 1;
 										}
 										else {
 											squareIteration += ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) - squareIteration;
@@ -1371,7 +1385,6 @@ function unit_move() {
 											// Start at the bottom left corner and move up. Works in the same
 											// way the check in the else if statement above works with the x axis.
 											tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + (((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
-											var yeet_ = 1;
 										}
 										else {
 											squareIteration += ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) - squareIteration;

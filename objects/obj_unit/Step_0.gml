@@ -22,9 +22,6 @@ if returnToResourceID != noone {
 			set_return_resource_variables_noone();
 		}
 	}
-	else if (objectType == "Worker") && (!instance_exists(objectTarget)) {
-		check_for_new_target(returnToResourceX, returnToResourceY, returnToResourceType);
-	}
 }
 
 // Stop certain sections of code if not on screen
@@ -217,9 +214,9 @@ if !obj_gui.startMenu.active {
 						}
 					}
 					else if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Ruby Mine") || (objectCurrentCommand == "Farm") {
-						// Allow Workers to move if their target location is either a resource
-						// or a Storehouse
-						if (temp_instance_to_reference_.objectClassification == "Resource") || (temp_instance_to_reference_.objectType == "Storehouse") {
+						// Allow Workers to move if their target location is either a resource,
+						// Storehouse, or City Hall
+						if (temp_instance_to_reference_.objectClassification == "Resource") || (temp_instance_to_reference_.objectType == "Storehouse") || (temp_instance_to_reference_.objectType == "City Hall") {
 							object_at_location_ = temp_instance_to_reference_;
 							target_found_ = true;
 						}
@@ -261,7 +258,7 @@ if !obj_gui.startMenu.active {
 			if instance_exists(object_at_location_) {
 				// If the object_at_location_ is not a resource to mine, and not a building that 
 				// can be mined like a Farm, Thicket, or Mine
-				if ((object_at_location_.objectClassification != "Resource") || ((object_at_location_.objectClassification == "Building") && (object_at_location_.objectType != "Storehouse") && (object_at_location_.objectTarget != "City Hall") && (object_at_location_.objectType != "Farm") && (object_at_location_.objectType != "Thicket") && (object_at_location_.objectType != "Mine"))) && ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) {
+				if ((objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Ruby Mine")) && ((object_at_location_.objectClassification != "Resource") && ((object_at_location_.objectClassification == "Building") && (object_at_location_.objectType != "Storehouse") && (object_at_location_.objectType != "City Hall") && (object_at_location_.objectType != "Farm") && (object_at_location_.objectType != "Thicket") && (object_at_location_.objectType != "Mine"))) {
 					if objectCurrentCommand == "Chop" {
 						if !instance_exists(object_at_location_) || ((object_at_location_.object_index != obj_tree_resource) && (object_at_location_.objectType != "Thicket")) {
 							temp_object_at_location_ = instance_nearest(targetToMoveToX, targetToMoveToY, obj_tree_resource);
@@ -724,7 +721,7 @@ if !obj_gui.startMenu.active {
 					// so I skip over running the below code if its currently in combat. The cool thing with this
 					// is that this won't be skipped over no matter what if the player is manually commanding
 					// the object, so it'll never cause issues.
-					if ((objectCurrentCommand != "Attack") && (!ds_exists(objectTargetList, ds_type_list))) || (mouse_check_button_pressed(mb_right)) {
+					if ((objectCurrentCommand != "Attack") && (objectCurrentCommand != "Mine") && (objectCurrentCommand != "Ruby Mine") && (objectCurrentCommand != "Chop") && (objectCurrentCommand != "Gather") && (!ds_exists(objectTargetList, ds_type_list))) || (mouse_check_button_pressed(mb_right)) {
 						objectCurrentCommand = "Move";
 						if ds_exists(objectTargetList, ds_type_list) {
 							ds_list_destroy(objectTargetList);
@@ -777,12 +774,26 @@ if !obj_gui.startMenu.active {
 				// Finally, after setting each object's ds_lists (if necessary), reset all
 				// movement variables for each selected object.
 				if !justSpawned {
-					if !ds_exists(objectTargetList, ds_type_list) {
-						targetToMoveToX = floor(obj_inputs.mouseClampedX / 16) * 16;
-						targetToMoveToY = floor(obj_inputs.mouseClampedY / 16) * 16;
+					if returnToResourceID == noone {
+						if !ds_exists(objectTargetList, ds_type_list) {
+							targetToMoveToX = floor(obj_inputs.mouseClampedX / 16) * 16;
+							targetToMoveToY = floor(obj_inputs.mouseClampedY / 16) * 16;
+						}
+						else {
+							if ds_exists(objectTargetList, ds_type_list) {
+								var target_ = ds_list_find_value(objectTargetList, 0);
+								targetToMoveToX = floor(target_.x / 16) * 16;
+								targetToMoveToY = floor(target_.y / 16) * 16;
+							}
+							else {
+								var target_ = noone;
+								targetToMoveToX = x;
+								targetToMoveToY = y;
+							}
+						}
 					}
 					else {
-						var target_ = ds_list_find_value(objectTargetList, 0);
+						var target_ = object_at_location_;
 						targetToMoveToX = floor(target_.x / 16) * 16;
 						targetToMoveToY = floor(target_.y / 16) * 16;
 					}
@@ -1163,9 +1174,6 @@ if !obj_gui.startMenu.active {
 	if currentHP <= 0 {
 		kill_self();
 	}
-	
-	var yeet_ = objectTarget;
-	var yeet2_ = 1;
 }
 
 
