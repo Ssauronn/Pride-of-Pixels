@@ -172,7 +172,36 @@ function unit_mine() {
 			determine_leader_or_follower();
 		}
 		else {
+			var object_current_command_ = objectCurrentCommand;
 			target_next_object();
+			if objectTarget == noone {
+				if !ds_exists(objectTargetList, ds_type_list) {
+					switch object_current_command_ {
+						case "Mine":
+							var resource_type_ = "Gold";
+							break;
+						case "Ruby Mine":
+							var resource_type_ = "Ruby";
+							break;
+						case "Chop":
+							var resource_type_ = "Wood";
+							break;
+						case "Farm":
+							var resource_type_ = "Food";
+							break;
+					}
+					objectCurrentCommand = object_current_command_;
+					check_for_new_target(x, y, resource_type_);
+					// Now that new targets have been (potentially) found by the above line, sort by 
+					// distance and set the closest potential target as the new target.
+					if ds_exists(objectTargetList, ds_type_list) {
+						ds_list_sort_distance(x, y, objectTargetList);
+						objectTarget = ds_list_find_value(objectTargetList, 0);
+						targetToMoveToX = floor(objectTarget.x / 16) * 16;
+						targetToMoveToY = floor(objectTarget.y / 16) * 16;
+					}
+				}
+			}
 			currentAction = unitAction.move;
 			// Run this script to determine if it should be making its own path, or following the path
 			// of another.
