@@ -197,8 +197,14 @@ function unit_mine() {
 					if ds_exists(objectTargetList, ds_type_list) {
 						ds_list_sort_distance(x, y, objectTargetList);
 						objectTarget = ds_list_find_value(objectTargetList, 0);
-						targetToMoveToX = floor(objectTarget.x / 16) * 16;
-						targetToMoveToY = floor(objectTarget.y / 16) * 16;
+						var target_x_ = objectTarget.x;
+						var target_y_ = objectTarget.y;
+						if (returnToResourceX != noone) && (returnToResourceY != noone) {
+							target_x_ = returnToResourceX;
+							target_y_ = returnToResourceY;
+						}
+						targetToMoveToX = floor(target_x_ / 16) * 16;
+						targetToMoveToY = floor(target_y_ / 16) * 16;
 					}
 				}
 			}
