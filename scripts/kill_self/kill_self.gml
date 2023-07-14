@@ -4,7 +4,7 @@
 function kill_self() {
 	// Cleanse objectsSelectedList
 	if ds_exists(objectsSelectedList, ds_type_list) {
-		var instance_found_ = ds_list_find_index(objectsSelectedList, self.id);
+		var instance_found_ = ds_list_find_index(objectsSelectedList, id);
 		if instance_found_ != -1 {
 			if ds_list_size(objectsSelectedList) > 1 {
 				ds_list_delete(objectsSelectedList, instance_found_);
@@ -17,7 +17,7 @@ function kill_self() {
 	}
 	// Cleanse unitQueueForPathfindingList
 	if ds_exists(unitQueueForPathfindingList, ds_type_list) {
-		var instance_found_ = ds_list_find_index(unitQueueForPathfindingList, self.id);
+		var instance_found_ = ds_list_find_index(unitQueueForPathfindingList, id);
 		if instance_found_ != -1 {
 			if ds_list_size(unitQueueForPathfindingList) > 1 {
 				ds_list_delete(unitQueueForPathfindingList, instance_found_);
@@ -35,7 +35,7 @@ function kill_self() {
 	*/
 	if variable_instance_exists(self, "objectTargetList") {
 		if ds_exists(objectTargetList, ds_type_list) {
-			var instance_found_ = ds_list_find_index(objectTargetList, self.id);
+			var instance_found_ = ds_list_find_index(objectTargetList, id);
 			if instance_found_ != -1 {
 				if ds_list_size(objectTargetList) > 1 {
 					ds_list_delete(objectTargetList, instance_found_);

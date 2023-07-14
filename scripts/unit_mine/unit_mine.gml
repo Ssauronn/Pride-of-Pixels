@@ -70,7 +70,7 @@ function unit_mine() {
 								var max_amount_of_gold_obtainable_ = floor((maxResourceWeightCanCarry - currentResourceWeightCarry) / gold_weight_)
 								objectTarget.currentHP -= min(objectGoldMineDamage, max_amount_of_gold_obtainable_);
 								currentGoldCarry += min(objectGoldMineDamage, max_amount_of_gold_obtainable_);
-								currentResourceWeightCarry += min((objectGoldMineDamage * gold_weight_), (max_amount_of_wood_obtainable_ * gold_weight_));
+								currentResourceWeightCarry += min((objectGoldMineDamage * gold_weight_), (max_amount_of_gold_obtainable_ * gold_weight_));
 							}
 							break;
 						case "Ruby":
