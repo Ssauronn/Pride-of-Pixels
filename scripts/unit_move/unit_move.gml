@@ -1296,23 +1296,9 @@ function unit_move() {
 									horizontal_edge_size_ = 1;
 									vertical_edge_size_ = 1;
 								}
-								// If the search area is surrounding a 1(vertical)x3(horizontal) grid area
-								else if (objectTarget.objectType == "Ruby") {
-									horizontal_edge_size_ = 4;
-									vertical_edge_size_ = 1;
-								}
-								// If the search area is surrounding a 2(vertical)x3(horizontal) grid area
-								else if (objectTarget.objectType == "Gold") {
-									horizontal_edge_size_ = 3;
-									vertical_edge_size_ = 2;
-								}
-								// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
-								// Currently I'm just checking for "objectTarget.objectClassification == "Building"
-								// I need to change that to check specifically for different building type sizes once
-								// I have a set idea of each building type and size.
-								else if (objectTarget.objectClassification == "Building") {
-									horizontal_edge_size_ = 4;
-									vertical_edge_size_ = 4;
+								else {
+									horizontal_edge_size_ = sprite_get_width(objectTarget.mask_index) / 16;
+									vertical_edge_size_ = sprite_get_height(objectTarget.mask_index) / 16;
 								}
 							}
 							while still_need_to_search_ {

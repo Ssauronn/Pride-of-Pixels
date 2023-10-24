@@ -1270,7 +1270,7 @@ function initialize_object_data() {
 			objectCombatAggroRange = 8; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 1 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 7;
+			objectAttackDamage = 0;
 			objectAttackDamageType = "Magic";
 			objectSlashResistance = 1;
 			objectPierceResistance = 0.75;
