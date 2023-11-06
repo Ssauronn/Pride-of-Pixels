@@ -1,0 +1,58 @@
+Universally Displayed:
+	- Name of item selected (if 1 item selected)
+	- HP of item selected (if 1 item selected)
+	- Icon(s) of item(s) selected (1 or more selected)
+	- All 4 resources stored
+	- Incoming resources (next to the totals text)
+	- Population used out of total population available (adjacent to resources stored)
+	- Tooltip appearing for absolutely anything that is being hovered over currently. Even
+		if it's just grass.
+
+Single Resource Selected:
+	- Button to call all idle workers to mine/collect that specific node.
+	- Icon and text showing the number of friendly Workers currently mining/collecting the
+		selected resource node.
+
+Single Building Selected:
+	- Section for possible objects (most likely just units) to create and spawn.
+	- Section for possible upgrades currently available to the player.
+	- Section for all in-progress creations and upgrades. Icons showing each creation/upgrade
+		in queue, with numbers attached to any sequential duplicates. Timer showing the total
+		time to completion for everything in the queue, and a separate timer showing the time
+		until completion for the creation/upgrade at the front of the queue. Additional
+		information should include a count of all creations/upgrades in the queue.
+	- Buttons for:
+		- Seeing the entire upgrade tree for the selected building.
+			- 1 tree for the upgrades that can be trained on the building
+			- 1 tree for all upgrades that can be trained that affect the building.
+		- Setting a rally point for any units spawned.
+		- Self Destruct button. Should be separated or signified in a different way from other
+			buttons to prevent accidental clicks. Should NOT have a confirmation screen
+			however, as confirmation screens specifically in games with high APM's are more of
+			a hinderance than a help.
+			
+Single Worker (Unit) Selected:
+	- Section for all possible buildings to build.
+	- Section to show icons for all carried resources, with numbers attached to icons showing
+		amounts and weight for each stack of carried resources. Additional information in this
+		section to include the total weight carried by the Worker unit.
+	- Section to show any building name currently being built or repaired, with progress bar,
+		text showing time to completion, and the icon of the building being worked on. Below
+		this progress bar should be a queue section, showing a list of icons of any buildings
+		and/or resources that are in the queue, with names next to each icon.
+	Buttons for:
+		- Seeing the entire upgrade tree for the Worker units.
+			- 1 tree for all the upgrades that can be trained that affect the Worker.
+		- Add to Queue button, allowing the player to add a task to the action queue after a
+			a queue has been created without needing to start the queue from scratch. Any
+			command to collect a Resource is always placed at the back of the queue, and only
+			1 resource can be in the queue at a time. Initially starting a queue can be done
+			by holding Shift and left clicking on various building icons to build them, right
+			clicking on various existing buildings to repair them, and right clicking on
+			various existing resource to collect/mine them.
+		- Drop Resource button, next to the icons of all carried resources in the
+			aforementioned section.
+		- Repair button, allowing the player to repair buildings that aren't at 100% HP. This
+			can be done without the button simply by right clicking on any building that isn't
+			at 100% HP.
+		- Attack button, allowing the Worker to attack any unit or building, friendly or not.
