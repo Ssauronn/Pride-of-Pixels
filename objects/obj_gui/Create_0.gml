@@ -69,7 +69,9 @@ toolbarResourceIconX = toolbarLeftX + (toolbarWidth * 0.02);
 toolbarResourceTextX = toolbarLeftX + (toolbarWidth * 0.06);
 
 // Toolbar borders and dividers
-toolbarLeftDividerX = toolbarResourceTextX + (string_width("123456") * 2) + (toolbarWidth * 0.01);
+// The left side of the vertical divider starts at the point where the maximum value for a player's resource count would end, plus
+// an equal amount of empty space at the end of that equal to the amount of empty space to the left of the resource icon in the same section.
+toolbarLeftDividerX = toolbarResourceTextX + (string_width("9,999,999") * 2) + (toolbarWidth * 0.02);
 toolbarDividerY = toolbarTopY;
 toolbarDividerXScale = 0.01 * (toolbarWidth / sprite_get_width(spr_divider));
 toolbarDividerYScale = 1 * (toolbarHeight / sprite_get_height(spr_divider));
@@ -77,18 +79,21 @@ toolbarRightDividerX = toolbarLeftDividerX + ((toolbarWidth - ((toolbarLeftDivid
 
 // Toolbar button sizes and placements
 toolbarCommandButtonSectionWidth = toolbarRightDividerX - toolbarLeftDividerX;
-// This corresponds with toolbarButtonSpacing. Depending on that division number, the division number
-// below should be set to at least double the toolbarButtonSpacing division number plus two. That means
-// that the width of each button would allow for the correct amount of buttons, plus two extra, to fit
-// along both the upper and lower halves of the toolbar combined.
-toolbarButtonWidth = toolbarHeight / 6;
-// Allows for 2 buttons in the upper half and 2 buttons in the lower half to be evenly spaced. Change
-// number at the end to adjust how many buttons will fit in each upper and lower half.
-toolbarButtonSpacing = ((toolbarHeight / 2) - (toolbarButtonWidth * 2)) / 2;
+// Toolbar buttons are (and should always be) a square, so setting just the width is needed.
+// The value that toolbarHeight is divided by is setting the size of the button by how many
+// buttons could fit top to bottom inside the toolbar.
+toolbarButtonsToFitTopToBottom = 6;
+toolbarButtonWidth = toolbarHeight / toolbarButtonsToFitTopToBottom;
+// The spacing value is set by taking the amount of buttons I want to fit top to bottom,
+// adding 1 to that (since I want space between the top and bottom, not just above all
+// buttons or below all buttons), and then dividing that into the height of the toolbar. 
+// I then finally multiply that by a multiplier, to reduce the size of the spacers down
+// to a small percent of the total space of the bar.
+toolbarButtonSpacing = (toolbarHeight / (toolbarButtonsToFitTopToBottom + 1)) * 0.2;
 toolbarButtonScale = toolbarButtonWidth / sprite_get_width(spr_square_button);
 
 toolbarHorizontalDividerXScale = (toolbarCommandButtonSectionWidth - (sprite_get_width(spr_divider) * toolbarDividerXScale) - (toolbarButtonSpacing * 2)) / sprite_get_height(spr_divider);
-toolbarHorizontalDividerY = toolbarTopY + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 3);
+toolbarHorizontalDividerY = toolbarTopY + (toolbarHeight / 2);
 toolbarSolidDividerYScale = (toolbarHeight - (toolbarButtonWidth * 2) - (toolbarButtonSpacing * 5) - (sprite_get_width(spr_divider) * toolbarDividerXScale)) / sprite_get_height(spr_solid_divider);
 toolbarSolidDividerXScale = (sprite_get_width(spr_divider) * toolbarDividerXScale) / sprite_get_width(spr_solid_divider) / 2;
 
@@ -123,61 +128,64 @@ universalGUI = {
 	},
 	rubyIcon : {
 		x : toolbarResourceIconX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y"),
-		xScaling : (toolbarButtonWidth / sprite_get_width(spr_ruby_icon)),
-		yScaling : (toolbarButtonWidth / sprite_get_height(spr_ruby_icon))
+		// I add (toolbarButtonWidth * 0.2 * 1-5) because the size of each
+		y : toolbarTopY + ((toolbarHeight / 5) * 0) + toolbarButtonSpacing,
+		xScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, (toolbarButtonWidth / sprite_get_width(spr_ruby_icon))),
+		yScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, (toolbarButtonWidth / sprite_get_height(spr_ruby_icon)))
 	},
 	rubyAmount : {
 		x : toolbarResourceTextX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 1) - (toolbarHeight * 0.07) - string_height("y") - 1,
+		y : toolbarTopY + ((toolbarHeight / 5) * 0) + toolbarButtonSpacing,
 		xScaling : toolbarButtonWidth / string_height("y"),
 		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	goldIcon : {
 		x : toolbarResourceIconX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y"),
-		xScaling : (toolbarButtonWidth / sprite_get_width(spr_gold_icon)),
-		yScaling : (toolbarButtonWidth / sprite_get_height(spr_gold_icon))
+		y : toolbarTopY + ((toolbarHeight / 5) * 1) + toolbarButtonSpacing,
+		xScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, (toolbarButtonWidth / sprite_get_width(spr_gold_icon))),
+		yScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, (toolbarButtonWidth / sprite_get_height(spr_gold_icon)))
 	},
 	goldAmount : {
 		x : toolbarResourceTextX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 2) - (toolbarHeight * 0.07) - string_height("y") - 1,
+		y : toolbarTopY + ((toolbarHeight / 5) * 1) + toolbarButtonSpacing,
 		xScaling : toolbarButtonWidth / string_height("y"),
 		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	woodIcon : {
 		x : toolbarResourceIconX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y"),
-		xScaling : (toolbarButtonWidth / sprite_get_width(spr_wood_icon)),
-		yScaling : (toolbarButtonWidth / sprite_get_height(spr_wood_icon))
+		y : toolbarTopY + ((toolbarHeight / 5) * 2) + toolbarButtonSpacing,
+		xScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, (toolbarButtonWidth / sprite_get_width(spr_wood_icon))),
+		yScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, (toolbarButtonWidth / sprite_get_height(spr_wood_icon)))
 	},
 	woodAmount : {
 		x : toolbarResourceTextX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 3) - (toolbarHeight * 0.07) - string_height("y") - 1,
+		y : toolbarTopY + ((toolbarHeight / 5) * 2) + toolbarButtonSpacing,
 		xScaling : toolbarButtonWidth / string_height("y"),
 		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	foodIcon : {
 		x : toolbarResourceIconX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y"),
-		xScaling : (toolbarButtonWidth / sprite_get_width(spr_food_icon)),
-		yScaling : (toolbarButtonWidth / sprite_get_height(spr_food_icon))
+		y : toolbarTopY + ((toolbarHeight / 5) * 3) + toolbarButtonSpacing,
+		xScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, (toolbarButtonWidth / sprite_get_width(spr_food_icon))),
+		yScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, (toolbarButtonWidth / sprite_get_height(spr_food_icon)))
 	},
 	foodAmount : {
 		x : toolbarResourceTextX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 4) - (toolbarHeight * 0.07) - string_height("y") - 1,
+		y : toolbarTopY + ((toolbarHeight / 5) * 3) + toolbarButtonSpacing,
 		xScaling : toolbarButtonWidth / string_height("y"),
 		yScaling : toolbarButtonWidth / string_height("y")
 	},
 	popIcon : {
 		x : toolbarResourceIconX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y"),
-		xScaling : (sprite_get_width(spr_food_icon) * (toolbarButtonWidth / sprite_get_width(spr_food_icon))) / sprite_get_width(spr_worker_front_idle) * (sprite_get_width(spr_food_icon) / sprite_get_width(spr_worker_front_idle)),
-		yScaling : (sprite_get_height(spr_food_icon) * (toolbarButtonWidth / sprite_get_height(spr_food_icon))) / sprite_get_height(spr_worker_front_idle) * (sprite_get_height(spr_food_icon) / sprite_get_height(spr_worker_front_idle))
+		y : toolbarTopY + ((toolbarHeight / 5) * 4) + toolbarButtonSpacing,
+		// Different scaling than the rest because the Population Icon uses the sprite of the worker icon, which isn't normalized
+		// like the rest of the icon sprites.
+		xScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, ((sprite_get_width(spr_food_icon) * (toolbarButtonWidth / sprite_get_width(spr_food_icon))) / sprite_get_width(spr_worker_front_idle) * (sprite_get_width(spr_food_icon) / sprite_get_width(spr_worker_front_idle)))),
+		yScaling : min((toolbarLeftDividerX - toolbarLeftX) * 0.8, ((sprite_get_height(spr_food_icon) * (toolbarButtonWidth / sprite_get_height(spr_food_icon))) / sprite_get_height(spr_worker_front_idle) * (sprite_get_height(spr_food_icon) / sprite_get_height(spr_worker_front_idle))))
 	},
 	popAmount : {
 		x : toolbarResourceTextX,
-		y : toolbarTopY + ((toolbarHeight * 0.2) * 5) - (toolbarHeight * 0.07) - string_height("y") - 1,
+		y : toolbarTopY + ((toolbarHeight / 5) * 4) + toolbarButtonSpacing,
 		xScaling : toolbarButtonWidth / string_height("y"),
 		yScaling : toolbarButtonWidth / string_height("y")
 	},
@@ -299,7 +307,7 @@ buildingGUI = {
 			},
 			vertical : {
 				x : toolbarLeftDividerX + (sprite_get_width(spr_solid_divider) * toolbarDividerXScale) + toolbarButtonSpacing,
-				y : toolbarTopY + (toolbarButtonWidth * 2) + (toolbarButtonSpacing * 4) + (sprite_get_width(spr_divider) * toolbarDividerXScale),
+				y : toolbarHorizontalDividerY + (toolbarUpgradeHorizontalDividerYScale * sprite_get_height(spr_divider)) + toolbarButtonSpacing,
 				xScaling : toolbarSolidDividerXScale,
 				yScaling : toolbarSolidDividerYScale
 			}
