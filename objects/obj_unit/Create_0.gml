@@ -1,35 +1,52 @@
-// Variable used to control one time inizialization of unit specific variables
+/// Variable used to control one time inizialization of unit specific variables
 initialized = false;
 justSpawned = false;
 image_speed = 0;
-// Object classification and type, used for selection and targeting purposes
+
+/// Object classification and type, used for selection and targeting purposes
 objectClassification = "Unit";
 objectSelected = false;
 objectOnScreen = false;
+
+/// Object targeting variables
+// Internally set
 objectTargetList = noone;
 objectTarget = noone;
 objectTargetTeam = noone;
 objectTargetType = noone;
-// Team 1 is defaulted to player team.
+// Set by player
+// Possible aggressiveness levels: "Aggressive", "Defensive", "Stand Ground"
+// The default aggressiveness level is set in obj_building, under the variable
+// "unitDefaultAggressiveness", and is set via a button on the building toolbar
+unitAggressiveness = "Aggressive";
+
+/// Team 1 is defaulted to player team.
 objectRealTeam = player[1].team;
 objectVisibleTeam = objectRealTeam;
+
+/// Variable used to set what the unit is currently commanded to do, even if the
+/// current action is something else.
 // Possible commands align with state machine: Idle, Move, Mine, Attack
 objectCurrentCommand = "Idle";
+
 // Timer to detect nearby enemy targets
 objectDetectTarget = irandom_range(0, room_speed);
 objectDetectedList = noone;
 
-// Wizard Redirect Variables. This is to ensure redirects are properly applied upon
-// damage calculation.
+/// Wizard Redirect Variables. 
+// This is to ensure redirects are properly applied upon damage calculation.
+// These are universal variables, as these are used to detect and set whether
+// the Wizard is protecting the unit in question.
 beingTargetedByWizardRedirect = false;
 wizardApplyingRedirect = noone;
 damageBeingRedirectedTo = noone;
 
-// Variable used to attack friendly targets if the player or AI commands it
+/// Variable used to attack friendly targets if the player or AI commands it.
+// Can only be set by the player, always false by default.
 forceAttack = false;
 
 
-// Pathfinding
+/// Internally set pathfinding variables
 objectNeedsToMove = false;
 myPath = noone;
 validPathFound = true;
@@ -75,6 +92,12 @@ closestPointsToObjectsHaveBeenSet = false;
 groupDirectionToMoveIn = 0;
 groupDirectionToMoveInAdjusted = 0;
 
+/// Player controlled pathfinding variables
+// Possible formations: "Square", "Hollow Square", "Rows".
+// The default formation is set in obj_building, under the variable
+// "unitDefaultFormation", and is set via a button on the building
+// toolbar.
+unitFormation = "Square";
 
 
 // Add self to the location grid if it hasn't been added yet

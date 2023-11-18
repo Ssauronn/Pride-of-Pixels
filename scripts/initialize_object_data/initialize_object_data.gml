@@ -221,8 +221,10 @@ function initialize_object_data() {
 			objectCanUseSpecialAbility = false;
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
-			objectCanUseCombatSpecializationAbility = false;
+			objectCanUseCombatSpecializationAbility = false
 			enrageDamageBonus = 3;
+			enrageCooldown = 20 * room_speed;
+			enrageCooldownTimer = -1;
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -333,11 +335,11 @@ function initialize_object_data() {
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
-			tauntCooldown = 25 * room_speed;
-			tauntCooldownTimer = -1;
-			tauntDurationCooldown = 5 * room_speed;
-			tauntDurationCooldownTimer = 5 * room_speed;
-			tauntTarget = noone;
+			shieldingAuraCooldown = 25 * room_speed;
+			shieldingAuraCooldownTimer = -1;
+			shieldingAuraDurationCooldown = 5 * room_speed;
+			shieldingAuraDurationCooldownTimer = 5 * room_speed;
+			shieldingAuraRadius = 4 * 16;
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -449,6 +451,7 @@ function initialize_object_data() {
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
+			isInvisible = false;
 			ambushDamageBonus = 50;
 			piercingStrikeActive = false;
 			// Armor is a decimal value from 0 to 1, used to multiply against damage. The lower the value,
@@ -1152,7 +1155,7 @@ function initialize_object_data() {
 			populationProvided = 25;
 			objectSightRange = 13 * 16;
 			maxAmountOfThisBuildingAllowed = 6;
-			// Combat variables
+			/// Combat variables
 			// The distance at which the object will aggro to enemies, in 16x16 block units
 			// The distance at which attacks can used, in pixels
 			canAttack = true;
@@ -1165,13 +1168,54 @@ function initialize_object_data() {
 			objectSlashResistance = 1;
 			objectPierceResistance = 0.75;
 			objectMagicResistance = 1.25;
-			// Rally Point
+			// The variables used to spawn units with player set default aggressiveness levels and formations
+			unitDefaultAggressiveness = "Aggressive";
+			unitDefaultFormation = "Square";
+			/// Rally Point
 			rallyPointX = x + 32;
 			rallyPointY = y + 32;
-			// Sprites
+			/// Sprites
 			currentSprite = spr_building_xlarge;
 			sprite_index = currentSprite;
 			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
+			
+			// Specific Variables
+			
+			break;
+		case "Barracks":
+			// Generic variables
+			maxHP = 1250;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 10 * 16;
+			maxAmountOfThisBuildingAllowed = 5;
+			// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = 0 * 16;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.25;
+			// The variables used to spawn units with player set default aggressiveness levels and formations
+			unitDefaultAggressiveness = "Aggressive";
+			unitDefaultFormation = "Square";
+			// Rally Point
+			rallyPointX = x;
+			rallyPointY = y + 32;
+			// Sprites
+			currentSprite = spr_building_large;
+			sprite_index = currentSprite;
+			mask_index = spr_48_48;
 			//var floor_x_ = floor(x / 16) * 16;
 			//var floor_y_ = floor(y / 16) * 16;
 			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
@@ -1216,16 +1260,16 @@ function initialize_object_data() {
 			
 			break;
 		case "Temple":
-			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+			/// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 			// In this case, all the generic variables need to be added here, 
 			// in addition to the building specific variable
-			// Generic Variables
+			/// Generic Variables
 			maxHP = 2500;
 			currentHP = maxHP;
 			populationProvided = 0;
 			objectSightRange = 9 * 16;
 			maxAmountOfThisBuildingAllowed = 10;
-			// Combat variables
+			/// Combat variables
 			// The distance at which the object will aggro to enemies, in 16x16 block units
 			// The distance at which attacks can used, in pixels
 			canAttack = false;
@@ -1238,16 +1282,19 @@ function initialize_object_data() {
 			objectSlashResistance = 1;
 			objectPierceResistance = 0.75;
 			objectMagicResistance = 1.25;
-			// Rally Point
+			// The variables used to spawn units with player set default aggressiveness levels and formations
+			unitDefaultAggressiveness = "Aggressive";
+			unitDefaultFormation = "Square";
+			/// Rally Point
 			rallyPointX = x + 32;
 			rallyPointY = y + 32;
-			// Sprites
+			/// Sprites
 			baseTemple = spr_building_large;
 			sprite_index = baseTemple;
 			mask_index = spr_48_48;
 			mp_grid_add_instances(movementGrid, self, true);
 			
-			// Specific Variables
+			/// Specific Variables
 			canTrainRubyUnits = false;
 			canTrainAbominations = false;
 			canTrainAutomatons = false;
@@ -1558,9 +1605,6 @@ function initialize_object_data() {
 			magicWallsSprite = noone;
 			break;
 		case "Farm":
-			
-			break;
-		case "Thicket":
 			
 			break;
 		case "Mine":

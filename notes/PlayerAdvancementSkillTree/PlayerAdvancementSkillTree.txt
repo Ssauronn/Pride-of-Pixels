@@ -107,8 +107,8 @@ UNLOCKS TIER 3 UPGRADES
  Combat Specialization
  - Choose between:
 	- Stealth:
-		- Rogues will teleport to the nearest space to their
-		  target within range while invisible.
+		- Rogues will remain invisible if they kill an enemy with
+		  an attack boosted by the damage of Stealth.
 		- Subverter are equipped with explosives and can be
 		  commanded to explode, dealing massive damage within
 		  a short range to all units and buildings. Destroys
@@ -124,10 +124,10 @@ UNLOCKS TIER 3 UPGRADES
 		  time. The Automaton is unable to move or attack while
 		  channeling this ability.
 	- Protectorate:
-		- Knights will taunt one unit not attacking it or
-		  another Knight during combat. This taunt ability
-		  is on a long cooldown and forces that unit to attack
-		  it for the next 5 seconds.
+		- Knights can greatly improve the armor of friendly units
+		  within a short radius for a short amount of time. This
+		  increase in armor does not affect themselves or other
+		  Knights.
 		- Wizards can be commanded to protect a unit
 		  automatically selected in combat and redirect part
 		  of the damage taken by that unit for a short duration 

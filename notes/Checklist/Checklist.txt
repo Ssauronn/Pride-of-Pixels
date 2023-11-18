@@ -1,0 +1,370 @@
+- MENUS
+	- Main Menu
+		- Create Game
+             - Custom Game
+                 - Screenshot of currently selected empty map w/ name
+                 - Map Selection
+                     - Dropdown menu of maps
+                         - Screenshot of entire empty map
+                         - Name of map
+                 - Starting Values
+                     - Ruby, Gold, Wood, Food. Population Cap
+                 - Player Slot
+                     - Name
+                     - Color
+                     - Tech/Magic Tree
+                     - Handicap
+                 - AI Slots
+                     - Difficulty Level
+                     - Name
+                     - Color
+                     - Tech/Magic Tree
+                     - Difficulty Level
+                         - Easy, Medium, Hard
+                     - Handicap
+                 - Start Game Button
+                 - Back Button
+             - Campaign
+                 - Mission List
+                     - Difficulty Slider
+                         - Easy, Medium, Hard
+                     - Lock or Unlock Icon next to each mission depending on whether the previous mission has been beaten
+                     - Screenshot of mission while hovering/selected
+                     - Name of mission while hovering/selected over screenshot
+                     - Start Mission button
+                     - Back button
+         - Load Game
+             - Separate window showing list of saved games
+             - Click on save to view info
+                 - Screenshot of moment the last save occured
+                 - Info on save data
+                     - Time of save
+                     - Date of save
+                     - Resource counts
+                 - Load Save Game button
+                 - Delete Save Game button
+                 - Back Button
+         - Settings
+             - Tutorials Active Status
+             - Sound
+                 - SFX Levels
+                 - Music Levels
+             - Controls
+             - Back Button
+         - Exit Pride of Pixels 
+    - Pause menu
+         - Time count of game
+         - Resume Game button
+         - Save Game
+             - List of all saved games
+                 - Area to input save game name
+                 - Click on saved game to highlight w/ info
+                     - Screenshot of moment the last save occured
+                     - Information on save data
+                         - Time of save
+                         - Date of save
+                         - Resource count
+                     - Overwrite Save
+                     - Delete Save Game button
+         - Settings
+             - Tutorials Active Status
+             - Sound
+                 - SFX Levels
+                 - Music Levels
+                 - Back Button
+         - Quit Game
+             - Confirmation Page
+                 - Save and Leave Game. button
+                 - Leave Without Saving? button
+                 - Back Button
+         - Exit Pride of Pixels
+             - Confirmation Page
+                 - Save and Exit Pride of Pixels. button
+                 - Leave Without Saving? button
+                 - Back button
+     - Win screen
+         - View Charts button
+             - Every collectible stat imaginable
+             - Chart showing specified stats graphed over time
+             - Quit to Main Menu button
+         - Quit to Main Menu button
+    - Console menu
+        - Input box to type things
+            - Allows for cheats and dev commands
+        - Chat box showing previously typed things over the course of the game
+            - Time stamp next to each
+
+- Toolbar
+    - ALWAYS SHOWN
+        - Food Count + Incoming Count (amount in Worker inventories)
+        - Wood Count + Incoming Count (amount in Worker inventories)
+        - Gold Count + Incoming Count (amount in Worker inventories)
+        - Ruby Count + Incoming Count (amount in Worker inventories)
+        - Population Count
+        - IF HOVERING OVER ANYTHING AT ALL
+            - Info Toolbox containing name and description
+            - HP as well if object is unit or building
+    - Unit Specific
+        - Stats for unit displayed in creation section (HP, defenses, damage/damage type)
+            - Worker
+                - Section for all possible buildings to build
+                    - This section overwrites other sections in the same area if other unit types are selected with Workers
+                    - Every building in the game
+                        - Walls
+                        - City Hall
+                        - Barracks
+                        - Temple
+                        - Laboratory
+                        - Obelisk
+                        - Outpost
+                        - Storehouse
+                        - Mine
+                        - Farm
+                        - Soul Subjugator
+                        - Ritual Grounds
+                        - Unholy Ziggurat
+                        - Rail Gun
+                        - Stasis Field
+                        - Launch Site
+                - Section to show carried resources
+                    - Shows icons for all currently carried resources
+                    - Shows numbers attached to icons showing amount of resources carried
+                    - Shows numbers next to icons showing weight of resource
+                    - Shows numbers displaying total weight carried
+                    - Button next to each carried resource to drop it
+                - Section to show any building name currently building or being repaired/worked on
+                    - Shows progress bar with text inside
+                    - Shows icon of building being worked on
+                    - Shows text and icon displaying amount of friendly Workers working on the building
+                    - Shows text displaying time to completion of the action in progress
+                - Section to show further queued actions below the progress bar listed above
+                    - Shows icon of each building in queue to build/repair
+                    - Shows name of each building in queue to build/repair
+                    - Collapse duplicates into a single icon with number in the icon to show how many
+                    - Shows text displaying time to completion of the entire queue (including the current action)
+                    - Hold shift to queue up a series of actions and overwrite the previous queue
+                    - Button to add an action to the current queue
+                        - Any resource designated as an action overwrites previous resource collecting commands, so only one resource can be in queue at a time
+                    - Button to command Worker specifically to repair a building
+                    - Button to attack the next building or object, no matter the team status
+            - All Units Except Worker
+                - Section for all powers available to the Unit
+                    - Icon showing the power available
+                    - Grayed out in a clockwise fashion if the power is on a cooldown
+                    - Text displaying cooldown on the icon if the power is on a cooldown
+                    - Right Click power icon to toggle auto cast
+                        - Powers that are currently on auto cast have a sparkling border
+                    - Left Click power icon to use power if available
+                    - If multiple units (not including Workers) are selected, shows icons displaying powers available to every unit
+                        - Right click power icon to toggle auto cast for every unit selected that can use that power
+                        - Left Click power icon to use that power simultaneously on every unit that has that power currently available.
+                        - Show a number adjacent to the power icon that displays how many of the unit type currently selected have the power available.
+                            - If all units selected of that unit type have their power available, then the number next to the icon is displayed as green.
+                            - Otherwise, if only some of the unit types selected have that power available, then the number next to the icon is displayed as yellow.
+                            - Otherwise, if no units of the unit types selected have that power available, then the number next to the icon is displayed as red.
+                        - Cooldowns are displayed as the lowest cooldown between all of that type of unit selected. For example, if every Rogue power is on a 20 second cooldown, except for 1 which has 5 seconds left on it's cooldown, then the cooldown displayed will be 5 seconds.
+            - Section to show all units currently selected.
+                - If any Workers are selected, then this info is displayed below all the icons of the resources carried
+                - Icon of each unit selected
+                - Number next to each icon showing the number of that unit selected
+                - Clicking on an icon selects only that type of units that were already selected
+        - Button to set all units selected aggression levels
+        - Button to set all units selected into a single formation, location averaged between all selected units
+        - Button for all units selected to auto-scout
+            - Prioritizes unexplored areas closer to City Hall
+                - Once an initial explore target is chosen, prioritizes unexplored areas near itself
+            - Slightly random pathing
+                - Check for other scouts' destination, if too close, choose a new location
+            - Returns to nearest City Hall if attacked at all
+        - Button to show all upgrades that currently apply to this unit
+        - Button to show all upgrades that can be applied to this unit
+    - Building Specific
+         - If the building is NOT COMPLETED and built:
+             - Section to show building progress
+                 - Progress bar with percentage
+                 - Icon below showing a Worker icon if the building is being worked on currently by a Worker
+                     - Player can click on the icon to select the Workers that are currently working on the building
+                 - Text next to the Worker icon showing how many Workers are working on the building
+         - If the building is COMPLETED and built:
+             - Section to spawn units
+                 - City Hall
+                     - Worker
+                     - Soldier
+                 - Barracks
+                     - Soldier
+                     - Berserker
+                     - Rogue
+                     - Ranger
+                     - Knight
+                 - Temple
+                     - Acolyte
+                     - Wizard
+                     - Warlock
+                     - Automaton
+                         - Abomination
+                 - Subverter
+             - Section to show unit spawn queue
+                     - Shows icon of current unit/upgrade being worked on
+                     - Shows icon of next unit/upgrades to work on
+                     - Single icon for duplicates that are adjacent in queue
+                     - Information:
+                         - Timer showing time until current unit/upgrade completes
+                         - Timer showing time until all queued units/upgrades complete
+                         - Count of total number of units/upgrades in queue
+                         - Count set in icon of duplicates that are adjacent in queue
+             - Section for upgrades
+                     - Script designed to parse through entire upgrade list based on object classification and type
+                     - Sorted by upgrade type - Innovation, Special, Offensive, Defensive
+                         - Further upgrades only become available once the previously required upgrades are complete and the correct age is attained
+             - Button to show the upgrades that can be attained on this building
+             - Button to show the upgrades that can be trained anywhere that affect the building
+             - Button to set default AI Behavior on spawn (Aggressive, Defensive, Hold Ground)
+             - Button to change default formation on spawn (Square, Hollow Square, Rows)
+        - Setting a rally point for any units spawned - DONE
+        - Self destruct button
+            - Should be separated or signified in a different way from other buttons to prevent accidental clicks.
+            - Should NOT have a confirmation screen, as confirmation screens in games with high APM's like an RTS are more of an annoyance and hinderance than a help.
+    - Resource Specific
+        - Icon and text adjacent showing the number of friendly Workers currently mining/collecting the selected node
+        - Button to call all Workers on screen to collect resource
+        - Button to call all Workers alive to collect resource
+
+- ENEMY AI
+    - 3 difficulty settings
+        - Easy
+            - Maxed out at specific unit creations per hour
+            - Maxed out at specific Worker counts per age
+            - Time limited for each upgrade to new Age
+            - Time limited to attacking beyond a certain distance
+            - Time limited to mine Ruby
+            - Does not use Rogues, Subverters, or Acolytes
+            - Can only use unit powers once, and the usage is random during combat.
+            - Does not focus specific buildings or units to attack.
+        - Medium
+            - Same as above, but less so.
+            - Can use Rogues, Subverters, and Acolytes.
+            - Costs for buildings and upgrades are reduced.
+            - Attacks, but less frequently than a Hard enemy.
+            - Will attack Ruby, and attempt to mine Ruby.
+            - Can use Unit powers but doesn't always use them.
+            - Will focus defensive buildings over normal buildings.
+        - Hard
+            - No caps or time limites on anything.
+            - Builds Walls surrounding base within a certain range.
+            - Army behavior:
+                - Always has a standing army.
+                - Is always trying to hit max population cap.
+                - Every few minutes, sends an attack out.
+                - Prioritizes Workers and Army first.
+                - Any remaining resources after Population cap is reached are spent on upgrades.
+                - All costs for buildings and upgrades are drastically reduced.
+                - Uses Subverters and Rogues extensively and has specific army compositions it strives for.
+                - Uses Unit powers, often on cooldown.
+                - Fights for Ruby as well as fights player. Coin toss as to which is attacked. Above a population threshold, both are attacked simultaneously.
+                - Focuses more valuable units with ranged and stealth enemies first.
+                - Focuses defensive and military buildings over normal buildings.
+            - If valid City Hall location found, will divert resources to City Hall building first, before continuing upgrades.
+            - Main City Hall designated
+                - Buildings are centered around the Main City Hall.
+                - If main City Hall is destroyed, Works move to new City Hall and then restart their search for resources.
+                    - This means that the AI will always be able to relocate if their currently designated main base is destroyed.
+
+- Unit Behavior
+    - Aggressive
+        - DEFAULT STANCE
+            - Can change Default Stance on the toolbar of the building that spawns that Unit
+        - Automatically attacks any enemy units or buildings within range
+        - Never stops chasing enemy units.
+    - Defensive
+        - Automatically attacks any enemy units or buildings within range
+        - Stops chasing after a certain distance and returns to their last location they were commanded to.
+    - Stand Ground
+        - Does not attack unless an enemy is within attacking range.
+		- Does not chase.
+
+- Unit Movement
+    - Formations
+        - No matter the formation chosen, specific things occur:
+            - Knights and Soldier take the front.
+            - Ranger, Wizards, and Acolytes take the back.
+            - Direction is determined based on the point direction between the group's average starting point and the group's average ending point.
+        - Hollow Square
+            - Starts at the 3rd circle (permanently leaving the center 9 squares empty)
+        - Square
+            - DEFAULT FORMATION
+            - Standard layout
+        - Rows
+            - First row consists of all melee units
+            - Second row consists of all ranged units
+            - If a barrier is found, another row is created.
+
+- Fog of War
+    - 3 levels
+        - TUTORIAL: https://www.reddit.com/r/gamemaker/comments/87skcw/how_to_make_a_fog_of_war/
+            - Entirely black, unexplored region
+            - Entirely revealed, explored and currently within sight range of a friendly building or unit
+            - Halfway black, explored but not currently within sight range of a friendly building or unit
+
+- Mini Map
+    - TUTORIAL: https://www.youtube.com/watch?v=sIfJy0-NTTA
+    - Entire map reduced 16:1
+        - If a map with the size of 7040 pixels was reduced to 1 pixel per 16 pixels, the mini map would be 440 pixels wide, which translates to a mini map that looks 220 pixels wide (since the GUI is double the resolution of the game camera).
+        - A square this size placed on the bottom corner would still leave room for the toolbar and space on either side.
+    - After mini map is draw, Fog of War is drawn onto the mini map using another scaled down version of the Fog of War.
+    - Units only update their position on the mini map if their floored 16x16 grid location was not equal to the previous frame's grid location (keeping updating as low as possible, only occuring when the unit actually moves into a different grid location).
+    - Any buildings or resources only update their drawn location twice, once when they're created and once when they're destroyed.
+
+- Keybinds
+    - If more than 1 of the same type of building is selected, the UI remains the same but the player can click on UNITS to create (not upgrades, just units) to set each selected building to queue up that Unit.
+    - Click and drag Left Click to select multiple units at once
+    - Right click to cancel selection
+    - Control + 0-9 to assign a group of your units to that number
+    - 0-9 to select all units assigned to that number
+    - Double click Left Click on same object to select all identical Units/Buildings
+        - Selects all on the map
+    - While Worker is Selected:
+        - Keybinds used below add to the build queue
+        - C to build a City Hall
+        - H to build a House
+        - B to build a Barracks
+        - T to build a Temple
+        - L to build a Laboratory
+        - T to build a Tower
+        - O to build an Obelisk
+        - E to build a Wall
+        - F to build a Farm
+        - M to build a Mine
+    - While Any Other Unit is Selected
+        - Q to cast ability 1
+        - Right click on abilities to toggle auto cast
+        - Hold Control to enable attacking any friendly object with Right Click
+    - While City Hall is Selected
+        - Keybinds used below add to the build queue
+        - F to build a Worker
+        - E to build a Soldier
+    - While Barracks is Selected
+        - Keybinds used below add to the build queue
+        - E to build a Soldier
+        - B to build a Berserker
+        - G to build a Rogue
+        - R to build a Ranger
+        - H to build a Knight
+    - While Temple is Selected
+        - Keybinds used below add to the build queue
+        - C to build a Acolyte
+        - Z to build a Wizard
+        - T to build a Warlock
+        - X to build Abomination
+        - X to build Automaton
+        - V to build Subverter
+    - Double Tap the button used to spawn a unit rapidly to select all of that unit on screen
+    - Triple Tap the button used to spawn a unit rapidly to select all of that unit on the map
+        - I need to make sure to reset the count as soon as a Triple Tap is registered
+
+- Sound
+    - 
+
+- Music
+    - 
+
+
