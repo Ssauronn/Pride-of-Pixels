@@ -12,8 +12,7 @@ TECHNOLOGY UPGRADES
 			- Stealth: Reduces the cooldown of the teleport.
 			- Recklessness: Berserkers deal more damage with their nanotech
 			  aura.
-			- Protectorates: Knights take less damage while an enemy unit
-			  is taunted.
+			- Protectorates: Increases the range and strength of their Shielding Aura.
 			- Swarm: Soldiers also gain additional movement speed for each
 			  friendly unit within range.
 

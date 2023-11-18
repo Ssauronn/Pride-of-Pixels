@@ -129,6 +129,10 @@ function building_spawn_unit(type_, team_) {
 		var self_ = self.id;
 		var unit_spawned_ = instance_create_depth(floor(check_x_ / 16) * 16, floor(check_y_ / 16) * 16, check_y_, obj_unit);
 		with unit_spawned_ {
+			// The variables used to spawn units with player set default aggressiveness levels and formations
+			unitAggressiveness = self_.unitDefaultAggressiveness;
+			unitFormation = self_.unitDefaultFormation;
+			// Standard internal variables
 			justSpawned = true;
 			objectVisibleTeam = self_.objectRealTeam;
 			objectRealTeam = self_.objectRealTeam;

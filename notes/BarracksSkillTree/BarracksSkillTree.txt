@@ -30,3 +30,4 @@ TIER 1 UPGRADES
 - OFFENSIVE 3 -	Sharpened Weapons: Increases the damage of all basic units.
 - DEFENSIVE 3a -Chain Mail: Increases the slash and pierce armor of all basic units.
 - DEFENSIVE 3b -Blessed Armor: Increases the magic armor of all basic units.
+
