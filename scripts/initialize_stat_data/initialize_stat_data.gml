@@ -438,7 +438,7 @@ function _temple() constructor {
 				false, 3, false, noone, "Temple", "Player", "stasisRevealsTargets", noone, 1, 120, 
 				250, 250, 250, 250, "Player", "specialBuildingChosen", "Stasis Field");
 	// If the Launch Site is chosen as the Technology tree's final building unlock:
-	droneSwarm = new _upgrade_options("Drone Swarm", "Choose any location on the map to deploy a swarm of Drones to. Drones spawn at your Launch Site, move extremely fast, and deal high damage, but have extremely low health. This ability is on a long cooldown.", 
+	droneSwarm = new _upgrade_options("Drone Swarm", "Choose any location on the map to deploy a swarm of Drones to. Drones spawn at your Launch Site, move extremely fast, and deal high damage, and deal damage over time to any enemy inside the Swarm. This ability is on a long cooldown.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
 				false, 3, false, noone, "Temple", "Player", "droneSwarmUnlocked", noone, 1, 120, 
 				400, 300, 900, 500, "Player", "specialBuildingChosen", "Launch Site");

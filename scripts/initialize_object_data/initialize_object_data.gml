@@ -48,7 +48,7 @@ enum abominationBodyPartStats {
 	robotAttackDamage = 13
 }
 
-// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+/// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 // In this case, I need to have a function that loops through all possible stats and all applicable
 // upgrades available on each building, and apply those on spawn to each unit and/or building that
 // is fresthly spawned. Stat upgrades are located in the script initialize_stat_data and the object
@@ -1147,7 +1147,7 @@ function initialize_object_data() {
 		
 		#endregion
 		#region Buildings
-		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+		/// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "City Hall":
 			// Generic variables
 			maxHP = 2500;
@@ -1486,6 +1486,162 @@ function initialize_object_data() {
 			
 			// Specific Variables
 			cyclingActive = false;
+			headRecycled = "";
+			chestRecycled = "";
+			legsRecycled = "";
+			bodyPartsAddedToTemple = false;
+			break;
+		case "Rail Gun":
+			/// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+			// In this case, all the generic variables need to be added here, 
+			// in addition to the building specific variable
+			// Generic Variables
+			maxHP = 1500;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 25 * 16;
+			maxAmountOfThisBuildingAllowed = 1;
+			/// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = true;
+			objectAttackRange = objectSightRange;
+			objectCombatAggroRange = 12; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 5 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 200;
+			objectAttackDamageType = "Pierce";
+			objectSlashResistance = 0.75;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 2;
+			/// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			/// Sprites
+			currentSprite = spr_building_xlarge;
+			sprite_index = currentSprite;
+			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
+			
+			/// Specific Variables
+			// I DO NOT ADD the upgrade found in initialize_stat_data to Rail Gun, as the upgrade
+			// for the Rail Gun is learned on the Temple and the stat is stored in player data
+			railGunTurnSpeed = 90 / room_speed; // The amount the Rail Gun is allowed to turn per second in degrees. 90 / room_speed for this value means it can do 1 quarter turn every 1 second.
+			railGunUnitsHitMax = 7; // The amount of units the Rail Gun can hit before the projectile finally stops.
+			railGunDamageFallOffPerUnitHit = objectAttackDamage / railGunUnitsHitMax; // The amount of damage the Rail Gun's damage is reduced by for each unit beyond the first that it hits.
+			railGunUnitsHitList = noone;
+			break;
+		case "Stasis Field":
+			/// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+			// In this case, all the generic variables need to be added here, 
+			// in addition to the building specific variable
+			// Generic Variables
+			maxHP = 1000;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 6 * 16;
+			maxAmountOfThisBuildingAllowed = 1;
+			/// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = objectSightRange;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 1.75;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 0.75;
+			/// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			/// Sprites
+			currentSprite = spr_building_xlarge;
+			sprite_index = currentSprite;
+			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
+			
+			/// Specific variables
+			// I DO NOT ADD the upgrade found in initialize_stat_data to Stasis Field, as the upgrade
+			// for the Stasis Field is learned on the Temple and the stat is stored in player data
+			stasisFieldActive = false;
+			stasisFieldCooldown = 60 * room_speed;
+			stasisFieldCooldownTimer = -1;
+			stasisFieldTargetRange = 75 * 16; // The range at which you can target a chosen location in a radius around the Stasis Field.
+			stasisFieldTargetLocationX = -1;
+			stasisFieldTargetLocationY = -1;
+			stasisFieldTargetRadius = 3 * 16; // The radius of the circle that the Stasis Field will affect.
+			stasisFieldTargetsHitList = noone;
+			break;
+		case "Launch Site":
+			/// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+			// In this case, all the generic variables need to be added here, 
+			// in addition to the building specific variable
+			// Generic Variables
+			maxHP = 1000;
+			currentHP = maxHP;
+			populationProvided = 0;
+			objectSightRange = 6 * 16;
+			maxAmountOfThisBuildingAllowed = 1;
+			/// Combat variables
+			// The distance at which the object will aggro to enemies, in 16x16 block units
+			// The distance at which attacks can used, in pixels
+			canAttack = false;
+			objectAttackRange = objectSightRange;
+			objectCombatAggroRange = 0; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 0;
+			objectAttackDamageType = "";
+			objectSlashResistance = 1.25;
+			objectPierceResistance = 0.75;
+			objectMagicResistance = 1.5;
+			/// Rally Point
+			rallyPointX = x + 32;
+			rallyPointY = y + 32;
+			/// Sprites
+			currentSprite = spr_building_xlarge;
+			sprite_index = currentSprite;
+			mask_index = spr_64_64;
+			//var floor_x_ = floor(x / 16) * 16;
+			//var floor_y_ = floor(y / 16) * 16;
+			//mp_grid_add_rectangle(movementGrid, floor_x_, floor_y_ - (3 * 16), floor_x_ + (3 * 16) , floor_y_ + (16) - 1);
+			mp_grid_add_instances(movementGrid, self, true);
+			
+			/// Specific variables
+			// I DO NOT ADD the upgrade found in initialize_stat_data to Launch Site, as the upgrade
+			// for the Launch Site is learned on the Temple and the stat is stored in player data
+			launchSiteSalvoSent = false;
+			// The total cooldown for the Orbital Bombardment power is the cooldown of the Salvo + the cooldown of the Orbital Bombardment.
+			launchSiteSalvoCooldown = 20 * room_speed; // First the rocket salvo needs to be sent into space each time the player uses the Orbital Bombardment power
+			launchSiteSalvoCooldownTimer = -1;
+			launchSiteOrbitalBombardmentCooldown = 75 * room_speed; // The timer between when the player can use the Orbital Bombardment power. Only begins once the rocket salvo is sent.
+			launchSiteOrbitalBombardmentCooldownTimer = launchSiteOrbitalBombardmentCooldown;
+			launchSiteOrbitalBombardmentRadius = 3 * 16; // The radius of the circle that the Orbital Bombardment power will affect.
+			launchSiteOrbitalBombardmentDamage = 300;
+			launchSiteOrbitalBombardmentDamageTimesDealt = 3; // Orbital Bombardment deals duplicate damage equal to the amount given here, slightly spaced apart. This allows for an animation showing slightly offset rockets.
+			launchSiteOrbitalBombardmentRepeatDamageCooldown = 5 / room_speed; // The amount of salvos that should land in the animation per second
+			launchSiteOrbitalBombardmentRepeatDamageCooldownTimer = -1; // Play another animation of a rocket landing each time this timer ends, and repeat that animation until the count of damage dealt has reached it's max.
+			launchSiteDroneSwarmCooldown = 45 * room_speed; // The time between when another Drone Swarm can be sent to the target location.
+			launchSiteDroneSwarmCooldownTimer = -1;
+			launchSiteDroneSwarmTargetRange = 40 * 16;
+			launchSiteDroneSwarmTargetX = -1;
+			launchSiteDroneSwarmTargetY = -1;
+			launchSiteDroneSwarmRadius = 4 * 16; // The radius on which the Drone Swarm will affect
+			launchSiteDroneSwarmBaseMovementSpeed = 5;
+			launchSiteDroneSwarmCurrentMovementSpeed = 0;
+			launchSiteDroneSwarmAcceleration = launchSiteDroneSwarmBaseMovementSpeed / (3 * room_speed); // Because Drone Swarms will rise first out of the Launch Site, and then fly away, they're given an initial acceleration.
+			launchSiteDroneSwarmDuration = 15 * room_speed; // The amount in seconds a Drone Swarm will last on the map.
+			launchSiteDroneSwarmDurationTimer = -1;
+			launchSiteDroneSwarmDamage = 40 / room_speed; // The amount of damage the Drone Swarm deals per frame while any enemy is inside the swarm.
 			break;
 		case "Outpost":
 			// Generic variables

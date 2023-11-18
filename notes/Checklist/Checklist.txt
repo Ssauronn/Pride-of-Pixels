@@ -229,7 +229,7 @@
         - Button to call all Workers on screen to collect resource
         - Button to call all Workers alive to collect resource
 
-- ENEMY AI
+- UNIT AI
     - 3 difficulty settings
         - Easy
             - Maxed out at specific unit creations per hour

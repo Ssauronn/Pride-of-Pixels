@@ -190,7 +190,8 @@ UNLOCKS TIER 1 UPGRADES
 			Special Available Upgrade: Drone Swarm: Choose any 
 			location on the map to deploy a swarm of drones to. The 
 			Drone Swarm spawns from a Launch Site, and move extremely 
-			fast, but have extremely low health. Long cooldown.
+			fast, and deal damage to any enemy unit inside the swarm.
+			Long cooldown.
 - Acolytes now have greater control over their nano tech and deal slow
   damage to all enemies within range over time.
 
