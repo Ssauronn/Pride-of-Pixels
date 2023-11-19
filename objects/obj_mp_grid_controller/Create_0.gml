@@ -5,7 +5,7 @@ unitQueueTimerStart = 1000000 / 60 * 2;
 unitQueueTimer = unitQueueTimerStart;
 unitQueueForPathfindingList = noone;
 unitQueueCount = 0;
-unitQueueMax = 10;
+unitQueueMax = 100;
 selectedUnitsDefaultDirectionToFace = -1;
 
 

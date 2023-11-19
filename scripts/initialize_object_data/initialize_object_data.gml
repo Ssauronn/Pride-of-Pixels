@@ -620,6 +620,7 @@ function initialize_object_data() {
 			objectAttackDamageType = "Magic";
 			objectSpecialAttackCooldown = 10 * room_speed;
 			objectSpecialAttackTimer = 0;
+			
 			// Demons summoned by and bound to the Warlock by the Ritual Grounds structure will bind to the Warlock on their end
 			// but will not be registered as soulbound to the Warlock on the Warlock's end. This is so that the Warlock can still
 			// summon its regular amount of Demons when those specific Demons die without needing to wait for 20+ Demons to die

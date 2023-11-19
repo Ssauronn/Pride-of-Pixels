@@ -678,7 +678,7 @@ function unit_move() {
 									}
 									// If a direct line of sight exists, no need to check for a path, just go.
 									validPathFound = true;
-									targetToMoveToX = floor(originalTargetToMoveToX / 16) * 16;;
+									targetToMoveToX = floor(originalTargetToMoveToX / 16) * 16;
 									targetToMoveToY = floor(originalTargetToMoveToY / 16) * 16;
 									new_location_needs_to_be_checked_ = false;
 								}
@@ -1256,6 +1256,7 @@ function unit_move() {
 											squareSizeIncreaseCount = ranged_unit_starting_ring_;
 										}
 									}
+									// If the ranged unit doesn't have a target, then move like any other unit
 									else {
 										squareSizeIncreaseCount = 0;
 										ranged_unit_starting_ring_ = 0;
@@ -1301,14 +1302,111 @@ function unit_move() {
 									vertical_edge_size_ = sprite_get_height(objectTarget.mask_index) / 16;
 								}
 							}
+							
+							// Now, perform the actual search.
 							while still_need_to_search_ {
+								
+								// THIS NEEDS TO BE ADJUSTED TO ACCOMMODATE FOR FORMATIONS - in this case, just set the square edge size larger if the formation is hollow square,
+								// with the exact value dependent on how large the group is. >24, and it should be set to 2 if less than 2, otherwise just 1 if less than 1.
+								// I can also manipulate the square size depending on if Rows is selected, to keep the row width static and just search in a "square" where the
+								// width remains static but the height increases, adding more rows as needed.
+								
 								// If, after checking for a specific location, it still wasn't valid,
 								// move on and continue the search.
 								if still_need_to_search_ {
+									
+									/// Set variables that will auto set the rest of the formation based on what formation the Unit is set to
+									if unitFormation == "Hollow Square" {
+										// I only set the units to form up in a hollow square if there is no target, because otherwise
+										// units would never reach their target and just keep their target in the empty center.
+										if !instance_exists(objectTarget) {
+											if squareSizeIncreaseCount == 0 {
+												if ds_exists(objectsSelectedList, ds_type_list) {
+													if ds_list_size(objectsSelectedList) > 23 {
+														squareSizeIncreaseCount = 2;
+													}
+													else {
+														squareSizeIncreaseCount = 1;
+													}
+												}
+												else {
+													squareSizeIncreaseCount = 1;
+												}
+											}
+										}
+									}
 									baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 									var square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
 									var square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
+									// Finally, if the formation set is rows, adjust the square sizes AFTER the default row sizes are set,
+									// so that all I'm doing is overwriting the previous values only when needed.
+									if unitFormation == "Rows" {
+										// This is done AFTER the local variables are set here, because if the formation is set to lines, the
+										// object should adjust it's edge sizes based on the direction to the target.
+										if !instance_exists(objectTarget) { 
+											var point_direction_to_target_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
+											if point_direction_to_target_ >= 360 {
+												point_direction_to_target_ -= 360;
+											}
+											if point_direction_to_target_ >= 0 && point_direction_to_target_ < 90 {
+												// The unit's target location is in the right quadrant, meaning the vertical rows should be long
+												// and static, and the horizontal rows should iterate as normal.
+												// THIS VALUE CAN ONLY BE ODD (faaaaaar cleaner in game to keep this value odd than to set it even).
+												square_vertical_edge_sizes_ = 7;
+												if ds_exists(objectsSelectedList, ds_type_list) {
+													square_vertical_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+													if square_vertical_edge_sizes_ mod 2 == 0 {
+														square_vertical_edge_sizes_--;
+													}
+												}
+												// Set this to the quadrant value, because later I use this variable again to correctly search along
+												// a rectangle path.
+												point_direction_to_target_ = 0;
+											}
+											else if point_direction_to_target_ >= 90 && point_direction_to_target_ < 180 {
+												// The unit's target location is in the right quadrant, meaning the horizontal rows should be long
+												// and static, and the vertical rows should iterate as normal.
+												square_horizontal_edge_sizes_ = 7;
+												if ds_exists(objectsSelectedList, ds_type_list) {
+													square_horizontal_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+													if square_horizontal_edge_sizes_ mod 2 == 0 {
+														square_horizontal_edge_sizes_--;
+													}
+												}
+												point_direction_to_target_ = 1;
+											}
+											else if point_direction_to_target_ >= 180 && point_direction_to_target_ < 270 {
+												// The unit's target location is in the left quadrant, meaning the vertical rows should be long
+												// and static, and the horizontal rows should iterate as normal.
+												square_vertical_edge_sizes_ = 7;
+												if ds_exists(objectsSelectedList, ds_type_list) {
+													square_vertical_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+													if square_vertical_edge_sizes_ mod 2 == 0 {
+														square_vertical_edge_sizes_--;
+													}
+												}
+												point_direction_to_target_ = 2;
+											}
+											else {
+												// The unit's target location is in the right quadrant, meaning the horizontal rows should be long
+												// and static, and the vertical rows should iterate as normal.
+												square_horizontal_edge_sizes_ = 7;
+												if ds_exists(objectsSelectedList, ds_type_list) {
+													square_horizontal_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+													if square_horizontal_edge_sizes_ mod 2 == 0 {
+														square_horizontal_edge_sizes_--;
+													}
+												}
+												point_direction_to_target_ = 3;
+											}
+										}
+									}
+									// After all of the square_... variables have been set correctly based on the formation ordered into, set the
+									// perimeter size variable.
 									var square_peremeter_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
+									
+									/// Set squareIteration (the variable used to move the search across the perimeter of the current search square)
+									// equal to 0 or 1 if the search has just started. This only executes once, at the start of the search.
 									if squareTrueIteration < ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) {
 										if squareIteration == square_peremeter_size_ {
 											squareIteration = 0;
@@ -1317,14 +1415,20 @@ function unit_move() {
 											squareIteration = 1;
 										}
 									}
-									// Top edge, moving left to right
+									
+									/// Top edge, moving left to right
 									if squareIteration < (square_horizontal_edge_sizes_) {
 										if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 3) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
 											// Start at the left corner and move right
 											tempCheckX = targetToMoveToX - (squareSizeIncreaseCount * 16) + (squareIteration * 16);
 											// Shift the temporary check upwards to the top edge
 											tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16);
-											var yeet_ = 1;
+											// Adjust the size to start at the actual correct location in case the formation ordered
+											// into is Rows.
+											if unitFormation == "Rows" {
+													tempCheckY = targetToMoveToY - (((square_vertical_edge_sizes_ - 1) / 2) * 16);
+													tempCheckX = targetToMoveToX - (((square_horizontal_edge_sizes_ - 1) / 2) * 16) + (squareIteration * 16);
+											}
 										}
 										else {
 											squareIteration += square_horizontal_edge_sizes_ - squareIteration;
@@ -1340,6 +1444,12 @@ function unit_move() {
 											// of one side from the coordinates, since I've already iterated through
 											// a side.
 											tempCheckY = targetToMoveToY - ((squareSizeIncreaseCount + (vertical_edge_size_ - 1)) * 16) + (squareIteration * 16) - ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16);
+											// Adjust the size to start at the actual correct location in case the formation ordered
+											// into is Rows.
+											if unitFormation == "Rows" {
+												tempCheckY = targetToMoveToY - (((square_vertical_edge_sizes_ - 1) / 2) * 16) + ((squareIteration - square_horizontal_edge_sizes_) * 16);
+												tempCheckX = targetToMoveToX + (((square_horizontal_edge_sizes_ - 1) / 2) * 16);
+											}
 										}
 										else {
 											squareIteration += (square_horizontal_edge_sizes_ + square_vertical_edge_sizes_) - squareIteration;
@@ -1349,7 +1459,7 @@ function unit_move() {
 									// Bottom edge, moving right to left
 									else if squareIteration < ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) {
 										if (melee_unit_) || ((!melee_unit_) && (ranged_unit_direction_moving_in_ == 1) && (instance_exists(objectTarget))) || ((!melee_unit_) && (!instance_exists(objectTarget))) {
-											// Start at the bottom right corner, and move left. How it works:
+											/// Start at the bottom right corner, and move left. How it works:
 											// Start at origin point targetToMoveToX. Shift over to the right
 											// edge. Move left by subtracting squareIteration * 16. Adjust for
 											// the previous two sides that have already been run through by
@@ -1357,6 +1467,13 @@ function unit_move() {
 											tempCheckX = targetToMoveToX + ((squareSizeIncreaseCount + (horizontal_edge_size_ - 1)) * 16) - (squareIteration * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
 											// Shift the temporary check downwards to the bottom edge
 											tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16);
+											
+											// Adjust the size to start at the actual correct location in case the formation ordered
+											// into is Rows.
+											if unitFormation == "Rows" {
+												tempCheckY = targetToMoveToY + (((square_vertical_edge_sizes_ - 1) / 2) * 16);
+												tempCheckX = targetToMoveToX + (((square_horizontal_edge_sizes_ - 1) / 2) * 16) - ((squareIteration - square_horizontal_edge_sizes_ - square_vertical_edge_sizes_) * 16);
+											}
 										}
 										else {
 											squareIteration += ((square_horizontal_edge_sizes_ * 2) + square_vertical_edge_sizes_) - squareIteration;
@@ -1371,13 +1488,22 @@ function unit_move() {
 											// Start at the bottom left corner and move up. Works in the same
 											// way the check in the else if statement above works with the x axis.
 											tempCheckY = targetToMoveToY + (squareSizeIncreaseCount * 16) - (squareIteration * 16) + (((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 16) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 16);
+											
+											// Adjust the size to start at the actual correct location in case the formation ordered
+											// into is Rows.
+											if unitFormation == "Rows" {
+												tempCheckY = targetToMoveToY + (((square_vertical_edge_sizes_ - 1) / 2) * 16) - ((squareIteration - (square_horizontal_edge_sizes_ * 2) - square_vertical_edge_sizes_) * 16);
+												tempCheckX = targetToMoveToX - (((square_horizontal_edge_sizes_ - 1) / 2) * 16);
+											}
 										}
 										else {
 											squareIteration += ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) - squareIteration;
 											squareTrueIteration += ((square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2)) - squareIteration;
 										}
 									}
-						
+									if point_distance(tempCheckX, tempCheckY, mouse_x, mouse_y) > 5 * 16 {
+										var yeet_ = 0;
+									}
 									// Iterate the count that moves along the edges up by one
 									squareIteration++;
 									squareTrueIteration++;
@@ -1385,14 +1511,15 @@ function unit_move() {
 									// of the search square, reset the iteration count, increment the size increase
 									// count by one, and set baseSquareEdgeSize to equal the correct values based off
 									// of the new squareSizeIncreaseCount value.
-									if squareTrueIteration >= ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
+									if squareTrueIteration >= (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2) {
+									//if squareTrueIteration >= ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
 										// If the search is being made by a melee object or a ranged unitAction that isn't targeting
 										// anything, then expand the search outwards.
 										if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
 											squareSizeIncreaseCount++;
 										}
 										// Otherwise, expand the search inwards if the search is being made by a ranged unitAction
-										// that has a valid target.
+										// that has a valid target, and is set to a "Square" formation.
 										else {
 											// If its still possible to adjust the search inwards, do so
 											if squareSizeIncreaseCount > 0 {
@@ -1417,10 +1544,97 @@ function unit_move() {
 												}
 											}
 										}
+										
+										/// Set variables that will auto set the rest of the formation based on what formation the Unit is set to
+										if unitFormation == "Hollow Square" {
+											// I only set the units to form up in a hollow square if there is no target, because otherwise
+											// units would never reach their target and just keep their target in the empty center.
+											if !instance_exists(objectTarget) {
+												if squareSizeIncreaseCount == 0 {
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														if ds_list_size(objectsSelectedList) > 23 {
+															squareSizeIncreaseCount = 2;
+														}
+														else {
+															squareSizeIncreaseCount = 1;
+														}
+													}
+													else {
+														squareSizeIncreaseCount = 1;
+													}
+												}
+											}
+										}
 										baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-										square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
-										square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
-										square_peremeter_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
+										var square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
+										var square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
+										// Finally, if the formation set is rows, adjust the square sizes AFTER the default row sizes are set,
+										// so that all I'm doing is overwriting the previous values only when needed.
+										if unitFormation == "Rows" {
+											// This is done AFTER the local variables are set here, because if the formation is set to lines, the
+											// object should adjust it's edge sizes based on the direction to the target.
+											if !instance_exists(objectTarget) { 
+												var point_direction_to_target_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
+												if point_direction_to_target_ >= 360 {
+													point_direction_to_target_ -= 360;
+												}
+												if point_direction_to_target_ >= 0 && point_direction_to_target_ < 90 {
+													// The unit's target location is in the right quadrant, meaning the vertical rows should be long
+													// and static, and the horizontal rows should iterate as normal.
+													// THIS VALUE CAN ONLY BE ODD (faaaaaar cleaner in game to keep this value odd than to set it even).
+													square_vertical_edge_sizes_ = 7;
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														square_vertical_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+														if square_vertical_edge_sizes_ mod 2 == 0 {
+															square_vertical_edge_sizes_--;
+														}
+													}
+													// Set this to the quadrant value, because later I use this variable again to correctly search along
+													// a rectangle path.
+													point_direction_to_target_ = 0;
+												}
+												else if point_direction_to_target_ >= 90 && point_direction_to_target_ < 180 {
+													// The unit's target location is in the right quadrant, meaning the horizontal rows should be long
+													// and static, and the vertical rows should iterate as normal.
+													square_horizontal_edge_sizes_ = 7;
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														square_horizontal_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+														if square_horizontal_edge_sizes_ mod 2 == 0 {
+															square_horizontal_edge_sizes_--;
+														}
+													}
+													point_direction_to_target_ = 1;
+												}
+												else if point_direction_to_target_ >= 180 && point_direction_to_target_ < 270 {
+													// The unit's target location is in the left quadrant, meaning the vertical rows should be long
+													// and static, and the horizontal rows should iterate as normal.
+													square_vertical_edge_sizes_ = 7;
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														square_vertical_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+														if square_vertical_edge_sizes_ mod 2 == 0 {
+															square_vertical_edge_sizes_--;
+														}
+													}
+													point_direction_to_target_ = 2;
+												}
+												else {
+													// The unit's target location is in the right quadrant, meaning the horizontal rows should be long
+													// and static, and the vertical rows should iterate as normal.
+													square_horizontal_edge_sizes_ = 7;
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														square_horizontal_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+														if square_horizontal_edge_sizes_ mod 2 == 0 {
+															square_horizontal_edge_sizes_--;
+														}
+													}
+													point_direction_to_target_ = 3;
+												}
+											}
+										}
+										// After all of the square_... variables have been set correctly based on the formation ordered into, set the
+										// perimeter size variable.
+										var square_peremeter_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
+										
 										var point_direction_from_target_to_unit_ = point_direction(targetToMoveToX, targetToMoveToY, x, y) + 45;
 										if point_direction_from_target_to_unit_ >= 360 {
 											point_direction_from_target_to_unit_ -= 360;
@@ -1453,14 +1667,15 @@ function unit_move() {
 									// of the search square, reset the iteration count, increment the size increase
 									// count by one, and set baseSquareEdgeSize to equal the correct values based off
 									// of the new squareSizeIncreaseCount value.
-									if squareTrueIteration == ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
+									if squareTrueIteration == (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2) {
+									//if squareTrueIteration == ((((squareSizeIncreaseCount * 2) + 1) + (horizontal_edge_size_ - 1)) * 2) + ((((squareSizeIncreaseCount * 2) + 1) + (vertical_edge_size_ - 1)) * 2) {
 										// If the search is being made by a melee object or a ranged unitAction that isn't targeting
 										// anything, then expand the search outwards.
 										if melee_unit_ || (ranged_unit_starting_ring_ == 0) {
 											squareSizeIncreaseCount++;
 										}
 										// Otherwise, expand the search inwards if the search is being made by a ranged unitAction
-										// that has a valid target.
+										// that has a valid target, and is set to a "Square" formation.
 										else {
 											// If its still possible to adjust the search inwards, do so
 											if squareSizeIncreaseCount > 0 {
@@ -1485,10 +1700,97 @@ function unit_move() {
 												}
 											}
 										}
+										
+										/// Set variables that will auto set the rest of the formation based on what formation the Unit is set to
+										if unitFormation == "Hollow Square" {
+											// I only set the units to form up in a hollow square if there is no target, because otherwise
+											// units would never reach their target and just keep their target in the empty center.
+											if !instance_exists(objectTarget) {
+												if squareSizeIncreaseCount == 0 {
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														if ds_list_size(objectsSelectedList) > 23 {
+															squareSizeIncreaseCount = 2;
+														}
+														else {
+															squareSizeIncreaseCount = 1;
+														}
+													}
+													else {
+														squareSizeIncreaseCount = 1;
+													}
+												}
+											}
+										}
 										baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-										square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
-										square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
-										square_peremeter_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
+										var square_horizontal_edge_sizes_ = baseSquareEdgeSize + (horizontal_edge_size_ - 1);
+										var square_vertical_edge_sizes_ = baseSquareEdgeSize + (vertical_edge_size_ - 1);
+										// Finally, if the formation set is rows, adjust the square sizes AFTER the default row sizes are set,
+										// so that all I'm doing is overwriting the previous values only when needed.
+										if unitFormation == "Rows" {
+											// This is done AFTER the local variables are set here, because if the formation is set to lines, the
+											// object should adjust it's edge sizes based on the direction to the target.
+											if !instance_exists(objectTarget) { 
+												var point_direction_to_target_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
+												if point_direction_to_target_ >= 360 {
+													point_direction_to_target_ -= 360;
+												}
+												if point_direction_to_target_ >= 0 && point_direction_to_target_ < 90 {
+													// The unit's target location is in the right quadrant, meaning the vertical rows should be long
+													// and static, and the horizontal rows should iterate as normal.
+													// THIS VALUE CAN ONLY BE ODD (faaaaaar cleaner in game to keep this value odd than to set it even).
+													square_vertical_edge_sizes_ = 7;
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														square_vertical_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+														if square_vertical_edge_sizes_ mod 2 == 0 {
+															square_vertical_edge_sizes_--;
+														}
+													}
+													// Set this to the quadrant value, because later I use this variable again to correctly search along
+													// a rectangle path.
+													point_direction_to_target_ = 0;
+												}
+												else if point_direction_to_target_ >= 90 && point_direction_to_target_ < 180 {
+													// The unit's target location is in the right quadrant, meaning the horizontal rows should be long
+													// and static, and the vertical rows should iterate as normal.
+													square_horizontal_edge_sizes_ = 7;
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														square_horizontal_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+														if square_horizontal_edge_sizes_ mod 2 == 0 {
+															square_horizontal_edge_sizes_--;
+														}
+													}
+													point_direction_to_target_ = 1;
+												}
+												else if point_direction_to_target_ >= 180 && point_direction_to_target_ < 270 {
+													// The unit's target location is in the left quadrant, meaning the vertical rows should be long
+													// and static, and the horizontal rows should iterate as normal.
+													square_vertical_edge_sizes_ = 7;
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														square_vertical_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+														if square_vertical_edge_sizes_ mod 2 == 0 {
+															square_vertical_edge_sizes_--;
+														}
+													}
+													point_direction_to_target_ = 2;
+												}
+												else {
+													// The unit's target location is in the right quadrant, meaning the horizontal rows should be long
+													// and static, and the vertical rows should iterate as normal.
+													square_horizontal_edge_sizes_ = 7;
+													if ds_exists(objectsSelectedList, ds_type_list) {
+														square_horizontal_edge_sizes_ = min(ds_list_size(objectsSelectedList), 7);
+														if square_horizontal_edge_sizes_ mod 2 == 0 {
+															square_horizontal_edge_sizes_--;
+														}
+													}
+													point_direction_to_target_ = 3;
+												}
+											}
+										}
+										// After all of the square_... variables have been set correctly based on the formation ordered into, set the
+										// perimeter size variable.
+										var square_peremeter_size_ = (square_horizontal_edge_sizes_ * 2) + (square_vertical_edge_sizes_ * 2);
+										
 										var point_direction_from_target_to_unit_ = point_direction(targetToMoveToX, targetToMoveToY, x, y) + 45;
 										if point_direction_from_target_to_unit_ >= 360 {
 											point_direction_from_target_to_unit_ -= 360;
@@ -1670,6 +1972,11 @@ function unit_move() {
 									else if mp_grid_path(movementGrid, myPath, x_ + shifted_x_, y_ + shifted_y_, specificLocationToBeCheckedX, specificLocationToBeCheckedY, true) {
 										path_found_ = true;
 									}
+									// THIS NEEDS TO BE ADJUSTED TO ACCOMMODATE FOR FORMATIONS - in this case, no matter the formation,
+									// front liners need to take the front, relative to the direction clicked in.
+									// I can manipulate the objects located in the global list objectsSelectedList, because the only
+									// time a formation should occur is if the player commands movement, and it only takes 2-3 frames
+									// for every selected object to find their pathing.
 									if path_found_ {
 										still_need_to_search_ = false;
 										validPathFound = true;
