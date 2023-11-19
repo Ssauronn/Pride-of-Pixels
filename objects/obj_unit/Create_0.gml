@@ -97,7 +97,7 @@ groupDirectionToMoveInAdjusted = 0;
 // The default formation is set in obj_building, under the variable
 // "unitDefaultFormation", and is set via a button on the building
 // toolbar.
-unitFormation = "Square";
+unitFormation = "Rows";
 
 
 // Add self to the location grid if it hasn't been added yet

@@ -428,7 +428,7 @@ CODE NEEDED:
 	-Next to that should be currently selected unit(s) or building with icons, upgrades listed below in mini
 	icons, and the amount of each unit listed next to the main icons.
 	-If singular unit or building selected, HP bar should appear.
-	-If group of units selected, a "Square Formation" and "Line Formation" button should exist next to the
+	-If group of units selected, a "Square Formation", "Hollow Square Formation", and "Row Formation" button should exist next to the
 	icons. A group HP bar should also appear, which is just an average of the total HP percentages of all units
 	selected.
 	-Next to the icons and information should be possible upgrades, if any exist. If none exist, then nothing.
