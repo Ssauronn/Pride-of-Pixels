@@ -108,10 +108,30 @@ function target_next_object() {
 	}
 }
 
+///@function							remove_self_from_only_moving_grid();
+///@description							Removes the unit calling this function from the grid unitsCurrentlyOnlyMovingGrid.
+function remove_self_from_only_moving_grid() {
+	// If the unit is still part of the grid containing the info of units only assigned to move, then remove it, since it is no
+	// longer going to move.
+	if ds_exists(unitsCurrentlyOnlyMovingGrid, ds_type_grid) {
+		var only_moving_grid_height_ = ds_grid_height(unitsCurrentlyOnlyMovingGrid);
+		if ds_grid_height(unitsCurrentlyOnlyMovingGrid) > 1 {
+			var self_id_index_;
+			self_id_index_ = ds_grid_value_y(unitsCurrentlyOnlyMovingGrid, 0, 0, 0, only_moving_grid_height_ - 1, self.id);
+			if self_id_index_ != -1 {
+				ds_grid_set_grid_region(unitsCurrentlyOnlyMovingGrid, unitsCurrentlyOnlyMovingGrid, 0, self_id_index_ + 1, 3, only_moving_grid_height_ - 1, 0, self_id_index_);
+				ds_grid_resize(unitsCurrentlyOnlyMovingGrid, 4, only_moving_grid_height_ - 1);
+			}
+		}
+		else {
+			ds_grid_destroy(unitsCurrentlyOnlyMovingGrid);
+			unitsCurrentlyOnlyMovingGrid = noone;
+		}
+	}
+}
 
 
-
-///@function								unit_move();
+///@function							unit_move();
 ///@description							Expanded upon below
 /*
 If original click spot not valid
@@ -144,6 +164,10 @@ Once a valid starting search area is determined, start checking for if the spot 
 function unit_move() {
 	if !justSpawned {
 		if instance_exists(objectTarget) {
+			// If the unit is still part of the grid containing the info of units only assigned to move, then remove it, since it is no
+			// longer going to only move. In this case, it has a target and shouldn't be part of the list of objects only moving anymore.
+			remove_self_from_only_moving_grid();
+			
 			if !path_exists(myPath) {
 				if distance_to_object(objectTarget) < objectAttackRange {
 					// Change below to set target to closest location within a square
@@ -462,6 +486,56 @@ function unit_move() {
 					can_be_evaluated_this_frame_ = true;
 				}
 			}
+			
+			// If the unit is searching for a location, and it's target location to search for is both empty and the same as other units,
+			// then add it to a list. That list is later used to sort by front liners and back liners, so that units that are more tanky
+			// are up in the front relative to the direction they were moving, and the less tanky units are in the back.
+			var k, x_location_to_check_is_taken_, y_location_to_check_is_taken_, target_location_is_taken_;
+			target_location_is_taken_ = false;
+			// If the unit doesn't have a target it needs to move to, meaning it's doing nothing but moving
+			if (objectTarget == noone) && (objectCurrentCommand == "Move") {
+				// And if the target location is not occupied in the movementGrid, meaning there isn't a building or resource there
+				if mp_grid_get_cell(movementGrid, floor(targetToMoveToX / 16), floor(targetToMoveToY / 16)) == -1 {
+					// If the above is true, then add the unit to the list unitsCurrentlyOnlyMovingGrid, to use later in this
+					// script to swap unit places with other units in order to put the tankier units up front and weaker units
+					// in the back, regardless of formation.
+					if ds_exists(unitsCurrentlyOnlyMovingGrid, ds_type_grid) {
+						// If the instance ID isn't yet added to the grid
+						if ds_grid_value_exists(unitsCurrentlyOnlyMovingGrid, 0, 0, 0, ds_grid_height(unitsCurrentlyOnlyMovingGrid) - 1, self.id) == -1 {
+							ds_grid_resize(unitsCurrentlyOnlyMovingGrid, 4, ds_grid_height(unitsCurrentlyOnlyMovingGrid) + 1);
+							// Get the directional quadrant to the target, then add the unit to the list of objects that are doing nothing
+							// but moving to a specific target location.
+							var directional_quadrant_, point_direction_to_target_location_;
+							point_direction_to_target_location_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
+							if point_direction_to_target_location_ >= 360 {
+								point_direction_to_target_location_ -= 360;
+							}
+							directional_quadrant_ = floor(point_direction_to_target_location_ / 90);
+							unitsCurrentlyOnlyMovingGrid = ds_grid_create(4, 1);
+							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 0, 0, self.id);
+							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 1, 0, floor(targetToMoveToX / 16) * 16);
+							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 2, 0, floor(targetToMoveToY / 16) * 16);
+							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 3, 0, directional_quadrant_);
+						}
+					}
+					else {
+						// Get the directional quadrant to the target, then add the unit to the list of objects that are doing nothing
+						// but moving to a specific target location.
+						var directional_quadrant_, point_direction_to_target_location_;
+						point_direction_to_target_location_ = point_direction(x, y, targetToMoveToX, targetToMoveToY) + 45;
+						if point_direction_to_target_location_ >= 360 {
+							point_direction_to_target_location_ -= 360;
+						}
+						directional_quadrant_ = floor(point_direction_to_target_location_ / 90);
+						unitsCurrentlyOnlyMovingGrid = ds_grid_create(4, 1);
+						ds_grid_add(unitsCurrentlyOnlyMovingGrid, 0, 0, self.id);
+						ds_grid_add(unitsCurrentlyOnlyMovingGrid, 1, 0, floor(targetToMoveToX / 16) * 16);
+						ds_grid_add(unitsCurrentlyOnlyMovingGrid, 2, 0, floor(targetToMoveToY / 16) * 16);
+						ds_grid_add(unitsCurrentlyOnlyMovingGrid, 3, 0, directional_quadrant_);
+					}
+				}
+			}
+			
 			// Move the unit while waiting for a path to be found.
 			if point_distance(x, y, targetToMoveToX, targetToMoveToY) > groupRowWidth * 16 {
 				var orig_x_, orig_y_;
@@ -2351,6 +2425,10 @@ function unit_move() {
 							// the original object is attacking while not snapped to grid.
 							x = floor(targetToMoveToX / 16) * 16;
 							y = floor(targetToMoveToY / 16) * 16;
+							
+							// If the unit is still part of the grid containing the info of units only assigned to move, then remove it, since it is no
+							// longer going to move.
+							remove_self_from_only_moving_grid();
 						}
 					}
 					// Else a path must exist
@@ -2495,6 +2573,10 @@ function unit_move() {
 							validLocationFound = true;
 							x = floor(targetToMoveToX / 16) * 16;
 							y = floor(targetToMoveToY / 16) * 16;
+							
+							// If the unit is still part of the grid containing the info of units only assigned to move, then remove it, since it is no
+							// longer going to move.
+							remove_self_from_only_moving_grid();
 						}
 						// Clear each point on the path as the unit passes that point
 						if ((path_get_number(myPath) > 1) && (point_distance((x + 8), (y + 8), path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= (sprite_width / 2))) || ((path_get_number(myPath) == 1) && (point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) <= currentMovementSpeed)) {
@@ -2675,6 +2757,10 @@ function unit_move() {
 				else if objectCurrentCommand == "Ruby Mine" {
 					currentAction = unitAction.mine;
 				}
+				
+				// If the unit is still part of the grid containing the info of units only assigned to move, then remove it, since it is no
+				// longer going to move.
+				remove_self_from_only_moving_grid();
 				exit;
 			}
 		}
@@ -2801,6 +2887,10 @@ function unit_move() {
 		}
 		x = floor(x / 16) * 16;
 		y = floor(y / 16) * 16;
+		
+		// If the unit is still part of the grid containing the info of units only assigned to move, then remove it, since it is no
+		// longer going to move.
+		remove_self_from_only_moving_grid();
 	}
 }
 
