@@ -1,8 +1,8 @@
 {
   "FolderOrderSettings": [
+    {"name":"Abomination Parts","order":1,"path":"folders/Units/Sprites/Abomination Parts.yy",},
     {"name":"Robot","order":1,"path":"folders/Units/Sprites/Abomination Parts/Robot.yy",},
     {"name":"Werewolf","order":2,"path":"folders/Units/Sprites/Abomination Parts/Werewolf.yy",},
-    {"name":"Abomination Parts","order":1,"path":"folders/Units/Sprites/Abomination Parts.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"spr_wizard_left_idle","order":2,"path":"sprites/spr_wizard_left_idle/spr_wizard_left_idle.yy",},

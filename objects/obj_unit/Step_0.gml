@@ -85,7 +85,7 @@ if !obj_gui.startMenu.active {
 			}
 		}
 	}
-
+	
 	///		Set sprite index and sprite frame. All this code is here to allow for wait periods between animations to match up with their
 	///		action speeds.
 	// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
@@ -494,6 +494,9 @@ if !obj_gui.startMenu.active {
 				else if objectClassification == "Building" {
 					square_size_increase_count_max_ = 15;
 				}
+				else {
+					square_size_increase_count_max_ = objectCombatAggroRange;
+				}
 				/*
 				ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 				else if objectType == "Any other type" {
@@ -776,7 +779,7 @@ if !obj_gui.startMenu.active {
 				// Finally, after setting each object's ds_lists (if necessary), reset all
 				// movement variables for each selected object.
 				if !justSpawned {
-					if returnToResourceID == noone {
+					if (objectType != "Worker") || (returnToResourceID == noone) {
 						if !ds_exists(objectTargetList, ds_type_list) {
 							targetToMoveToX = floor(obj_inputs.mouseClampedX / 16) * 16;
 							targetToMoveToY = floor(obj_inputs.mouseClampedY / 16) * 16;
