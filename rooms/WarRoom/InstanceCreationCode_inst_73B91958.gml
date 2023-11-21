@@ -1,1 +1,1 @@
-objectType = "Worker";
+objectType = "Wizard";
