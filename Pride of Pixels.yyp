@@ -450,6 +450,7 @@
     {"id":{"name":"spr_berserker_left_attack","path":"sprites/spr_berserker_left_attack/spr_berserker_left_attack.yy",},},
     {"id":{"name":"spr_ogre_head_right_walk","path":"sprites/spr_ogre_head_right_walk/spr_ogre_head_right_walk.yy",},},
     {"id":{"name":"spr_automaton_front_attack","path":"sprites/spr_automaton_front_attack/spr_automaton_front_attack.yy",},},
+    {"id":{"name":"swap_data_position_in_structure","path":"scripts/swap_data_position_in_structure/swap_data_position_in_structure.yy",},},
     {"id":{"name":"spr_robot_legs_left_walk","path":"sprites/spr_robot_legs_left_walk/spr_robot_legs_left_walk.yy",},},
     {"id":{"name":"spr_automaton_left_attack","path":"sprites/spr_automaton_left_attack/spr_automaton_left_attack.yy",},},
     {"id":{"name":"spr_acolyte_left_idle","path":"sprites/spr_acolyte_left_idle/spr_acolyte_left_idle.yy",},},

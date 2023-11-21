@@ -2595,31 +2595,184 @@ function unit_move() {
 															// Change the last path points
 															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_ - self_last_path_point_x_, other_last_path_point_y_ - self_last_path_point_y_, 0);
 															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_ - other_last_path_point_x_, self_last_path_point_y_ - other_last_path_point_y_, 0);
-															// Now update variables
-															other_target_id_.targetToMoveToX = targetToMoveToX;
-															other_target_id_.targetToMoveToY = targetToMoveToY;
-															targetToMoveToX = other_current_target_x_;
-															targetToMoveToY = other_current_target_y_;
-															/// Finally, update ds_grids
-															// Temporary ds_grid, units_moving_to_same_location_
-															
-															// unitsCurrentlyOnlyMovingGrid
-															
-															// unitGridLocation
-															
-															// movementGrid
-															
+														}
+														// If no line of sight exists between the points to move to, then I need to remove
+														// the end points of the two paths, then create a path for each starting at the new
+														// endpoints and going to the new target to move to, and finally combine the original
+														// paths and the new paths.
+														else {
+															var self_id_ = self.id;
+															if path_get_number(myPath) > 1 {
+																path_delete_point(myPath, path_get_name(myPath) - 1);
+																var path_to_add_ = path_add();
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																path_append(myPath, path_to_add_);
+																path_delete(path_to_add_);
+																path_to_add_ = noone;
+															}
+															else {
+																path_delete(myPath);
+																myPath = noone;
+																myPath = path_add();
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+															}
+															// Here I do the same as above, except with the unit that is being swapped with.
+															with other_target_id_ {
+																if path_get_number(myPath) > 1 {
+																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	var path_to_add_ = path_add();
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	path_append(myPath, path_to_add_);
+																	path_delete(path_to_add_);
+																	path_to_add_ = noone;
+																}
+																else {
+																	path_delete(myPath);
+																	myPath = noone;
+																	myPath = path_add();
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																}
+															}
 														}
 													}
 													else if other_has_path_ {
-														
+														// If a line of sight exists between the current unit's target to move to, and the last
+														// point on the path of the other unit, then change the path of the other unit, and then
+														// do nothing else (since the target to move to variables will be swapped later.
+														if line_of_sight_exists_to_target(targetToMoveToX, targetToMoveToY, path_get_x(other_target_id_.myPath, 1), path_get_y(other_target_id_.myPath, 1)) {
+															var other_last_path_point_index_ = path_get_number(other_target_id_.myPath) - 1;
+															var other_last_path_point_x_ = path_get_point_x(other_target_id_.myPath, other_last_path_point_index_);
+															var other_last_path_point_y_ = path_get_point_y(other_target_id_.myPath, other_last_path_point_index_);
+															// Change the last path point
+															path_change_point(other_target_id_.myPath, other_last_path_point_index_, targetToMoveToX - other_last_path_point_x_, targetToMoveToY - other_last_path_point_y_, 0);
+														}
+														// If no line of sight exists between the target to move to and the last point of the other
+														// unit's path, then create a path for the current unit, and then modify the paths exactly
+														// like I do above.
+														else {
+															// Create a path and set it to move to the target.
+															myPath = path_add();
+															mp_grid_path(movementGrid, myPath, x, y, targetToMoveToX, targetToMoveToY, true);
+															// Identical to the code adjusting for 2 paths.
+															var self_id_ = self.id;
+															if path_get_number(myPath) > 1 {
+																path_delete_point(myPath, path_get_name(myPath) - 1);
+																var path_to_add_ = path_add();
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																path_append(myPath, path_to_add_);
+																path_delete(path_to_add_);
+																path_to_add_ = noone;
+															}
+															else {
+																path_delete(myPath);
+																myPath = noone;
+																myPath = path_add();
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+															}
+															// Here I do the same as above, except with the unit that is being swapped with.
+															with other_target_id_ {
+																if path_get_number(myPath) > 1 {
+																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	var path_to_add_ = path_add();
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	path_append(myPath, path_to_add_);
+																	path_delete(path_to_add_);
+																	path_to_add_ = noone;
+																}
+																else {
+																	path_delete(myPath);
+																	myPath = noone;
+																	myPath = path_add();
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																}
+															}
+														}
 													}
 													else if self_has_path_ {
-														
+														if line_of_sight_exists_to_target(path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY) {
+															var self_last_path_point_index_ = path_get_number(myPath) - 1;
+															var self_last_path_point_x_ = path_get_point_x(myPath, self_last_path_point_index_);
+															var self_last_path_point_y_ = path_get_point_y(myPath, self_last_path_point_index_);
+															// Change the last path point
+															path_change_point(myPath, self_last_path_point_index_, other_target_id_.targetToMoveToX - self_last_path_point_x_, other_target_id_.targetToMoveToY - self_last_path_point_x_, 0);
+														}
+														// If no line of sight exists between the last point of this unit's path and the
+														// other unit's target to move to, then create a path for the other unit, and 
+														// then modify the paths exactly like I do above.
+														else {
+															with other_target_id_ {
+																// Create a path and set it to move to the target.
+																myPath = path_add();
+																mp_grid_path(movementGrid, myPath, x, y, targetToMoveToX, targetToMoveToY, true);
+															}
+															// Identical to the code adjusting for 2 paths.
+															var self_id_ = self.id;
+															if path_get_number(myPath) > 1 {
+																path_delete_point(myPath, path_get_name(myPath) - 1);
+																var path_to_add_ = path_add();
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																path_append(myPath, path_to_add_);
+																path_delete(path_to_add_);
+																path_to_add_ = noone;
+															}
+															else {
+																path_delete(myPath);
+																myPath = noone;
+																myPath = path_add();
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+															}
+															// Here I do the same as above, except with the unit that is being swapped with.
+															with other_target_id_ {
+																if path_get_number(myPath) > 1 {
+																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	var path_to_add_ = path_add();
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	path_append(myPath, path_to_add_);
+																	path_delete(path_to_add_);
+																	path_to_add_ = noone;
+																}
+																else {
+																	path_delete(myPath);
+																	myPath = noone;
+																	myPath = path_add();
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																}
+															}
+														}
 													}
-													else {
-														
+													// Otherwise, if neither of the units in question have a path, then check for line of sight.
+													// If one exists, then I don't do anything, because all I need to do at that point is adjust
+													// the target variables, which are done below. If no line of sight exists however, I create
+													// a path for both objects and automatically set those PATHS to the target locations of the
+													// other unit, while leaving the target variables themselves alone still, as those will be
+													// adjust below.
+													else if !line_of_sight_exists_to_target(targetToMoveToX, targetToMoveToY, other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY) {
+														var self_id_ = self.id;
+														myPath = path_add();
+														mp_grid_path(movementGrid, myPath, x, y, other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
+														with other_target_id_ {
+															myPath = path_add();
+															mp_grid_path(movementGrid, myPath, x, y, self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
+														}
 													}
+													// Now update variables
+													other_target_id_.targetToMoveToX = targetToMoveToX;
+													other_target_id_.targetToMoveToY = targetToMoveToY;
+													targetToMoveToX = other_current_target_x_;
+													targetToMoveToY = other_current_target_y_;
+													
+													/// Finally, update ds_grids
+													// Temporary ds_grid, units_moving_to_same_location_
+													swap_data_position_in_structure(units_moving_to_same_location_, "grid", self.id, other_target_id_);
+													
+													// unitsCurrentlyOnlyMovingGrid
+													swap_data_position_in_structure(unitsCurrentlyOnlyMovingGrid, "grid", self.id, other_target_id_);
+													
+													// unitGridLocation
+													swap_data_position_in_structure(unitGridLocation, "grid", self.id, other_target_id_);
+													
+													// movementGrid
+													swap_data_position_in_structure(movementGrid, "grid", self.id, other_target_id_);
 												}
 											}
 										}

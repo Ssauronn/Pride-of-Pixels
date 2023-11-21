@@ -208,6 +208,7 @@
     {"name":"spr_werewolf_chest_back_attack","order":3,"path":"sprites/spr_werewolf_chest_back_attack/spr_werewolf_chest_back_attack.yy",},
     {"name":"spr_berserker_left_attack","order":2,"path":"sprites/spr_berserker_left_attack/spr_berserker_left_attack.yy",},
     {"name":"spr_ogre_head_right_walk","order":1,"path":"sprites/spr_ogre_head_right_walk/spr_ogre_head_right_walk.yy",},
+    {"name":"swap_data_position_in_structure","order":15,"path":"scripts/swap_data_position_in_structure/swap_data_position_in_structure.yy",},
     {"name":"spr_robot_legs_left_walk","order":2,"path":"sprites/spr_robot_legs_left_walk/spr_robot_legs_left_walk.yy",},
     {"name":"spr_automaton_left_attack","order":2,"path":"sprites/spr_automaton_left_attack/spr_automaton_left_attack.yy",},
     {"name":"spr_acolyte_left_idle","order":2,"path":"sprites/spr_acolyte_left_idle/spr_acolyte_left_idle.yy",},
