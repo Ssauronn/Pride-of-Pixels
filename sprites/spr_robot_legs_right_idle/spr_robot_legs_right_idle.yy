@@ -27,7 +27,7 @@
   "origin": 9,
   "parent": {
     "name": "Idle",
-    "path": "folders/Units/Sprites/Robot/Legs/Idle.yy",
+    "path": "folders/Units/Sprites/Abomination Parts/Robot/Legs/Idle.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

@@ -31,7 +31,7 @@
   "origin": 9,
   "parent": {
     "name": "Attack",
-    "path": "folders/Units/Sprites/Werewolf/Legs/Attack.yy",
+    "path": "folders/Units/Sprites/Abomination Parts/Werewolf/Legs/Attack.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

@@ -27,7 +27,7 @@
   "origin": 9,
   "parent": {
     "name": "Idle",
-    "path": "folders/Units/Sprites/Werewolf/Legs/Idle.yy",
+    "path": "folders/Units/Sprites/Abomination Parts/Werewolf/Legs/Idle.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

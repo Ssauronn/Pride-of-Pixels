@@ -29,7 +29,7 @@
   "origin": 9,
   "parent": {
     "name": "Walk",
-    "path": "folders/Units/Sprites/Ogre/Legs/Walk.yy",
+    "path": "folders/Units/Sprites/Abomination Parts/Ogre/Legs/Walk.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

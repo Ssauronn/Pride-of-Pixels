@@ -29,7 +29,7 @@
   "origin": 9,
   "parent": {
     "name": "Walk",
-    "path": "folders/Units/Sprites/Werewolf/Legs/Walk.yy",
+    "path": "folders/Units/Sprites/Abomination Parts/Werewolf/Legs/Walk.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {
