@@ -37,7 +37,7 @@
   "origin": 9,
   "parent": {
     "name": "Master",
-    "path": "folders/Units/Sprites/Werewolf/Chest/Master.yy",
+    "path": "folders/Units/Sprites/Abomination Parts/Werewolf/Chest/Master.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

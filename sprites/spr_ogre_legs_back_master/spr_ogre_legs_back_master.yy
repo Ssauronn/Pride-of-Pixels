@@ -38,7 +38,7 @@
   "origin": 9,
   "parent": {
     "name": "Master",
-    "path": "folders/Units/Sprites/Ogre/Legs/Master.yy",
+    "path": "folders/Units/Sprites/Abomination Parts/Ogre/Legs/Master.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

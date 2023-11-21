@@ -2402,6 +2402,235 @@ function unit_move() {
 					// If a valid location exists, no need to search for one, just move.
 					if !path_exists(myPath) {
 						if point_distance(x, y, targetToMoveToX, targetToMoveToY) >= currentMovementSpeed * 2 {
+							// If this unit is assigned to a position that is in the front, and it's not a front liner, then check
+							// to see if there's a front liner that is assigned further back, that can take it's place. To be clear,
+							// I'm not necessarily checking for distance to the initial target click location, but rather which is
+							// further forward relative to the direction given in the ds_grid.
+							var units_moving_to_same_location_ = noone;
+							if ds_exists(unitsCurrentlyOnlyMovingGrid, ds_type_grid) {
+								var only_moving_grid_height_ = ds_grid_height(unitsCurrentlyOnlyMovingGrid);
+								var self_found_original_index_ = ds_grid_value_y(unitsCurrentlyOnlyMovingGrid, 0, 0, 0, only_moving_grid_height_ - 1, self.id);
+								// If the unit is part of the grid containing units who are just moving, great! Make a copy of that grid, containing
+								// that unit and only other units who are moving to the same location, stored in the local variable 
+								// units_move_to_same_location_. Regardless of what happens after, this grid is deleted after this code section,
+								// ensuring a memory leak doesn't occur.
+								if self_found_original_index_ != -1 {
+									units_moving_to_same_location_ = ds_grid_create(4, 1,);
+									ds_grid_add(units_moving_to_same_location_, 0, 0, self.id);
+									ds_grid_add(units_moving_to_same_location_, 1, 0, ds_grid_get(unitsCurrentlyOnlyMovingGrid, 1, self_found_original_index_));
+									ds_grid_add(units_moving_to_same_location_, 2, 0, ds_grid_get(unitsCurrentlyOnlyMovingGrid, 2, self_found_original_index_));
+									ds_grid_add(units_moving_to_same_location_, 3, 0, ds_grid_get(unitsCurrentlyOnlyMovingGrid, 3, self_found_original_index_));
+									
+									// Knights, Berserkers, and Abominations/Automatons should be up front.
+									// Warlocks, Wizards, Rangers, and Acolytes should be in the back.
+									// Soldiers, Rogues, Workers, and Demons should be in the middle.
+									var self_liner_ = "";
+									var front_liner_moving_ = false;
+									var middle_liner_moving_ = false;
+									var back_liner_moving_ = false;
+									if (objectType == "Knight") || (objectType == "Berserker") || (objectType == "Abomination") || (objectType == "Automaton") {
+										front_liner_moving_ = true;
+										self_liner_ = "Front";
+									}
+									else if (objectType == "Warlock") || (objectType == "Wizard") || (objectType == "Ranger") || (objectType == "Acolyte") {
+										back_liner_moving_ = true;
+										self_liner_ = "Back";
+									}
+									else if (objectType == "Soldier") || (objectType == "Rogue") || (objectType == "Demon") || (objectType == "Worker") {
+										middle_liner_moving_ = true;
+										self_liner_ = "Middle";
+									}
+									
+									// Now that the temporary grid exists, go through the original grid and add any units that are set to travel
+									// to the same location to the temporary grid. I check to make sure the unit isn't a duplicate of itself, and
+									// to make sure the unit being added is on the same team, meaning they're traveling together (or at least
+									// will end up together).
+									var k = 0;
+									for (k = 0; k < ds_grid_height(unitsCurrentlyOnlyMovingGrid); k++) {
+										var unit_original_index_id_ = ds_grid_get(unitsCurrentlyOnlyMovingGrid, 0, k);
+										var unit_original_index_target_x_ = ds_grid_get(unitsCurrentlyOnlyMovingGrid, 1, k);
+										var unit_original_index_target_y_ = ds_grid_get(unitsCurrentlyOnlyMovingGrid, 2, k);
+										var unit_original_index_target_direction_ = ds_grid_get(unitsCurrentlyOnlyMovingGrid, 3, k);
+										if (k != self_found_original_index_) && (objectRealTeam == unit_original_index_id_.objectRealTeam) {
+											// If the unit in the list is moving to the same location that this current unit (the unit running
+											// this code) is moving to, then add it to the temporary ds_grid.
+											if (ds_grid_get(unitsCurrentlyOnlyMovingGrid, 1, self_found_original_index_) == unit_original_index_target_x_) && (ds_grid_get(unitsCurrentlyOnlyMovingGrid, 2, self_found_original_index_) == unit_original_index_target_y_) {
+												// Finally, if the two different units in question are verified to be on the same team and
+												// moving to the same location, add the unit not yet added to the temporary ds_grid, to the
+												// temporary ds_grid.
+												var temp_grid_height_ = ds_grid_height(units_moving_to_same_location_);
+												ds_grid_resize(units_moving_to_same_location_, 4, temp_grid_height_ + 1);
+												ds_grid_add(units_moving_to_same_location_, 0, temp_grid_height_, unit_original_index_id_);
+												ds_grid_add(units_moving_to_same_location_, 1, temp_grid_height_, unit_original_index_target_x_);
+												ds_grid_add(units_moving_to_same_location_, 2, temp_grid_height_, unit_original_index_target_y_);
+												ds_grid_add(units_moving_to_same_location_, 3, temp_grid_height_, unit_original_index_target_direction_);
+											}
+										}
+									}
+									// Now that the temporary grid exists, and all units who are currently just moving to a location, and are
+									// moving to the same location while on the same team are all added into the temporary grid, I can manipulate
+									// target positions to move to, and adjust paths as needed.
+									// If the grid height is only 1 or less, then that means no other units moving to the same location were found
+									// and it's moving by itself, so none of the below code will run.
+									if ds_grid_height(units_moving_to_same_location_) > 1 {
+										var self_target_x_ = ds_grid_get(units_moving_to_same_location_, 1, 0);
+										var self_target_y_ = ds_grid_get(units_moving_to_same_location_, 2, 0);
+										var self_target_direction_ = ds_grid_get(units_moving_to_same_location_, 3, 0);
+										var self_distance_from_initial_target_ = 0;
+										if (self_target_direction_ == 0) || (self_target_direction_ == 2) {
+											self_distance_from_initial_target_ = targetToMoveToX - self_target_x_;
+										}
+										else {
+											self_distance_from_initial_target_ = targetToMoveToY - self_target_y_;
+										}
+										// I set the iteration value to 1, since the first value in the for loop is guaranteed to be the unit running
+										// this code.
+										k = 1;
+										for (k = 1; k < ds_grid_height(units_moving_to_same_location_) - 1; k++) {
+											var needs_to_swap_with_unit_target_ = false;
+											var other_liner_ = "";
+											var other_target_id_ = ds_grid_get(units_moving_to_same_location_, 0, k);
+											var other_target_x_ = ds_grid_get(units_moving_to_same_location_, 1, k);
+											var other_target_y_ = ds_grid_get(units_moving_to_same_location_, 2, k);
+											var other_target_direction_ = ds_grid_get(units_moving_to_same_location_, 3, k);
+											var other_current_target_x_ = other_target_id_.targetToMoveToX;
+											var other_current_target_y_ = other_target_id_.targetToMoveToY;
+											with other_target_id_ {
+												if (objectType == "Knight") || (objectType == "Berserker") || (objectType == "Abomination") || (objectType == "Automaton") {
+													front_liner_moving_ = true;
+													other_liner_ = "Front";
+												}
+												else if (objectType == "Warlock") || (objectType == "Wizard") || (objectType == "Ranger") || (objectType == "Acolyte") {
+													back_liner_moving_ = true;
+													other_liner_ = "Back";
+												}
+												else if (objectType == "Soldier") || (objectType == "Rogue") || (objectType == "Demon") || (objectType == "Worker") {
+													middle_liner_moving_ = true;
+													other_liner_ = "Middle";
+												}
+											}
+											// If they're moving in the same direction, meaning they're in the in same formation,
+											// or close enough to each other that it doesn't matter if their formation is the same
+											if self_target_direction_ == other_target_direction_ {
+												// Check object types for the units. 
+												// Knights, Berserkers, and Abominations/Automatons should be up front.
+												// Warlocks, Wizards, Rangers, and Acolytes should be in the back.
+												// Soldiers, Rogues, Workers, and Demons should be in the middle.
+												
+												// Keep in mind, this is only swapping the target location for the one unit that is running this
+												// code - so only this unit, and one other unit, should be swapping locations at a time. I also
+												// make sure to update the unitsCurrentlyOnlyMovingGrid information, so that I don't continually
+												// swap places over and over.
+												if (other_target_direction_ == 0) || (other_target_direction_ == 2) {
+													var other_distance_from_initial_target_ = other_current_target_x_ - other_target_x_;
+												}
+												else {
+													var other_distance_from_initial_target_ = other_current_target_y_ - other_target_y_;
+												}
+												
+												/// Check for units in different locations than itself to swap with.
+												// If the unit is a front liner, I only need to check for a unit that is further forward than this
+												// unit.
+												if (self_liner_ == "Front") && (other_liner_ != "Front") {
+													// The moment of truth. It all comes together here.
+													// If the unit in the temporary grid, added initially because it's an ally moving to the same
+													// initial target location, is now set to move to a location that is further behind another unit
+													// relative to the direction moving in, and that other unit that it's behind is supposed to be
+													// behind the current unit, along with both units having found a valid path and location, then
+													// swap target locations.
+													if self_distance_from_initial_target_ < other_distance_from_initial_target_ {
+														if (other_target_id_.validPathFound) && (other_target_id_.validLocationFound) {
+															needs_to_swap_with_unit_target_ = true;
+														}
+													}
+												}
+												else if self_liner_ == "Middle" {
+													if ((self_distance_from_initial_target_ < other_distance_from_initial_target_) && (other_liner_ == "Back")) || ((self_distance_from_initial_target_ > other_distance_from_initial_target_) && (other_liner_ == "Front")) {
+														if (other_target_id_.validPathFound) && (other_target_id_.validLocationFound) {
+															needs_to_swap_with_unit_target_ = true;
+														}
+													}
+												}
+												else if (self_liner_ == "Back") && (other_liner_ != "Back") {
+													if self_distance_from_initial_target_ > other_distance_from_initial_target_ {
+														if (other_target_id_.validPathFound) && (other_target_id_.validLocationFound) {
+															needs_to_swap_with_unit_target_ = true;
+														}
+													}
+												}
+												
+												// Make sure to update the temporary grid, the global grid, the grid containing unit locations,
+												// and the paths for both units, along with the current targetToMoveToX and targetToMoveToY
+												// values.
+												if needs_to_swap_with_unit_target_ {
+													// Before swapping, check for path status. This can vary between units, so I need to handle
+													// each combination of path existence separately.
+													needs_to_swap_with_unit_target_ = false;
+													var both_have_paths_ = false;
+													var self_has_path_ = false;
+													var other_has_path_ = false;
+													if path_exists(myPath) {
+														self_has_path_ = true;
+													}
+													if path_exists(other_target_id_.myPath) {
+														other_has_path_ = true;
+													}
+													if self_has_path_ && other_has_path_ {
+														both_have_paths_ = true;
+													}
+													
+													// After checking for path status, swap target locations and adjust for every possibile
+													// combination of pathing.
+													if both_have_paths_ {
+														// If a line of sight exists between the two end points of the path, then just take
+														// the last points on both paths and swap them, before adjusting relevant info in
+														// data structures.
+														if line_of_sight_exists_to_target(path_get_x(myPath, 1), path_get_y(myPath, 1), path_get_x(other_target_id_.myPath, 1), path_get_y(other_target_id_.myPath, 1)) {
+															var self_last_path_point_index_ = path_get_number(myPath) - 1;
+															var self_last_path_point_x_ = path_get_point_x(myPath, self_last_path_point_index_);
+															var self_last_path_point_y_ = path_get_point_y(myPath, self_last_path_point_index_);
+															var other_last_path_point_index_ = path_get_number(other_target_id_.myPath) - 1;
+															var other_last_path_point_x_ = path_get_point_x(other_target_id_.myPath, other_last_path_point_index_);
+															var other_last_path_point_y_ = path_get_point_y(other_target_id_.myPath, other_last_path_point_index_);
+															// Change the last path points
+															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_ - self_last_path_point_x_, other_last_path_point_y_ - self_last_path_point_y_, 0);
+															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_ - other_last_path_point_x_, self_last_path_point_y_ - other_last_path_point_y_, 0);
+															// Now update variables
+															other_target_id_.targetToMoveToX = targetToMoveToX;
+															other_target_id_.targetToMoveToY = targetToMoveToY;
+															targetToMoveToX = other_current_target_x_;
+															targetToMoveToY = other_current_target_y_;
+															/// Finally, update ds_grids
+															// Temporary ds_grid, units_moving_to_same_location_
+															
+															// unitsCurrentlyOnlyMovingGrid
+															
+															// unitGridLocation
+															
+															// movementGrid
+															
+														}
+													}
+													else if other_has_path_ {
+														
+													}
+													else if self_has_path_ {
+														
+													}
+													else {
+														
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+							if ds_exists(units_moving_to_same_location_, ds_type_grid) {
+								ds_grid_destroy(units_moving_to_same_location_);
+								units_moving_to_same_location_ = noone;
+							}
+							
 							var x_vector_, y_vector_;
 							x_vector_ = lengthdir_x(currentMovementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));
 							y_vector_ = lengthdir_y(currentMovementSpeed, point_direction(x, y, targetToMoveToX, targetToMoveToY));

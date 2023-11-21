@@ -31,7 +31,7 @@
   "origin": 9,
   "parent": {
     "name": "Attack",
-    "path": "folders/Units/Sprites/Ogre/Chest/Attack.yy",
+    "path": "folders/Units/Sprites/Abomination Parts/Ogre/Chest/Attack.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

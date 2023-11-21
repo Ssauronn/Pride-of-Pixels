@@ -7,19 +7,21 @@ depth = -y//(y / 1000);
 
 // Stop certain conditions from being met if the unit isn't a Worker currently working on returning
 // gathered materials to a dropoff point or making its way back from the dropoff point.
-if returnToResourceID != noone {
-	if (objectType == "Worker") && (instance_exists(objectTarget)) {
-		// If the target exists, but it's not a resource or a dropoff point
-		if (objectTarget.objectClassification != "Resource") && ((objectTarget.objectClassification == "Building") && ((objectTarget.objectType != "Farm") && (objectTarget.objectType != "Thicket") && (objectTarget.objectType != "Mine") && (objectTarget.objectType != "City Hall") && (objectTarget.objectType != "Storehouse"))) {
-			set_return_resource_variables_noone();
-		}
-		// If the Worker's current command is not to collect a material
-		if (objectCurrentCommand != "Farm") && (objectCurrentCommand != "Chop") && (objectCurrentCommand != "Mine") && (objectCurrentCommand != "Ruby Mine") {
-			set_return_resource_variables_noone();
-		}
-		// If the Worker's current state is not Idle, Move, or collecting a material
-		if (currentAction != unitAction.idle) && (currentAction != unitAction.move) && (currentAction != unitAction.farm) && (currentAction != unitAction.chop) && (currentAction != unitAction.mine) {
-			set_return_resource_variables_noone();
+if (objectType == "Worker") {
+	if returnToResourceID != noone {
+		if (instance_exists(objectTarget)) {
+			// If the target exists, but it's not a resource or a dropoff point
+			if (objectTarget.objectClassification != "Resource") && ((objectTarget.objectClassification == "Building") && ((objectTarget.objectType != "Farm") && (objectTarget.objectType != "Thicket") && (objectTarget.objectType != "Mine") && (objectTarget.objectType != "City Hall") && (objectTarget.objectType != "Storehouse"))) {
+				set_return_resource_variables_noone();
+			}
+			// If the Worker's current command is not to collect a material
+			if (objectCurrentCommand != "Farm") && (objectCurrentCommand != "Chop") && (objectCurrentCommand != "Mine") && (objectCurrentCommand != "Ruby Mine") {
+				set_return_resource_variables_noone();
+			}
+			// If the Worker's current state is not Idle, Move, or collecting a material
+			if (currentAction != unitAction.idle) && (currentAction != unitAction.move) && (currentAction != unitAction.farm) && (currentAction != unitAction.chop) && (currentAction != unitAction.mine) {
+				set_return_resource_variables_noone();
+			}
 		}
 	}
 }
