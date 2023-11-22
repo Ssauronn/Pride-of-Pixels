@@ -2408,6 +2408,11 @@ function unit_move() {
 					// If a valid location exists, no need to search for one, just move.
 					if !path_exists(myPath) {
 						if point_distance(x, y, targetToMoveToX, targetToMoveToY) >= currentMovementSpeed * 2 {
+							// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+							// Specifically, I just need to change/add the local variables "front_liner_moving_",
+							// "middle_liner_moving_", and "back_liner_moving_" for any units that I add or change,
+							// so that they're sorted correctly by their assigned placements once they form up
+							// into a formation.
 							// If this unit is assigned to a position that is in the front, and it's not a front liner, then check
 							// to see if there's a front liner that is assigned further back, that can take it's place. To be clear,
 							// I'm not necessarily checking for distance to the initial target click location, but rather which is
@@ -2839,6 +2844,11 @@ function unit_move() {
 					else {
 						// If the path has more than 1 point to move along, move it
 						if path_get_number(myPath) > 1 {
+							// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+							// Specifically, I just need to change/add the local variables "front_liner_moving_",
+							// "middle_liner_moving_", and "back_liner_moving_" for any units that I add or change,
+							// so that they're sorted correctly by their assigned placements once they form up
+							// into a formation.
 							// If this unit is assigned to a position that is in the front, and it's not a front liner, then check
 							// to see if there's a front liner that is assigned further back, that can take it's place. To be clear,
 							// I'm not necessarily checking for distance to the initial target click location, but rather which is
@@ -3306,6 +3316,11 @@ function unit_move() {
 						}
 						// Otherwise if the path only has 1 point on it, move it
 						else if point_distance(x, y, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) > currentMovementSpeed * 2 {
+							// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
+							// Specifically, I just need to change/add the local variables "front_liner_moving_",
+							// "middle_liner_moving_", and "back_liner_moving_" for any units that I add or change,
+							// so that they're sorted correctly by their assigned placements once they form up
+							// into a formation.
 							// If this unit is assigned to a position that is in the front, and it's not a front liner, then check
 							// to see if there's a front liner that is assigned further back, that can take it's place. To be clear,
 							// I'm not necessarily checking for distance to the initial target click location, but rather which is
