@@ -6,7 +6,7 @@ GAME START
 TIER 3 UPGRADES - AVAILABLE AT GAME CREATION
 - SPECIAL 1a -	Enrage: Unlocks the Berserker's Standard Ability, Enrage.
 - SPECIAL 1b -	Invisibility: Unlocks the Rogue's Standard Ability, Invisibility.
-- SPECIAL 1c -	Rally: Unlocks the Soldier's Standard Ability, Rally.
+- SPECIAL 1c -	Morale Boost: Unlocks the Soldier's Standard Ability, Morale Boost.
 - OFFENSIVE 1a - Scopes: Upgrades the range of Rangers.
 - OFFENSIVE 1b - Anger Management: Upgrades the attack bonus of Berserker's enrage ability.
 - OFFENSIVE 1c - Backstab: Upgrades the Ambush damage of Rogues.
@@ -16,7 +16,7 @@ TIER 2 UPGRADES
 - OFFENSIVE 2a -Piercing Strike: Rogues are able to find the weakpoint in armor with their 
 		Ambush ability and now ignore half of the target's armor when attacking with Ambush.
 - OFFENSIVE 2b -Stabilized Weapons: Further increases the range of Rangers.
-- OFFENSIVE 2c -Morale Boost: Increases the damage bonus for Soldiers when surrounded by other friendly
+- OFFENSIVE 2c -Courage: Increases the damage bonus from Morale Boost for nearby friendly
 		Soldiers.
 - DEFENSIVE 2a -Steel Armor: Upgrades the magic armor of Knights.
 - DEFENSIVE 2b -Hardened Leather: Slightly upgrades the slash and pierce armor of Berserkers.

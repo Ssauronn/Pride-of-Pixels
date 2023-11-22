@@ -1,0 +1,59 @@
+AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
+-
+-
+-
+
+
+-	Worker
+-	The only unit that can build buildings. The only unit that can carry resources. Very low combat 
+	stats, low movement speed.
+-	Abilities:
+	{	-	CAN ONLY CHOOSE ONE OF THESE
+-		1. IF MAGIC
+			- Flask of Stoneskin: Increases the armor of all units (including Workers). Decreases the
+			  rate at which resources decay while being collected by Workers.
+-		2. IF MAGIC
+			- Flask of Power: Increases the rate at which Workers collect resources.
+-		3. IF MAGIC
+			- Flask of Speed: Increases the movement speed of all units (including Workers).
+	}
+	
+	
+-	Soldier
+-	The standard melee attacking unit. Decent combat stats, doesn't stand out.
+-	Abilities:
+	{	-	CAN ONLY CHOOSE ONE OF THESE
+-		1. IF MAGIC
+			- Flask of Stoneskin: Increases the armor of all units.
+-		2. IF MAGIC:
+			- Flask of Power: Temporarily boosts all unit's damage.
+-		3. IF MAGIC:
+			- Flask of Speed: Increases the movement speed of all units.
+	}
+	UNIVERSALLY AVAILABLE
+-	Morale Boost: Temporarily increase the damage of all nearby friendly Soldiers, not including
+				  itself. This buff can stack.
+	
+	
+-	Ranger
+-	The standard ranged attacking unit. Low defense stats, higher offensive combat stats.
+-	Abilities:
+	{	-	CAN ONLY CHOOSE ONE OF THESE
+-		1. IF MAGIC
+			- Flask of Stoneskin: Increases the armor of all units.
+-		2. IF MAGIC:
+			- Flask of Power: Temporarily boosts all unit's damage.
+-		3. IF MAGIC:
+			- Flask of Speed: Increases the movement speed of all units.
+	}
+	IF TECH TREE
+	Togglable Ability, ON/OFF
+-	Handheld Rail Gun: Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets 
+	and deal damage to enemies behind their target. However, their attack speed is reduced.
+	
+-	Knight
+
+-	Rogue
+
+-	Berserker
+		

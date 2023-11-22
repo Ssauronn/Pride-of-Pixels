@@ -280,7 +280,7 @@ function initialize_object_data() {
 			objectSpecialAbilityUpgraded = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
-			courageDamageBonus = 2;
+			moraleBoostDamageBonus = 2;
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -454,10 +454,12 @@ function initialize_object_data() {
 			isInvisible = false;
 			ambushDamageBonus = 50;
 			piercingStrikeActive = false;
-			// Armor is a decimal value from 0 to 1, used to multiply against damage. The lower the value,
-			// the higher the armor. So penetration temporarily adds to the armor multiplier, to increase
-			// the damage taken by the target (when using the Ambush ability in this case).
-			piercingStrikePenetration = 0.25;
+			// Armor is a decimal value from 0 to 1, or higher, used to multiply against damage. The lower the value,
+			// the higher the armor. So penetration is temporarily multiplied with the armor multiplier, to
+			// increase the damage taken by the target (when using the Ambush ability in this case). E.g. if
+			// piercingStrikePenetration is set to 1.5, and the target's pierce armor is 0.5, the target now takes
+			// 1.5x damage, or (1.5 * 0.5 = 0.75).
+			piercingStrikePenetration = 1.5;
 			// Combat variables
 			objectAttackRange = 1 * 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
