@@ -269,6 +269,7 @@
     {"name":"spr_32_32","order":1,"path":"sprites/spr_32_32/spr_32_32.yy",},
     {"name":"spr_warlock_right_attack","order":1,"path":"sprites/spr_warlock_right_attack/spr_warlock_right_attack.yy",},
     {"name":"spr_robot_head_right_idle","order":1,"path":"sprites/spr_robot_head_right_idle/spr_robot_head_right_idle.yy",},
+    {"name":"UnitsAbilities","order":13,"path":"notes/UnitsAbilities/UnitsAbilities.yy",},
     {"name":"UnitsMovement","order":2,"path":"notes/UnitsMovement/UnitsMovement.yy",},
     {"name":"spr_soldier_side_master","order":1,"path":"sprites/spr_soldier_side_master/spr_soldier_side_master.yy",},
     {"name":"spr_ogre_head_right_attack","order":1,"path":"sprites/spr_ogre_head_right_attack/spr_ogre_head_right_attack.yy",},

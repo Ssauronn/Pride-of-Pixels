@@ -490,7 +490,7 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
 				false, 1, false, noone, "Barracks", "Rogue", "objectCanUseSpecialAbility", noone, 1, 45, 
 				0, 0, 150, 0, noone, noone, noone);
-	rally = new _upgrade_options("Rally", "Unlocks the Soldier's Standard Ability, Rally.", 
+	moraleBoost = new _upgrade_options("Morale Boost", "Unlocks the Soldier's Standard Ability, Morale Boost.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.c, 
 				false, 1, false, noone, "Barracks", "Soldier", "objectCanUseSpecialAbility", noone, 1, 45, 
 				0, 150, 0, 0, noone, noone, noone);
@@ -531,7 +531,7 @@ function _barracks() constructor {
 				false, 2, false, noone, "Barracks", "Knight", "objectCanUseCombatSpecializationAbility", 
 				noone, 1, 60, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
 				"combatSpecializationChosen", "Protectorate");
-	piercingStrike = new _upgrade_options("Piercing Strike", "Rogues are able to find the weak point in their target's armor when using their Ambush ability. Rogues now ignore a quarter of their target's armor when dealing damage with Ambush.", 
+	piercingStrike = new _upgrade_options("Piercing Strike", "Rogues are able to find the weak point in their target's armor when using their Ambush ability. Rogues now ignore half of their target's armor when dealing damage with Ambush.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Barracks", "Rogue", "piercingStrikeActive", noone, 1, 90, 
 				100, 100, 50, 0, noone, noone, noone);
@@ -539,9 +539,9 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.b, 
 				false, 2, false, noone, "Barracks", "Ranger", "objectAttackRange", noone, 1, 105, 
 				0, 300, 100, 0, noone, noone, noone);
-	moraleBoost = new _upgrade_options("Morale Boost", "Increases the damage bonus for Soldiers when surrounded by other friendly Soldiers.", 
+	courage = new _upgrade_options("Courage", "Increases the damage bonus from Morale Boost for other nearby friendly Soldiers.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.c, 
-				false, 2, false, noone, "Barracks", "Soldier", "courageDamageBonus", noone, 2, 105, 
+				false, 2, false, noone, "Barracks", "Soldier", "moraleBoostDamageBonus", noone, 1, 105, 
 				200, 50, 300, 0, noone, noone, noone);
 	steelArmor = new _upgrade_options("Steel Armor", "Increases the magic armor of Knights.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.a, 
