@@ -495,13 +495,13 @@ function unit_move() {
 			// If the unit doesn't have a target it needs to move to, meaning it's doing nothing but moving
 			if (objectTarget == noone) && (objectCurrentCommand == "Move") {
 				// And if the target location is not occupied in the movementGrid, meaning there isn't a building or resource there
-				if mp_grid_get_cell(movementGrid, floor(targetToMoveToX / 16), floor(targetToMoveToY / 16)) == -1 {
+				if mp_grid_get_cell(movementGrid, floor(targetToMoveToX / 16), floor(targetToMoveToY / 16)) == 0 {
 					// If the above is true, then add the unit to the list unitsCurrentlyOnlyMovingGrid, to use later in this
 					// script to swap unit places with other units in order to put the tankier units up front and weaker units
 					// in the back, regardless of formation.
 					if ds_exists(unitsCurrentlyOnlyMovingGrid, ds_type_grid) {
 						// If the instance ID isn't yet added to the grid
-						if ds_grid_value_exists(unitsCurrentlyOnlyMovingGrid, 0, 0, 0, ds_grid_height(unitsCurrentlyOnlyMovingGrid) - 1, self.id) == -1 {
+						if ds_grid_value_exists(unitsCurrentlyOnlyMovingGrid, 0, 0, 0, ds_grid_height(unitsCurrentlyOnlyMovingGrid) - 1, self.id) == false {
 							ds_grid_resize(unitsCurrentlyOnlyMovingGrid, 4, ds_grid_height(unitsCurrentlyOnlyMovingGrid) + 1);
 							// Get the directional quadrant to the target, then add the unit to the list of objects that are doing nothing
 							// but moving to a specific target location.
@@ -511,11 +511,10 @@ function unit_move() {
 								point_direction_to_target_location_ -= 360;
 							}
 							directional_quadrant_ = floor(point_direction_to_target_location_ / 90);
-							unitsCurrentlyOnlyMovingGrid = ds_grid_create(4, 1);
-							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 0, 0, self.id);
-							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 1, 0, floor(targetToMoveToX / 16) * 16);
-							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 2, 0, floor(targetToMoveToY / 16) * 16);
-							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 3, 0, directional_quadrant_);
+							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 0, ds_grid_height(unitsCurrentlyOnlyMovingGrid) - 1, self.id);
+							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 1, ds_grid_height(unitsCurrentlyOnlyMovingGrid) - 1, floor(targetToMoveToX / 16) * 16);
+							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 2, ds_grid_height(unitsCurrentlyOnlyMovingGrid) - 1, floor(targetToMoveToY / 16) * 16);
+							ds_grid_add(unitsCurrentlyOnlyMovingGrid, 3, ds_grid_height(unitsCurrentlyOnlyMovingGrid) - 1, directional_quadrant_);
 						}
 					}
 					else {
@@ -533,6 +532,13 @@ function unit_move() {
 						ds_grid_add(unitsCurrentlyOnlyMovingGrid, 2, 0, floor(targetToMoveToY / 16) * 16);
 						ds_grid_add(unitsCurrentlyOnlyMovingGrid, 3, 0, directional_quadrant_);
 					}
+				}
+			}
+			
+			if ds_exists(unitsCurrentlyOnlyMovingGrid, ds_type_grid) {
+				var yeet_ = ds_grid_height(unitsCurrentlyOnlyMovingGrid);
+				if yeet_ > 1 {
+					var yeet_ = 1;
 				}
 			}
 			
@@ -2477,11 +2483,19 @@ function unit_move() {
 										var self_target_y_ = ds_grid_get(units_moving_to_same_location_, 2, 0);
 										var self_target_direction_ = ds_grid_get(units_moving_to_same_location_, 3, 0);
 										var self_distance_from_initial_target_ = 0;
-										if (self_target_direction_ == 0) || (self_target_direction_ == 2) {
-											self_distance_from_initial_target_ = targetToMoveToX - self_target_x_;
-										}
-										else {
-											self_distance_from_initial_target_ = targetToMoveToY - self_target_y_;
+										switch self_target_direction_ {
+											case 0:
+												var self_distance_from_initial_target_ = targetToMoveToX - self_target_x_;
+												break;
+											case 1:
+												var self_distance_from_initial_target_ = self_target_y_ - targetToMoveToY;
+												break;
+											case 2:
+												var self_distance_from_initial_target_ = self_target_x_ - targetToMoveToX;
+												break;
+											case 3:
+												var self_distance_from_initial_target_ = targetToMoveToY - self_target_y_;
+												break;
 										}
 										// I set the iteration value to 1, since the first value in the for loop is guaranteed to be the unit running
 										// this code.
@@ -2521,11 +2535,19 @@ function unit_move() {
 												// code - so only this unit, and one other unit, should be swapping locations at a time. I also
 												// make sure to update the unitsCurrentlyOnlyMovingGrid information, so that I don't continually
 												// swap places over and over.
-												if (other_target_direction_ == 0) || (other_target_direction_ == 2) {
-													var other_distance_from_initial_target_ = other_current_target_x_ - other_target_x_;
-												}
-												else {
-													var other_distance_from_initial_target_ = other_current_target_y_ - other_target_y_;
+												switch other_target_direction_ {
+													case 0:
+														var other_distance_from_initial_target_ = other_current_target_x_ - other_target_x_;
+														break;
+													case 1:
+														var other_distance_from_initial_target_ = other_target_y_ - other_current_target_y_;
+														break;
+													case 2:
+														var other_distance_from_initial_target_ = other_target_x_ - other_current_target_x_;
+														break;
+													case 3:
+														var other_distance_from_initial_target_ = other_current_target_y_ - other_target_y_;
+														break;
 												}
 												
 												/// Check for units in different locations than itself to swap with.
@@ -2593,8 +2615,8 @@ function unit_move() {
 															var other_last_path_point_x_ = path_get_point_x(other_target_id_.myPath, other_last_path_point_index_);
 															var other_last_path_point_y_ = path_get_point_y(other_target_id_.myPath, other_last_path_point_index_);
 															// Change the last path points
-															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_ - self_last_path_point_x_, other_last_path_point_y_ - self_last_path_point_y_, 0);
-															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_ - other_last_path_point_x_, self_last_path_point_y_ - other_last_path_point_y_, 0);
+															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_, other_last_path_point_y_, 0);
+															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_, self_last_path_point_y_, 0);
 														}
 														// If no line of sight exists between the points to move to, then I need to remove
 														// the end points of the two paths, then create a path for each starting at the new
@@ -2603,9 +2625,9 @@ function unit_move() {
 														else {
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -2614,14 +2636,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -2630,7 +2652,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
@@ -2644,7 +2666,7 @@ function unit_move() {
 															var other_last_path_point_x_ = path_get_point_x(other_target_id_.myPath, other_last_path_point_index_);
 															var other_last_path_point_y_ = path_get_point_y(other_target_id_.myPath, other_last_path_point_index_);
 															// Change the last path point
-															path_change_point(other_target_id_.myPath, other_last_path_point_index_, targetToMoveToX - other_last_path_point_x_, targetToMoveToY - other_last_path_point_y_, 0);
+															path_change_point(other_target_id_.myPath, other_last_path_point_index_, targetToMoveToX, targetToMoveToY, 0);
 														}
 														// If no line of sight exists between the target to move to and the last point of the other
 														// unit's path, then create a path for the current unit, and then modify the paths exactly
@@ -2656,9 +2678,9 @@ function unit_move() {
 															// Identical to the code adjusting for 2 paths.
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -2667,14 +2689,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -2683,7 +2705,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
@@ -2694,7 +2716,7 @@ function unit_move() {
 															var self_last_path_point_x_ = path_get_point_x(myPath, self_last_path_point_index_);
 															var self_last_path_point_y_ = path_get_point_y(myPath, self_last_path_point_index_);
 															// Change the last path point
-															path_change_point(myPath, self_last_path_point_index_, other_target_id_.targetToMoveToX - self_last_path_point_x_, other_target_id_.targetToMoveToY - self_last_path_point_x_, 0);
+															path_change_point(myPath, self_last_path_point_index_, other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, 0);
 														}
 														// If no line of sight exists between the last point of this unit's path and the
 														// other unit's target to move to, then create a path for the other unit, and 
@@ -2708,9 +2730,9 @@ function unit_move() {
 															// Identical to the code adjusting for 2 paths.
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -2719,14 +2741,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -2735,7 +2757,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
@@ -2861,6 +2883,7 @@ function unit_move() {
 									// to make sure the unit being added is on the same team, meaning they're traveling together (or at least
 									// will end up together).
 									var k = 0;
+									var height_ = ds_grid_height(unitsCurrentlyOnlyMovingGrid);
 									for (k = 0; k < ds_grid_height(unitsCurrentlyOnlyMovingGrid); k++) {
 										var unit_original_index_id_ = ds_grid_get(unitsCurrentlyOnlyMovingGrid, 0, k);
 										var unit_original_index_target_x_ = ds_grid_get(unitsCurrentlyOnlyMovingGrid, 1, k);
@@ -2892,11 +2915,19 @@ function unit_move() {
 										var self_target_y_ = ds_grid_get(units_moving_to_same_location_, 2, 0);
 										var self_target_direction_ = ds_grid_get(units_moving_to_same_location_, 3, 0);
 										var self_distance_from_initial_target_ = 0;
-										if (self_target_direction_ == 0) || (self_target_direction_ == 2) {
-											self_distance_from_initial_target_ = targetToMoveToX - self_target_x_;
-										}
-										else {
-											self_distance_from_initial_target_ = targetToMoveToY - self_target_y_;
+										switch self_target_direction_ {
+											case 0:
+												var self_distance_from_initial_target_ = targetToMoveToX - self_target_x_;
+												break;
+											case 1:
+												var self_distance_from_initial_target_ = self_target_y_ - targetToMoveToY;
+												break;
+											case 2:
+												var self_distance_from_initial_target_ = self_target_x_ - targetToMoveToX;
+												break;
+											case 3:
+												var self_distance_from_initial_target_ = targetToMoveToY - self_target_y_;
+												break;
 										}
 										// I set the iteration value to 1, since the first value in the for loop is guaranteed to be the unit running
 										// this code.
@@ -2936,11 +2967,19 @@ function unit_move() {
 												// code - so only this unit, and one other unit, should be swapping locations at a time. I also
 												// make sure to update the unitsCurrentlyOnlyMovingGrid information, so that I don't continually
 												// swap places over and over.
-												if (other_target_direction_ == 0) || (other_target_direction_ == 2) {
-													var other_distance_from_initial_target_ = other_current_target_x_ - other_target_x_;
-												}
-												else {
-													var other_distance_from_initial_target_ = other_current_target_y_ - other_target_y_;
+												switch other_target_direction_ {
+													case 0:
+														var other_distance_from_initial_target_ = other_current_target_x_ - other_target_x_;
+														break;
+													case 1:
+														var other_distance_from_initial_target_ = other_target_y_ - other_current_target_y_;
+														break;
+													case 2:
+														var other_distance_from_initial_target_ = other_target_x_ - other_current_target_x_;
+														break;
+													case 3:
+														var other_distance_from_initial_target_ = other_current_target_y_ - other_target_y_;
+														break;
 												}
 												
 												/// Check for units in different locations than itself to swap with.
@@ -3008,8 +3047,11 @@ function unit_move() {
 															var other_last_path_point_x_ = path_get_point_x(other_target_id_.myPath, other_last_path_point_index_);
 															var other_last_path_point_y_ = path_get_point_y(other_target_id_.myPath, other_last_path_point_index_);
 															// Change the last path points
-															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_ - self_last_path_point_x_, other_last_path_point_y_ - self_last_path_point_y_, 0);
-															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_ - other_last_path_point_x_, self_last_path_point_y_ - other_last_path_point_y_, 0);
+															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_, other_last_path_point_y_, 0);
+															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_, self_last_path_point_y_, 0);
+															var path_x_ = path_get_point_x(myPath, path_get_number(myPath) - 1);
+															var path_y_ = path_get_point_y(myPath, path_get_number(myPath) - 1);
+															var yeet_ = 1;
 														}
 														// If no line of sight exists between the points to move to, then I need to remove
 														// the end points of the two paths, then create a path for each starting at the new
@@ -3018,9 +3060,9 @@ function unit_move() {
 														else {
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -3029,14 +3071,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -3045,7 +3087,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
@@ -3059,7 +3101,7 @@ function unit_move() {
 															var other_last_path_point_x_ = path_get_point_x(other_target_id_.myPath, other_last_path_point_index_);
 															var other_last_path_point_y_ = path_get_point_y(other_target_id_.myPath, other_last_path_point_index_);
 															// Change the last path point
-															path_change_point(other_target_id_.myPath, other_last_path_point_index_, targetToMoveToX - other_last_path_point_x_, targetToMoveToY - other_last_path_point_y_, 0);
+															path_change_point(other_target_id_.myPath, other_last_path_point_index_, targetToMoveToX, targetToMoveToY, 0);
 														}
 														// If no line of sight exists between the target to move to and the last point of the other
 														// unit's path, then create a path for the current unit, and then modify the paths exactly
@@ -3071,9 +3113,9 @@ function unit_move() {
 															// Identical to the code adjusting for 2 paths.
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -3082,14 +3124,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -3098,7 +3140,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
@@ -3109,7 +3151,7 @@ function unit_move() {
 															var self_last_path_point_x_ = path_get_point_x(myPath, self_last_path_point_index_);
 															var self_last_path_point_y_ = path_get_point_y(myPath, self_last_path_point_index_);
 															// Change the last path point
-															path_change_point(myPath, self_last_path_point_index_, other_target_id_.targetToMoveToX - self_last_path_point_x_, other_target_id_.targetToMoveToY - self_last_path_point_x_, 0);
+															path_change_point(myPath, self_last_path_point_index_, other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, 0);
 														}
 														// If no line of sight exists between the last point of this unit's path and the
 														// other unit's target to move to, then create a path for the other unit, and 
@@ -3123,9 +3165,9 @@ function unit_move() {
 															// Identical to the code adjusting for 2 paths.
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -3134,14 +3176,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -3150,7 +3192,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
@@ -3339,11 +3381,19 @@ function unit_move() {
 										var self_target_y_ = ds_grid_get(units_moving_to_same_location_, 2, 0);
 										var self_target_direction_ = ds_grid_get(units_moving_to_same_location_, 3, 0);
 										var self_distance_from_initial_target_ = 0;
-										if (self_target_direction_ == 0) || (self_target_direction_ == 2) {
-											self_distance_from_initial_target_ = targetToMoveToX - self_target_x_;
-										}
-										else {
-											self_distance_from_initial_target_ = targetToMoveToY - self_target_y_;
+										switch self_target_direction_ {
+											case 0:
+												var self_distance_from_initial_target_ = targetToMoveToX - self_target_x_;
+												break;
+											case 1:
+												var self_distance_from_initial_target_ = self_target_y_ - targetToMoveToY;
+												break;
+											case 2:
+												var self_distance_from_initial_target_ = self_target_x_ - targetToMoveToX;
+												break;
+											case 3:
+												var self_distance_from_initial_target_ = targetToMoveToY - self_target_y_;
+												break;
 										}
 										// I set the iteration value to 1, since the first value in the for loop is guaranteed to be the unit running
 										// this code.
@@ -3383,11 +3433,19 @@ function unit_move() {
 												// code - so only this unit, and one other unit, should be swapping locations at a time. I also
 												// make sure to update the unitsCurrentlyOnlyMovingGrid information, so that I don't continually
 												// swap places over and over.
-												if (other_target_direction_ == 0) || (other_target_direction_ == 2) {
-													var other_distance_from_initial_target_ = other_current_target_x_ - other_target_x_;
-												}
-												else {
-													var other_distance_from_initial_target_ = other_current_target_y_ - other_target_y_;
+												switch other_target_direction_ {
+													case 0:
+														var other_distance_from_initial_target_ = other_current_target_x_ - other_target_x_;
+														break;
+													case 1:
+														var other_distance_from_initial_target_ = other_target_y_ - other_current_target_y_;
+														break;
+													case 2:
+														var other_distance_from_initial_target_ = other_target_x_ - other_current_target_x_;
+														break;
+													case 3:
+														var other_distance_from_initial_target_ = other_current_target_y_ - other_target_y_;
+														break;
 												}
 												
 												/// Check for units in different locations than itself to swap with.
@@ -3455,8 +3513,8 @@ function unit_move() {
 															var other_last_path_point_x_ = path_get_point_x(other_target_id_.myPath, other_last_path_point_index_);
 															var other_last_path_point_y_ = path_get_point_y(other_target_id_.myPath, other_last_path_point_index_);
 															// Change the last path points
-															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_ - self_last_path_point_x_, other_last_path_point_y_ - self_last_path_point_y_, 0);
-															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_ - other_last_path_point_x_, self_last_path_point_y_ - other_last_path_point_y_, 0);
+															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_, other_last_path_point_y_, 0);
+															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_, self_last_path_point_y_, 0);
 														}
 														// If no line of sight exists between the points to move to, then I need to remove
 														// the end points of the two paths, then create a path for each starting at the new
@@ -3465,9 +3523,9 @@ function unit_move() {
 														else {
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -3476,14 +3534,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -3492,7 +3550,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
@@ -3506,7 +3564,7 @@ function unit_move() {
 															var other_last_path_point_x_ = path_get_point_x(other_target_id_.myPath, other_last_path_point_index_);
 															var other_last_path_point_y_ = path_get_point_y(other_target_id_.myPath, other_last_path_point_index_);
 															// Change the last path point
-															path_change_point(other_target_id_.myPath, other_last_path_point_index_, targetToMoveToX - other_last_path_point_x_, targetToMoveToY - other_last_path_point_y_, 0);
+															path_change_point(other_target_id_.myPath, other_last_path_point_index_, targetToMoveToX, targetToMoveToY, 0);
 														}
 														// If no line of sight exists between the target to move to and the last point of the other
 														// unit's path, then create a path for the current unit, and then modify the paths exactly
@@ -3518,9 +3576,9 @@ function unit_move() {
 															// Identical to the code adjusting for 2 paths.
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -3529,14 +3587,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -3545,7 +3603,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
@@ -3556,7 +3614,7 @@ function unit_move() {
 															var self_last_path_point_x_ = path_get_point_x(myPath, self_last_path_point_index_);
 															var self_last_path_point_y_ = path_get_point_y(myPath, self_last_path_point_index_);
 															// Change the last path point
-															path_change_point(myPath, self_last_path_point_index_, other_target_id_.targetToMoveToX - self_last_path_point_x_, other_target_id_.targetToMoveToY - self_last_path_point_x_, 0);
+															path_change_point(myPath, self_last_path_point_index_, other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, 0);
 														}
 														// If no line of sight exists between the last point of this unit's path and the
 														// other unit's target to move to, then create a path for the other unit, and 
@@ -3570,9 +3628,9 @@ function unit_move() {
 															// Identical to the code adjusting for 2 paths.
 															var self_id_ = self.id;
 															if path_get_number(myPath) > 1 {
-																path_delete_point(myPath, path_get_name(myPath) - 1);
+																path_delete_point(myPath, path_get_number(myPath) - 1);
 																var path_to_add_ = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 																path_append(myPath, path_to_add_);
 																path_delete(path_to_add_);
 																path_to_add_ = noone;
@@ -3581,14 +3639,14 @@ function unit_move() {
 																path_delete(myPath);
 																myPath = noone;
 																myPath = path_add();
-																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.originalTargetToMoveToY, true);
+																mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), other_target_id_.targetToMoveToX, other_target_id_.targetToMoveToY, true);
 															}
 															// Here I do the same as above, except with the unit that is being swapped with.
 															with other_target_id_ {
 																if path_get_number(myPath) > 1 {
-																	path_delete_point(myPath, path_get_name(myPath) - 1);
+																	path_delete_point(myPath, path_get_number(myPath) - 1);
 																	var path_to_add_ = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																	path_append(myPath, path_to_add_);
 																	path_delete(path_to_add_);
 																	path_to_add_ = noone;
@@ -3597,7 +3655,7 @@ function unit_move() {
 																	path_delete(myPath);
 																	myPath = noone;
 																	myPath = path_add();
-																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.originalTargetToMoveToY, true);
+																	mp_grid_path(movementGrid, path_to_add_, path_get_x(myPath, 1), path_get_y(myPath, 1), self_id_.targetToMoveToX, self_id_.targetToMoveToY, true);
 																}
 															}
 														}
