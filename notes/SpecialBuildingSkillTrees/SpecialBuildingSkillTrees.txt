@@ -1,0 +1,23 @@
+FIRST TIER
+- SPECIAL 1a -	Lifewell: IF SOUL SUBJUGATOR CHOSEN: All units are granted additional health on spawn. Units
+		respawned with Soul Subjugator lose this effect.
+- SPECIAL 1b -	Soulwell: IF SOUL SUBJUGATOR CHOSEN: All ruby units are granted additional health on spawn. 
+		Ruby units respawned with Soul Subjugator lose this effect.
+
+
+- SPECIAL 1a -	Strength of Xul: IF RITUAL GROUNDS CHOSEN: All demons are empowered, and gain additional damage.
+- SPECIAL 1b -	Mass Enslavement: IF RITUAL GROUNDS CHOSEN: Warlocks now summon 3 Demons at once. The Warlock
+		will not summon more Demons until all 3 are dead.
+
+- SPECIAL 1a -	Profane Speed: IF UNHOLY ZIGGURAT CHOSEN: Grants additional movement speed to all units of
+		the same type that was last sacrificed to the Unholy Ziggurat.
+- SPECIAL 1b -	Cycling: IF UNHOLY ZIGGURAT CHOSEN: Any unit currently empowered by Unholy Ziggurat can be
+		sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the
+		charge level it was previously at, minus one charge level.
+		
+		
+I do not include the last tier of Technology tree buildings, because the variables set there are player
+variables, since they're mostly powers that can be used globally, and are not just powers that affect
+a specific unit or set of units like the Magic tree buildings.
+
+

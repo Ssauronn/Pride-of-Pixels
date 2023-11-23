@@ -30,9 +30,9 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 -		3. IF MAGIC:
 			- Flask of Speed: Increases the movement speed of all units.
 	}
-	UNIVERSALLY AVAILABLE
--	Morale Boost: Temporarily increase the damage of all nearby friendly Soldiers, not including
-				  itself. This buff can stack.
+-	1. UNIVERSALLY AVAILABLE
+-		- Morale Boost: Temporarily increase the damage of all nearby friendly units, not including
+		itself. This buff can stack.
 	
 	
 -	Ranger
@@ -48,10 +48,23 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 	}
 	IF TECH TREE
 	Togglable Ability, ON/OFF
--	Handheld Rail Gun: Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets 
-	and deal damage to enemies behind their target. However, their attack speed is reduced.
+-	1. IF TECH
+		- Handheld Rail Gun: Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets 
+		  and deal damage to enemies behind their target. However, their attack speed is reduced.
 	
 -	Knight
+-	The tanking melee unit. High defense stats, decent offensive combat stats. Deals damage in an area of
+	effect whenever it attacks.
+	-	Abilities:
+	{	-	CAN ONLY CHOOSE ONE OF THESE
+-		1. IF MAGIC
+			- Flask of Stoneskin: Increases the armor of all units.
+-		2. IF MAGIC:
+			- Flask of Power: Temporarily boosts all unit's damage.
+-		3. IF MAGIC:
+			- Flask of Speed: Increases the movement speed of all units.
+	}
+	
 
 -	Rogue
 

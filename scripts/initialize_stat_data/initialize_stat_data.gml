@@ -162,8 +162,8 @@ function _upgrade_options() constructor {
 	upgradeSibling = argument[5];
 	// boolean - Whether the upgrade is active
 	upgradeActive = argument[6]
-	// boolean - Whether the upgrade is currently being unlocked.
-	upgradeBeingUnlocked = false;
+			// boolean - Whether the upgrade is currently being unlocked.
+			upgradeBeingUnlocked = false;
 	// integer - The age requirement for the upgrade to be unlocked, beginning at age 0.
 	upgradeAgeRequirement = argument[7]
 	// boolean - Whether the upgrade is available to unlock.
@@ -406,18 +406,6 @@ function _temple() constructor {
 				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.b, 
 				false, 3, false, noone, "Temple", "Abomination", "bodyPartsProvideStats", noone, 1, 90, 
 				300, 0, 500, 400, noone, noone, noone);
-	soulwell = new _upgrade_options("Soulwell", "All Ruby units are granted addition health. Ruby units spawned with Soul Subjugator do not spawn with additional health.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
-				false, 3, false, noone, "Temple", "Soul Subjugator", "soulwellActive", noone, 1, 
-				120, 500, 0, 200, 600, noone, noone, noone);
-	massEnslavement = new _upgrade_options("Mass Enslavement", "Warlocks now summon 3 Demons at once. The Warlock will not summon additional Demons until all 3 previous Demons are dead.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
-				false, 3, false, noone, "Temple", "Ritual Grounds", "massEnslavementActive", noone, 1, 
-				120, 500, 0, 200, 600, noone, noone, noone);
-	cycling = new _upgrade_options("Cycling", "Any unit currently empowered by Unholy Ziggurat can be sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the charge level it was previously at, minus one charge level. No more than one unit empowered by Unholy Ziggurat may be sacrificed per use.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.c, 
-				false, 3, false, noone, "Temple", "Unholy Ziggurat", "cyclingActive", noone, 1, 
-				120, 500, 0, 200, 600, noone, noone, noone);
 	blessedAura = new _upgrade_options("Blessed Aura", "Acolytes now increase the movement speed of themselves and all friendly units within range.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.a, 
 				false, 3, false, noone, "Temple", "Acolyte", "acolyteBlessedAuraActive", noone, 1, 105, 
@@ -470,7 +458,7 @@ function _laboratory() constructor {
 				200, 0, 200, 400, noone, noone, noone);
 	chronicEmpowerment = new _upgrade_options("Chronic Empowerment", "Increases the damage of all Automatons upon teleporting with the ability Shocktrooper for a short amount of time.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 2, false, noone, "Laboratory", "Shocktrooper", "chronicEmpowermentPossible", noone, 1, 120, 
+				false, 2, false, noone, "Laboratory", "Automaton", "chronicEmpowermentPossible", noone, 1, 120, 
 				200, 0, 200, 400, noone, noone, noone);
 	arcaneWeaponResearch = new _upgrade_options("Arcane Weapon Research", "Increases all magic damage and healing dealt by all Ruby units.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
@@ -815,7 +803,36 @@ function _wall() constructor {
 				false, 3, false, noone, "Wall", "Wall", "magicWallsActive", noone, 1, 75, 
 				0, 500, 400, 200, noone, noone, noone);
 }
-
+function _soul_subjugator() constructor {
+	lifewell = new _upgrade_options("Lifewell", "All units are granted additional health. Units spawned with Soul Subjugator do not spawn with additional health.",
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.a,
+				false, 3, false, noone, "Soul Subjugator", "Soul Subjugator", "lifewellActive", noone, 1, 
+				90, 500, 300, 200, 300, noone, noone, noone);
+	soulwell = new _upgrade_options("Soulwell", "All Ruby units are granted addition health. Ruby units spawned with Soul Subjugator do not spawn with additional health.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 3, false, noone, "Soul Subjugator", "Soul Subjugator", "soulwellActive", noone, 1, 
+				60, 500, 0, 200, 600, noone, noone, noone);
+}
+function _ritual_grounds() constructor {
+	strengthOfXul = new _upgrade_options("Strength of Xul", "All Demons are empowered, and gain additional damage.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.a,
+				false, 3, false, noone, "Ritual Grounds", "Ritual Grounds", "strengthOfXulActive", noone, 1,
+				45, 500, 300, 200, 300, noone, noone, noone);
+	massEnslavement = new _upgrade_options("Mass Enslavement", "Warlocks now summon 3 Demons at once. The Warlock will not summon additional Demons until all 3 previous Demons are dead.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 3, false, noone, "Ritual Grounds", "Ritual Grounds", "massEnslavementActive", noone, 1, 
+				60, 500, 0, 200, 600, noone, noone, noone);
+}
+function _unholy_ziggurat() constructor {
+	profaneSpeed = new _upgrade_options("Profane Speed", "Grants additional movement speed to all units of the same type that was last sacrificed to the Unholy Ziggurat.",
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.a, 
+				false, 3, false, noone, "Unholy Ziggurat", "Unholy Ziggurat", "profaneSpeedActive", noone, 1, 
+				45, 500, 300, 200, 300, noone, noone, noone);
+	cycling = new _upgrade_options("Cycling", "Any unit currently empowered by Unholy Ziggurat can be sacrificed at an Unholy Ziggurat to immediately recharge the Unholy Ziggurat to the charge level it was previously at, minus one charge level. No more than one unit empowered by Unholy Ziggurat may be sacrificed per use.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
+				false, 3, false, noone, "Unholy Ziggurat", "Unholy Ziggurat", "cyclingActive", noone, 1, 
+				60, 500, 0, 200, 600, noone, noone, noone);
+}
 
 /*
 	ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED

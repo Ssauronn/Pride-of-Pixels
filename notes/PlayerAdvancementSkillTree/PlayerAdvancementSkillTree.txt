@@ -62,11 +62,13 @@ UNLOCKS TIER 1 UPGRADES
 	  slain ally within a massive range and give them a second 
 	  chance at life, respawning them. Will not activate if the
 	  respawned unit would exceed the player's Population cap.
-		- All units are granted additional health. Units
+		- Lifewell: All units are granted additional health. Units
+		  respawned with Soul Subjugator lose this effect. (faint green
+		  swirling beams, kind of like northern lights, around each
+		  unit occasionally appear).
+		- Special Available Upgrade: Soulwell: All ruby units
+		  are granted additional health on spawn. Ruby units
 		  respawned with Soul Subjugator lose this effect.
-			Special Available Upgrade: Soulwell: All ruby units 
-			are granted additional health on spawn. Ruby units 
-			respawned with Soul Subjugator lose this effect.
 	- Ritual Grounds: Requires a Warlock within range to activate.
 	  Continuously spawns Demons that are Soulbound to the nearest
 	  Warlock. If that Warlock dies, the Demons will follow suite
@@ -74,10 +76,11 @@ UNLOCKS TIER 1 UPGRADES
 	  Soulbound Warlock and will die if they are out of range.
 	  Demons do not take up Population. A maximum of 20 Demons
 	  summoned by Ritual Grounds can be active at any point.
-		- All Demons are empowered, and gain additional damage.
-			Special Available Upgrade: Mass Enslavement: Warlocks 
-			now summon 3 Demons at once. The Warlock will not summon 
-			more Demons until all 3 are dead.
+		- Strength of Xul: All Demons are empowered, and gain additional 
+		  damage. (flame behind attack swings animation)
+		- Special Available Upgrade: Mass Enslavement: Warlocks 
+		  now summon 3 Demons at once. The Warlock will not summon 
+		  more Demons until all 3 are dead.
 	- Unholy Ziggurat: Requires units to be sacrificed at the
 	  Unholy Ziggurat to charge up. Can reach 3 different charge
 	  levels at 5, 10, and 20 sacrifices. Unholy Ziggurat can be
@@ -87,12 +90,14 @@ UNLOCKS TIER 1 UPGRADES
 	  level increases the effects of the power up. Unholy Ziggurat
 	  cannot power up other units or locations within the time frame
 	  of the currently active power up.
-		- Grants additional movement speed to all units of the same 
-		  type that was last sacrificed at Unholy Ziggurat.
-			Special Available Upgrade: Any unit currently empowered 
-			by Unholy Ziggurat can be sacrificed at an Unholy Ziggurat 
-			to immediately recharge the Unholy Ziggurat to the charge 
-			level it was previously at, minus one charge level.
+		- Profane Speed: Grants additional movement speed to all units of the same 
+		  type that was last sacrificed at Unholy Ziggurat. (green fog at the 
+		  feet of the units affected by this, leaves behind slight trail of quickly 
+		  fading fog).
+		- Special Available Upgrade: Cycling: Any unit currently empowered 
+		  by Unholy Ziggurat can be sacrificed at an Unholy Ziggurat 
+		  to immediately recharge the Unholy Ziggurat to the charge 
+		  level it was previously at, minus one charge level.
  - Abominations can be sacrificed at a Temple for body parts, and then
    those body parts can be used to custom build Abominations with their
    own stats. Each body part provides a different boost to stats.

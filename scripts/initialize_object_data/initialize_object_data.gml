@@ -204,6 +204,12 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific Variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
 			break;
 			
 		
@@ -264,6 +270,12 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Soldier":
@@ -320,6 +332,12 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
 			break;
 		case "Knight":
 			// Generic variables
@@ -379,6 +397,12 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
 			break;
 		case "Ranger":
 			// Generic variables
@@ -435,6 +459,12 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Rogue":
@@ -499,6 +529,12 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Wizard":
@@ -591,6 +627,13 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
+			soulwellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Warlock":
@@ -672,6 +715,13 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
+			soulwellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Demon":
@@ -712,10 +762,10 @@ function initialize_object_data() {
 			// Demon dies at the end of the countdown.
 			summonedDemonsDeathTimer = 4 * room_speed;
 			// The range at which Demons will run back to their master's sides no matter what their current action was. Set by
-			// the Warlock's parent variable by the same name.
+			// the Warlock's parent variable by the same name, so this is by default set to -1.
 			summonedDemonsMaxTetherRange = -1;
 			// Demons will immediately die if they exceed this distance from their master, no matter their current action. Set by
-			// the Warlock's parent variable by the same name.
+			// the Warlock's parent variable by the same name, so this are by default set to -1.
 			summonedDemonsMaxDeathRange = -1;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
@@ -723,7 +773,7 @@ function initialize_object_data() {
 			objectSlashResistance = 1.25;
 			objectPierceResistance = 1.25;
 			objectMagicResistance = 0.75;
-			// Sprite setting array
+			/// Sprite setting array
 			unitSprite[unitAction.idle][unitDirection.right] = spr_demon_right_idle;
 			unitSprite[unitAction.idle][unitDirection.up] = spr_demon_back_idle;
 			unitSprite[unitAction.idle][unitDirection.left] = spr_demon_left_idle;
@@ -736,7 +786,7 @@ function initialize_object_data() {
 			unitSprite[unitAction.attack][unitDirection.up] = spr_demon_back_attack;
 			unitSprite[unitAction.attack][unitDirection.left] = spr_demon_left_attack;
 			unitSprite[unitAction.attack][unitDirection.down] = spr_demon_front_attack;
-			// Actual Sprite Value
+			/// Actual Sprite Value
 			currentAction = unitAction.idle;
 			currentDirection = unitDirection.right;
 			currentSprite = unitSprite[currentAction][currentDirection];
@@ -746,9 +796,19 @@ function initialize_object_data() {
 			spriteWaitTimer = 0;
 			movementLeaderOrFollowing = noone;
 			mask_index = spr_16_16;
-			// Index speed
+			/// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			// This is a standard variable for obj_unit, but I set it to false here because I do not want
+			// players sacrificing Demons to the Unholy Ziggurat, since they're free units.
+			canBeSacrificedToUnholyZiggurat = false;
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
+			soulwellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Acolyte":
@@ -824,6 +884,13 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Special variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
+			soulwellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Subverter":
@@ -886,6 +953,13 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
+			soulwellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Abomination":
@@ -1069,6 +1143,13 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Specific variables
+			profaneSpeedActive = false;
+			// Profane speed should be ADDED to the unit's movement speed
+			profaneSpeedMovementBonus = 0.15;
+			lifewellActive = false;
+			soulwellActive = false;
 			break;
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Automaton":
@@ -1146,6 +1227,9 @@ function initialize_object_data() {
 			// Index speed
 			currentImageIndex = 0;
 			currentImageIndexSpeed = 8 / room_speed;
+			
+			/// Special variables
+			
 			break;
 		
 		#endregion
@@ -1301,6 +1385,10 @@ function initialize_object_data() {
 			canTrainRubyUnits = false;
 			canTrainAbominations = false;
 			canTrainAutomatons = false;
+			headRecycled = "";
+			chestRecycled = "";
+			legsRecycled = "";
+			bodyPartsAddedToTemple = false;
 			break;
 		case "Obelisk":
 			// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
@@ -1418,7 +1506,10 @@ function initialize_object_data() {
 			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
+			lifewellActive = false;
+			lifewellHealthBonus = 50;
 			soulwellActive = false;
+			soulwellHealthBonus = 75;
 			break;
 		case "Ritual Grounds":
 			// Generic variables
@@ -1454,6 +1545,8 @@ function initialize_object_data() {
 			
 			// Specific Variables
 			massEnslavementActive = false;
+			strengthOfXulActive = false;
+			strengthOfXulDamageBonus = 4;
 			break;
 		case "Unholy Ziggurat":
 			// Generic variables
@@ -1489,10 +1582,8 @@ function initialize_object_data() {
 			
 			// Specific Variables
 			cyclingActive = false;
-			headRecycled = "";
-			chestRecycled = "";
-			legsRecycled = "";
-			bodyPartsAddedToTemple = false;
+			profaneSpeedActive = false;
+			lastUnitTypeSacrificed = "";
 			break;
 		case "Rail Gun":
 			/// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
