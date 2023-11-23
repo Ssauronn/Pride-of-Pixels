@@ -41,6 +41,9 @@ beingTargetedByWizardRedirect = false;
 wizardApplyingRedirect = noone;
 damageBeingRedirectedTo = noone;
 
+/// Unholy Ziggurat Variables
+canBeSacrificedToUnholyZiggurat = true;
+
 /// Variable used to attack friendly targets if the player or AI commands it.
 // Can only be set by the player, always false by default.
 forceAttack = false;

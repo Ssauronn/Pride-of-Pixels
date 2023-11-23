@@ -163,6 +163,7 @@
     {"name":"spr_worker_left_farm","order":2,"path":"sprites/spr_worker_left_farm/spr_worker_left_farm.yy",},
     {"name":"line_of_sight","order":11,"path":"scripts/line_of_sight/line_of_sight.yy",},
     {"name":"spr_robot_legs_back_attack","order":3,"path":"sprites/spr_robot_legs_back_attack/spr_robot_legs_back_attack.yy",},
+    {"name":"SpecialBuildingSkillTrees","order":14,"path":"notes/SpecialBuildingSkillTrees/SpecialBuildingSkillTrees.yy",},
     {"name":"spr_robot_chest_left_walk","order":2,"path":"sprites/spr_robot_chest_left_walk/spr_robot_chest_left_walk.yy",},
     {"name":"spr_acolyte_left_walk","order":2,"path":"sprites/spr_acolyte_left_walk/spr_acolyte_left_walk.yy",},
     {"name":"spr_robot_legs_back_walk","order":3,"path":"sprites/spr_robot_legs_back_walk/spr_robot_legs_back_walk.yy",},
