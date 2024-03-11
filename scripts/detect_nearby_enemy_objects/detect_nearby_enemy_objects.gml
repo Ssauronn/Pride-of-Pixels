@@ -65,10 +65,16 @@ function detect_nearby_enemy_objects(x_, y_) {
 					// should be found as well.
 					if ((instance_at_location_.objectVisibleTeam != objectRealTeam) && (instance_at_location_.objectRealTeam != objectRealTeam)) || ((objectType == "Worker") && ((objectCurrentCommand == "Gather") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Mine")) && ((instance_at_location_.objectType == "Farm") || (instance_at_location_.objectType == "Thicket") || (instance_at_location_.objectType == "Mine"))) {
 						if (target_specified_ == false) || (instance_at_location_.objectType == target_specified_) {
-							if !ds_exists(objectDetectedList, ds_type_list) {
-								objectDetectedList = ds_list_create();
+							// I found there were rare occurences where, once a unit dropped below 0, a new
+							// target would be searched for, but because the unit that dropped below 0 is active
+							// for 1 frame after it drops below 0 HP, it was added to the list of targets again
+							// and causing issues. This is just a check to prevent that.
+							if instance_at_location_.currentHP > 0 {
+								if !ds_exists(objectDetectedList, ds_type_list) {
+									objectDetectedList = ds_list_create();
+								}
+								ds_list_add(objectDetectedList, instance_at_location_.id);
 							}
-							ds_list_add(objectDetectedList, instance_at_location_.id);
 						}
 					}
 				}

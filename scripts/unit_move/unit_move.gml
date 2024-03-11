@@ -3,6 +3,7 @@
 ///											that turned out to be an invalid target and search for the next entry.
 
 function target_next_object() {
+	var original_target_to_attack_ = objectTarget;
 	if ds_exists(objectTargetList, ds_type_list) {
 		if ds_list_size(objectTargetList) >= 1 {
 			forceAttack = false;
@@ -50,20 +51,142 @@ function target_next_object() {
 					groupDirectionToMoveInAdjusted = 0;
 				}
 			}
+			// Else if the next target is undefined, it means I ran out of targets in the current list.
+			// In this case, I destroy the current list, check for new targets nearby, and if nothing
+			// is around, then I reset variables. Otherwise, I set the new target.
 			else {
-				objectCurrentCommand = "Move";
-				targetToMoveToX = originalTargetToMoveToX;
-				targetToMoveToY = originalTargetToMoveToY;
-				squareIteration = 0;
-				squareTrueIteration = 0;
-				squareSizeIncreaseCount = 0;
-				baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-				groupDirectionToMoveInAdjusted = 0;
-				objectTarget = noone;
-				forceAttack = false;
+				// Destroy the current target list
 				if ds_exists(objectTargetList, ds_type_list) {
 					ds_list_destroy(objectTargetList);
 					objectTargetList = noone;
+				}
+				// As long as the unit's command is still to attack, check for a new target
+				if objectCurrentCommand == "Attack" {
+					check_for_new_target(x, y);
+				}
+				var assign_target_values_from_list_ = false;
+				var target_list_exists_ = ds_exists(objectTargetList, ds_type_list);
+				// If a new target does exist, then set variables to attack that target
+				if target_list_exists_ {
+					// As long as the first target in the list isn't the original target
+					// that the function needs to de-target, then set that as the new target.
+					if ds_list_find_value(objectTargetList, 0) != original_target_to_attack_ {
+						assign_target_values_from_list_ = true;
+					}
+					// Otherwise, as long as the target list is greater than one, then find a
+					// new target.
+					else if ds_list_size(objectTargetList) > 1 {
+						// First, delete the first entry, since we know the first entry is
+						// the original target, which again, we're trying to de-target.
+						ds_list_delete(objectTargetList, 0);
+						// As a redundancy check, loop through the list, removing any undefined
+						// or non-existent objects from the list, until either the first entry
+						// in the list is a valid object, or the list is destroyed.
+						while target_list_exists_ && ((ds_exists(objectTargetList, ds_type_list)) && ((is_undefined(ds_list_find_value(objectTargetList, 0))) || (!instance_exists(ds_list_find_value(objectTargetList, 0))))) {
+							if ds_list_size(objectTargetList) > 1 {
+								ds_list_delete(objectTargetList, 0);
+							}
+							else {
+								target_list_exists_ = false;
+							}
+						}
+						// Now, after the above checks, as long as the list still has valid
+						// objects to target, then I can assign the next target to the new
+						// first entry in the target list.
+						if target_list_exists_ {
+							assign_target_values_from_list_ = true;
+						}
+					}
+					// Otherwise, if the list is just one target long to start out with, that
+					// means there's no other valid targets to target, after I de-target the
+					// current target, and so I need to de-aggro and set to just moving along.
+					else {
+						target_list_exists_ = false;
+						ds_list_destroy(objectTargetList);
+						objectTargetList = noone;
+					}
+					if assign_target_values_from_list_ {
+						objectTarget = ds_list_find_value(objectTargetList, 0);
+						targetToMoveToX = floor(objectTarget.x / 16) * 16;
+						targetToMoveToY = floor(objectTarget.y / 16) * 16;
+						squareIteration = 0;
+						squareTrueIteration = 0;
+						squareSizeIncreaseCount = 0;
+						baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+						// Variables specifically used by object to move
+						changeVariablesWhenCloseToTarget = true;
+						notAtTargetLocation = true;
+						validLocationFound = true;
+						validPathFound = false;
+						specificLocationNeedsToBeChecked = false;
+						specificLocationToBeCheckedX = targetToMoveToX;
+						specificLocationToBeCheckedY = targetToMoveToY;
+						tempCheckX = targetToMoveToX;
+						tempCheckY = targetToMoveToY;
+						groupDirectionToMoveInAdjusted = 0;
+					}
+					else {
+						target_list_exists_ = false;
+					}
+				}
+				// If no targets are around, then set variables to return to movement script.
+				if !target_list_exists_ {
+					objectCurrentCommand = "Move";
+					
+					targetToMoveToX = originalTargetToMoveToX;
+					targetToMoveToY = originalTargetToMoveToY;
+					specificLocationNeedsToBeChecked = false;
+					specificLocationToBeCheckedX = targetToMoveToX;
+					specificLocationToBeCheckedY = targetToMoveToY;
+					tempCheckX = targetToMoveToX;
+					tempCheckY = targetToMoveToY;
+					objectTarget = noone;
+					forceAttack = false;
+					squareIteration = 0;
+					squareTrueIteration = 0;
+					squareSizeIncreaseCount = 0;
+					baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+					groupDirectionToMoveInAdjusted = 0;
+					changeVariablesWhenCloseToTarget = false;
+					notAtTargetLocation = true;
+					validLocationFound = false;
+					validPathFound = false;
+					needToStartGridSearch = true;
+					x_n_ = 0;
+					y_n_ = 0;
+					right_n_ = 0;
+					top_n_ = 0;
+					left_n_ = 0;
+					bottom_n_ = 0;
+					rightWallFound = false;
+					topWallFound = false;
+					leftWallFound = false;
+					bottomWallFound = false;
+					rightForbidden = false;
+					topForbidden = false;
+					leftForbidden = false;
+					bottomForbidden = false;
+					groupRowWidth = 0;
+					searchHasJustBegun = true;
+					totalTimesSearched = 0;
+					closestPointsToObjectsHaveBeenSet = false;
+					if ds_exists(objectTargetList, ds_type_list) {
+						ds_list_destroy(objectTargetList);
+						objectTargetList = noone;
+					}/*
+					targetToMoveToX = originalTargetToMoveToX;
+					targetToMoveToY = originalTargetToMoveToY;
+					squareIteration = 0;
+					squareTrueIteration = 0;
+					squareSizeIncreaseCount = 0;
+					baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+					groupDirectionToMoveInAdjusted = 0;
+					objectTarget = noone;
+					forceAttack = false;
+					if ds_exists(objectTargetList, ds_type_list) {
+						ds_list_destroy(objectTargetList);
+						objectTargetList = noone;
+					}*/
 				}
 			}
 		}
@@ -94,13 +217,41 @@ function target_next_object() {
 		objectCurrentCommand = "Move";
 		targetToMoveToX = originalTargetToMoveToX;
 		targetToMoveToY = originalTargetToMoveToY;
+		specificLocationNeedsToBeChecked = false;
+		specificLocationToBeCheckedX = targetToMoveToX;
+		specificLocationToBeCheckedY = targetToMoveToY;
+		tempCheckX = targetToMoveToX;
+		tempCheckY = targetToMoveToY;
+		objectTarget = noone;
+		forceAttack = false;
 		squareIteration = 0;
 		squareTrueIteration = 0;
 		squareSizeIncreaseCount = 0;
 		baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
 		groupDirectionToMoveInAdjusted = 0;
-		objectTarget = noone;
-		forceAttack = false;
+		changeVariablesWhenCloseToTarget = false;
+		notAtTargetLocation = true;
+		validLocationFound = false;
+		validPathFound = false;
+		needToStartGridSearch = true;
+		x_n_ = 0;
+		y_n_ = 0;
+		right_n_ = 0;
+		top_n_ = 0;
+		left_n_ = 0;
+		bottom_n_ = 0;
+		rightWallFound = false;
+		topWallFound = false;
+		leftWallFound = false;
+		bottomWallFound = false;
+		rightForbidden = false;
+		topForbidden = false;
+		leftForbidden = false;
+		bottomForbidden = false;
+		groupRowWidth = 0;
+		searchHasJustBegun = true;
+		totalTimesSearched = 0;
+		closestPointsToObjectsHaveBeenSet = false;
 		if ds_exists(objectTargetList, ds_type_list) {
 			ds_list_destroy(objectTargetList);
 			objectTargetList = noone;
@@ -1357,9 +1508,6 @@ function unit_move() {
 							if (ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
 								target_next_object();
 							}
-							if !instance_exists(objectTarget) {
-								var yeet_ = 1;
-							}
 							// As long as the object doesn't have a specific target to focus, perform normal
 							// pathfinding.
 							if (!ds_exists(objectTargetList, ds_type_list)) && (objectTarget == noone) {
@@ -1900,18 +2048,42 @@ function unit_move() {
 										}
 										squareTrueIteration = 0;
 									}
-								
+									
+									// Here I check for whether the unit running this movement is targeting something
+									// to attack, and if so, I target the next object if the search exceeds the attack
+									// range of the unit. However, I double check to make sure the list of targets has
+									// another target to focus, and if it doesn't, then I do nothing, and the search
+									// for a spot to move to continues, with the exception that now the unit won't
+									// be able to attack a target.
 									if melee_unit_ {
 										if ds_exists(objectTargetList, ds_type_list) {
 											if squareSizeIncreaseCount > 1 {
-												target_next_object();
+												if ds_list_size(objectTargetList) != 1 {
+													target_next_object();
+												}
 											}
 										}
 									}
+									// Specifically in ranged unit's cases, since they start at their maximum range
+									// and move their search inwards, if there is no valid location to move to
+									// around their target and no other target to focus, then the search is converted
+									// to a melee unit search and the search expands outwards from there. This does mean
+									// I check many locations twice, but it also means that I guarantee I'll find the
+									// location closest to the mass of units surrounding it's nearest target.
 									else if !melee_unit_ {
 										if ds_exists(objectTargetList, ds_type_list) {
 											if squareSizeIncreaseCount == 0 {
-												target_next_object();
+												if ds_list_size(objectTargetList) != 1 {
+													target_next_object();
+												}
+												else {
+													melee_unit_ = true;
+													ranged_unit_starting_ring_ = -1;
+													squareIteration = 0;
+													squareTrueIteration = 0;
+													squareSizeIncreaseCount = 0;
+													baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+												}
 											}
 										}
 									}
@@ -2003,45 +2175,55 @@ function unit_move() {
 									on the path to the checked location, ignore the leader's path and create its own path completely.
 									*/
 									else if (movementLeaderOrFollowing != "Leader") {
-										myPath = path_duplicate(movementLeaderOrFollowing.myPath);
-										var check_for_alt_paths_ = false;
-										if !line_of_sight_exists_to_target(x + 8, y + 8, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) {
-											create_new_path_ = true;
-										}
-										else if path_get_number(myPath) > 1 {
-											if path_get_number(myPath) > 2 {
-												// - 2 because path_get_number gets the number of points on a path, while the points are ordered
-												// starting at 0, so I subtract 1 to get to the index of the last point in the path, and then I
-												// subtract 1 more to get the second to last point in the path.
-												if line_of_sight_exists_to_target(path_get_point_x(myPath, path_get_number(myPath) - 2), path_get_point_y(myPath, path_get_number(myPath) - 2), specificLocationToBeCheckedX, specificLocationToBeCheckedY) {
-													path_delete_point(myPath, path_get_number(myPath) - 1);
-													path_add_point(myPath, specificLocationToBeCheckedX, specificLocationToBeCheckedY, 0);
-													path_found_ = true;
+										if instance_exists(movementLeaderOrFollowing) {
+											if path_exists(movementLeaderOrFollowing.myPath) {
+												myPath = path_duplicate(movementLeaderOrFollowing.myPath);
+												var check_for_alt_paths_ = false;
+												if !line_of_sight_exists_to_target(x + 8, y + 8, path_get_point_x(myPath, 0), path_get_point_y(myPath, 0)) {
+													create_new_path_ = true;
 												}
-												else {
-													check_for_alt_paths_ = true;
+												else if path_get_number(myPath) > 1 {
+													if path_get_number(myPath) > 2 {
+														// - 2 because path_get_number gets the number of points on a path, while the points are ordered
+														// starting at 0, so I subtract 1 to get to the index of the last point in the path, and then I
+														// subtract 1 more to get the second to last point in the path.
+														if line_of_sight_exists_to_target(path_get_point_x(myPath, path_get_number(myPath) - 2), path_get_point_y(myPath, path_get_number(myPath) - 2), specificLocationToBeCheckedX, specificLocationToBeCheckedY) {
+															path_delete_point(myPath, path_get_number(myPath) - 1);
+															path_add_point(myPath, specificLocationToBeCheckedX, specificLocationToBeCheckedY, 0);
+															path_found_ = true;
+														}
+														else {
+															check_for_alt_paths_ = true;
+														}
+													}
+													else {
+														check_for_alt_paths_ = true;
+													}
+													if check_for_alt_paths_ {
+														// Check to see if a line of sight exists between the last point in the leader's path
+														// and the valid point to check.
+														if line_of_sight_exists_to_target(path_get_point_x(myPath, path_get_number(myPath) - 1), path_get_point_y(myPath, path_get_number(myPath) - 1), specificLocationToBeCheckedX, specificLocationToBeCheckedY) {
+															path_add_point(myPath, specificLocationToBeCheckedX, specificLocationToBeCheckedY, 0);
+															path_found_ = true;
+														}
+														// Else just make a new path.
+														else {
+															create_new_path_ = true;
+														}
+													}
 												}
-											}
-											else {
-												check_for_alt_paths_ = true;
-											}
-											if check_for_alt_paths_ {
-												// Check to see if a line of sight exists between the last point in the leader's path
-												// and the valid point to check.
-												if line_of_sight_exists_to_target(path_get_point_x(myPath, path_get_number(myPath) - 1), path_get_point_y(myPath, path_get_number(myPath) - 1), specificLocationToBeCheckedX, specificLocationToBeCheckedY) {
-													path_add_point(myPath, specificLocationToBeCheckedX, specificLocationToBeCheckedY, 0);
-													path_found_ = true;
-												}
-												// Else just make a new path.
 												else {
 													create_new_path_ = true;
 												}
+												check_for_alt_paths_ = false;
+											}
+											else {
+												create_new_path_ = true;
 											}
 										}
 										else {
 											create_new_path_ = true;
 										}
-										check_for_alt_paths_ = false;
 										if create_new_path_ {
 											create_new_path_ = false;
 											if path_exists(myPath) {

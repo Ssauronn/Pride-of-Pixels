@@ -61,7 +61,6 @@ if !obj_gui.startMenu.active {
 				if (objectType != "Worker") && ((i == 2) || (i == 3) || (i == 4)) {
 					i = 5;
 				}
-				
 				// currentDirection counting
 				for (j = 0; j < unitDirection.length; j++) {
 					if break_ {
@@ -71,6 +70,9 @@ if !obj_gui.startMenu.active {
 					// for Abomination units just using the head sprite as verification, record that
 					// action and direction.
 					if ((objectType != "Abomination") && (currentSprite == unitSprite[i][j])) || ((objectType == "Abomination") && (currentHeadSprite == unitSprite[headBodyPart][i][j])) {
+						if i == unitAction.length || j == unitDirection.length {
+							var yeet_ = true;
+						}
 						current_action_ = i;
 						current_direction_facing_ = j;
 						break_ = true;
