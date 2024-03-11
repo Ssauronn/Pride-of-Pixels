@@ -101,7 +101,7 @@ function initialize_object_data() {
 		// ADJUST AS MORE UNITS AND/OR BUILDINGS ARE ADDED
 		case "Worker":
 			// Generic variables
-			maxHP = 70;
+			maxHP = 700;
 			currentHP = maxHP;
 			baseMovementSpeed = 1;
 			currentMovementSpeed = baseMovementSpeed;
