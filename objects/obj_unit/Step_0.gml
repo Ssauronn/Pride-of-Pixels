@@ -56,10 +56,10 @@ if !obj_gui.startMenu.active {
 				break;
 			}
 			else {
-				if objectType != "Worker" {
-					if (i == 2) || (i == 3) || (i == 4) {
-						i = 5;
-					}
+				// Quick check to make sure I'm not evaluating mine/chop/farm actions if the unit isn't a worker,
+				// as only Workers have access to those actions.
+				if (objectType != "Worker") && ((i == 2) || (i == 3) || (i == 4)) {
+					i = 5;
 				}
 				// currentDirection counting
 				for (j = 0; j < unitDirection.length; j++) {

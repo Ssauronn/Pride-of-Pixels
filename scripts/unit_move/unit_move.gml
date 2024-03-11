@@ -327,25 +327,28 @@ function unit_move() {
 					var original_y_ = y;
 					var point_distance_ = distance_to_object(objectTarget);
 					var choice_ = 0;
-					
+					// Check the square the unit is currently on.
 					x = original_x_ + 8;
 					y = original_y_ + 8;
 					if (distance_to_object(objectTarget) <= point_distance_) && (position_empty(floor(x / 16) * 16, floor(y / 16) * 16)) {
 						point_distance_ = distance_to_object(objectTarget);
 						choice_ = 1;
 					}
+					// Check the square above the unit
 					x = original_x_ + 8;
 					y = original_y_ - 8;
 					if (distance_to_object(objectTarget) < point_distance_) && (position_empty(floor(x / 16) * 16, floor(y / 16) * 16)) {
 						point_distance_ = distance_to_object(objectTarget);
 						choice_ = 2;
 					}
+					// Check the square to the left of the unit
 					x = original_x_ - 8;
 					y = original_y_ + 8;
 					if (distance_to_object(objectTarget) < point_distance_) && (position_empty(floor(x / 16) * 16, floor(y / 16) * 16)) {
 						point_distance_ = distance_to_object(objectTarget);
 						choice_ = 3;
 					}
+					// Check the square above and to the left of the unit
 					x = original_x_ - 8;
 					y = original_y_ - 8;
 					if (distance_to_object(objectTarget) < point_distance_) && (position_empty(floor(x / 16) * 16, floor(y / 16) * 16)) {
@@ -376,43 +379,45 @@ function unit_move() {
 							targetToMoveToY = floor((y - 8) / 16) * 16;
 							break;
 					}
-					squareIteration = 0;
-					squareTrueIteration = 0;
-					squareSizeIncreaseCount = 0;
-					baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-					groupDirectionToMoveInAdjusted = 0;
-					changeVariablesWhenCloseToTarget = false;
-					notAtTargetLocation = true;
-					validLocationFound = false;
-					validPathFound = false;
-					needToStartGridSearch = true;
-					x_n_ = 0;
-					y_n_ = 0;
-					right_n_ = 0;
-					top_n_ = 0;
-					left_n_ = 0;
-					bottom_n_ = 0;
-					rightWallFound = false;
-					topWallFound = false;
-					leftWallFound = false;
-					bottomWallFound = false;
-					rightForbidden = false;
-					topForbidden = false;
-					leftForbidden = false;
-					bottomForbidden = false;
-					tempCheckX = -1;
-					tempCheckY = -1;
-					groupRowWidth = 0;
-					specificLocationNeedsToBeChecked = false;
-					specificLocationToBeCheckedX = -1;
-					specificLocationToBeCheckedY = -1;
-					searchHasJustBegun = true;
-					totalTimesSearched = 0;
-					closestPointsToObjectsHaveBeenSet = false;
-					movementLeaderOrFollowing = noone;
-					if path_exists(myPath) {
-						path_delete(myPath);
-						myPath = -1;
+					if ((floor(x / 16) * 16) == targetToMoveToX) && ((floor(y / 16) * 16) == targetToMoveToY) {
+						squareIteration = 0;
+						squareTrueIteration = 0;
+						squareSizeIncreaseCount = 0;
+						baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
+						groupDirectionToMoveInAdjusted = 0;
+						changeVariablesWhenCloseToTarget = false;
+						notAtTargetLocation = true;
+						validLocationFound = false;
+						validPathFound = false;
+						needToStartGridSearch = true;
+						x_n_ = 0;
+						y_n_ = 0;
+						right_n_ = 0;
+						top_n_ = 0;
+						left_n_ = 0;
+						bottom_n_ = 0;
+						rightWallFound = false;
+						topWallFound = false;
+						leftWallFound = false;
+						bottomWallFound = false;
+						rightForbidden = false;
+						topForbidden = false;
+						leftForbidden = false;
+						bottomForbidden = false;
+						tempCheckX = -1;
+						tempCheckY = -1;
+						groupRowWidth = 0;
+						specificLocationNeedsToBeChecked = false;
+						specificLocationToBeCheckedX = -1;
+						specificLocationToBeCheckedY = -1;
+						searchHasJustBegun = true;
+						totalTimesSearched = 0;
+						closestPointsToObjectsHaveBeenSet = false;
+						movementLeaderOrFollowing = noone;
+						if path_exists(myPath) {
+							path_delete(myPath);
+							myPath = -1;
+						}
 					}
 				}
 			}
@@ -1356,7 +1361,7 @@ function unit_move() {
 									ranged_unit_starting_ring_ = (floor(objectAttackRange / 16) * 16) / 16;
 									if (ds_exists(objectTargetList, ds_type_list)) && (instance_exists(objectTarget)) {
 										// If the ranged object is already in range of target, don't move! It can act already.
-										if point_distance(x, y, targetToMoveToX, targetToMoveToY) <= objectAttackRange {
+										if ((instance_exists(objectTarget)) && (point_distance(x, y, objectTarget.x, objectTarget.y)) <= objectAttackRange) || (point_distance(x, y, targetToMoveToX, targetToMoveToY) <= currentMovementSpeed) {
 											if objectType == "Worker" {
 												if objectCurrentCommand == "Move" {
 													if ds_exists(player[objectRealTeam].listOfStorehousesAndCityHalls, ds_type_list) {
@@ -1375,6 +1380,8 @@ function unit_move() {
 													}
 												}
 											}
+											targetToMoveToX = floor(x / 16) * 16;
+											targetToMoveToY = floor(y / 16) * 16;
 											changeVariablesWhenCloseToTarget = true;
 											notAtTargetLocation = false;
 											validLocationFound = true;
@@ -2980,9 +2987,6 @@ function unit_move() {
 													
 													// unitGridLocation
 													swap_data_position_in_structure(unitGridLocation, "grid", self.id, other_target_id_);
-													
-													// movementGrid
-													swap_data_position_in_structure(movementGrid, "grid", self.id, other_target_id_);
 												}
 											}
 										}
@@ -3242,9 +3246,6 @@ function unit_move() {
 															// Change the last path points
 															path_change_point(myPath, self_last_path_point_index_, other_last_path_point_x_, other_last_path_point_y_, 0);
 															path_change_point(other_target_id_.myPath, other_last_path_point_index_, self_last_path_point_x_, self_last_path_point_y_, 0);
-															var path_x_ = path_get_point_x(myPath, path_get_number(myPath) - 1);
-															var path_y_ = path_get_point_y(myPath, path_get_number(myPath) - 1);
-															var yeet_ = 1;
 														}
 														// If no line of sight exists between the points to move to, then I need to remove
 														// the end points of the two paths, then create a path for each starting at the new
@@ -3420,9 +3421,6 @@ function unit_move() {
 													
 													// unitGridLocation
 													swap_data_position_in_structure(unitGridLocation, "grid", self.id, other_target_id_);
-													
-													// movementGrid
-													swap_data_position_in_structure(movementGrid, "grid", self.id, other_target_id_);
 												}
 											}
 										}
@@ -3888,9 +3886,6 @@ function unit_move() {
 													
 													// unitGridLocation
 													swap_data_position_in_structure(unitGridLocation, "grid", self.id, other_target_id_);
-													
-													// movementGrid
-													swap_data_position_in_structure(movementGrid, "grid", self.id, other_target_id_);
 												}
 											}
 										}
