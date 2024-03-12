@@ -1124,6 +1124,8 @@ if !obj_gui.startMenu.active {
 											targetToMoveToX = instance_nearby_.x;
 											targetToMoveToY = instance_nearby_.y;
 											currentAction = unitAction.attack;
+											currentImageIndex = 0;
+											objectAttackSpeedTimer = objectAttackSpeed;
 											currentDirection = point_direction(x, y, targetToMoveToX, targetToMoveToY) div 90;
 											ds_list_destroy(objectDetectedList);
 											objectDetectedList = noone;
@@ -1140,6 +1142,8 @@ if !obj_gui.startMenu.active {
 									targetToMoveToX = instance_nearby_.x;
 									targetToMoveToY = instance_nearby_.y;
 									currentAction = unitAction.attack;
+									currentImageIndex = 0;
+									objectAttackSpeedTimer = objectAttackSpeed;
 									currentDirection = point_direction(x, y, targetToMoveToX, targetToMoveToY) div 90;
 									ds_list_destroy(objectDetectedList);
 									objectDetectedList = noone;
