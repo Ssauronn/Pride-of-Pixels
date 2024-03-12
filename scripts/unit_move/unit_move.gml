@@ -701,6 +701,9 @@ function unit_move() {
 			
 			// Move the unit while waiting for a path to be found.
 			if point_distance(x, y, targetToMoveToX, targetToMoveToY) > groupRowWidth * 16 {
+				// I don't move the unit while waiting for a path if it's currently in combat, because it's causing too
+				// many issues. It also looks better in testing, to have slight delays after killing it's current target
+				// and looking for a new one.
 				if objectCurrentCommand != "Attack" {
 					var orig_x_, orig_y_;
 					orig_x_ = x;
@@ -1478,7 +1481,7 @@ function unit_move() {
 												currentAction = unitAction.idle;
 											}
 											else if objectCurrentCommand == "Attack" {
-											currentAction = unitAction.attack;
+												currentAction = unitAction.attack;
 											}
 											else if objectCurrentCommand == "Mine" {
 												currentAction = unitAction.mine;
@@ -1492,6 +1495,12 @@ function unit_move() {
 											else if objectCurrentCommand == "Ruby Mine" {
 												currentAction = unitAction.mine;
 											}
+											currentImageIndex = 0;
+											objectAttackSpeedTimer = objectAttackSpeed;
+											objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+											objectWoodChopSpeedTimer = objectWoodChopSpeed;
+											objectGoldMineSpeedTimer = objectGoldMineSpeed;
+											objectRubyMineSpeedTimer = objectRubyMineSpeed;
 											exit;
 										}
 										// Else continue the movement process.
@@ -4154,6 +4163,12 @@ function unit_move() {
 				else if objectCurrentCommand == "Ruby Mine" {
 					currentAction = unitAction.mine;
 				}
+				currentImageIndex = 0;
+				objectAttackSpeedTimer = objectAttackSpeed;
+				objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+				objectWoodChopSpeedTimer = objectWoodChopSpeed;
+				objectGoldMineSpeedTimer = objectGoldMineSpeed;
+				objectRubyMineSpeedTimer = objectRubyMineSpeed;
 				
 				// If the unit is still part of the grid containing the info of units only assigned to move, then remove it, since it is no
 				// longer going to move.
@@ -4282,6 +4297,12 @@ function unit_move() {
 		else if objectCurrentCommand == "Ruby Mine" {
 			currentAction = unitAction.mine;
 		}
+		currentImageIndex = 0;
+		objectAttackSpeedTimer = objectAttackSpeed;
+		objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+		objectWoodChopSpeedTimer = objectWoodChopSpeed;
+		objectGoldMineSpeedTimer = objectGoldMineSpeed;
+		objectRubyMineSpeedTimer = objectRubyMineSpeed;
 		x = floor(x / 16) * 16;
 		y = floor(y / 16) * 16;
 		

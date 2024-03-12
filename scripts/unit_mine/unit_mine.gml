@@ -221,6 +221,12 @@ function unit_mine() {
 		}
 		else if objectCurrentCommand == "Attack" {
 			currentAction = unitAction.attack;
+			currentImageIndex = 0;
+			objectAttackSpeedTimer = objectAttackSpeed;
+			objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+			objectWoodChopSpeedTimer = objectWoodChopSpeed;
+			objectGoldMineSpeedTimer = objectGoldMineSpeed;
+			objectRubyMineSpeedTimer = objectRubyMineSpeed;
 		}
 	}
 	// Check to see if the Worker is maxed out by weight, and if so, move to deposit resources
@@ -308,6 +314,11 @@ function unit_mine() {
 				ds_list_destroy(objectTargetList);
 				objectTargetList = noone;
 			}
+			objectAttackSpeedTimer = objectAttackSpeed;
+			objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+			objectWoodChopSpeedTimer = objectWoodChopSpeed;
+			objectGoldMineSpeedTimer = objectGoldMineSpeed;
+			objectRubyMineSpeedTimer = objectRubyMineSpeed;
 		}
 	}
 }

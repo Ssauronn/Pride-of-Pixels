@@ -62,6 +62,12 @@ function unit_attack() {
 					currentAction = unitAction.farm;
 					break;
 			}
+			currentImageIndex = 0;
+			objectAttackSpeedTimer = objectAttackSpeed;
+			objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+			objectWoodChopSpeedTimer = objectWoodChopSpeed;
+			objectGoldMineSpeedTimer = objectGoldMineSpeed;
+			objectRubyMineSpeedTimer = objectRubyMineSpeed;
 		}
 		else {
 			target_next_object();
@@ -78,6 +84,12 @@ function unit_attack() {
 		}
 		else if (objectCurrentCommand == "Mine") || (objectCurrentCommand == "Chop") || (objectCurrentCommand == "Farm") || (objectCurrentCommand == "Ruby Mine") {
 			currentAction = unitAction.mine;
+			currentImageIndex = 0;
+			objectAttackSpeedTimer = objectAttackSpeed;
+			objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
+			objectWoodChopSpeedTimer = objectWoodChopSpeed;
+			objectGoldMineSpeedTimer = objectGoldMineSpeed;
+			objectRubyMineSpeedTimer = objectRubyMineSpeed;
 		}
 	}
 }
