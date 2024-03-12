@@ -173,20 +173,7 @@ function target_next_object() {
 					if ds_exists(objectTargetList, ds_type_list) {
 						ds_list_destroy(objectTargetList);
 						objectTargetList = noone;
-					}/*
-					targetToMoveToX = originalTargetToMoveToX;
-					targetToMoveToY = originalTargetToMoveToY;
-					squareIteration = 0;
-					squareTrueIteration = 0;
-					squareSizeIncreaseCount = 0;
-					baseSquareEdgeSize = (squareSizeIncreaseCount * 2) + 1;
-					groupDirectionToMoveInAdjusted = 0;
-					objectTarget = noone;
-					forceAttack = false;
-					if ds_exists(objectTargetList, ds_type_list) {
-						ds_list_destroy(objectTargetList);
-						objectTargetList = noone;
-					}*/
+					}
 				}
 			}
 		}
@@ -1485,22 +1472,22 @@ function unit_move() {
 											}
 											else if objectCurrentCommand == "Mine" {
 												currentAction = unitAction.mine;
+												objectGoldMineSpeedTimer = objectGoldMineSpeed;
 											}
 											else if objectCurrentCommand == "Chop" {
 												currentAction = unitAction.chop;
+												objectWoodChopSpeedTimer = objectWoodChopSpeed;
 											}
 											else if objectCurrentCommand == "Farm" {
 												currentAction = unitAction.farm;
+												objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
 											}
 											else if objectCurrentCommand == "Ruby Mine" {
 												currentAction = unitAction.mine;
+												objectRubyMineSpeedTimer = objectRubyMineSpeed;
 											}
 											currentImageIndex = 0;
 											objectAttackSpeedTimer = objectAttackSpeed;
-											objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
-											objectWoodChopSpeedTimer = objectWoodChopSpeed;
-											objectGoldMineSpeedTimer = objectGoldMineSpeed;
-											objectRubyMineSpeedTimer = objectRubyMineSpeed;
 											exit;
 										}
 										// Else continue the movement process.
@@ -4153,23 +4140,22 @@ function unit_move() {
 				}
 				else if objectCurrentCommand == "Mine" {
 					currentAction = unitAction.mine;
+					objectGoldMineSpeedTimer = objectGoldMineSpeed;
 				}
 				else if objectCurrentCommand == "Chop" {
 					currentAction = unitAction.chop;
+					objectWoodChopSpeedTimer = objectWoodChopSpeed;
 				}
 				else if objectCurrentCommand == "Farm" {
 					currentAction = unitAction.farm;
+					objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
 				}
 				else if objectCurrentCommand == "Ruby Mine" {
 					currentAction = unitAction.mine;
+					objectRubyMineSpeedTimer = objectRubyMineSpeed;
 				}
 				currentImageIndex = 0;
 				objectAttackSpeedTimer = objectAttackSpeed;
-				objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
-				objectWoodChopSpeedTimer = objectWoodChopSpeed;
-				objectGoldMineSpeedTimer = objectGoldMineSpeed;
-				objectRubyMineSpeedTimer = objectRubyMineSpeed;
-				
 				// If the unit is still part of the grid containing the info of units only assigned to move, then remove it, since it is no
 				// longer going to move.
 				remove_self_from_only_moving_grid();
@@ -4287,22 +4273,22 @@ function unit_move() {
 		}
 		else if objectCurrentCommand == "Mine" {
 			currentAction = unitAction.mine;
+			objectGoldMineSpeedTimer = objectGoldMineSpeed;
 		}
 		else if objectCurrentCommand == "Chop" {
 			currentAction = unitAction.chop;
+			objectWoodChopSpeedTimer = objectWoodChopSpeed;
 		}
 		else if objectCurrentCommand == "Farm" {
 			currentAction = unitAction.farm;
+			objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
 		}
 		else if objectCurrentCommand == "Ruby Mine" {
 			currentAction = unitAction.mine;
+			objectRubyMineSpeedTimer = objectRubyMineSpeed;
 		}
 		currentImageIndex = 0;
 		objectAttackSpeedTimer = objectAttackSpeed;
-		objectFoodGatherSpeedTimer = objectFoodGatherSpeed;
-		objectWoodChopSpeedTimer = objectWoodChopSpeed;
-		objectGoldMineSpeedTimer = objectGoldMineSpeed;
-		objectRubyMineSpeedTimer = objectRubyMineSpeed;
 		x = floor(x / 16) * 16;
 		y = floor(y / 16) * 16;
 		
