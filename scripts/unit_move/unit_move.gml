@@ -701,13 +701,17 @@ function unit_move() {
 			
 			// Move the unit while waiting for a path to be found.
 			if point_distance(x, y, targetToMoveToX, targetToMoveToY) > groupRowWidth * 16 {
-				var orig_x_, orig_y_;
-				orig_x_ = x;
-				orig_y_ = y;
-				mp_potential_step(targetToMoveToX, targetToMoveToY, currentMovementSpeed, false);
-				if (mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor((y + 15) / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + 15) / 16)) == -1) {
-					x = orig_x_;
-					y = orig_y_;
+				if objectCurrentCommand != "Attack" {
+					var orig_x_, orig_y_;
+					orig_x_ = x;
+					orig_y_ = y;
+					mp_potential_step(targetToMoveToX, targetToMoveToY, currentMovementSpeed, false);
+					// Because origin points for objects are set to the top left of the object, I check to make sure a 1x1 object
+					// won't clip into any objects not yet colliding with the origin point (i.e., to the right, or below).
+					if (mp_grid_get_cell(movementGrid, floor(x / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor(y / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor((x + 15) / 16), floor((y + 15) / 16)) == -1) || (mp_grid_get_cell(movementGrid, floor(x / 16), floor((y + 15) / 16)) == -1) {
+						x = orig_x_;
+						y = orig_y_;
+					}
 				}
 			}
 		}
@@ -1541,12 +1545,6 @@ function unit_move() {
 							
 							// Now, perform the actual search.
 							while still_need_to_search_ {
-								
-								// THIS NEEDS TO BE ADJUSTED TO ACCOMMODATE FOR FORMATIONS - in this case, just set the square edge size larger if the formation is hollow square,
-								// with the exact value dependent on how large the group is. >24, and it should be set to 2 if less than 2, otherwise just 1 if less than 1.
-								// I can also manipulate the square size depending on if Rows is selected, to keep the row width static and just search in a "square" where the
-								// width remains static but the height increases, adding more rows as needed.
-								
 								// If, after checking for a specific location, it still wasn't valid,
 								// move on and continue the search.
 								if still_need_to_search_ {
