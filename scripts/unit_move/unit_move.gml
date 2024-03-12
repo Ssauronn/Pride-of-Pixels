@@ -2094,6 +2094,9 @@ function unit_move() {
 									// First, check to see if the cell itself is a valid location. If not, its
 									// automatically excluded.
 									if mp_grid_get_cell(movementGrid, tempCheckX / 16, tempCheckY / 16) == 0 {
+										if tempCheckX == -1 {
+											var yeet_ = 1;
+										}
 										var i, temp_instance_, temp_instance_x_, temp_instance_y_;
 										var location_occupied_ = false;
 										// Check to see if any object currently has that space occupied, and if not,
@@ -2411,12 +2414,12 @@ function unit_move() {
 											squareSizeIncreaseCount = 0;
 											squareIteration = 0;
 											squareTrueIteration = 0;
-											tempCheckX = -1;
-											tempCheckY = -1;
+											tempCheckX = targetToMoveToX;
+											tempCheckY = targetToMoveToY;
 											groupRowWidth = 0;
 											specificLocationNeedsToBeChecked = false;
-											specificLocationToBeCheckedX = -1;
-											specificLocationToBeCheckedY = -1;
+											specificLocationToBeCheckedX = targetToMoveToX;
+											specificLocationToBeCheckedY = targetToMoveToY;
 											searchHasJustBegun = true;
 											totalTimesSearched = 0;
 											closestPointsToObjectsHaveBeenSet = false;
@@ -2459,12 +2462,12 @@ function unit_move() {
 											squareSizeIncreaseCount = 0;
 											squareIteration = 0;
 											squareTrueIteration = 0;
-											tempCheckX = -1;
-											tempCheckY = -1;
+											tempCheckX = targetToMoveToX;
+											tempCheckY = targetToMoveToY;
 											groupRowWidth = 0;
 											specificLocationNeedsToBeChecked = false;
-											specificLocationToBeCheckedX = -1;
-											specificLocationToBeCheckedY = -1;
+											specificLocationToBeCheckedX = targetToMoveToX;
+											specificLocationToBeCheckedY = targetToMoveToY;
 											searchHasJustBegun = true;
 											totalTimesSearched = 0;
 											closestPointsToObjectsHaveBeenSet = false;
