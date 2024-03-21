@@ -440,9 +440,9 @@ function _laboratory() constructor {
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.noone, 
 				false, 1, false, noone, "Laboratory", "Player", "flaskUpgraded", noone, 1, 60, 
 				200, 200, 200, 0, noone, noone, noone);
-	skillful = new _upgrade_options("Skillful", "Improves the effectiveness of basic unit special abilities.", 
+	skillful = new _upgrade_options("Skillful", "Improves the effectiveness of basic units.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 1, false, noone, "Laboratory", "Basic", "objectSpecialAbilityUpgraded", noone, 1, 60, 
+				false, 1, false, noone, "Laboratory", "Basic", "objectSkillfulUpgradeActive", noone, 1, 60, 
 				200, 200, 200, 0, noone, noone, noone);
 	fullMetalJacket = new _upgrade_options("Full Metal Jacket", "Increases the damage that all buildings deal.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.noone, 

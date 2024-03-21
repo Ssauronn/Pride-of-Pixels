@@ -115,7 +115,13 @@ function initialize_object_data() {
 			returnToResourceDropPointID = noone;
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
+			// This is a multiplier to be used with the collection speed of all resources,
+			// effectively reducing the time it takes to chop, or farm, or mine a resource
+			// by a percentage equal to the difference between the value below and 1. I.e.,
+			// if the value below is 0.85, the collection speed of all resources will be
+			// increased by 15%.
+			objectSkillfulUpgradeSupportMultiplier = 0.85;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			movementSpeedBonus = 1;
@@ -225,12 +231,18 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
+			// This is a value to be added to the variable enrageDamageBonus. E.g., if the variable
+			// below is set to 1, enrageDamageBonus should have the value below added to it, to set 
+			// the total enrageDamageBonus value to it's original value plus 1.
+			objectSkillfulUpgradeRecklessnessEnhancement = 4;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false
-			enrageDamageBonus = 3;
+			enrageDamageBonus = 10;
 			enrageCooldown = 20 * room_speed;
 			enrageCooldownTimer = -1;
+			enrageDuration = 6 * room_speed;
+			enrageDurationTimer = -1;
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -289,10 +301,23 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
+			// This is a value to be added to the variable moraleBoostDamageBonus.
+			// E.g., if the variable below is set to 1, then moraleBoostDamageBonus
+			// will be increased by 1, totalling the object's base damage, plus
+			// moraleBoostDamageBonus's additional damage, plus this variables
+			// additional 1 damage.
+			objectSkillfulUpgradeSwarmEnhancement = 1;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
-			moraleBoostDamageBonus = 2;
+			// Morale Boost is a special ability available to all players from the
+			// Barracks upgrade tree which increases the damage of all units in range of
+			// the friendly Soldier by the amount given below. This does not stack.
+			// The value is lower than most other damage values because it is a passive
+			// damage bonus that applies to all units within range with no cooldown
+			// and no downtime.
+			moraleBoostDamageBonus = 3;
+			moraleBoostRange = 3 * 16;
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -350,14 +375,36 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
+			// This is a value to be added to the variables
+			// shieldingAura[Slash/Pierce/Magic]ResistanceEnhancement. As those
+			// variables increase resistances as they go up (read their description
+			// for details), adding the variable below to the listed variables will
+			// increase the effective resistance while Shielding Aura is active. E.g.,
+			// if this variable is set to 0.05, then all resistances while Shielding
+			// Aura is active will be increased by an additional 5%.
+			// Read descriptions of the listed variables, as well as descriptions of 
+			// base resistances, for additional information on how this is calculated.
+			objectSkillfulUpgradeRalliedEnhancement = 0.05;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			shieldingAuraCooldown = 25 * room_speed;
 			shieldingAuraCooldownTimer = -1;
-			shieldingAuraDurationCooldown = 5 * room_speed;
-			shieldingAuraDurationCooldownTimer = 5 * room_speed;
+			shieldingAuraDuration = 5 * room_speed;
+			shieldingAuraDurationTimer = 5 * room_speed;
 			shieldingAuraRadius = 4 * 16;
+			// For resistance enhancements, these are subtractors to be used in conjunction with
+			// the object's resistances while in range of the Knight and while Shielding Aura is
+			// active. As resistances are multipliers and get stronger the closer to 0 they get, 
+			// these being subtractors means all friendly units within range of Shielding Aura 
+			// have their resistances effectively increased. E.g., if shieldingAuraSlashResistanceEnhancement
+			// is set to 0.1 and a friendly object within range has their base slash resistance at
+			// 0.75, their resistance is now set to 0.65 while in range of Shielding Aura and all
+			// incoming damage is multiplied against 0.65, reducing damage taken by slash damage by
+			// a *further* 10% on top of the 25% base slash resistance the object already had.
+			shieldingAuraSlashResistanceEnhancement = 0.1;
+			shieldingAuraPierceResistanceEnhancement = 0.1;
+			shieldingAuraMagicResistanceEnhancement = 0.05;
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -415,7 +462,11 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
+			// This is a value to be added to objectAttackDamage, which is the Ranger's
+			// base damage. This is simply a flat increase at all times to the base 
+			// damage of Rangers once the upgrade is unlocked at the Laboratory.
+			objectSkillfulUpgradeRangeTrainingEnhancement = 3;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			handheldRailGunActive = false;
@@ -478,7 +529,11 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
+			// This is a value to be added to the variable ambushDamageBonus. E.g., if the variable
+			// below is set to 20, ambushDamageBonus should have the value below added to it, to set 
+			// the total ambushDamageBonus value to it's original value plus 20.
+			objectSkillfulUpgradeViciousEnhancement = 20;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			isInvisible = false;
@@ -549,7 +604,7 @@ function initialize_object_data() {
 			// Special Ability in this case is Wizard's Fireball ability, which is always unlocked by default.
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			// Singed Circuit is an unlocked passive that reduces the cooldown of the Wizard's special
@@ -647,7 +702,7 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			enslavementActive = false;
@@ -735,7 +790,7 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			enslavementActive = false;
@@ -822,7 +877,7 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			acolytesCanLink = false;
@@ -904,7 +959,7 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			preparationActive = false;
@@ -973,7 +1028,7 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			abominationsCanSacrifice = false;
@@ -1163,7 +1218,7 @@ function initialize_object_data() {
 			// Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
-			objectSpecialAbilityUpgraded = false;
+			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			chronicEmpowermentPossible = false;

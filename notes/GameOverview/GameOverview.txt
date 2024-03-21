@@ -44,13 +44,14 @@ Normal Units
 ----Will go invisible whenever not in combat. The first attack dealt to an enemy unit will deal massive damage and
     remove the rogue from invisibility. Does not work on buildings. If no chosen target exists, will focus targets 
     with lowest HP. Any damage taken will remove the rogue from invisibility. (need some sort of weakness for them -
-    maybe moving within a certain range of any enemy will reveal them after a short time?)
+    maybe moving within a certain range of any enemy will reveal them after a short time?) This large damaging
+	attack is called Ambush.
     High attack, low HP.
 -Soldier
-----Attack is increased with each additional friendly soldier in combat with it.
+----Increases the attack damage of all nearby units, not including itself.
     Medium attack, medium HP.
 -Ranger
-----Damage reduced against buildings.
+----Damage reduced against buildings. The only basic unit with a ranged attack.
     High attack, medium HP.
 -Knight
 ----Meant to front line attacks. High resistances to all damage types. Deals slash damage in an area of effect.

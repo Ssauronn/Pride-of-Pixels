@@ -113,7 +113,9 @@ UNLOCKS TIER 3 UPGRADES
  - Choose between:
 	- Stealth:
 		- Rogues will remain invisible if they kill an enemy with
-		  an attack boosted by the damage of Stealth.
+		  an attack boosted by the damage of Stealth. This boosted
+		  damage attack is called Ambush, and is always active
+		  while the Rogue is invisible.
 		- Subverter are equipped with explosives and can be
 		  commanded to explode, dealing massive damage within
 		  a short range to all units and buildings. Destroys
