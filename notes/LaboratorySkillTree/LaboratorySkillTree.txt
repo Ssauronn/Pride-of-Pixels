@@ -7,14 +7,21 @@ TIER 3 UPGRADES
 MAGICAL UPGRADES
 - INNOVATION 1 -Alchemy: Improves the effectiveness of Flasks.
 TECHNOLOGY UPGRADES
-- INNOVATION 1 -Skillful: Increases the effectiveness of basic unit special abilities.
+- INNOVATION 1 -Skillful: Increases the effectiveness of basic units.
+				- NOTE: These are SEPARATE from Combat Specialization chosen by the player
+					    at the beginning of the game (listed in PlayerAdvancementSkillTree)
+						and can all be obtained regardless of the chosen Combat Specialization.
+						These are also SEPARATE from Combat Special Abilities chosen by
+						the player, 
 			- Support: Workers mine faster.
-			- Stealth: Reduces the cooldown of the teleport.
-			- Recklessness: Berserkers deal more damage with their nanotech
-			  aura.
-			- Protectorates: Increases the range and strength of their Shielding Aura.
-			- Swarm: Soldiers also gain additional movement speed for each
-			  friendly unit within range.
+			- Vicious: Increases the damage of Ambush, an attack that automatically
+			  activates while in stealth for Rogues and deals massively increased
+			  damage but pulls them out of stealth.
+			- Recklessness: Increases the damage bonus of Berserker's Enrage ability.
+			- Rallied: Increases the range and strength of Knight's Shielding Aura.
+			- Swarm: Soldiers' damage bonus from Morale Boost is increased.
+			- Range Training: Rangers are trained at the firing range, helping them hit
+			  vital spots more often. They now deal more damage.
 
 TIER 2 UPGRADES
 - OFFENSIVE 1 -	Full Metal Jacket: Increases the damage that all buildings do.
