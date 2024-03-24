@@ -527,9 +527,9 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.b, 
 				false, 2, false, noone, "Barracks", "Ranger", "objectAttackRange", noone, 1, 105, 
 				0, 300, 100, 0, noone, noone, noone);
-	courage = new _upgrade_options("Courage", "Increases the damage bonus from Morale Boost for other nearby friendly Soldiers.", 
+	courage = new _upgrade_options("Courage", "Increases the damage bonus provided by Morale Boost.",
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.c, 
-				false, 2, false, noone, "Barracks", "Soldier", "moraleBoostDamageBonus", noone, 1, 105, 
+				false, 2, false, noone, "Barracks", "Soldier", "moraleBoostDamageBonus", noone, 0.5, 105, 
 				200, 50, 300, 0, noone, noone, noone);
 	steelArmor = new _upgrade_options("Steel Armor", "Increases the magic armor of Knights.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.a, 

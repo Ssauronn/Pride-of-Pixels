@@ -16,8 +16,7 @@ TIER 2 UPGRADES
 - OFFENSIVE 2a -Piercing Strike: Rogues are able to find the weakpoint in armor with their 
 		Ambush ability and now ignore half of the target's armor when attacking with Ambush.
 - OFFENSIVE 2b -Stabilized Weapons: Further increases the range of Rangers.
-- OFFENSIVE 2c -Courage: Increases the damage bonus from Morale Boost for nearby friendly
-		Soldiers.
+- OFFENSIVE 2c -Courage: Increases the damage bonus provided by Morale Boost.
 - DEFENSIVE 2a -Steel Armor: Upgrades the magic armor of Knights.
 - DEFENSIVE 2b -Hardened Leather: Slightly upgrades the slash and pierce armor of Berserkers.
 TECHNOLOGY UPGRADES

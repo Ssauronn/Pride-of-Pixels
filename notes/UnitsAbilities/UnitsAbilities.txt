@@ -5,8 +5,8 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 
 
 -	Worker
--	The only unit that can build buildings. The only unit that can carry resources. Very low combat 
-	stats, low movement speed.
+-	The only unit that can build buildings. Very low combat stats, low movement speed.
+	The only unit that can carry resources.
 -	Abilities:
 	{	-	CAN ONLY CHOOSE ONE OF THESE
 -		1. IF MAGIC
@@ -30,13 +30,15 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 -		3. IF MAGIC:
 			- Flask of Speed: Increases the movement speed of all units.
 	}
+	Togglable Ability, ON/OFF
 -	1. UNIVERSALLY AVAILABLE
--		- Morale Boost: Temporarily increase the damage of all nearby friendly units, not including
-		itself. This buff can stack.
+-		- Morale Boost: A passive that increases the damage of all friendly units within range,
+		  including itself.
 	
 	
 -	Ranger
 -	The standard ranged attacking unit. Low defense stats, higher offensive combat stats.
+	The only basic unit that has a ranged attack.
 -	Abilities:
 	{	-	CAN ONLY CHOOSE ONE OF THESE
 -		1. IF MAGIC
@@ -52,9 +54,10 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 		- Handheld Rail Gun: Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets 
 		  and deal damage to enemies behind their target. However, their attack speed is reduced.
 	
+	
 -	Knight
--	The tanking melee unit. High defense stats, decent offensive combat stats. Deals damage in an area of
-	effect whenever it attacks.
+-	The tanking melee unit. High defense stats, decent offensive combat stats. 
+	Deals damage in a small area of effect whenever it attacks.
 	-	Abilities:
 	{	-	CAN ONLY CHOOSE ONE OF THESE
 -		1. IF MAGIC
@@ -64,9 +67,56 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 -		3. IF MAGIC:
 			- Flask of Speed: Increases the movement speed of all units.
 	}
+	1. IF TECH
+		- Protectorate (Combat Special Ability - Basic Unit): Knights can greatly improve the armor of
+		  friendly units within a short radius for a short period of time. This increase in armor does
+		  not affect themselves or other knights.
 	
 
 -	Rogue
+-	The stealth unit. Low defense stats, extremely high damage.
+	Can become Invisible. Any attacks made while Invisible are considered an Ambush attack, which deals
+	massive damage and removes Invisibility from the Rogue.
+	-	Abilities:
+	{	-	CAN ONLY CHOOSE ONE OF THESE
+-		1. IF MAGIC
+			- Flask of Stoneskin: Increases the armor of all units.
+-		2. IF MAGIC:
+			- Flask of Power: Temporarily boosts all unit's damage.
+-		3. IF MAGIC:
+			- Flask of Speed: Increases the movement speed of all units.
+	}
+	Togglable Ability, ON/OFF. Normally Auto-Activates while not in combat.
+-	1. UNIVERSALLY AVAILABLE
+		- Invisibility: The Rogue turns Invisible, and is unable to be seen by enemies. 
+	Auto-Activates while Invisible. Cannot be toggled off.
+	2. UNIVERSALLY AVAILABLE
+		- Ambush: While Invisible, any attack made by the Rogue is considered an Ambush attack. This
+		  deals massive bonus damage to their target, and removes the Rogue from Invisibility.
+	3. IF TECH
+		- Stealth (Combat Special Ability - Basic Unit): Rogues will remain Invisible if they kill an
+		  enemy using Ambush while Invisible.
+
 
 -	Berserker
+-	The premier hyper aggressive unit. Low defense stats, high damage.
+	Can massively boost it's own damage. Attacks fast and hits hard, but has low health and resistances.
+	-	Abilities:
+	{	-	CAN ONLY CHOOSE ONE OF THESE
+-		1. IF MAGIC
+			- Flask of Stoneskin: Increases the armor of all units.
+-		2. IF MAGIC:
+			- Flask of Power: Temporarily boosts all unit's damage.
+-		3. IF MAGIC:
+			- Flask of Speed: Increases the movement speed of all units.
+	}
+	1. UNIVERSALLY AVAILABLE
+		- Enrage: The Berserker enters an enraged state, massively increasing it's own damage for a
+		  short amount of time.
+	2. IF TECH
+		- Recklessness (Combat Special Ability - Basic Unit): Berserkers activate nanotech in
+		  their blood once entering combat, dealing constant damage to all enemy units within
+		  range.
+
+	
 		

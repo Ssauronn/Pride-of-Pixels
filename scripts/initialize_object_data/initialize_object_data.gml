@@ -307,16 +307,16 @@ function initialize_object_data() {
 			// will be increased by 1, totalling the object's base damage, plus
 			// moraleBoostDamageBonus's additional damage, plus this variables
 			// additional 1 damage.
-			objectSkillfulUpgradeSwarmEnhancement = 1;
+			objectSkillfulUpgradeSwarmEnhancement = 0.5;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			// Morale Boost is a special ability available to all players from the
 			// Barracks upgrade tree which increases the damage of all units in range of
-			// the friendly Soldier by the amount given below. This does not stack.
+			// the friendly Soldier by the amount given below. This stacks.
 			// The value is lower than most other damage values because it is a passive
 			// damage bonus that applies to all units within range with no cooldown
-			// and no downtime.
-			moraleBoostDamageBonus = 3;
+			// and no downtime, while stacking.
+			moraleBoostDamageBonus = 1;
 			moraleBoostRange = 3 * 16;
 			// Combat variables
 			objectAttackRange = 16;
