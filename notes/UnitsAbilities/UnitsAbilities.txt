@@ -231,6 +231,21 @@ __________
 			  to itself.
 
 
+-	Warlock
+-	A ranged unit, utilizing magic damage with it's basic attacks, and summoning Demons that deal
+	physical damage in melee range.
+-	Medium attack, low health, medium resistances.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+	
+
 
 
 
