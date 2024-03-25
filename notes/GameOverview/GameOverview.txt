@@ -451,11 +451,3 @@ CODE NEEDED:
 
 
 
-
-
-determine size classification to set initial search modifier values
-just adjust the search pattern automatically using the modifier values
-
-
-
-

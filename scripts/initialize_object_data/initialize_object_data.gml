@@ -1031,7 +1031,10 @@ function initialize_object_data() {
 			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
-			abominationsCanSacrifice = false;
+			// Abominations being able to sacrifice changes the way Abominations are handled. When the player creates
+			// an Abomination from body parts, it does not cost any resources. Additionally, the Laboratory has an
+			// upgrade available that allows any unit killed by the player to have a chance to reward a free body part.
+			abominationsCanSacrifice = false; // Temple Special 4a
 			bodyPartsProvideStats = false;
 			arcaneWeaponActive = false;
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 

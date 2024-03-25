@@ -50,11 +50,11 @@ TIER 1 UPGRADES
 MAGICAL UPGRADES
 - SPECIAL 4a -	Sacrifice: Abominations can now be sacrificed at a Temple, which provides the player with the
 		body parts the Abomination was created with. The player can then create Abominations
-		with those body parts, thereby allowing the player to design what kind of
-		Abomination they would like.
+		with those body parts, thereby allowing the player to design what kind of Abomination
+		they would like. Abominations formed from body parts do not cost resources to create.
 - SPECIAL 4b -	Frankensteins: Abominations are now given bonuses depending on the parts they're created with.
-		Each Werewolf part increases the movement speed of Abominations. Each Robot part
-		increases the damage of Abominations. Each Ogre part increases the health of
+		Each Werewolf body part increases the movement speed of Abominations. Each Robot body part
+		increases the damage of Abominations. Each Ogre body part increases the health of
 		Abominations.
 TECHNOLOGY UPGRADES
 - SPECIAL 4a -	Blessed Aura: Acolytes now increase the movement speed of all friendly units within range.

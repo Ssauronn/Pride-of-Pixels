@@ -3,6 +3,8 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 -
 -
 
+BASIC UNITS
+___________
 
 -	Worker
 -	The only unit that can build buildings. Very low combat stats, low movement speed.
@@ -117,6 +119,16 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 		- Recklessness (Combat Special Ability - Basic Unit): Berserkers activate nanotech in
 		  their blood once entering combat, dealing constant damage to all enemy units within
 		  range.
+
+RUBY UNITS
+__________
+
+-	IF MAGIC
+-	Abomination
+-	Exclusive to the Magic upgrade tree. A melee unit built from body parts, each part with it's own
+	stats, to form a complete unit with varying stats depending on parts it was built from.
+-	Abominations built from stored body parts can be built without a resource cost.
+
 
 	
 		

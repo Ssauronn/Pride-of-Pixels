@@ -14,9 +14,7 @@ TECHNOLOGY UPGRADES
 						These are also SEPARATE from Combat Special Abilities chosen by
 						the player, 
 			- Support: Workers mine faster.
-			- Vicious: Increases the damage of Ambush, an attack that automatically
-			  activates while in stealth for Rogues and deals massively increased
-			  damage but pulls them out of stealth.
+			- Vicious: Increases the damage of Ambush attacks.
 			- Recklessness: Increases the damage bonus of Berserker's Enrage ability.
 			- Rallied: Increases the range and strength of Knight's Shielding Aura.
 			- Swarm: Soldiers' damage bonus from Morale Boost is increased.
@@ -36,3 +34,6 @@ TECHNOLOGY UPGRADES
 TIER 1 UPGRADES
 - OFFENSIVE 2 -	Arcane Weapon Research: Increases all magic damage dealt by ruby units.
 - DEFENSIVE 2 -	Arcane Armor Research: Increases magic armor for all units.
+MAGICAL UPGRADES
+- SPECIAL 1 -	Battlefield Salvage: Each time your units or buildings kill a unit, you have a chance
+		to obtain one free body part of any type, to be used in building Abominations at the Temple.
