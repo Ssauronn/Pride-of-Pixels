@@ -640,8 +640,8 @@ function initialize_object_data() {
 			objectAttackDamage = 25;
 			objectAttackDamageType = "Magic";
 			objectSpecialAttackDamage = 50;
-			objectSpecialAttackAreaOfEffectUnitDamage = 15;
-			objectSpecialAttackAreaOfEffectBuildingDamage = 50;
+			objectSpecialAttackAreaOfEffectUnitDamage = 50;
+			objectSpecialAttackAreaOfEffectBuildingDamage = 100;
 			objectSpecialAttackDamageType = "Magic";
 			objectSpecialAttackCooldown = 10 * room_speed;
 			objectSpecialAttackTimer = 0;
