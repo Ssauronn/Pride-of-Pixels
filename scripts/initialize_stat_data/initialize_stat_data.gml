@@ -24,6 +24,7 @@ function team_struct(team_) constructor {
 	flaskCooldownTimer = 120 * room_speed;
 	flaskCooldown = 0;
 	flaskUpgraded = false;
+	battlefieldSalvage = false;
 	shocktrooperAvailable = false;
 	shocktrooperCooldownTimer = 120 * room_speed;
 	shocktrooperCooldown = 0;
@@ -398,7 +399,7 @@ function _temple() constructor {
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.c, 
 				false, 3, false, noone, "Temple", "Ruby", "objectPierceResistance", noone, -0.1, 45, 
 				150, 150, 200, 150, noone, noone, noone);
-	sacrifice = new _upgrade_options("Sacrifice", "Abominations can now be sacrificed at a Temple, which provides the player with the body parts the Abomination was created with. The player can then create Abominations with those body parts, thereby allowing the player to create Abominations with specific body parts.", 
+	sacrifice = new _upgrade_options("Sacrifice", "Abominations can now be sacrificed at a Temple, which provides the player with the body parts the Abomination was created with. The player can then create Abominations with those body parts, thereby allowing the player to create Abominations with a specific design. Abominations created this way do not cost resources.", 
 				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.four, eUpgradeSibling.a, 
 				false, 3, false, noone, "Temple", "Abomination", "abominationsCanSacrifice", noone, 1, 90, 
 				150, 250, 400, 400, noone, noone, noone);
@@ -468,6 +469,10 @@ function _laboratory() constructor {
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 3, false, noone, "Laboratory", "Ruby", "objectMagicResistance", noone, -0.15, 180, 
 				600, 500, 400, 600, noone, noone, noone);
+	battlefieldSalvage = new _upgrade_options("Battlefield Salvage", "Each time your units or buildings kill a unit, you have a chance to gain one free body part of any time, to be used in creating Abominations at the Temple.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Laboratory", "Player", "battlefieldSalvageActive", noone, 1, 60, 
+				400, 100, 600, 600, noone, noone, noone);
 }
 function _barracks() constructor {
 	enrage = new _upgrade_options("Enrage", "Unlocks the Berserker's Standard Ability, Enrage.", 
@@ -527,9 +532,9 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.b, 
 				false, 2, false, noone, "Barracks", "Ranger", "objectAttackRange", noone, 1, 105, 
 				0, 300, 100, 0, noone, noone, noone);
-	courage = new _upgrade_options("Courage", "Increases the damage bonus from Morale Boost for other nearby friendly Soldiers.", 
+	courage = new _upgrade_options("Courage", "Increases the damage bonus provided by Morale Boost.",
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.c, 
-				false, 2, false, noone, "Barracks", "Soldier", "moraleBoostDamageBonus", noone, 1, 105, 
+				false, 2, false, noone, "Barracks", "Soldier", "moraleBoostDamageBonus", noone, 0.5, 105, 
 				200, 50, 300, 0, noone, noone, noone);
 	steelArmor = new _upgrade_options("Steel Armor", "Increases the magic armor of Knights.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.a, 

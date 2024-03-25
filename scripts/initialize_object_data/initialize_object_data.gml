@@ -307,16 +307,16 @@ function initialize_object_data() {
 			// will be increased by 1, totalling the object's base damage, plus
 			// moraleBoostDamageBonus's additional damage, plus this variables
 			// additional 1 damage.
-			objectSkillfulUpgradeSwarmEnhancement = 1;
+			objectSkillfulUpgradeSwarmEnhancement = 0.5;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			// Morale Boost is a special ability available to all players from the
 			// Barracks upgrade tree which increases the damage of all units in range of
-			// the friendly Soldier by the amount given below. This does not stack.
+			// the friendly Soldier by the amount given below. This stacks.
 			// The value is lower than most other damage values because it is a passive
 			// damage bonus that applies to all units within range with no cooldown
-			// and no downtime.
-			moraleBoostDamageBonus = 3;
+			// and no downtime, while stacking.
+			moraleBoostDamageBonus = 1;
 			moraleBoostRange = 3 * 16;
 			// Combat variables
 			objectAttackRange = 16;
@@ -640,8 +640,8 @@ function initialize_object_data() {
 			objectAttackDamage = 25;
 			objectAttackDamageType = "Magic";
 			objectSpecialAttackDamage = 50;
-			objectSpecialAttackAreaOfEffectUnitDamage = 15;
-			objectSpecialAttackAreaOfEffectBuildingDamage = 50;
+			objectSpecialAttackAreaOfEffectUnitDamage = 50;
+			objectSpecialAttackAreaOfEffectBuildingDamage = 100;
 			objectSpecialAttackDamageType = "Magic";
 			objectSpecialAttackCooldown = 10 * room_speed;
 			objectSpecialAttackTimer = 0;
@@ -1031,7 +1031,10 @@ function initialize_object_data() {
 			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
-			abominationsCanSacrifice = false;
+			// Abominations being able to sacrifice changes the way Abominations are handled. When the player creates
+			// an Abomination from body parts, it does not cost any resources. Additionally, the Laboratory has an
+			// upgrade available that allows any unit killed by the player to have a chance to reward a free body part.
+			abominationsCanSacrifice = false; // Temple Special 4a
 			bodyPartsProvideStats = false;
 			arcaneWeaponActive = false;
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 

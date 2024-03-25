@@ -3,70 +3,258 @@ AN OVERVIEW OF ALL UNITS, WHAT THEY DO, AND THEIR ABILITIES.
 -
 -
 
+BASIC UNITS
+___________
 
 -	Worker
--	The only unit that can build buildings. The only unit that can carry resources. Very low combat 
-	stats, low movement speed.
+-	The only unit that can build buildings. Very low combat stats, low movement speed.
+	The only unit that can carry resources.
 -	Abilities:
-	{	-	CAN ONLY CHOOSE ONE OF THESE
--		1. IF MAGIC
-			- Flask of Stoneskin: Increases the armor of all units (including Workers). Decreases the
-			  rate at which resources decay while being collected by Workers.
--		2. IF MAGIC
-			- Flask of Power: Increases the rate at which Workers collect resources.
--		3. IF MAGIC
-			- Flask of Speed: Increases the movement speed of all units (including Workers).
-	}
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units (including Workers). Decreases the
+				  rate at which resources decay while being collected by Workers.
+	-		2. IF MAGIC
+				- Flask of Power: Increases the rate at which Workers collect resources.
+	-		3. IF MAGIC
+				- Flask of Speed: Increases the movement speed of all units (including Workers).
+		}
 	
 	
 -	Soldier
 -	The standard melee attacking unit. Decent combat stats, doesn't stand out.
 -	Abilities:
-	{	-	CAN ONLY CHOOSE ONE OF THESE
--		1. IF MAGIC
-			- Flask of Stoneskin: Increases the armor of all units.
--		2. IF MAGIC:
-			- Flask of Power: Temporarily boosts all unit's damage.
--		3. IF MAGIC:
-			- Flask of Speed: Increases the movement speed of all units.
-	}
--	1. UNIVERSALLY AVAILABLE
--		- Morale Boost: Temporarily increase the damage of all nearby friendly units, not including
-		itself. This buff can stack.
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+		Togglable Ability, ON/OFF
+	-	1. UNIVERSALLY AVAILABLE
+	-		- Morale Boost: A passive that increases the damage of all friendly units within range,
+			  including itself.
 	
 	
 -	Ranger
 -	The standard ranged attacking unit. Low defense stats, higher offensive combat stats.
+	The only basic unit that has a ranged attack.
 -	Abilities:
-	{	-	CAN ONLY CHOOSE ONE OF THESE
--		1. IF MAGIC
-			- Flask of Stoneskin: Increases the armor of all units.
--		2. IF MAGIC:
-			- Flask of Power: Temporarily boosts all unit's damage.
--		3. IF MAGIC:
-			- Flask of Speed: Increases the movement speed of all units.
-	}
-	IF TECH TREE
-	Togglable Ability, ON/OFF
--	1. IF TECH
-		- Handheld Rail Gun: Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets 
-		  and deal damage to enemies behind their target. However, their attack speed is reduced.
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+		IF TECH TREE
+		Togglable Ability, ON/OFF
+	-	1. IF TECH
+			- Handheld Rail Gun: Rangers are given Handheld Rail Guns. Their shots now over-penetrate targets 
+			  and deal damage to enemies behind their target. However, their attack speed is reduced.
+	
 	
 -	Knight
--	The tanking melee unit. High defense stats, decent offensive combat stats. Deals damage in an area of
-	effect whenever it attacks.
-	-	Abilities:
-	{	-	CAN ONLY CHOOSE ONE OF THESE
--		1. IF MAGIC
-			- Flask of Stoneskin: Increases the armor of all units.
--		2. IF MAGIC:
-			- Flask of Power: Temporarily boosts all unit's damage.
--		3. IF MAGIC:
-			- Flask of Speed: Increases the movement speed of all units.
-	}
+-	The tanking melee unit. High defense stats, decent offensive combat stats. 
+	Deals damage in a small area of effect whenever it attacks.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+		Always Active
+	-	1. UNIVERSALLY AVAILABLE
+			- Auto Attack: When the Knight attacks an enemy, it deals damage to any enemy units located to
+			  the right and left of it's primary target.
+	-	2. IF TECH
+			- Protectorate (Combat Special Ability - Basic Unit): Knights can greatly improve the armor of
+			  friendly units within a short radius for a short period of time. This increase in armor does
+			  not affect themselves or other knights.
 	
 
 -	Rogue
+-	The stealth unit. Low defense stats, extremely high damage.
+	Can become Invisible. Any attacks made while Invisible are considered an Ambush attack, which deals
+	massive damage and removes Invisibility from the Rogue.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+		Togglable Ability, ON/OFF. Normally Auto-Activates while not in combat.
+	-	1. UNIVERSALLY AVAILABLE
+			- Invisibility: The Rogue turns Invisible, and is unable to be seen by enemies. 
+		Auto-Activates while Invisible. Cannot be toggled off.
+	-	2. UNIVERSALLY AVAILABLE
+			- Ambush: While Invisible, any attack made by the Rogue is considered an Ambush attack. This
+			  deals massive bonus damage to their target, and removes the Rogue from Invisibility.
+	-	3. IF TECH
+			- Stealth (Combat Special Ability - Basic Unit): Rogues will remain Invisible if they kill an
+			  enemy using Ambush while Invisible.
+
 
 -	Berserker
+-	The premier hyper aggressive unit. Low defense stats, high damage.
+-	Can massively boost it's own damage. Attacks fast and hits hard, but has low health and resistances.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+	-	1. UNIVERSALLY AVAILABLE
+			- Enrage: The Berserker enters an enraged state, massively increasing it's own damage for a
+			  short amount of time.
+	-	2. IF TECH
+			- Recklessness (Combat Special Ability - Basic Unit): Berserkers activate nanotech in
+			  their blood once entering combat, dealing constant damage to all enemy units within
+			  range.
+
+RUBY UNITS
+__________
+
+-	IF MAGIC
+-	Abomination
+-	Exclusive to the Magic upgrade tree. A melee unit built from body parts, each part with it's own
+	stats, to form a complete unit with varying stats depending on parts it was built from.
+-	Abominations built from stored body parts can be built without a resource cost.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+
+
+-	IF TECH
+-	Automaton
+-	Exclusive to the Tech upgrade tree. A melee unit designed to be a blitz attacking force, capable
+	of instantly teleporting to combat zones anywhere on the map. 
+-	Well balanced offensive and defensive stats, slightly better than the Soldier unit in every way.
+-	Abilities:
+	-	1. IF TECH
+			- Recklessness (Combat Special Ability - Ruby Unit): Automatons can release a constant wave
+			  of tachyon particles, dealing initially small damage to all enemy units and buildings within
+			  range, with the damage ramping up in a short amount of time to a large amount of damage.
+			  The Automaton is unable to move or attack while channeling this ability.
+	-	2. IF TECH
+			- Shocktroopers: The player can teleport all Automatons not currently in combat to a location
+			  within range of a friendly unit that is currently in combat. This ability has a long
+			  cooldown.
+
+
+-	Acolyte
+-	A support type unit, designed to be in the thick of combat with the rest of the army and able to
+	heal the army up from damage after the fight. Unable to heal normally while in combat.
+-	Can deal area of effect damage pulses while in combat, or link with other Acolytes and heal a
+	targeted area at range, depending on the upgrade path chosen.
+-	Low attack, medium low health and resistances.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+	-	1. UNIVERSALLY AVAILABLE
+			- Healing: Acolytes heal units within range that are below 100% health. Cannot activate
+			  this ability while in combat. Heals for a minor amount with a cast time, no cooldown.
+	-	2. IF MAGIC
+			- Vitality Linked: Acolytes can now be commanded to link together. Requires 3 Acolytes.
+			  Provides the ability to heal a targeted 2x2 zone in a massive radius for a large amount.
+			  This is a player power that activates all linked Acolytes at once, and any Vitality
+			  Linked Acolytes beyond the first 3 will heal a random 2x2 zone within 2 squares of the
+			  original target zone.
+		Togglable Ability, ON/OFF. Active in and out of combat.
+	-	3. IF TECH
+			- Blessed Aura: Acolytes now increase the movement speed of all friendly units within
+			  range.
+		Togglable Ability, ON/OFF. Active in and out of combat.
+	-	4. IF TECH
+			- Searing Field: Acolytes now have greater control over their nano tech and deal constant
+			  damage to all enemy units within range.
+
+
+-	Wizard
+-	A ranged unit, utilizing magic damage to deal large damage damage to units and buildings alike.
+-	Can deal area of effect damage at range if linked with other Wizards, depending on the upgrade
+	path chosen.
+-	High attack, low health, medium resistances.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+	Always Active
+	-	1. UNIVERSALLY AVAILABLE
+			- Auto Attack: Deals magic damage to the Wizard's target at range. The attack is split
+			  into 3 magic missiles, with each magic missile timed slightly apart and guaranteed
+			  to hit it's target.
+	-	2. UNIVERSALLY AVAILABLE
+			- Fireball: Deals magic damage in an area, focused around the Wizard's target. Buildings
+			  take double damage from this attack. 
+	-	3. IF MAGIC
+			- Fire Linked: Wizards can now be commanded to link together. Requires 3 Wizards.
+			  Provides the ability to damage a targeted 2x2 zone in a massive radius for a large amount.
+			  This is a player power that activates all linked Wizards at once, and any Fire Linked
+			  Wizards beyond the first 3 will target a random 2x2 zone within 2 squares of the
+			  original target zone.
+		Auto Cast Option - Targets an enemy that took damage within the last second if the cooldown
+		is available.
+	-	4. IF TECH
+			- Protectorate (Combat Special Ability - Ruby Unit): The Wizard protects a friendly unit,
+			  redirecting a portion of the damage taken by that unit to the nearest Knight within
+			  range. If there is no Knight within range, the Wizard instead redirects the damage
+			  to itself.
+
+
+-	Warlock
+-	A ranged unit, utilizing magic damage with it's basic attacks, and summoning Demons that deal
+	physical damage in melee range.
+-	Medium attack, low health, medium resistances.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+	
+
+
+
+
+
+
+
+
+
+
+
+	
 		

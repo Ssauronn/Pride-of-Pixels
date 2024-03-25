@@ -38,7 +38,7 @@ UNLOCKS TIER 2 UPGRADES
 	  it is linked to. The link is visible by all players. A unit's
 	  link to the Obelisk is removed if its total health pool
 	  exceeds that of the Obelisk.
- Empowered Wizardry
+ Fire/Vitality Linked
  - Wizards or Acolytes can now be commanded to link with other Wizards
    or Acolytes. Requires 3 of the same unit type. If Wizards are
    linked, provides the ability to deal damage to a 2x2 location within 
@@ -125,8 +125,8 @@ UNLOCKS TIER 3 UPGRADES
 		  combat, dealing constant damage to all nearby enemy
 		  units in range.
 		- Automatons can release a wave of Tachyon particles,
-		  dealing small damage initially to all units and
-		  buildings in range, with the damage then being
+		  dealing small constant damage initially to all units
+		  and buildings in range, with the damage then being
 		  increased to a large amount over a short amount of 
 		  time. The Automaton is unable to move or attack while
 		  channeling this ability.
@@ -140,7 +140,6 @@ UNLOCKS TIER 3 UPGRADES
 		  of the damage taken by that unit for a short duration 
 		  to a Knight if one is in range. If no Knight is
 		  within range, the damage is redirected to the Wizard.
-		  Does not work on other Wizards.
 
 SECOND TIER
 UNLOCKS TIER 2 UPGRADES
