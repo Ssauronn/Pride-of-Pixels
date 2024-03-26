@@ -244,7 +244,36 @@ __________
 	-		3. IF MAGIC:
 				- Flask of Speed: Increases the movement speed of all units.
 		}
+	Always Active
+	-	1. UNIVERSALLY AVAILABLE
+			- Auto Attack: Deals magic damage to the Warlock's target at range. The attack is 1
+			  shadow bolt, travelling quickly and guaranteed to hit it's target.
+	-	2. UNIVERSALLY AVAILABLE
+			- Summon Demon: Summons 1 Demon under the Warlock's command. The Demon steadily loses
+			  health while summoned until it dies, and is not healed by Acolytes while losing health
+			  this way, and will die immediately if it strays too far from the Warlock that summoned
+			  it. The Demon is a melee unit that deals physical damage. Later upgrades in the Magic
+			  tree can allow for Demons to be permanent summons that do not lose health over time, 
+			  and can allow the Warlock to summon 3 at once instead.
 	
+-	Demon
+-	A melee unit, that deals physical damage. It is only able to be summoned by a special building
+	chosen in the Magic tree (Ritual Grounds), or a Warlock. They die if they move too far from the
+	Warlock they're attached to. They will initially steadily lose health after being summoned until
+	they die, and will be unable to be healed by Acolytes, but later upgrades allow them to be
+	permanent pets that don't lose health over time and can be healed.
+-	Not designed to be a threat on it's own, but rather a compliment to the damage of Warlocks and
+	a body shield to put between the Warlock and it's enemy. Later upgrades in the Magic tree allow
+	multiple to be controlled by a Warlock at once.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
 
 
 
@@ -256,5 +285,3 @@ __________
 
 
 
-	
-		

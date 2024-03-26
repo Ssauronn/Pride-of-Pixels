@@ -42,7 +42,7 @@ TIER 1 UPGRADES
 		wander too far from the Warlock that summoned them.
 - INNOVATION 3c Sanctified: Acolyte healing is further increased.
 - OFFENSIVE 2 -	Empowered: Further increases the damage of all Ruby units.
-- OFFENSIVE 3a -Power Potions: Increases the damage of Warlocks and Wizards.
+- OFFENSIVE 3a -Power Potions: Increases the damage of Warlocks, Wizards, and Demons summoned by Warlocks.
 - OFFENSIVE 3b -Preparation: Increases the effectiveness of all Subverter effects on buildings.
 - DEFENSIVE 2a -Magic Barrier: Increases the magic armor of all ruby units.
 - DEFENSIVE 2b -Thickened Skin: Increases the slash armor of all ruby units.
