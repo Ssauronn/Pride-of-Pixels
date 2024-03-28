@@ -121,9 +121,9 @@ UNLOCKS TIER 3 UPGRADES
 		  a short range to all units and buildings. Destroys
 		  the Subverter in the process.
 	- Recklessness:
-		- Berserkers activate nanotech in their blood when in
-		  combat, dealing constant damage to all nearby enemy
-		  units in range.
+		- Berserkers will leap at their target if not within
+		  attacking range, dealing damage to their target upon
+		  landing.
 		- Automatons can release a wave of Tachyon particles,
 		  dealing small constant damage initially to all units
 		  and buildings in range, with the damage then being

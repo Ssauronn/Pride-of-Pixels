@@ -1,0 +1,93 @@
+UNITS AI
+________
+
+GENERAL AI
+Task Queue:
+	- Workers can be commanded to queue up resource gathering as well as attack commands
+	- All other units can be commanded to move to a series of points in a row, alongside attacking units/buildings in a specific order.
+
+Patrol:
+	- Patrol setting for any unit, with a patrol path set up via patrol points
+	- Option to loop the patrol or not. Set by default to loop.
+	- Any other commands cancel the patrol.
+
+Aggressive/Defensive/Stand Ground:
+	- Aggressive:
+		- Attacks any enemy within range
+		- Does not stop attacking
+	- Defensive:
+		- Attacks any enemy within range
+		- Stops chasing and returns to origin point after chasing a set distance
+	- Stand Ground:
+		- Only attacks enemies within the unit's attack range
+		- Will not move for any reason except direct commands
+
+Target(s) to Focus in Combat:
+	- Icon for every unit type
+		- Click once to Toggle between modes
+			- Focus: Shimmering gold border.
+				- The nearest units of any/all Focus targets will be targeted first
+			- Neutral: No additions to the icon.
+				- The unit will neither be focused or avoided.
+			- Avoid: Red bar across the icon.
+				- If any units are in combat other than the avoided units, they'll be focused first.
+
+Formation:
+	- Line, Square, Hollow Square
+		- All of this is already done, just needs to be able to be adjusted now in game, on the fly.
+
+
+
+BASIC UNIT SPECIFICS
+Soldier:
+	- No specifics needed.
+
+
+Knight:
+	- Shielding Aura:
+		- Active ability, toggle with Right Click to turn on Auto Cast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if in combat and the ability's cooldown is available.
+				- Does not cast if a Shielding Aura from a different unit is already active.
+				- Does not stack with other Shielding Auras from other Knights.
+
+Berserker:
+	- Enrage:
+		- Active ability, toggle with Right Click to turn on Auto Cast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if in combat and the ability's cooldown is available.
+	- (TECH ONLY) Recklessness Leap:
+		- Active ability, toggle with Right Click to turn on Auto Cast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if in combat, the ability's cooldown is available, and the Berserker is out of
+			  attack range.
+				- Does not cast if it's target is currently in attack range.
+
+Rogue:
+
+
+Ranger:
+
+
+
+
+RUBY UNIT SPECIFICS
+Abomination (MAGIC ONLY):
+
+
+Automaton (TECH ONLY):
+
+
+Acolyte:
+
+
+Wizard:
+
+
+Warlock:
+
+
+Demon:
+
+
+

@@ -4,6 +4,7 @@
     {"name":"Robot","order":1,"path":"folders/Units/Sprites/Abomination Parts/Robot.yy",},
     {"name":"Werewolf","order":2,"path":"folders/Units/Sprites/Abomination Parts/Werewolf.yy",},
     {"name":"Drone","order":2,"path":"folders/Units/Sprites/Drone.yy",},
+    {"name":"Knight","order":3,"path":"folders/Units/Sprites/Knight.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"spr_wizard_left_idle","order":2,"path":"sprites/spr_wizard_left_idle/spr_wizard_left_idle.yy",},
@@ -89,6 +90,7 @@
     {"name":"spr_robot_chest_right_attack","order":1,"path":"sprites/spr_robot_chest_right_attack/spr_robot_chest_right_attack.yy",},
     {"name":"spr_ranger_left_idle","order":2,"path":"sprites/spr_ranger_left_idle/spr_ranger_left_idle.yy",},
     {"name":"spr_gold_mine_3","order":2,"path":"sprites/spr_gold_mine_3/spr_gold_mine_3.yy",},
+    {"name":"UnitsAI","order":15,"path":"notes/UnitsAI/UnitsAI.yy",},
     {"name":"check_for_new_target","order":8,"path":"scripts/check_for_new_target/check_for_new_target.yy",},
     {"name":"spr_robot_head_left_idle","order":2,"path":"sprites/spr_robot_head_left_idle/spr_robot_head_left_idle.yy",},
     {"name":"spr_berserker_right_attack","order":1,"path":"sprites/spr_berserker_right_attack/spr_berserker_right_attack.yy",},

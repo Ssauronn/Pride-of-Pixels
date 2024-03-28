@@ -238,11 +238,19 @@ function initialize_object_data() {
 			objectSkillfulUpgradeRecklessnessEnhancement = 4;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false
+			enrageActive = false; // Special Ability
 			enrageDamageBonus = 10;
 			enrageCooldown = 20 * room_speed;
 			enrageCooldownTimer = -1;
 			enrageDuration = 6 * room_speed;
 			enrageDurationTimer = -1;
+			recklessLeapActive = false; // Combat Special Ability
+			recklessLeapDamage = 30;
+			recklessLeapRange = 4 * 16;
+			recklessLeapCooldown = 10 * room_speed;
+			recklessLeapCooldownTimer = -1;
+			recklessLeapInAirDuration = 0.75 * room_speed;
+			recklessLeapInAirTimer = -1;
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -388,6 +396,7 @@ function initialize_object_data() {
 			objectSkillfulUpgradeRalliedEnhancement = 0.05;
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
+			shieldingAuraActive = false;
 			shieldingAuraCooldown = 25 * room_speed;
 			shieldingAuraCooldownTimer = -1;
 			shieldingAuraDuration = 5 * room_speed;
@@ -402,9 +411,9 @@ function initialize_object_data() {
 			// 0.75, their resistance is now set to 0.65 while in range of Shielding Aura and all
 			// incoming damage is multiplied against 0.65, reducing damage taken by slash damage by
 			// a *further* 10% on top of the 25% base slash resistance the object already had.
-			shieldingAuraSlashResistanceEnhancement = 0.1;
-			shieldingAuraPierceResistanceEnhancement = 0.1;
-			shieldingAuraMagicResistanceEnhancement = 0.05;
+			shieldingAuraSlashResistanceEnhancement = 0.2;
+			shieldingAuraPierceResistanceEnhancement = 0.2;
+			shieldingAuraMagicResistanceEnhancement = 0.1;
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object

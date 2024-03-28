@@ -120,9 +120,8 @@ ___________
 			- Enrage: The Berserker enters an enraged state, massively increasing it's own damage for a
 			  short amount of time.
 	-	2. IF TECH
-			- Recklessness (Combat Special Ability - Basic Unit): Berserkers activate nanotech in
-			  their blood once entering combat, dealing constant damage to all enemy units within
-			  range.
+			- Recklessness (Combat Special Ability - Basic Unit): The Berserker will leap at it's target
+			  if it is not within attacking range, dealing damage to it's target.
 
 RUBY UNITS
 __________
