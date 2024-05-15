@@ -42,13 +42,12 @@ BASIC UNIT SPECIFICS
 Soldier:
 	- No specifics needed.
 
-
 Knight:
 	- Shielding Aura:
 		- Active ability, toggle with Right Click to turn on Auto Cast
 			- While toggled, shimmering gold border around the icon.
 			- Casts if in combat and the ability's cooldown is available.
-				- Does not cast if a Shielding Aura from a different unit is already active.
+				- Does not cast if a Shielding Aura from a different friendly unit is already active.
 				- Does not stack with other Shielding Auras from other Knights.
 
 Berserker:
@@ -56,7 +55,7 @@ Berserker:
 		- Active ability, toggle with Right Click to turn on Auto Cast
 			- While toggled, shimmering gold border around the icon.
 			- Casts if in combat and the ability's cooldown is available.
-	- (TECH ONLY) Recklessness Leap:
+	- (TECH ONLY) Recklessness: Leap:
 		- Active ability, toggle with Right Click to turn on Auto Cast
 			- While toggled, shimmering gold border around the icon.
 			- Casts if in combat, the ability's cooldown is available, and the Berserker is out of
@@ -64,19 +63,28 @@ Berserker:
 				- Does not cast if it's target is currently in attack range.
 
 Rogue:
-
+	- Invisibility:
+		- Active ability, toggle with Right Click to turn on Auto Acast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if outside of combat. Lasts until unit takes damage or deals damage.
+	- Ambush:
+		- Active ability, toggle with Right Click to turn on Auto Cast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if in combat, the Rogue is currently in or outside of combat, and the Rogue is
+			  within attack range.
+	- (TECH ONLY) 
 
 Ranger:
-
+	- No specifics needed.
 
 
 
 RUBY UNIT SPECIFICS
 Abomination (MAGIC ONLY):
-
+	- No specifics needed.
 
 Automaton (TECH ONLY):
-
+	- 
 
 Acolyte:
 

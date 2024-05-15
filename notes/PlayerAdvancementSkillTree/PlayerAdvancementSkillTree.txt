@@ -131,10 +131,10 @@ UNLOCKS TIER 3 UPGRADES
 		  time. The Automaton is unable to move or attack while
 		  channeling this ability.
 	- Protectorate:
-		- Knights can greatly improve the armor of friendly units
-		  within a short radius for a short amount of time. This
-		  increase in armor does not affect themselves or other
-		  Knights.
+		- Knights can be commanded to encase themselves in a thin
+		  layer of nanobots. Enemies must first break through the
+		  nanobot layer in order to damage the Knight, effectively
+		  providing a temporary boost to the Knight's health.
 		- Wizards can be commanded to protect a unit
 		  automatically selected in combat and redirect part
 		  of the damage taken by that unit for a short duration 

@@ -11,8 +11,6 @@ TECHNOLOGY UPGRADES
 				- NOTE: These are SEPARATE from Combat Specialization chosen by the player
 					    at the beginning of the game (listed in PlayerAdvancementSkillTree)
 						and can all be obtained regardless of the chosen Combat Specialization.
-						These are also SEPARATE from Combat Special Abilities chosen by
-						the player, 
 			- Support: Workers mine faster.
 			- Vicious: Increases the damage of Ambush attacks.
 			- Recklessness: Increases the damage bonus of Berserker's Enrage ability.

@@ -59,7 +59,8 @@ ___________
 	
 -	Knight
 -	The tanking melee unit. High defense stats, decent offensive combat stats. 
-	Deals damage in a small area of effect whenever it attacks.
+	Deals damage in a small area of effect whenever it attacks. Can be upgraded to provide a bonus to all
+	resistances to all friendly units within range.
 -	Abilities:
 		{	-	CAN ONLY CHOOSE ONE OF THESE
 	-		1. IF MAGIC
@@ -73,10 +74,13 @@ ___________
 	-	1. UNIVERSALLY AVAILABLE
 			- Auto Attack: When the Knight attacks an enemy, it deals damage to any enemy units located to
 			  the right and left of it's primary target.
-	-	2. IF TECH
-			- Protectorate (Combat Special Ability - Basic Unit): Knights can greatly improve the armor of
-			  friendly units within a short radius for a short period of time. This increase in armor does
-			  not affect themselves or other knights.
+	-	2. UNIVERSALLY AVAILABLE
+			- Shielding Aura: An ability that provides a large boost to the resistances of all friendly units 
+			  within range for a short duration.
+	-	3. IF TECH
+			- Protectorate (Combat Special Ability - Basic Unit): Knight can be commanded to encase themselves
+			  in a thin layer of nanobots. Enemies must first break through the nanobot layer in order to damage
+			  the Knight, effectively providing a temporary boost to the Knight's health.
 	
 
 -	Rogue
@@ -209,9 +213,10 @@ __________
 		}
 	Always Active
 	-	1. UNIVERSALLY AVAILABLE
-			- Auto Attack: Deals magic damage to the Wizard's target at range. The attack is split
-			  into 3 magic missiles, with each magic missile timed slightly apart and guaranteed
-			  to hit it's target.
+			- Auto Attack: Deals arcane magic damage to the Wizard's target at range. The attack
+			  is split into 3 magic missiles, with each magic missile timed slightly apart and
+			  guaranteed to hit it's target.
+	Always Active
 	-	2. UNIVERSALLY AVAILABLE
 			- Fireball: Deals magic damage in an area, focused around the Wizard's target. Buildings
 			  take double damage from this attack. 
@@ -228,6 +233,36 @@ __________
 			  redirecting a portion of the damage taken by that unit to the nearest Knight within
 			  range. If there is no Knight within range, the Wizard instead redirects the damage
 			  to itself.
+
+
+-	Subverter
+-	A unit dedicated to subversion and sabatoge, it cannot attack. Instead, this unit can disguise
+	itself as any other unit including enemy units, sneak by defenses undetected, and disable and
+	destroy buildings.
+-	No attack, low health, low resistances.
+-	Abilities:
+		{	-	CAN ONLY CHOOSE ONE OF THESE
+	-		1. IF MAGIC
+				- Flask of Stoneskin: Increases the armor of all units.
+	-		2. IF MAGIC:
+				- Flask of Power: Temporarily boosts all unit's damage.
+	-		3. IF MAGIC:
+				- Flask of Speed: Increases the movement speed of all units.
+		}
+	Always Active
+	-	1. UNIVERSALLY AVAILABLE
+			- Copy: Disguises the Subverter as another selected unit of any type. Friendly units will
+			  not attack the Subverter if disguised as an enemy unit. Enemy units will not automatically
+			  attack the Subverter if disguised as a unit friendly to them, but if the Subverter is
+			  detected or noticed it will be attacked.
+	-	2. UNIVERSALLY AVAILABLE
+			- Disable: Sabotage a building, disabling it's capabilities for a set amount of time. The
+			  building can be selected but no timers like unit creation will count down while disabled,
+			  and the building cannot be used for any purpose while disabled.
+	-	3. IF TECH
+			- Explode: The Subverter now carries a powerful bomb everywhere it travels. If activated
+			  (must be manually activated), the Subverter explodes, dealing massive magic damage to itself
+			  and all units (friendly included) that are adjacent to it.
 
 
 -	Warlock
@@ -247,11 +282,12 @@ __________
 	-	1. UNIVERSALLY AVAILABLE
 			- Auto Attack: Deals magic damage to the Warlock's target at range. The attack is 1
 			  shadow bolt, travelling quickly and guaranteed to hit it's target.
+	Always Active
 	-	2. UNIVERSALLY AVAILABLE
 			- Summon Demon: Summons 1 Demon under the Warlock's command. The Demon steadily loses
 			  health while summoned until it dies, and is not healed by Acolytes while losing health
 			  this way, and will die immediately if it strays too far from the Warlock that summoned
-			  it. The Demon is a melee unit that deals physical damage. Later upgrades in the Magic
+			  it. The Demon is a melee unit that deals physical damage. Later upgrades in the MAGIC
 			  tree can allow for Demons to be permanent summons that do not lose health over time, 
 			  and can allow the Warlock to summon 3 at once instead.
 	
@@ -264,6 +300,7 @@ __________
 -	Not designed to be a threat on it's own, but rather a compliment to the damage of Warlocks and
 	a body shield to put between the Warlock and it's enemy. Later upgrades in the Magic tree allow
 	multiple to be controlled by a Warlock at once.
+-	Medium attack, low health, low resistances.
 -	Abilities:
 		{	-	CAN ONLY CHOOSE ONE OF THESE
 	-		1. IF MAGIC

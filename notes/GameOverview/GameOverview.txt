@@ -55,6 +55,7 @@ Normal Units
     High attack, medium HP.
 -Knight
 ----Meant to front line attacks. High resistances to all damage types. Deals slash damage in an area of effect.
+	Can be upgraded to provide a bonus to all resistances to friendly units within range.
     Low damage, high HP.
 Ruby Units
 -Automaton - REQUIRES RUBIES TO BUILD
@@ -71,9 +72,8 @@ Ruby Units
 ----Can heal other targets. Slowly regenerates HP over time.
     Low attack, low HP.
 -Wizard - REQUIRES RUBIES TO BUILD
-----Can cast spells at a distance. Will only cast single target spells. If upgraded through the Laboratory, they
-    can then also cast Area of Effect spells (spell choice is automatic depending on how many enemies are adjacent
-    to target in combat).
+----Can cast spells at a distance. Casts a single target triple missile barrage by default, with a Fireball Special
+	Ability also unlocked by default. Various upgrades can add spells and combine Wizards to cast long range spells.
     Wizards can mine Rubies at 100% efficiency of a worker.
     Medium attack, medium HP.
 -Warlock - REQUIRES RUBIES TO BUILD
