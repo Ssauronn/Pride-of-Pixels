@@ -40,9 +40,6 @@ enum abominationLegs {
 	robot
 }
 enum abominationBodyPartStats {
-	baseHP = 30,
-	baseMovementSpeed = 1 * (1 / 3),
-	baseAttackDamage = 8,
 	ogreHP = 55,
 	werewolfMovementSpeed = 2 * (1 / 3),
 	robotAttackDamage = 13
@@ -107,12 +104,15 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
-			// Availability variables
+			
+			// Path setting variables
 			returnToResourceX = noone;
 			returnToResourceY = noone;
 			returnToResourceID = noone;
 			returnToResourceType = noone;
 			returnToResourceDropPointID = noone;
+			
+			// Special Ability Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
@@ -122,12 +122,16 @@ function initialize_object_data() {
 			// if the value below is 0.85, the collection speed of all resources will be
 			// increased by 15%.
 			objectSkillfulUpgradeSupportMultiplier = 0.85;
+			
+			// Combat Special Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
+			
+			// Various Capability Variables
+			movementSpeedBonusAvailable = false; // Storehouse Special 2a
 			movementSpeedBonus = 1;
-			movementSpeedBonusAvailable = false;
 			movementSpeedBonusActive = false;
-			randomBasicResourceGenerationActive = false;
+			randomBasicResourceGenerationActive = false; // Storehouse Special 2b
 			canBuildFarm = false;
 			canBuildThicket = false;
 			canBuildMine = false;
@@ -139,7 +143,8 @@ function initialize_object_data() {
 			canBuildRailGun = false;
 			canBuildStasisField = false;
 			canBuildLaunchSite = false;
-			canMineRuby = false;
+			canMineRuby = false; // Storehouse Special 1
+			
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 3; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -228,29 +233,33 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 7 * 16;
-			// Availability variables
+			
+			// Special Ability Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
-			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
-			// This is a value to be added to the variable enrageDamageBonus. E.g., if the variable
-			// below is set to 1, enrageDamageBonus should have the value below added to it, to set 
-			// the total enrageDamageBonus value to it's original value plus 1.
-			objectSkillfulUpgradeRecklessnessEnhancement = 4;
-			objectHasCombatSpecializationAbility = true;
-			objectCanUseCombatSpecializationAbility = false
 			enrageActive = false; // Special Ability
 			enrageDamageBonus = 10;
 			enrageCooldown = 20 * room_speed;
 			enrageCooldownTimer = -1;
 			enrageDuration = 6 * room_speed;
 			enrageDurationTimer = -1;
+			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
+			// This is a value to be added to the variable enrageDamageBonus. E.g., if the variable
+			// below is set to 1, enrageDamageBonus should have the value below added to it, to set 
+			// the total enrageDamageBonus value to it's original value plus 1.
+			objectSkillfulUpgradeRecklessnessEnhancement = 4;
+			
+			// Combat Special Ability Availability variables
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false
 			recklessLeapActive = false; // Combat Special Ability
 			recklessLeapDamage = 30;
 			recklessLeapRange = 4 * 16;
-			recklessLeapCooldown = 10 * room_speed;
+			recklessLeapCooldown = 12 * room_speed;
 			recklessLeapCooldownTimer = -1;
 			recklessLeapInAirDuration = 0.75 * room_speed;
 			recklessLeapInAirTimer = -1;
+			
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -306,26 +315,40 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
-			// Availability variables
+			
+			// Special Ability Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
+			// Morale Boost is a special ability available to all players from the
+			// Barracks upgrade tree which increases the damage of all units in range of
+			// the friendly Soldier by the amount given below, and same thing goes for 
+			// the range.
+			// The value is lower than most other damage values because it is a passive
+			// damage bonus that applies to all units within range with no cooldown
+			// and no downtime, while stacking.
+			moraleBoostActive = false;
+			moraleBoostDamageBonus = 1;
+			moraleBoostRange = 3 * 16;
 			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
 			// This is a value to be added to the variable moraleBoostDamageBonus.
 			// E.g., if the variable below is set to 1, then moraleBoostDamageBonus
 			// will be increased by 1, totalling the object's base damage, plus
 			// moraleBoostDamageBonus's additional damage, plus this variables
 			// additional 1 damage.
-			objectSkillfulUpgradeSwarmEnhancement = 0.5;
+			objectSkillfulUpgradeSwarmDamageEnhancement = 0.5;
+			objectSkillfulUpgradeSwarmRangeEnhancement = 1 * 16;
+			objectCourageUpgradeActive = false; // Barracks Offensive 2c
+			// This is a value to be added to the variable moraleBoostDamageBonus.
+			// E.g., if the variable below is set to 1, then moraleBoostDamageBonus
+			// will be increased by 1, totalling the object's base damage, plus
+			// moraleBoostDamageBonus's additional damage, plus this variables
+			// additional 1 damage.
+			objectCourageUpgradeDamageEnhancement = 0.5;
+			
+			// Combat Special Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
-			// Morale Boost is a special ability available to all players from the
-			// Barracks upgrade tree which increases the damage of all units in range of
-			// the friendly Soldier by the amount given below. This stacks.
-			// The value is lower than most other damage values because it is a passive
-			// damage bonus that applies to all units within range with no cooldown
-			// and no downtime, while stacking.
-			moraleBoostDamageBonus = 1;
-			moraleBoostRange = 3 * 16;
+			
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -380,23 +403,11 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
-			// Availability variables
-			objectHasSpecialAbility = false;
+			
+			// Special Ability Availability variables
+			objectHasSpecialAbility = true; // Special ability
 			objectCanUseSpecialAbility = false;
-			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
-			// This is a value to be added to the variables
-			// shieldingAura[Slash/Pierce/Magic]ResistanceEnhancement. As those
-			// variables increase resistances as they go up (read their description
-			// for details), adding the variable below to the listed variables will
-			// increase the effective resistance while Shielding Aura is active. E.g.,
-			// if this variable is set to 0.05, then all resistances while Shielding
-			// Aura is active will be increased by an additional 5%.
-			// Read descriptions of the listed variables, as well as descriptions of 
-			// base resistances, for additional information on how this is calculated.
-			objectSkillfulUpgradeRalliedEnhancement = 0.05;
-			objectHasCombatSpecializationAbility = true;
-			objectCanUseCombatSpecializationAbility = false;
-			shieldingAuraActive = false;
+			shieldingAuraActive = false; // Special Ability
 			shieldingAuraCooldown = 25 * room_speed;
 			shieldingAuraCooldownTimer = -1;
 			shieldingAuraDuration = 5 * room_speed;
@@ -414,6 +425,37 @@ function initialize_object_data() {
 			shieldingAuraSlashResistanceEnhancement = 0.2;
 			shieldingAuraPierceResistanceEnhancement = 0.2;
 			shieldingAuraMagicResistanceEnhancement = 0.1;
+			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
+			// This is a value to be added to the variables
+			// shieldingAura[Slash/Pierce/Magic]ResistanceEnhancement. As those
+			// variables increase resistances as they go up (read their description
+			// for details), adding the variable below to the listed variables will
+			// increase the effective resistance while Shielding Aura is active. E.g.,
+			// if this variable is set to 0.05, then all resistances of all friendly
+			// units within range that are affected by Shielding Aura will be increased 
+			// by an additional 5%.
+			// Read descriptions of the listed variables, as well as descriptions of 
+			// base resistances, for additional information on how this is calculated.
+			objectSkillfulUpgradeRalliedDamageEnhancement = 0.05;
+			objectSkillfulUpgradeRalliedRangeEnhancement = 1 * 16;
+			objectCourageUpgradeActive = false; // Barracks Offensive 2c
+			objectCourageUpgradeResistanceEnhancement = 0.1;
+			
+			// Combat Special Ability Availability variables
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false;
+			nanobotEncasementActive = false; // Combat Special Ability
+			nanobotEncasementCooldown = 30 * room_speed;
+			nanobotEncasementCooldownTimer = 0;
+			nanobotEncasementDuration = 5 * room_speed;
+			nanobotEncasementDurationTimer = 0;
+			// The HP of the nanobot encasement. Any incoming damage to the Knight while
+			// nanobot encasement is active is instead dealt to the nanobot encasement
+			// first. Once the encasement's HP hits 0 it disappears. Damage does NOT carry
+			// over, meaning if the encasement's HP is at 1 and it takes 100 damage, the
+			// Knight still does not take any damage.
+			nanobotEncasementMaxHealth = 40;
+			
 			// Combat variables
 			objectAttackRange = 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -468,7 +510,8 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 9 * 16;
-			// Availability variables
+			
+			// Special Ability Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
@@ -476,10 +519,15 @@ function initialize_object_data() {
 			// base damage. This is simply a flat increase at all times to the base 
 			// damage of Rangers once the upgrade is unlocked at the Laboratory.
 			objectSkillfulUpgradeRangeTrainingEnhancement = 3;
+			
+			// Combat Special Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
+			
+			// Various Capability Upgrades
 			handheldRailGunActive = false;
 			handheldRailGunDamageBonus = 8;
+			
 			// Combat variables
 			objectAttackRange = 5 * 16;
 			objectCombatAggroRange = 7; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -535,25 +583,29 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = false;
 			objectSightRange = 6 * 16;
-			// Availability variables
+			
+			// Special Ability Availability variables
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = false;
+			isInvisible = false;
+			ambushDamageBonus = 50;
 			objectSkillfulUpgradeActive = false; // Laboratory Innovation 1
 			// This is a value to be added to the variable ambushDamageBonus. E.g., if the variable
 			// below is set to 20, ambushDamageBonus should have the value below added to it, to set 
 			// the total ambushDamageBonus value to it's original value plus 20.
 			objectSkillfulUpgradeViciousEnhancement = 20;
-			objectHasCombatSpecializationAbility = true;
-			objectCanUseCombatSpecializationAbility = false;
-			isInvisible = false;
-			ambushDamageBonus = 50;
-			piercingStrikeActive = false;
+			piercingStrikeActive = false; // Barracks Offensive 2a
 			// Armor is a decimal value from 0 to 1, or higher, used to multiply against damage. The lower the value,
 			// the higher the armor. So penetration is temporarily multiplied with the armor multiplier, to
 			// increase the damage taken by the target (when using the Ambush ability in this case). E.g. if
 			// piercingStrikePenetration is set to 1.5, and the target's pierce armor is 0.5, the target now takes
 			// 1.5x damage, or (1.5 * 0.5 = 0.75).
 			piercingStrikePenetration = 1.5;
+			
+			// Combat Special Ability Availability variables
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false;
+			
 			// Combat variables
 			objectAttackRange = 1 * 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -609,17 +661,29 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
-			// Availability variables
+			
+			// Special Ability Availability variables
 			// Special Ability in this case is Wizard's Fireball ability, which is always unlocked by default.
+			// To be crystal clear, this is different than the Wizard's basic attack, which is a series of 3
+			// arcane missiles launched slightly offset from one another at the Wizard's target, all guaranteed
+			// to hit.
 			objectHasSpecialAbility = true;
-			objectCanUseSpecialAbility = false;
+			objectCanUseSpecialAbility = true;
 			objectSkillfulUpgradeActive = false;
-			objectHasCombatSpecializationAbility = true;
-			objectCanUseCombatSpecializationAbility = false;
+			objectSpecialAttackDamage = 50;
+			objectSpecialAttackAreaOfEffectUnitDamage = 50;
+			objectSpecialAttackAreaOfEffectBuildingDamage = 100;
+			objectSpecialAttackDamageType = "Magic";
+			objectSpecialAttackCooldown = 10 * room_speed;
+			objectSpecialAttackTimer = 0;
 			// Singed Circuit is an unlocked passive that reduces the cooldown of the Wizard's special
 			// ability if it hits enough targets with a cast of that special ability.
-			singedCircuitActive = false;
-			singedCircuitSpecialAttackCooldownReduction = 3 * room_speed;
+			singedCircuitActive = false; // Temple Innovation 3a
+			singedCircuitSpecialAttackCooldownReduction = 5 * room_speed;
+			
+			// Combat Special Ability Availability variables
+			objectHasCombatSpecializationAbility = true;
+			objectCanUseCombatSpecializationAbility = false;
 			// The Wizard's combat specialization ability is to redirect damage received by a chosen
 			// target to a nearby Knight in combat. If there are no Knights nearby, the damage is instead
 			// redirected to the Wizard.
@@ -633,28 +697,30 @@ function initialize_object_data() {
 			objectCombatSpecializationRedirectProtectMultiplier = 0.7;
 			objectCombatSpecializationDurationTimer = 5 * room_speed;
 			objectCombatSpecializationDurationCooldown = -1;
-			wizardsCanLink = false;
+			
+			// Various Capability Upgrades
+			wizardsCanLink = false; // Temple Innovation 2a
 			wizardIsLinked = false;
 			aoeLinkedSquareSize = 2;
-			arcaneWeaponActive = false;
+			arcaneWeaponActive = false; // Laboratory Offensive 2
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
 			// this variable should be multiplied once against the final damage value of every unit before the damage
 			// is applied.
 			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false; // Laboratory Defensive 2
+			// Because armor is a multiplier, the lower it is (closer to 0) the better. Meaning this is added to the magic
+			// armor of the unit in question to lower the resistance multiplier *value*, thereby increasing the resistance's
+			// *overall reduction*.
+			arcaneArmorMagicArmorBonus = -0.15;
+			
 			// Combat variables
-			objectAttackRange = 3 * 16;
+			objectAttackRange = 4 * 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 2 * room_speed;
 			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 25;
+			objectAttackDamage = 8; // Each magic missile deals this amount of damage, meaning because there are 3 in each attack volley, the Wizard's total damage is 3x this value.
 			objectAttackDamageType = "Magic";
-			objectSpecialAttackDamage = 50;
-			objectSpecialAttackAreaOfEffectUnitDamage = 50;
-			objectSpecialAttackAreaOfEffectBuildingDamage = 100;
-			objectSpecialAttackDamageType = "Magic";
-			objectSpecialAttackCooldown = 10 * room_speed;
-			objectSpecialAttackTimer = 0;
-			objectSpecialAttackTimerSingedCircuitMultiplier = 0.5;
+			
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -708,18 +774,51 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
-			// Availability variables
+			
+			// Special Ability Availability variables
 			objectHasSpecialAbility = true;
-			objectCanUseSpecialAbility = false;
-			objectSkillfulUpgradeActive = false;
+			objectCanUseSpecialAbility = true;
+			
+			// Combat Special Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
-			enslavementActive = false;
-			arcaneWeaponActive = false;
+			
+			// Various Capability Upgrades
+			// Enslavement makes Demons summoned permanent. By default they expire after a time limit set by the variable
+			// summonedDemonsTimeLimit.
+			summonedDemonsLimit = 1;
+			// The time limit is determined by the Warlock and it's upgrades, but the timer itself is managed by the Demon that
+			// is summoned. This greatly simplifies the way summons are handled. This is affected by the upgrade enslavement
+			// found in the Temple, which removes the time limit and makes the Demons permanent.
+			summonedDemonsTimeLimit = 10 * room_speed;
+			summonedDemonsList = noone;
+			// The range at which Demons will run back to their master's sides no matter what their current action was.
+			summonedDemonsMaxTetherRange = 12 * 16;
+			// Demons will immediately die if they exceed this distance from their master, no matter their current action.
+			summonedDemonsMaxDeathRange = 15 * 16;
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
+			enslavementActive = false; // Temple Innovation 3b
+			// Demons summoned by and bound to the Warlock by the Ritual Grounds structure will bind to the Warlock on their end
+			// but will not be registered as soulbound to the Warlock on the Warlock's end. This is so that the Warlock can still
+			// summon its regular amount of Demons when those specific Demons die without needing to wait for 20+ Demons to die
+			// before casting its summon again.
+			// If enslavement is active, then the variables summonedDemonsLimit should be set to enslavementDemonsLimit, to increase
+			// the amount of Demons able to be summoned by the Warlock.
+			enslavementDemonsLimit = 3;
+			arcaneWeaponActive = false; // Laboratory Offensive 2
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
 			// this variable should be multiplied once against the final damage value of every unit before the damage
 			// is applied.
 			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false; // Laboratory Defensive 2
+			// Because armor is a multiplier, the lower it is (closer to 0) the better. Meaning this is added to the magic
+			// armor of the unit in question to lower the resistance multiplier *value*, thereby increasing the resistance's
+			// *overall reduction*.
+			arcaneArmorMagicArmorBonus = -0.15;
+			objectSkillfulUpgradeActive = false; // Only applies to basic units, here to avoid issues calling variables
+			
 			// Combat variables
 			objectAttackRange = 3 * 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -729,23 +828,6 @@ function initialize_object_data() {
 			objectAttackDamageType = "Magic";
 			objectSpecialAttackCooldown = 10 * room_speed;
 			objectSpecialAttackTimer = 0;
-			
-			// Demons summoned by and bound to the Warlock by the Ritual Grounds structure will bind to the Warlock on their end
-			// but will not be registered as soulbound to the Warlock on the Warlock's end. This is so that the Warlock can still
-			// summon its regular amount of Demons when those specific Demons die without needing to wait for 20+ Demons to die
-			// before casting its summon again.
-			summonedDemonsLimit = 1;
-			// The time limit is determined by the Warlock and it's upgrades, but the timer itself is managed by the Demon that
-			// is summoned. This greatly simplifies the way summons are handled.
-			summonedDemonsTimeLimit = 8 * room_speed;
-			summonedDemonsList = noone;
-			// The range at which Demons will run back to their master's sides no matter what their current action was.
-			summonedDemonsMaxTetherRange = 12 * 16;
-			// Demons will immediately die if they exceed this distance from their master, no matter their current action.
-			summonedDemonsMaxDeathRange = 14 * 16;
-			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
-			// Anything above 1 means it has a negative resistance and takes more damage than normal
-			// from that damage type.
 			objectSlashResistance = 1.25;
 			objectPierceResistance = 1;
 			objectMagicResistance = 0.95;
@@ -796,18 +878,27 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 5 * 16;
-			// Availability variables
+			
+			// Special and Combat Special Availability variables (none for Demon)
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
-			enslavementActive = false;
-			arcaneWeaponActive = false;
+			
+			// Various Capability Upgrades
+			enslavementActive = false; // Temple Innovation 3b
+			arcaneWeaponActive = false; // Laboratory Offensive 2
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
 			// this variable should be multiplied once against the final damage value of every unit before the damage
 			// is applied.
 			arcaneWeaponBonus = 1.15;
+			arcaneArmorActive = false; // Laboratory Defensive 2
+			// Because armor is a multiplier, the lower it is (closer to 0) the better. Meaning this is added to the magic
+			// armor of the unit in question to lower the resistance multiplier *value*, thereby increasing the resistance's
+			// *overall reduction*.
+			arcaneArmorMagicArmorBonus = -0.15;
+			
 			// Combat variables
 			objectAttackRange = 1 * 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -883,29 +974,41 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
-			// Availability variables
+			
+			// Special Ability Availability variables
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSkillfulUpgradeActive = false;
+			
+			// Combat Special Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
-			acolytesCanLink = false;
+			
+			// Various Capability Upgrades
+			acolytesCanLink = false; // Temple Innovation 2b
 			acolyteIsLinked = false;
 			aoeLinkedSquareSize = 2;
-			acolyteBlessedAuraActive = false;
+			acolyteBlessedAuraActive = false; // Temple Special 4a
 			acolyteBlessedAuraRadius = 4 * 16;
 			acolyteBlessedAuraMovementSpeedBonus = 0.25;
-			acolyteSearingFieldActive = false;
+			acolyteSearingFieldActive = false; // Temple Special 4b
 			acolyteSearingFieldRadius = 2 * 16;
 			acolyteSearingFieldAoEDamage = 6;
 			acolyteSearingFieldCooldown = 1 * room_speed;
 			acolyteSearingFieldCooldownTimer = -1;
-			arcaneWeaponActive = false;
+			arcaneWeaponActive = false; // Laboratory Offensive 2
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
 			// this variable should be multiplied once against the final heal for Acolytes after all other adjustments
 			// have been made.
 			arcaneWeaponBonus = 1.15;
-			// Combat variables
+			objectSkillfulUpgradeActive = false;
+			arcaneArmorActive = false; // Laboratory Defensive 2
+			// Because armor is a multiplier, the lower it is (closer to 0) the better. Meaning this is added to the magic
+			// armor of the unit in question to lower the resistance multiplier *value*, thereby increasing the resistance's
+			// *overall reduction*.
+			arcaneArmorMagicArmorBonus = -0.15;
+			
+			// Combat variables - In Acolyte's case, they cannot attack, only heal, so these are healing values and apply
+			// to friendly units.
 			objectAttackRange = 4 * 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
 			objectAttackSpeed = 3 * room_speed;
@@ -965,24 +1068,45 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
-			// Availability variables
+			
+			// Special Ability Availability variables
+			// The Subverter's special ability is unlocked by default, and allows it to take the appearance of another
+			// unit. The Subverter does not gain any abilities of that unit, only the appearance.
 			objectHasSpecialAbility = true;
-			objectCanUseSpecialAbility = false;
-			objectSkillfulUpgradeActive = false;
+			objectCanUseSpecialAbility = true;
+			// I need a script here that sets the Subverter's movement and idle sprite tables to the copied unit based
+			// on the string given here. It also needs to reset the Subverter's sprites if it is attacked or the ability
+			// is cancelled.
+			subverterCopiedUnit = "";
+			subverterCopyCooldown = 30 * room_speed;
+			subverterCopyCooldownTimer = 0;
+			
+			// Combat Special Ability Availability variables
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
-			preparationActive = false;
-			arcaneWeaponActive = false;
+			// The Subverter's Combat Special Ability is to explode itself and adjacent squares, dealing MASSIVE magic damage.
+			objectCombatSpecializationAttackDamage = 500;
+			objectCombatSpecializationAttackDamageType = "Magic";
+			objectCombatSpecializationAttackAoERadius = 2 * 16; // A range of 2 means only the adjacent squares will be affected.
+			
+			// Various Capability Upgrades
+			preparationActive = false; // Temple Offensive 3b
+			preparationDisableBonusTime = 10 * room_speed;
+			arcaneWeaponActive = false; // Laboratory Offensive 2
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
 			// this variable should be multiplied once against the final damage value of every unit before the damage
 			// is applied.
 			arcaneWeaponBonus = 1.15;
+			objectSkillfulUpgradeActive = false;
+			arcaneArmorActive = false; // Laboratory Defensive 2
+			// Because armor is a multiplier, the lower it is (closer to 0) the better. Meaning this is added to the magic
+			// armor of the unit in question to lower the resistance multiplier *value*, thereby increasing the resistance's
+			// *overall reduction*.
+			arcaneArmorMagicArmorBonus = -0.15;
+			
 			// Combat variables - Subverters can't attack normally, they entirely rely on deception.
 			objectAttackRange = 1 * 16; // The range at which the Subverter can sabotage a building.
-			objectSpecialAttackDisableDuration = 30 * room_speed;
-			objectCombatSpecializationAttackDamage = 500;
-			objectCombatSpecializationAttackDamageType = "Magic";
-			objectCombatSpecializationAttackAoERadius = 2 * 16;
+			disableDuration = 30 * room_speed;
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -1034,22 +1158,33 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 6 * 16;
-			// Availability variables
+			
+			// Special and Combat Special Ability Availability variables (none for Abomination)
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSkillfulUpgradeActive = false;
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
+			
+			// Various Capability Variables
 			// Abominations being able to sacrifice changes the way Abominations are handled. When the player creates
 			// an Abomination from body parts, it does not cost any resources. Additionally, the Laboratory has an
 			// upgrade available that allows any unit killed by the player to have a chance to reward a free body part.
 			abominationsCanSacrifice = false; // Temple Special 4a
-			bodyPartsProvideStats = false;
-			arcaneWeaponActive = false;
+			// Body part stats provided by each body part to make a full Abomination are provided in the enum
+			// abominationBodyPartStats.
+			bodyPartsProvideStats = false; // Temple Special 4b
+			arcaneWeaponActive = false; // Laboratory Offensive 2
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
 			// this variable should be multiplied once against the final damage value of every unit before the damage
 			// is applied.
 			arcaneWeaponBonus = 1.15;
+			objectSkillfulUpgradeActive = false;
+			arcaneArmorActive = false; // Laboratory Defensive 2
+			// Because armor is a multiplier, the lower it is (closer to 0) the better. Meaning this is added to the magic
+			// armor of the unit in question to lower the resistance multiplier *value*, thereby increasing the resistance's
+			// *overall reduction*.
+			arcaneArmorMagicArmorBonus = -0.15;
+			
 			// Combat variables
 			objectAttackRange = 1 * 16;
 			objectCombatAggroRange = 4; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -1227,22 +1362,36 @@ function initialize_object_data() {
 			currentMovementSpeed = baseMovementSpeed;
 			objectIsRubyUnit = true;
 			objectSightRange = 7 * 16;
-			// Availability variables
-			objectHasSpecialAbility = true;
+			
+			// Special Ability Availability variables
+			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
-			objectSkillfulUpgradeActive = false;
+			
+			// Combat Special Ability Availability variables
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
+			
+			// Various Capability Variables
+			// Chronic Empowerment is a damage boost that applies when the Automaton is teleported using the Shocktrooper
+			// ability (Temple Innovation 2). The upgrade is applied to the player directly, hence why Shocktrooper doesn't
+			// appear in Automaton stats.
 			chronicEmpowermentPossible = false;
 			chronicEmpowermentActive = false;
 			chronicEmpowermentTimer = 10 * room_speed;
 			chronicEmpowermentCooldown = 0;
 			chronicEmpowermentBonus = 1.25; // This is a multiplier to be used with Automaton's damage output
-			arcaneWeaponActive = false;
+			arcaneWeaponActive = false; // Laboratory Offensive 2
 			// This is a multiplier, hence why its not just a value added to the unit damage to avoid bloat. Instead, 
 			// this variable should be multiplied once against the final damage value of every unit before the damage
 			// is applied.
 			arcaneWeaponBonus = 1.15;
+			objectSkillfulUpgradeActive = false;
+			arcaneArmorActive = false; // Laboratory Defensive 2
+			// Because armor is a multiplier, the lower it is (closer to 0) the better. Meaning this is added to the magic
+			// armor of the unit in question to lower the resistance multiplier *value*, thereby increasing the resistance's
+			// *overall reduction*.
+			arcaneArmorMagicArmorBonus = -0.15;
+			
 			// Combat variables
 			objectAttackRange = 1 * 16;
 			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
@@ -1611,7 +1760,7 @@ function initialize_object_data() {
 			mp_grid_add_instances(movementGrid, self, true);
 			
 			// Specific Variables
-			massEnslavementActive = false;
+			massEnslavementActive = false; // Ritual Grounds Special 1b
 			strengthOfXulActive = false;
 			strengthOfXulDamageBonus = 4;
 			break;

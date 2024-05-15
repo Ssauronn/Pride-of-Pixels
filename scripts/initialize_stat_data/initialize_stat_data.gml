@@ -381,12 +381,12 @@ function _temple() constructor {
 				50, 350, 250, 300, noone, noone, noone);
 	powerPotions = new _upgrade_options("Power Potions", "Increases the damage of Wizards, Warlocks, and Demons summoned by Warlocks.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.three, eUpgradeSibling.a, 
-				false, 3, false, noone, "Temple", "Wizard and Warlock and Demon", "objectAttackDamage and objectSpecialAttackDamage", 
-				noone, "10 and 5", 45, 50, 200, 100, 175, noone, noone, noone);
+				false, 3, false, noone, "Temple", "Wizard and Warlock and Demon", "objectAttackDamage and objectSpecialAttackDamage", noone, "10 and 5", 45, 
+				50, 200, 100, 175, noone, noone, noone);
 	preparation = new _upgrade_options("Preparation", "Increases the effectiveness of all Subverter effects on buildings.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.three, eUpgradeSibling.b, 
-				false, 3, false, noone, "Temple", "Subverter", "objectSpecialAttackDisableDuration", 
-				noone, 15 * room_speed, 45, 0, 200, 100, 175, noone, noone, noone);
+				false, 3, false, noone, "Temple", "Subverter", "preparationActive", noone, 1, 45, 
+				0, 200, 100, 175, noone, noone, noone);
 	magicBarrier = new _upgrade_options("Magic Barrier", "Increases the magic armor of all Ruby units.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 3, false, noone, "Temple", "Ruby", "objectMagicResistance", noone, -0.1, 30, 
@@ -467,7 +467,7 @@ function _laboratory() constructor {
 				400, 500, 600, 600, noone, noone, noone);
 	arcaneArmorResearch = new _upgrade_options("Arcane Armor Research", "Increases all Magic armor for Ruby units.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
-				false, 3, false, noone, "Laboratory", "Ruby", "objectMagicResistance", noone, -0.15, 180, 
+				false, 3, false, noone, "Laboratory", "Ruby", "arcaneArmorActive", noone, 1, 180, 
 				600, 500, 400, 600, noone, noone, noone);
 	battlefieldSalvage = new _upgrade_options("Battlefield Salvage", "Each time your units or buildings kill a unit, you have a chance to gain one free body part of any time, to be used in creating Abominations at the Temple.", 
 				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
@@ -483,9 +483,9 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.b, 
 				false, 1, false, noone, "Barracks", "Rogue", "objectCanUseSpecialAbility", noone, 1, 45, 
 				0, 0, 150, 0, noone, noone, noone);
-	moraleBoost = new _upgrade_options("Morale Boost", "Unlocks the Soldier's Standard Ability, Morale Boost.", 
+	auras = new _upgrade_options("Auras", "Unlocks the Soldier's Standard Ability, Morale Boost, and also unlocks the Knight's Standard Ability, Shielding Aura.", 
 				eUpgradeTree.universal, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.c, 
-				false, 1, false, noone, "Barracks", "Soldier", "objectCanUseSpecialAbility", noone, 1, 45, 
+				false, 1, false, noone, "Barracks", "Soldier and Knight", "objectCanUseSpecialAbility", noone, 1, 45, 
 				0, 150, 0, 0, noone, noone, noone);
 	scope = new _upgrade_options("Scope", "Increases the range of Rangers.", 
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.one, eUpgradeSibling.a, 
@@ -532,9 +532,9 @@ function _barracks() constructor {
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.b, 
 				false, 2, false, noone, "Barracks", "Ranger", "objectAttackRange", noone, 1, 105, 
 				0, 300, 100, 0, noone, noone, noone);
-	courage = new _upgrade_options("Courage", "Increases the damage bonus provided by Morale Boost.",
+	courage = new _upgrade_options("Courage", "Increases the damage bonus provided by Morale Boost for Soldiers, and increases the resistances provided by Shielding Aura for Knights.",
 				eUpgradeTree.universal, eUpgradeType.offensive, eUpgradeOrder.two, eUpgradeSibling.c, 
-				false, 2, false, noone, "Barracks", "Soldier", "moraleBoostDamageBonus", noone, 0.5, 105, 
+				false, 2, false, noone, "Barracks", "Soldier and Knight", "objectCourageUpgradeActive", noone, 1, 105, 
 				200, 50, 300, 0, noone, noone, noone);
 	steelArmor = new _upgrade_options("Steel Armor", "Increases the magic armor of Knights.", 
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.a, 
