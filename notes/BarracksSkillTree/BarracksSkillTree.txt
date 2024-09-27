@@ -22,7 +22,7 @@ TIER 2 UPGRADES
 - DEFENSIVE 2a -Steel Armor: Upgrades the magic armor of Knights.
 - DEFENSIVE 2b -Hardened Leather: Slightly upgrades the slash and pierce armor of Berserkers.
 TECHNOLOGY UPGRADES
-- SPECIAL 2a -	Combat Special Abilities: Unlocks the Combat Special Abilities for the basic
+- SPECIAL 2a -	Combat Specialization Abilities: Unlocks the Combat Specialization Abilities for the basic
 		unit chosen in your Combat Specialization skill at game start.
 
 TIER 1 UPGRADES

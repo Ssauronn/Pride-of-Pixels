@@ -123,7 +123,7 @@ function initialize_object_data() {
 			// increased by 15%.
 			objectSkillfulUpgradeSupportMultiplier = 0.85;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			
@@ -249,10 +249,10 @@ function initialize_object_data() {
 			// the total enrageDamageBonus value to it's original value plus 1.
 			objectSkillfulUpgradeRecklessnessEnhancement = 4;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false
-			recklessLeapActive = false; // Combat Special Ability
+			recklessLeapActive = false; // Combat Specialization Ability
 			recklessLeapDamage = 30;
 			recklessLeapRange = 4 * 16;
 			recklessLeapCooldown = 12 * room_speed;
@@ -345,7 +345,7 @@ function initialize_object_data() {
 			// additional 1 damage.
 			objectCourageUpgradeDamageEnhancement = 0.5;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			
@@ -441,10 +441,10 @@ function initialize_object_data() {
 			objectCourageUpgradeActive = false; // Barracks Offensive 2c
 			objectCourageUpgradeResistanceEnhancement = 0.1;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
-			nanobotEncasementActive = false; // Combat Special Ability
+			nanobotEncasementActive = false; // Combat Specialization Ability
 			nanobotEncasementCooldown = 30 * room_speed;
 			nanobotEncasementCooldownTimer = 0;
 			nanobotEncasementDuration = 5 * room_speed;
@@ -520,7 +520,7 @@ function initialize_object_data() {
 			// damage of Rangers once the upgrade is unlocked at the Laboratory.
 			objectSkillfulUpgradeRangeTrainingEnhancement = 3;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			
@@ -602,9 +602,12 @@ function initialize_object_data() {
 			// 1.5x damage, or (1.5 * 0.5 = 0.75).
 			piercingStrikePenetration = 1.5;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
+			assassinInvisibilityResetAvailable = false;
+			assassinInvisibilityResetCooldown = room_speed * 15;
+			assassinInvisibilityResetCooldownTimer = 0;
 			
 			// Combat variables
 			objectAttackRange = 1 * 16;
@@ -675,28 +678,28 @@ function initialize_object_data() {
 			objectSpecialAttackAreaOfEffectBuildingDamage = 100;
 			objectSpecialAttackDamageType = "Magic";
 			objectSpecialAttackCooldown = 10 * room_speed;
-			objectSpecialAttackTimer = 0;
+			objectSpecialAttackCooldownTimer = 0;
 			// Singed Circuit is an unlocked passive that reduces the cooldown of the Wizard's special
 			// ability if it hits enough targets with a cast of that special ability.
 			singedCircuitActive = false; // Temple Innovation 3a
 			singedCircuitSpecialAttackCooldownReduction = 5 * room_speed;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
-			// The Wizard's combat specialization ability is to redirect damage received by a chosen
+			// The Wizard's combat specialization ability Redirect is to redirect damage received by a chosen
 			// target to a nearby Knight in combat. If there are no Knights nearby, the damage is instead
 			// redirected to the Wizard.
-			objectCombatSpecializationAbilityActive = false;
-			objectCombatSpecializationTimer = 20 * room_speed;
-			objectCombatSpecializationCooldown = -1;
-			objectCombatSpecializationRange = 6 * 16;
-			objectCombatSpecializationKnightInRange = false;
-			objectCombatSpecializationRedirectKnightTarget = noone;
-			objectCombatSpecializationRedirectProtectTarget = noone;
-			objectCombatSpecializationRedirectProtectMultiplier = 0.7;
-			objectCombatSpecializationDurationTimer = 5 * room_speed;
-			objectCombatSpecializationDurationCooldown = -1;
+			redirectAbilityActive = false;
+			redirectCooldown = 20 * room_speed;
+			redirectCooldownTimer = -1;
+			redirectRange = 6 * 16;
+			redirectKnightInRange = false;
+			redirectKnightTarget = noone;
+			redirectProtectTarget = noone;
+			redirectProtectMultiplier = 0.7;
+			redirectDuration = 5 * room_speed;
+			redirectDurationTimer = -1;
 			
 			// Various Capability Upgrades
 			wizardsCanLink = false; // Temple Innovation 2a
@@ -720,13 +723,13 @@ function initialize_object_data() {
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 8; // Each magic missile deals this amount of damage, meaning because there are 3 in each attack volley, the Wizard's total damage is 3x this value.
 			objectAttackDamageType = "Magic";
-			
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
 			objectSlashResistance = 1.25;
 			objectPierceResistance = 1;
 			objectMagicResistance = 0.95;
+			
 			// Sprite setting array
 			unitSprite[unitAction.idle][unitDirection.right] = spr_wizard_right_idle;
 			unitSprite[unitAction.idle][unitDirection.up] = spr_wizard_back_idle;
@@ -776,10 +779,14 @@ function initialize_object_data() {
 			objectSightRange = 7 * 16;
 			
 			// Special Ability Availability variables
+			// Special Attack is just summoning a demon. As it's the Warlock's signature ability, it's the only special
+			// ability in the game that is unlocked by default.
 			objectHasSpecialAbility = true;
 			objectCanUseSpecialAbility = true;
+			objectSpecialAttackCooldown = 10 * room_speed;
+			objectSpecialAttackCooldownTimer = 0;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			
@@ -826,11 +833,13 @@ function initialize_object_data() {
 			objectAttackSpeedTimer = 0;
 			objectAttackDamage = 10;
 			objectAttackDamageType = "Magic";
-			objectSpecialAttackCooldown = 10 * room_speed;
-			objectSpecialAttackTimer = 0;
+			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
+			// Anything above 1 means it has a negative resistance and takes more damage than normal
+			// from that damage type.
 			objectSlashResistance = 1.25;
 			objectPierceResistance = 1;
 			objectMagicResistance = 0.95;
+			
 			// Sprite setting array
 			unitSprite[unitAction.idle][unitDirection.right] = spr_warlock_right_idle;
 			unitSprite[unitAction.idle][unitDirection.up] = spr_warlock_back_idle;
@@ -879,7 +888,7 @@ function initialize_object_data() {
 			objectIsRubyUnit = true;
 			objectSightRange = 5 * 16;
 			
-			// Special and Combat Special Availability variables (none for Demon)
+			// Special and Combat Specialization Availability variables (none for Demon)
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectSkillfulUpgradeActive = false;
@@ -898,20 +907,12 @@ function initialize_object_data() {
 			// armor of the unit in question to lower the resistance multiplier *value*, thereby increasing the resistance's
 			// *overall reduction*.
 			arcaneArmorMagicArmorBonus = -0.15;
-			
-			// Combat variables
-			objectAttackRange = 1 * 16;
-			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
-			objectAttackSpeed = 0.5 * room_speed;
-			objectAttackSpeedTimer = 0;
-			objectAttackDamage = 8;
-			objectAttackDamageType = "Pierce";
 			// This is the time limit to determine how long the Demon should last before dying automatically if permanent pets 
 			// aren't unlocked.
 			// The time limit is determined by the Warlock and it's upgrades, but the timer itself is managed by the Demon that
 			// is summoned. This greatly simplifies the way summons are handled.
 			summonedDemonsTimeLimitTimer = -1;
-			// If this is ever noone, the Demon will die shortly after. A Demon will always be attached to a Warlock.
+			// If this is ever noone, the Demon will die shortly after. A Demon must always be attached to a Warlock.
 			summonedDemonsSummonedByWarlockID = noone;
 			// This countdown sits at 4 seconds. If the Warlock the Demon is attached to dies, this begins a countdown, and the
 			// Demon dies at the end of the countdown.
@@ -920,8 +921,16 @@ function initialize_object_data() {
 			// the Warlock's parent variable by the same name, so this is by default set to -1.
 			summonedDemonsMaxTetherRange = -1;
 			// Demons will immediately die if they exceed this distance from their master, no matter their current action. Set by
-			// the Warlock's parent variable by the same name, so this are by default set to -1.
+			// the Warlock's parent variable by the same name, so this is by default set to -1.
 			summonedDemonsMaxDeathRange = -1;
+			
+			// Combat variables
+			objectAttackRange = 1 * 16;
+			objectCombatAggroRange = 5; // This is half the width of the square in mp_grid unit sizes to detect enemies in, centered on this object
+			objectAttackSpeed = 0.5 * room_speed;
+			objectAttackSpeedTimer = 0;
+			objectAttackDamage = 8;
+			objectAttackDamageType = "Pierce";
 			// For resistances, they're multipliers. The closer to 0 the higher resistance it has.
 			// Anything above 1 means it has a negative resistance and takes more damage than normal
 			// from that damage type.
@@ -979,7 +988,7 @@ function initialize_object_data() {
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = false;
 			objectCanUseCombatSpecializationAbility = false;
 			
@@ -1081,13 +1090,13 @@ function initialize_object_data() {
 			subverterCopyCooldown = 30 * room_speed;
 			subverterCopyCooldownTimer = 0;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
-			// The Subverter's Combat Special Ability is to explode itself and adjacent squares, dealing MASSIVE magic damage.
-			objectCombatSpecializationAttackDamage = 500;
-			objectCombatSpecializationAttackDamageType = "Magic";
-			objectCombatSpecializationAttackAoERadius = 2 * 16; // A range of 2 means only the adjacent squares will be affected.
+			// The Subverter's Combat Specialization Ability "Explode" is to explode itself and adjacent squares, dealing MASSIVE magic damage.
+			explodeAttackDamage = 500;
+			explodeAttackDamageType = "Magic";
+			explodeAttackAoERadius = 2 * 16; // A range of 2 means only the adjacent squares will be affected.
 			
 			// Various Capability Upgrades
 			preparationActive = false; // Temple Offensive 3b
@@ -1159,7 +1168,7 @@ function initialize_object_data() {
 			objectIsRubyUnit = true;
 			objectSightRange = 6 * 16;
 			
-			// Special and Combat Special Ability Availability variables (none for Abomination)
+			// Special and Combat Specialization Ability Availability variables (none for Abomination)
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			objectHasCombatSpecializationAbility = false;
@@ -1367,7 +1376,7 @@ function initialize_object_data() {
 			objectHasSpecialAbility = false;
 			objectCanUseSpecialAbility = false;
 			
-			// Combat Special Ability Availability variables
+			// Combat Specialization Ability Availability variables
 			objectHasCombatSpecializationAbility = true;
 			objectCanUseCombatSpecializationAbility = false;
 			

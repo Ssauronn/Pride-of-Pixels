@@ -315,19 +315,19 @@ function _temple() constructor {
 				60, 100, 0, 200, 100, noone, noone, noone);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
-	subverterCombatSpecialAbilities = new _upgrade_options("Subverter Combat Special Abilities", "Unlocks the Combat Special Abilities for the Subverter.", 
+	subverterCombatSpecializationAbility = new _upgrade_options("Explode", "Unlocks the Combat Specialization Ability 'Explode' for the Subverter.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.noone, 
 				false, 2, false, noone, "Temple", "Subverter", "objectCanUseCombatSpecializationAbility", 
 				noone, 1, 60, 150, 50, 100, 100, "Player", "combatSpecializationChosen", "Stealth");
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
-	automatonCombatSpecialAbilities = new _upgrade_options("Automaton Combat Special Abilities", "Unlocks the Combat Special Abilities for the Automaton.", 
+	automatonCombatSpecializationAbility = new _upgrade_options("Tachyon Bombardment", "Unlocks the Combat Specialization Ability 'Tachyon Bombardment' for the Automaton.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.noone, 
 				false, 2, false, noone, "Temple", "Automaton", "objectCanUseCombatSpecializationAbility", 
 				noone, 1, 60, 150, 50, 100, 100, "Player", "combatSpecializationChosen", "Recklessness");
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
-	wizardCombatSpecialAbilities = new _upgrade_options("Wizard Combat Specialization Abilities", "Unlocks the Combat Special Abilities for the Wizard.", 
+	wizardCombatSpecializationAbility = new _upgrade_options("Redirect", "Unlocks the Combat Specialization Ability 'Redirect' for the Wizard.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.three, eUpgradeSibling.noone, 
 				false, 2, false, noone, "Temple", "Wizard", "objectCanUseCombatSpecializationAbility", 
 				noone, 1, 60, 150, 50, 100, 100, "Player", "combatSpecializationChosen", "Protectorate");
@@ -505,21 +505,21 @@ function _barracks() constructor {
 				250, 250, 250, 0, noone, noone, noone);
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
-	rogueCombatSpecialAbilities = new _upgrade_options("Rogue Combat Special Abilities", "Unlocks the Combat Special Abilities for the Rogue.", 
+	rogueCombatSpecializationAbility = new _upgrade_options("Assassin", "Unlocks the Combat Specialization Ability 'Assassin' for the Rogue.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Barracks", "Rogue", "objectCanUseCombatSpecializationAbility",
 				noone, 1, 60, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
 				"combatSpecializationChosen", "Stealth");
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
-	berserkerCombatSpecialAbilities = new _upgrade_options("Berserker Combat Special Abilities", "Unlocks the Combat Special Abilities for the Berserker.", 
+	berserkerCombatSpecializationAbility = new _upgrade_options("Reckless Leap", "Unlocks the Combat Specialization Ability 'Reckless Leap' for the Berserker.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Barracks", "Berserker", "objectCanUseCombatSpecializationAbility", 
 				noone, 1, 60, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 
 				"combatSpecializationChosen", "Recklessness");
 	// The next option will only appear if the variable given (second to last argument) located in the object
 	// or struct (third to last argument) is equal to the value expected (last argument).
-	knightCombatSpecialAbilities = new _upgrade_options("Knight Combat Special Abilities", "Unlocks the Combat Special Abilities for the Knight.", 
+	knightCombatSpecializationAbility = new _upgrade_options("Nanobot Encasement", "Unlocks the Combat Specialization Ability 'Nanobot Encasement' for the Knight.", 
 				eUpgradeTree.technology, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.a, 
 				false, 2, false, noone, "Barracks", "Knight", "objectCanUseCombatSpecializationAbility", 
 				noone, 1, 60, 150, 50, 100, 0, "Player" /*Located in the player struct for each player*/, 

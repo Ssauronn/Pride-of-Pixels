@@ -78,15 +78,16 @@ ___________
 			- Shielding Aura: An ability that provides a large boost to the resistances of all friendly units 
 			  within range for a short duration.
 	-	3. IF TECH
-			- Protectorate (Combat Special Ability - Basic Unit): Knight can be commanded to encase themselves
-			  in a thin layer of nanobots. Enemies must first break through the nanobot layer in order to damage
-			  the Knight, effectively providing a temporary boost to the Knight's health.
+			- Nanobot Encasement (Combat Specialization Ability - Protectorate - Basic Unit): Knights can be 
+			  commanded to encase themselves in a thin layer of nanobots. Enemies must first break through the 
+			  nanobot layer in order to damage the Knight, effectively providing a temporary boost to the 
+			  Knight's health.
 	
 
 -	Rogue
--	The stealth unit. Low defense stats, extremely high damage.
-	Can become Invisible. Any attacks made while Invisible are considered an Ambush attack, which deals
-	massive damage and removes Invisibility from the Rogue.
+-	The invisible stealth unit. Low defense stats, extremely high damage.
+	Can become Invisible. Can be upgraded to count any attacks made while Invisible to be considered an Ambush 
+	attack, which deals massive damage and removes Invisibility from the Rogue.
 -	Abilities:
 		{	-	CAN ONLY CHOOSE ONE OF THESE
 	-		1. IF MAGIC
@@ -104,8 +105,8 @@ ___________
 			- Ambush: While Invisible, any attack made by the Rogue is considered an Ambush attack. This
 			  deals massive bonus damage to their target, and removes the Rogue from Invisibility.
 	-	3. IF TECH
-			- Stealth (Combat Special Ability - Basic Unit): Rogues will remain Invisible if they kill an
-			  enemy using Ambush while Invisible.
+			- Assassin (Combat Specialization Ability - Stealth - Basic Unit): Rogues will remain Invisible 
+			  if they kill an enemy using Ambush while Invisible.
 
 
 -	Berserker
@@ -124,8 +125,8 @@ ___________
 			- Enrage: The Berserker enters an enraged state, massively increasing it's own damage for a
 			  short amount of time.
 	-	2. IF TECH
-			- Recklessness (Combat Special Ability - Basic Unit): The Berserker will leap at it's target
-			  if it is not within attacking range, dealing damage to it's target.
+			- Reckless Leap (Combat Specialization Ability - Recklessness - Basic Unit): The Berserker 
+			  will leap at it's target if it is not within attacking range, dealing damage to it's target.
 
 RUBY UNITS
 __________
@@ -153,10 +154,10 @@ __________
 -	Well balanced offensive and defensive stats, slightly better than the Soldier unit in every way.
 -	Abilities:
 	-	1. IF TECH
-			- Recklessness (Combat Special Ability - Ruby Unit): Automatons can release a constant wave
-			  of tachyon particles, dealing initially small damage to all enemy units and buildings within
-			  range, with the damage ramping up in a short amount of time to a large amount of damage.
-			  The Automaton is unable to move or attack while channeling this ability.
+			- Tachyon Bombardment (Combat Specialization Ability - Recklessness - Ruby Unit): Automatons 
+			  can release a constant wave of tachyon particles, dealing initially small damage to all enemy 
+			  units and buildings within range, with the damage ramping up in a short amount of time to a 
+			  large amount of damage. The Automaton is unable to move or attack while channeling this ability.
 	-	2. IF TECH
 			- Shocktroopers: The player can teleport all Automatons not currently in combat to a location
 			  within range of a friendly unit that is currently in combat. This ability has a long
@@ -229,10 +230,10 @@ __________
 		Auto Cast Option - Targets an enemy that took damage within the last second if the cooldown
 		is available.
 	-	4. IF TECH
-			- Protectorate (Combat Special Ability - Ruby Unit): The Wizard protects a friendly unit,
-			  redirecting a portion of the damage taken by that unit to the nearest Knight within
-			  range. If there is no Knight within range, the Wizard instead redirects the damage
-			  to itself.
+			- Redirect (Combat Specialization Ability - Protectorate - Ruby Unit): The Wizard protects 
+			  a friendly unit, redirecting a portion of the damage taken by that unit to the nearest
+			  Knight within range. If there is no Knight within range, the Wizard instead redirects 
+			  the damage to itself.
 
 
 -	Subverter
@@ -260,9 +261,10 @@ __________
 			  building can be selected but no timers like unit creation will count down while disabled,
 			  and the building cannot be used for any purpose while disabled.
 	-	3. IF TECH
-			- Explode: The Subverter now carries a powerful bomb everywhere it travels. If activated
-			  (must be manually activated), the Subverter explodes, dealing massive magic damage to itself
-			  and all units (friendly included) that are adjacent to it.
+			- Explode (Combat Specialization Ability - Stealth - Ruby Unit): The Subverter now carries a 
+			  powerful bomb everywhere it travels. If activated (must be manually activated), the Subverter 
+			  explodes, dealing massive magic damage to itself and all units (friendly included) that are 
+			  adjacent to it.
 
 
 -	Warlock
