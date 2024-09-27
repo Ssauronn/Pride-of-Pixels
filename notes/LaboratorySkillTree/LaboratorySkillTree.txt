@@ -25,6 +25,7 @@ TIER 2 UPGRADES
 MAGICAL UPGRADES
 - INNOVATION 2 -Improved Magicks: Increases the area of effect by 1 square for the targeted area by
 		linked Wizards or Acolytes.
+- SPECIAL 1 -	Cornucopia: Flasks now refill themselves without returning to a Laboratory.
 TECHNOLOGY UPGRADES
 - INNOVATION 2 -Chronic Empowerement: Increases the damage of all Automatons upon teleporting with 
 		the ability Shocktroopers.
@@ -33,5 +34,6 @@ TIER 1 UPGRADES
 - OFFENSIVE 2 -	Arcane Weapon Research: Increases all magic damage dealt by ruby units.
 - DEFENSIVE 2 -	Arcane Armor Research: Increases magic armor for all units.
 MAGICAL UPGRADES
-- SPECIAL 1 -	Battlefield Salvage: Each time your units or buildings kill a unit, you have a chance
-		to obtain one free body part of any type, to be used in building Abominations at the Temple.
+-INNOVATION 3 -	Refreshed: Reduces the cooldown on Flask uses.
+- SPECIAL 2 -	Battlefield Salvage: Each time your units or buildings kill a unit, you have a chance
+		to obtain one free body part of a random type, to be used in building Abominations at the Temple.

@@ -7,7 +7,7 @@ UNLOCKS TIER 3 UPGRADES
  - Flasks are map wide commanded, usable by all units. Consumes all 
    unit's flask upon command and provides the relevant buff. Flasks
    cannot be used again for (average unit creation time * 5). A unit
-   can refill its flask by entering the range of a Laboratory.
+   must refill its flask by entering the range of a Laboratory.
  - Can choose between:
 	- Flask of Stoneskin: Temporarily boosts all unit's armor.
 	  Reduces the rate at which resources drain from collection

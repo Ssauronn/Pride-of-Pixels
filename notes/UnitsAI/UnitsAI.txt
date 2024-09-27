@@ -75,7 +75,12 @@ Rogue:
 			- Casts if in combat, the Rogue is currently in or outside of combat, the Rogue is
 			  within attack range, and the Rogue is currently Invisible.
 				- Automatically applied to any attack made while Invisible if unlocked.
-	- (TECH ONLY) 
+	- (TECH ONLY) Stealth: Assassin:
+		- Passive ability, toggle with Right Click to turn off/on
+			- While toggled, shimmering gold border around the icon.
+			- Activates on Ambush cast.
+				- Keeps Rogue Invisible if Ambush kills a target. 
+				- Cooldown applied on activation.
 
 Ranger:
 	- No specifics needed.
