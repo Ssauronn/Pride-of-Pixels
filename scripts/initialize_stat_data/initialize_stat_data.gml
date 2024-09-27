@@ -24,6 +24,8 @@ function team_struct(team_) constructor {
 	flaskCooldownTimer = 120 * room_speed;
 	flaskCooldown = 0;
 	flaskUpgraded = false;
+	cornucopiaActive = false;
+	refreshedActive = false;
 	battlefieldSalvage = false;
 	shocktrooperAvailable = false;
 	shocktrooperCooldownTimer = 120 * room_speed;
@@ -439,7 +441,7 @@ function _temple() constructor {
 function _laboratory() constructor {
 	alchemy = new _upgrade_options("Alchemy", "Improves the effectiveness of Flasks.", 
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.noone, 
-				false, 1, false, noone, "Laboratory", "Player", "flaskUpgraded", noone, 1, 60, 
+				false, 1, false, noone, "Laboratory", "Player", "flaskUpgraded", noone, 1, 30, 
 				200, 200, 200, 0, noone, noone, noone);
 	skillful = new _upgrade_options("Skillful", "Improves the effectiveness of basic units.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.one, eUpgradeSibling.noone, 
@@ -457,6 +459,10 @@ function _laboratory() constructor {
 				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 2, false, noone, "Laboratory", "Wizard and Acolyte", "aoeLinkedSquareSize", noone, 1, 120, 
 				200, 0, 200, 400, noone, noone, noone);
+	cornucopia = new _upgrade_options("Cornucopia", "Flasks now refill over time without requiring a visit to the Laboratory.", 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone,
+				false, 2, false, noone, "Laboratory", "Player", "cornucopiaActive", noone, 1, 45, 
+				300, 0, 200, 300, noone, noone, noone);
 	chronicEmpowerment = new _upgrade_options("Chronic Empowerment", "Increases the damage of all Automatons upon teleporting with the ability Shocktrooper for a short amount of time.", 
 				eUpgradeTree.technology, eUpgradeType.innovation, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 2, false, noone, "Laboratory", "Automaton", "chronicEmpowermentPossible", noone, 1, 120, 
@@ -469,8 +475,12 @@ function _laboratory() constructor {
 				eUpgradeTree.universal, eUpgradeType.defensive, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 3, false, noone, "Laboratory", "Ruby", "arcaneArmorActive", noone, 1, 180, 
 				600, 500, 400, 600, noone, noone, noone);
+	refreshed = new _upgrade_options("Refreshed", "Reduces the cooldown on Flask uses.", 
+				eUpgradeTree.magic, eUpgradeType.innovation, eUpgradeOrder.three, eUpgradeSibling.noone, 
+				false, 3, false, noone, "Laboratory", "Player", "refreshedActive", noone, 1, 45, 
+				0, 0, 700, 900, noone, noone, noone);
 	battlefieldSalvage = new _upgrade_options("Battlefield Salvage", "Each time your units or buildings kill a unit, you have a chance to gain one free body part of any time, to be used in creating Abominations at the Temple.", 
-				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.one, eUpgradeSibling.noone, 
+				eUpgradeTree.magic, eUpgradeType.special, eUpgradeOrder.two, eUpgradeSibling.noone, 
 				false, 3, false, noone, "Laboratory", "Player", "battlefieldSalvageActive", noone, 1, 60, 
 				400, 100, 600, 600, noone, noone, noone);
 }
