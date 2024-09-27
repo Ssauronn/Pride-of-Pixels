@@ -66,12 +66,15 @@ Rogue:
 	- Invisibility:
 		- Active ability, toggle with Right Click to turn on Auto Acast
 			- While toggled, shimmering gold border around the icon.
-			- Casts if outside of combat. Lasts until unit takes damage or deals damage.
+			- Casts if outside of combat.
+				- If the Rogue deals damage, Invisibility is cancelled.
+				- If the Rogue takes damage, Invisibility is cancelled.
 	- Ambush:
 		- Active ability, toggle with Right Click to turn on Auto Cast
 			- While toggled, shimmering gold border around the icon.
-			- Casts if in combat, the Rogue is currently in or outside of combat, and the Rogue is
-			  within attack range.
+			- Casts if in combat, the Rogue is currently in or outside of combat, the Rogue is
+			  within attack range, and the Rogue is currently Invisible.
+				- Automatically applied to any attack made while Invisible if unlocked.
 	- (TECH ONLY) 
 
 Ranger:

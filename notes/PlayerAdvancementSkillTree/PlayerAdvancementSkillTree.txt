@@ -109,37 +109,41 @@ TECHNOLOGY
 THIRD TIER - CHOSEN AT GAME CREATION
 UNLOCKS TIER 3 UPGRADES
  Can build Automatons
- Combat Specialization
+ Combat Specialization Abilities
  - Choose between:
-	- Stealth:
-		- Rogues will remain invisible if they kill an enemy with
-		  an attack boosted by the damage of Stealth. This boosted
-		  damage attack is called Ambush, and is always active
-		  while the Rogue is invisible.
-		- Subverter are equipped with explosives and can be
-		  commanded to explode, dealing massive damage within
-		  a short range to all units and buildings. Destroys
-		  the Subverter in the process.
-	- Recklessness:
-		- Berserkers will leap at their target if not within
-		  attacking range, dealing damage to their target upon
-		  landing.
-		- Automatons can release a wave of Tachyon particles,
-		  dealing small constant damage initially to all units
-		  and buildings in range, with the damage then being
-		  increased to a large amount over a short amount of 
-		  time. The Automaton is unable to move or attack while
-		  channeling this ability.
-	- Protectorate:
-		- Knights can be commanded to encase themselves in a thin
-		  layer of nanobots. Enemies must first break through the
-		  nanobot layer in order to damage the Knight, effectively
-		  providing a temporary boost to the Knight's health.
-		- Wizards can be commanded to protect a unit
-		  automatically selected in combat and redirect part
-		  of the damage taken by that unit for a short duration 
-		  to a Knight if one is in range. If no Knight is
-		  within range, the damage is redirected to the Wizard.
+	- Stealth (Rogues and Subverters):
+		Invisibility:
+			- Rogues will remain invisible if they kill an enemy with
+			  Ambush.
+		Explode:
+			- Subverter are equipped with explosives and can be
+			  commanded to explode, dealing massive damage within
+			  a short range to all units and buildings. Destroys
+			  the Subverter in the process.
+	- Recklessness (Berserkers and Automatons):
+		Reckless Leap:
+			- Berserkers will leap at their target if not within
+			  attacking range, dealing damage to their target upon
+			  landing.
+		Tachyon Bombardment:
+			- Automatons can release a wave of Tachyon particles,
+			  dealing small constant damage initially to all units
+			  and buildings in range, with the damage then being
+			  increased to a large amount over a short amount of 
+			  time. The Automaton is unable to move or attack while
+			  channeling this ability.
+	- Protectorate (Knights and Wizards):
+		Nanobot Encasement:
+			- Knights can be commanded to encase themselves in a thin
+			  layer of nanobots. Enemies must first break through the
+			  nanobot layer in order to damage the Knight, effectively
+			  providing a temporary boost to the Knight's health.
+		Redirect:
+			- Wizards can be commanded to protect a unit
+			  automatically selected in combat and redirect part
+			  of the damage taken by that unit for a short duration 
+			  to a Knight if one is in range. If no Knight is
+			  within range, the damage is redirected to the Wizard.
 
 SECOND TIER
 UNLOCKS TIER 2 UPGRADES
