@@ -156,12 +156,67 @@ Acolyte:
 		- Passive ability, able to be auto cast
 			- While toggled, shimmering gold border around the icon.
 			- Always automatically toggled, must be manually un-toggled.
+			
+Subverter:
+	- 
 	
 Wizard:
-
+	- Fireball:
+		- Active ability, toggle with Right Click to turn on Auto Cast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if off cooldown.
+				- Fireball deals more damage than the Wizard's basic attack (Magic Missiles) and so it
+				  should be used regardless of whether the AoE effect will hit other enemies or not.
+	- (MAGIC ONLY) Fire Linked:
+		- Active ability, requires 3 total Wizards. Combine into one immovable formation. Not able
+		  to be auto cast.
+		- FORMATION
+			- CPU AI set to form 3 Acolytes into Fire Linked if all of the following are true:
+				- There are more than 3 controlled Wizards not currently in a Fire Linked formation.
+					- This does allow for multiple Fire Linked formations to appear, as long as a Wizard
+					  is still active and under control that isn't part of a Fire Linked formation after
+					  the next formation is created.
+				- After the first is created, there are slowly increasing requirements to form the next
+				  Fire Link.
+					- E.g. after the first Fire Linked formation, there must be 2 Wizards active in
+					  addition to the next 3 that will be used in the next Fire Link. After the third
+					  Fire Link, there must be 3 Wizards active in addition to the next 3 that will be
+					  used in the next Fire Link, and so on.
+		- FIRE LINKED METEOR
+			- CPU AI set to cast Fire Linked meteors if all of the following are true:
+				- There are Wizards controlled that are currently in a Fire Linked formation.
+					- Impossible to cast otherwise.
+				- The target is not a solo unit.
+					- The requirement must increase by 1 unit as each additional Fire Linked formation
+					  is created. Target count must equal 1 + n, where n is the number of Fire Linked
+					  formations active and under control.
+				- The target is near allied units.
+					- This prevents hitting enemies that are nowhere near being threatened, and then
+					  just retreating and immediately healing all of the damage taken.
+				- Prioritizes lower health targets.
+					- The goal is not only poke damage but to secure kills that are otherwise out of
+					  reach.
+	- (TECH ONLY) Redirect:
+		- Active ability, toggle with Right Click to turn on Auto Cast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if off cooldown, friendly target has very recently taken damage, friendly target
+			  has enemy units within ranged unit range, a friendly Knight is within range, the friendly
+			  target is over 1/4 HP, the friendly target is not a Knight, and the Knight to Redirect 
+			  to is over 1/2 HP.
+				- Prioritizes units with the most enemy units within range.
+					- If there's a tie, compare number of enemy units within melee range, and
+					  prioritize the friendly unit that has more units in melee range.
+						- If there's still a tie, cast Redirect on the unit that most recently took
+						  damage.
+				- If no friendly units have very recently taken damage, cast Redirect on a friendly
+				  unit that has an enemy unit within melee range, and which enemy unit is not a Worker.
+					- This avoids Wizards from needlessly casting Redirect on friendly units that are
+					  attacking enemy Workers.
+				- Does not Redirect a Knight to a Knight to avoid absurd resist values and weird
+				  interactions.
 
 Warlock:
-
+	
 
 Demon:
 
