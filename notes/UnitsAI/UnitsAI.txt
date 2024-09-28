@@ -23,13 +23,13 @@ Aggressive/Defensive/Stand Ground:
 		- Will not move for any reason except direct commands
 
 Target(s) to Focus in Combat:
-	- Icon for every unit type
+	- Icon for every unit type available on the enemy's team, whether or not the unit type is built or unlocked.
 		- Click once to Toggle between modes
-			- Focus: Shimmering gold border.
+			- Focus: Shimmering gold border, with a blade icon adjacent.
 				- The nearest units of any/all Focus targets will be targeted first
 			- Neutral: No additions to the icon.
 				- The unit will neither be focused or avoided.
-			- Avoid: Red bar across the icon.
+			- Avoid: Red bar around the icon, with a crossed out blade icon adjacent.
 				- If any units are in combat other than the avoided units, they'll be focused first.
 
 Formation:
@@ -64,7 +64,7 @@ Berserker:
 
 Rogue:
 	- Invisibility:
-		- Active ability, toggle with Right Click to turn on Auto Acast
+		- Active ability, toggle with Right Click to turn on Auto Cast
 			- While toggled, shimmering gold border around the icon.
 			- Casts if outside of combat.
 				- If the Rogue deals damage, Invisibility is cancelled.
@@ -93,11 +93,70 @@ Abomination (MAGIC ONLY):
 	- No specifics needed.
 
 Automaton (TECH ONLY):
-	- 
+	- Tachyon Bombardment:
+		- Active ability, toggle with Right Click to turn on Auto Cast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if in combat, and within range of 3 or more enemy units and buildings.
+	- Shocktroopers:
+		- Active ability, not able to be Auto Cast.
+		- CPU AI set to cast at nearest enemy if all of the following are true:
+			- Number of enemy units and buildings combined outnumbers the number of allied units
+			  and buildings combined by more than 1.2x.
+				- Prevents needless teleportations for fights that the CPU has a fair chance of
+				  winning.
+			- Enough Automatons are under control to turn the fight to less than a 1.2x numbers
+			  advantage for the enemy.
+				- Prevents teleporting Automatons to a fight they'll lose and die in because the
+				  numbers advantage is not significantly affected.
+			- An allied unit or building is in combat and has taken recent damage.
+				- Prevents teleporting Automatons to the nearest enemy army if they're within
+				  sight but not acting aggressive.
 
 Acolyte:
-
-
+	- Heal
+		- Active ability, toggle with Right Click to turn on Auto Cast
+			- While toggled, shimmering gold border around the icon.
+			- Casts if not in combat and the friendly unit it's targeting is not in combat.
+				- Focuses units with the lowest numerical HP value first.
+				- Can be commanded to heal a specific unit, in which case the Acolyte will not
+				  stop healing that unit until either of them enter combat, or it's target reaches
+				  100% HP.
+	- (MAGIC ONLY) Vitality Linked:
+		- Active ability, requires 3 total Acolytes. Combine into one immovable formation. Not able
+		  to be auto cast.
+		- FORMATION
+			- CPU AI set to form 3 Acolytes into Vitality Linked once if all of the following are true:
+				- There are no Acolytes controlled that are currently in a Vitality Linked formation.
+					- This prevents all Acolytes from being converted and no Acolytes left to normally
+					  heal.
+				- There are more than 3 Acolytes controlled.
+					- This prevents the first 3 Acolytes from immediately being converted into Vitality
+					  Linked formation.
+					- This ensures that a Vitality Linked formation forms relatively quickly, but not
+					  immediately.
+		- VITALITY LINKED HEAL
+			- CPU AI set to cast Vitality Linked heal if all of the following are true:
+				- There are Acolytes controlled that are currently in a Vitality Linked Formation.
+					- Impossible to cast otherwise.
+				- The unit(s) to heal are not outnumbered by more than 1.2x.
+					- Prevents a heal from being wasted on a fight that is likely lost.
+				- If target is a single unit, the target is missing more HP than it's enemy but will
+				  have more HP than it's enemy once it's healed.
+					- Ensures that a heal on a single unit is almost guaranteed to save the unit's life.
+				- If target location is a group of friendly units, 2+ targets are missing HP, and at
+				  least one of the targets will not be overhealed.
+					- Ensures that the heal on a group affects more than a single unit.
+					- Ensures that the heal on a group will not be immediately wasted once 2+ units
+					  take the smallest amount of damage.
+	- (TECH ONLY) Blessed Aura:
+		- Passive ability, able to be auto cast
+			- While toggled, shimmering gold border around the icon.
+			- Always automatically toggled, must be manually un-toggled.
+	- (TECH ONLY) Searing Field:
+		- Passive ability, able to be auto cast
+			- While toggled, shimmering gold border around the icon.
+			- Always automatically toggled, must be manually un-toggled.
+	
 Wizard:
 
 
