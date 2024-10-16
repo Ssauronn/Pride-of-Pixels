@@ -288,9 +288,30 @@ Wizard:
 				  interactions.
 
 Warlock: 
-	
+	- Summon Demon:
+		- Active ability, toggle with Right Click to turn on Auto Cast.
+			- While toggled, shimmering gold border around the icon.
+			- Casts if off cooldown and there is either 1) no currently summoned Demon, 2) less Demons
+			  summoned than the Warlock's maximum amount allowed, or 3) a Demon currently summoned is
+			  not in combat and is less than 100% HP.
+				(1): Warlocks by default can have 1 Demon summoned, so if none are currently summoned,
+					 then the Warlock will summon a Demon.
+				(2): (MAGIC ONLY) Warlocks can be upgraded by choosing Ritual Grounds and then the Mass
+					 Enslavement upgrade from the Ritual Grounds to allow up to 3 Demons to be summoned.
+				(3): Demons do not regenerate HP on their own. If a Demon is summoned and the maximum
+					 amount of Demons summoned is already active, the Demon with the least HP attached
+					 to the summoning Warlock will be immediately destroyed, thereby replacing it with
+					 a Demon with full HP.
 
 Demon: 
+	- Movement: Locked within a specific range to move away from the Warlock the Demon is attached to.
+		- Demons can be commanded by real players to move further away from the attached Warlock than is
+		  allowed, which will begin the countdown to death for the Demon unless it re-enters range of
+		  the Warlock, but CPU AI will never choose to do this.
+			- If a Demon is far enough away to begin the Death timer but is currently being commanded to
+			  move to a location within a safe distance of the attached Warlock, the Demon should not
+			  attempt to find a new location and allow itself to be outside of range, so long as the
+			  current command remains getting within range of its attached Warlock.
 
 
 
