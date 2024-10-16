@@ -158,7 +158,79 @@ Acolyte:
 			- Always automatically toggled, must be manually un-toggled.
 			
 Subverter:
-	- 
+	- Aggressive/Defensive/Stand Ground:
+		- The Subverter has no normal attacks, and even special 'attacks' must be cast manually. If
+		  the Subverter is attacked, it resorts to a fleeing behavior identical to Civilians. If the
+		  Subverter is commanded to attack, it moves to its target, and then casts Disable if its
+		  target is a Building. It will not ever cast Explode automatically (if Explode is unlocked)
+		  and Explode must always be manually clicked by a player, or purposefully triggered by the
+		  AI.
+	- Copy:
+		- Active ability, not able to be Auto Cast.
+			- Casts if not in combat, an enemy unit is visible anywhere on the map, and the enemy unit
+			  is not a Subverter.
+				- After casting, moves to the location of any known enemy building locations that match
+				  the team of the unit that was copied.
+					- Patrols within a set distance in a zone directly around the building.
+					- Prioritizes buildings that the enemy unit originated from. E.g., the enemy unit
+					  copied is an Abomination, so the Subverter prioritizes moving to the location of
+					  the enemy Temple's location.
+						- If the enemy units' origin building location is not known, prioritizes any
+						  other building type.
+							- If the enemy units' origin building location is ever found, re-prioritizes
+							  the enemy units' origin building location and moves there.
+					- If no building locations on the enemy team are yet known, the Subverter patrols
+					  near the location that the enemy unit it copied its appearance from was seen
+					  when it copied its appearance.
+						- If a building on the enemy team is ever found, re-prioritizes buildings as
+						  locations to move to and follows the aforementioned behavior on building
+						  prioritization.
+	- Disable:
+		- Active ability, toggle with Right Click to turn on Auto Cast.
+			- While toggled, shimmering gold border around the icon.
+			- Casts if off cooldown and target is an enemy building.
+				- Walks away from the Disabled building after casting Disable.
+					- Prioritizes standing nearby other units of the same type if within a min/max
+					  range.
+						- Stays within a minimum and maximum distance. The normal "wander" range is
+						  simply expanded during this time, and the minimum wander range is changed
+						  from the building walls to a minimum distance outwards.
+						- This is to prevent players from checking whatever unit is standing by to
+						  easily find the Subverter.
+					- Returns to its regular patrol distance a short time before Disable's cooldown
+					  becomes available again.
+						- This is to prevent players from noticing a unit rushing a building
+						  immediately before it's disabled. 
+	- (TECH ONLY) Explode:
+		- Active ability, not able to be Auto Cast.
+			- Casts if (1) a 'High Value Target' is within range, and will be killed by Explode's
+			  damage, (2) or casts if the Subverter is in combat and is low health and has more enemy
+			  units and buildings within range than friendly units and buildings within range, (3) or
+			  casts if friendly units are nearby and in combat with an enemy group (more than 1 enemy
+			  unit) and the Subverter can align itself to Explode more than 1 enemy unit without
+			  hitting friendly units.
+				(1): 'High Value Targets' determined through complex AI decision making.
+					- Subverter will Explode on a High Value Target as soon as it's within range
+					  nearly disregarding the number of friendly units and/or buildings within range.
+					  The decision to do so should be based on a number of variables:
+						- The resource cost and time cost of each FRIENDLY unit/building within range
+						  that will be killed as a result.
+						- The resource cost of the High Value Target to replace for the enemy.
+						- The time cost of the High Value Target to replace for the enemy.
+						- The liklihood of any nearby friendly units from winning the fight.
+							- Based simply on numbers. If a friendly army is nearby and the number
+							  of friendly units outnumbers the number of enemy units by more than 1.2x,
+							  it's likely the friendly army will win and the Subverter should not use
+							  Explode.
+				(2): This is a suicide tactic, to prevent the Subverter from dying without making an
+					 impact. Simply the number of nearby enemy units and buildings should far outnumber
+					 the number of friendly units and buildings within Explode's range. If this isn't
+					 the case, the Subverter should not cast Explode.
+				(3): This is a combat tactic, to add value to a team fight that is otherwise an even
+					 fight to help turn the tide. This decision is only considered if nearby friendly
+					 units and buildings have a relatively even count compared to nearby enemy units
+					 and buildings. The Subverter will not cast Explode if any friendly units are
+					 within range here.
 	
 Wizard:
 	- Fireball:
@@ -215,10 +287,10 @@ Wizard:
 				- Does not Redirect a Knight to a Knight to avoid absurd resist values and weird
 				  interactions.
 
-Warlock:
+Warlock: 
 	
 
-Demon:
+Demon: 
 
 
 
