@@ -1,6 +1,11 @@
 Universally Displayed:
 	- Name of item selected (if 1 item selected)
 	- HP of item selected (if 1 item selected)
+		- If multiple selected, 2 HP bars below each unit/building icon. Top bar shows
+		  highest HP between that type of object selected, bottom bar shows lowest HP.
+			- Two bars are only shown if there is a discrepency between the highest and
+			  lowest HP object selected. If all objects are identical HP (e.g. all are
+			  full HP), then just a single bar is shown below the icon.
 	- Icon(s) of item(s) selected (1 or more selected)
 	- All 4 resources stored
 	- Incoming resources (next to the totals text)
@@ -8,12 +13,77 @@ Universally Displayed:
 	- Tooltip appearing for absolutely anything that is being hovered over currently. Even
 		if it's just grass.
 
+Any UNIT AND/OR BUILDING Selected Displayed:
+	- Icon of each unit and/or building selected
+		- Clicking on any icon selects only that unit or building type.
+			- HOLDING CONTROL and LEFT CLICKING on any icon selects all of the units and/or
+			  buildings clicked while holding Control. After releasing Control, all other
+			  units/buildings are de-selected.
+			- HOLDING CONTROL and RIGHT CLICKING on any icon immediately de-selects all of the
+			  units and/or buildings clicked while holding Control.
+		- Icon is bordered by the color corresponding to the team that the selected
+		  unit/building belongs to.
+		- Number next to icon of each unit/building type selected, halfway on the icon itself
+		  in a top corner, straddling the border.
+		- HP bar showing HIGHEST health of that type of unit/building selected UNDER the icon
+		- HP bar showing LOWEST health of that type of unit/building selected UNDER the
+		  aforementioned HP bar.
+			- Only appears if more than one of that type of unit or building is selected, and
+			  if there is a difference between the highest health of that category selected 
+			  and the lowest health. If both of these conditions aren't met, the HP bar showing
+			  the lowest value of the category selected does not appear.
+	- Info Icon
+		- Appears on anything
+	- Attack Button
+		- ONLY APPEARS if the selected group is CONTROLLED BY THE PLAYER.
+		- Can be used to RIGHT CLICK on any unit or object in the game, friendly or enemy, to
+		  attack that target. LEFT CLICK cancels the action. ESCAPE cancels the action.
+			- For any buildings selected, the building will attack the object selected
+			  if it's within range. Otherwise, the command to attack is ignored.
+		- While this action is queued up, the cursor turns into a permanent attack icon.
+
+FRIENDLY UNITS Selected Displayed:
+	- Formation Options
+		- Line, Square, Hollow Square
+	- Stance Orders
+		- Aggressive, Defensive, Stand Ground
+	- Icons for each active ability available in the group selected
+		- Row of icons if more than one type of unit is selected
+			- Order of icons should appear in the same order that the unit icons for the group
+			  appear in. I.e. if a Knight, Rogue, and Wizard are listed from left to right in
+			  the icons, then the abilities for each unit should be listed as Shielding Aura
+			  and Nanobot Encasement in the first column (Knight abilities), Invisibility in
+			  the second column (Rogue ability), and Fireball and Fire Linked/Protective Aura
+			  (Wizard abilities) in the third column.
+		- Clicking the ability should execute the actions needed for the unit that the ability
+		  corresponds to.
+
 Single Resource Selected:
 	- Button to call all idle workers to mine/collect that specific node.
 	- Icon and text showing the number of friendly Workers currently mining/collecting the
 		selected resource node.
 
-Single Building Selected:
+Any Single Building Selected:
+	- Info button above toolbar
+		- Clicking info button pulls up detailed object information.
+			- Current health / max health
+			- Armor values for each armor type
+			- Damage per shot, if the building deals damage
+			- Attacks per second, if the building deals damage
+			- Damage type of it's attacks, if the building deals damage
+			- Each upgrade unlocked on the building.
+
+Any Single Unit Selected:
+	- Info button above toolbar
+		- Clicking info button pulls up detailed object information.
+			- Current health / max health
+			- Armor values for each armor type
+			- Damage per shot, if the building deals damage
+			- Attacks per second, if the building deals damage
+			- Damage type of it's attacks, if the building deals damage
+			- Each upgrade unlocked on the building.
+
+Single FRIENDLY Building Selected:
 	- Section for possible objects (most likely just units) to create and spawn.
 	- Section for possible upgrades currently available to the player.
 	- Section for all in-progress creations and upgrades. Icons showing each creation/upgrade
@@ -30,6 +100,10 @@ Single Building Selected:
 			buttons to prevent accidental clicks. Should NOT have a confirmation screen
 			however, as confirmation screens specifically in games with high APM's are more of
 			a hinderance than a help.
+			
+Multiple FRIENDLY Buildings Selected:
+
+Single or Multiple ENEMY Buildings and/or Units Selected:
 			
 Single Worker (Unit) Selected:
 	- Section for all possible buildings to build.
@@ -56,5 +130,7 @@ Single Worker (Unit) Selected:
 			can be done without the button simply by right clicking on any building that isn't
 			at 100% HP.
 		- Attack button, allowing the Worker to attack any unit or building, friendly or not.
+
+
 
 
